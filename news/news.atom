@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <feed xml:lang="en-US" xmlns="http://www.w3.org/2005/Atom">
-  <id>http://beanvalidation.org/</id>
+  <id>http://beanvalidation.github.io/</id>
   <title>Bean Validation</title>
   <updated>2016-02-11T10:46:23+00:00</updated>
-  <link href="http://beanvalidation.org/news/news.atom" rel="self" type="application/atom+xml" />
-  <link href="http://beanvalidation.org/" rel="alternate" type="text/html" />
+  <link href="http://beanvalidation.github.io/news/news.atom" rel="self" type="application/atom+xml" />
+  <link href="http://beanvalidation.github.io/" rel="alternate" type="text/html" />
   <entry>
-    <id>http://beanvalidation.org/news/2015/06/18/bean-validation-tck-1-1-4-released/</id>
+    <id>http://beanvalidation.github.io/news/2015/06/18/bean-validation-tck-1-1-4-released/</id>
     <title>Bean Validation TCK 1.1.4.Final released</title>
     <updated>2016-02-11T10:46:23+00:00</updated>
     <published>2015-06-18T00:00:00+00:00</published>
-    <link href="http://beanvalidation.org/news/2015/06/18/bean-validation-tck-1-1-4-released/" rel="alternate" type="text/html" />
+    <link href="http://beanvalidation.github.io/news/2015/06/18/bean-validation-tck-1-1-4-released/" rel="alternate" type="text/html" />
     <author>
       <name>Gunnar Morling</name>
     </author>
@@ -42,11 +42,11 @@
     </content>
   </entry>
   <entry>
-    <id>http://beanvalidation.org/news/2014/06/18/bean-validation-tcks-now-with-support-for-java-se-8/</id>
+    <id>http://beanvalidation.github.io/news/2014/06/18/bean-validation-tcks-now-with-support-for-java-se-8/</id>
     <title>Bean Validation TCKs now with signature files for Java SE 8</title>
     <updated>2016-02-11T10:46:23+00:00</updated>
     <published>2014-06-18T00:00:00+00:00</published>
-    <link href="http://beanvalidation.org/news/2014/06/18/bean-validation-tcks-now-with-support-for-java-se-8/" rel="alternate" type="text/html" />
+    <link href="http://beanvalidation.github.io/news/2014/06/18/bean-validation-tcks-now-with-support-for-java-se-8/" rel="alternate" type="text/html" />
     <author>
       <name>Gunnar Morling</name>
     </author>
@@ -89,11 +89,11 @@
     </content>
   </entry>
   <entry>
-    <id>http://beanvalidation.org/news/2014/05/28/training-materials/</id>
+    <id>http://beanvalidation.github.io/news/2014/05/28/training-materials/</id>
     <title>Training materials on Bean Validation 1.1</title>
     <updated>2016-02-11T10:46:23+00:00</updated>
     <published>2014-05-28T00:00:00+00:00</published>
-    <link href="http://beanvalidation.org/news/2014/05/28/training-materials/" rel="alternate" type="text/html" />
+    <link href="http://beanvalidation.github.io/news/2014/05/28/training-materials/" rel="alternate" type="text/html" />
     <author>
       <name>Emmanuel Bernard</name>
     </author>
@@ -142,11 +142,11 @@
     </content>
   </entry>
   <entry>
-    <id>http://beanvalidation.org/news/2013/06/04/xml-namespace-and-jcp/</id>
+    <id>http://beanvalidation.github.io/news/2013/06/04/xml-namespace-and-jcp/</id>
     <title>XML namespace and JCP</title>
     <updated>2016-02-11T10:46:23+00:00</updated>
     <published>2013-06-04T00:00:00+00:00</published>
-    <link href="http://beanvalidation.org/news/2013/06/04/xml-namespace-and-jcp/" rel="alternate" type="text/html" />
+    <link href="http://beanvalidation.github.io/news/2013/06/04/xml-namespace-and-jcp/" rel="alternate" type="text/html" />
     <author>
       <name>Emmanuel Bernard</name>
     </author>
@@ -193,7 +193,7 @@
       
       &lt;p&gt;Anyways, that's not a problem. Anyone can open an issue (I've just &lt;a href=&quot;https://hibernate.atlassian.net/browse/BVAL-455&quot;&gt;created
       one&lt;/a&gt; for this task), write a
-      couple of pull requests to fix the spec, TCK and RI as explained in &lt;a href=&quot;http://beanvalidation.org/contribute/&quot;&gt;our
+      couple of pull requests to fix the spec, TCK and RI as explained in &lt;a href=&quot;http://beanvalidation.github.io/contribute/&quot;&gt;our
       contribute section&lt;/a&gt;. Scratch your own itch: so who's jumping? :)&lt;/p&gt;
       
       &lt;p&gt;We will have to wait for the next version of the spec to avoid breaking older
@@ -204,11 +204,11 @@
     </content>
   </entry>
   <entry>
-    <id>http://beanvalidation.org/news/2013/05/02/bean-validation-1-1-is-a-spec/</id>
+    <id>http://beanvalidation.github.io/news/2013/05/02/bean-validation-1-1-is-a-spec/</id>
     <title>Bean Validation 1.1 is a spec</title>
     <updated>2016-02-11T10:46:23+00:00</updated>
     <published>2013-05-02T00:00:00+00:00</published>
-    <link href="http://beanvalidation.org/news/2013/05/02/bean-validation-1-1-is-a-spec/" rel="alternate" type="text/html" />
+    <link href="http://beanvalidation.github.io/news/2013/05/02/bean-validation-1-1-is-a-spec/" rel="alternate" type="text/html" />
     <author>
       <name>Emmanuel Bernard</name>
     </author>
@@ -265,15 +265,15 @@
       
       &lt;p&gt;Go grab &lt;a href=&quot;http://validator.hibernate.org&quot;&gt;Hibernate Validator&lt;/a&gt;, the RI. The team
       has even spent an extra couple of weeks to deliver a nice documentation. And if you
-      can't sleep, go read the &lt;a href=&quot;http://beanvalidation.org/1.1/&quot;&gt;specification itself&lt;/a&gt;.&lt;/p&gt;
+      can't sleep, go read the &lt;a href=&quot;http://beanvalidation.github.io/1.1/&quot;&gt;specification itself&lt;/a&gt;.&lt;/p&gt;
     </content>
   </entry>
   <entry>
-    <id>http://beanvalidation.org/news/2013/03/21/bean-validation-1-1-final-approval-ballot/</id>
+    <id>http://beanvalidation.github.io/news/2013/03/21/bean-validation-1-1-final-approval-ballot/</id>
     <title>Bean Validation 1.1 CR3 - Final Approval Ballot</title>
     <updated>2016-02-11T10:46:23+00:00</updated>
     <published>2013-03-21T00:00:00+00:00</published>
-    <link href="http://beanvalidation.org/news/2013/03/21/bean-validation-1-1-final-approval-ballot/" rel="alternate" type="text/html" />
+    <link href="http://beanvalidation.github.io/news/2013/03/21/bean-validation-1-1-final-approval-ballot/" rel="alternate" type="text/html" />
     <author>
       <name>Emmanuel Bernard</name>
     </author>
@@ -321,11 +321,11 @@
     </content>
   </entry>
   <entry>
-    <id>http://beanvalidation.org/news/2013/02/20/bean-validation-1-1-proposed-final-draft/</id>
+    <id>http://beanvalidation.github.io/news/2013/02/20/bean-validation-1-1-proposed-final-draft/</id>
     <title>Bean Validation 1.1 CR1 - Proposed Final Draft</title>
     <updated>2016-02-11T10:46:23+00:00</updated>
     <published>2013-02-20T00:00:00+00:00</published>
-    <link href="http://beanvalidation.org/news/2013/02/20/bean-validation-1-1-proposed-final-draft/" rel="alternate" type="text/html" />
+    <link href="http://beanvalidation.github.io/news/2013/02/20/bean-validation-1-1-proposed-final-draft/" rel="alternate" type="text/html" />
     <author>
       <name>Emmanuel Bernard</name>
     </author>
@@ -365,7 +365,7 @@
       JCP. Of course everything is open source so you can get it too:&lt;/p&gt;
       
       &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;http://beanvalidation.org/1.1/spec/1.1.0.cr1/?utm_source=blog&amp;amp;utm_medium=web&amp;amp;utm_content=spec&amp;amp;utm_campaign=1_1_cr1&quot;&gt;the spec&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;http://beanvalidation.github.io/1.1/spec/1.1.0.cr1/?utm_source=blog&amp;amp;utm_medium=web&amp;amp;utm_content=spec&amp;amp;utm_campaign=1_1_cr1&quot;&gt;the spec&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;http://docs.jboss.org/hibernate/beanvalidation/spec/1.1/api/&quot;&gt;the JavaDoc&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;and the API JAR: maven coordinates &lt;a href=&quot;https://repository.jboss.org/nexus/content/groups/public-jboss/javax/validation/validation-api/1.1.0.CR1/&quot;&gt;javax.validation:validation-api:1.1.0.CR1&lt;/a&gt;&lt;/li&gt;
       &lt;/ul&gt;
@@ -411,7 +411,7 @@
       make this spec as good as possible by reviewing it and opening issues where it
       itches you.&lt;/p&gt;
       
-      &lt;p&gt;You can &lt;a href=&quot;http://beanvalidation.org/1.1/spec/1.1.0.cr1/?utm_source=blog&amp;amp;utm_medium=web&amp;amp;utm_content=spec&amp;amp;utm_campaign=1_1_cr1&quot;&gt;access the specification here&lt;/a&gt;.
+      &lt;p&gt;You can &lt;a href=&quot;http://beanvalidation.github.io/1.1/spec/1.1.0.cr1/?utm_source=blog&amp;amp;utm_medium=web&amp;amp;utm_content=spec&amp;amp;utm_campaign=1_1_cr1&quot;&gt;access the specification here&lt;/a&gt;.
       All changes are marked with a different
       color. &lt;span style=&quot;background-color:#DDFFDD;&quot;&gt;Green for additions&lt;/span&gt;,
       &lt;span style=&quot;background-color:#FFFFDD;&quot;&gt;yellow for changes&lt;/span&gt;.
@@ -421,7 +421,7 @@
       
       &lt;ul&gt;
       &lt;li&gt;on our &lt;a href=&quot;https://lists.jboss.org/mailman/listinfo/beanvalidation-dev&quot;&gt;mailing list&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;in our &lt;a href=&quot;http://beanvalidation.org/issues&quot;&gt;issue tracker&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;in our &lt;a href=&quot;http://beanvalidation.github.io/issues&quot;&gt;issue tracker&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;or on the Bean Validation &lt;a href=&quot;https://forum.hibernate.org/viewforum.php?f=26&quot;&gt;forum&lt;/a&gt;&lt;/li&gt;
       &lt;/ul&gt;
       
@@ -432,11 +432,11 @@
     </content>
   </entry>
   <entry>
-    <id>http://beanvalidation.org/news/2013/02/15/bean-validation-1-1-beta4/</id>
+    <id>http://beanvalidation.github.io/news/2013/02/15/bean-validation-1-1-beta4/</id>
     <title>Bean Validation 1.1 Beta 4 - issue smashing edition</title>
     <updated>2016-02-11T10:46:23+00:00</updated>
     <published>2013-02-15T00:00:00+00:00</published>
-    <link href="http://beanvalidation.org/news/2013/02/15/bean-validation-1-1-beta4/" rel="alternate" type="text/html" />
+    <link href="http://beanvalidation.github.io/news/2013/02/15/bean-validation-1-1-beta4/" rel="alternate" type="text/html" />
     <author>
       <name>Emmanuel Bernard</name>
     </author>
@@ -521,7 +521,7 @@
       
       &lt;p&gt;Let us know what you think.&lt;/p&gt;
       
-      &lt;p&gt;You can &lt;a href=&quot;http://beanvalidation.org/1.1/spec/1.1.0.beta4/?utm_source=blog&amp;amp;utm_medium=web&amp;amp;utm_content=spec&amp;amp;utm_campaign=1_1_beta4&quot;&gt;access the specification here&lt;/a&gt;.
+      &lt;p&gt;You can &lt;a href=&quot;http://beanvalidation.github.io/1.1/spec/1.1.0.beta4/?utm_source=blog&amp;amp;utm_medium=web&amp;amp;utm_content=spec&amp;amp;utm_campaign=1_1_beta4&quot;&gt;access the specification here&lt;/a&gt;.
       All changes are marked with a different
       color. &lt;span style=&quot;background-color:#DDFFDD;&quot;&gt;Green for additions&lt;/span&gt;,
       &lt;span style=&quot;background-color:#FFFFDD;&quot;&gt;yellow for changes&lt;/span&gt; and
@@ -532,21 +532,21 @@
       
       &lt;ul&gt;
       &lt;li&gt;on our &lt;a href=&quot;https://lists.jboss.org/mailman/listinfo/beanvalidation-dev&quot;&gt;mailing list&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;in our &lt;a href=&quot;http://beanvalidation.org/issues&quot;&gt;issue tracker&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;in our &lt;a href=&quot;http://beanvalidation.github.io/issues&quot;&gt;issue tracker&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;or on the Bean Validation &lt;a href=&quot;https://forum.hibernate.org/viewforum.php?f=26&quot;&gt;forum&lt;/a&gt;&lt;/li&gt;
       &lt;/ul&gt;
       
       
       &lt;p&gt;If you want to go to the next step and contribute, send us an email to
-      the mailing list and read &lt;a href=&quot;http://beanvalidation.org/contribute/&quot;&gt;how to contribute&lt;/a&gt;.&lt;/p&gt;
+      the mailing list and read &lt;a href=&quot;http://beanvalidation.github.io/contribute/&quot;&gt;how to contribute&lt;/a&gt;.&lt;/p&gt;
     </content>
   </entry>
   <entry>
-    <id>http://beanvalidation.org/news/2013/02/05/javaspotlight-podcast-on-bean-validation-1-1/</id>
+    <id>http://beanvalidation.github.io/news/2013/02/05/javaspotlight-podcast-on-bean-validation-1-1/</id>
     <title>Java Spotlight Podcast on Bean Validation 1.1</title>
     <updated>2016-02-11T10:46:23+00:00</updated>
     <published>2013-02-05T00:00:00+00:00</published>
-    <link href="http://beanvalidation.org/news/2013/02/05/javaspotlight-podcast-on-bean-validation-1-1/" rel="alternate" type="text/html" />
+    <link href="http://beanvalidation.github.io/news/2013/02/05/javaspotlight-podcast-on-bean-validation-1-1/" rel="alternate" type="text/html" />
     <author>
       <name>Emmanuel Bernard</name>
     </author>
@@ -569,15 +569,15 @@
       &lt;p&gt;The podcast is available &lt;a href=&quot;http://goo.gl/UphGL&quot;&gt;here&lt;/a&gt;.
       Unfortunately the audio of the interview is not great, so if you find it hard
       to follow, I have put an alternative recording with better quality of the
-      interview itself. &lt;a href=&quot;http://beanvalidation.org/downloads/javaspotlight-119-interview.mp3&quot;&gt;Get the mp3&lt;/a&gt;.&lt;/p&gt;
+      interview itself. &lt;a href=&quot;http://beanvalidation.github.io/downloads/javaspotlight-119-interview.mp3&quot;&gt;Get the mp3&lt;/a&gt;.&lt;/p&gt;
     </content>
   </entry>
   <entry>
-    <id>http://beanvalidation.org/news/2013/02/01/bean-validation-1-1-beta3-last-line/</id>
+    <id>http://beanvalidation.github.io/news/2013/02/01/bean-validation-1-1-beta3-last-line/</id>
     <title>Bean Validation 1.1 Beta 3 - the last line</title>
     <updated>2016-02-11T10:46:23+00:00</updated>
     <published>2013-02-01T00:00:00+00:00</published>
-    <link href="http://beanvalidation.org/news/2013/02/01/bean-validation-1-1-beta3-last-line/" rel="alternate" type="text/html" />
+    <link href="http://beanvalidation.github.io/news/2013/02/01/bean-validation-1-1-beta3-last-line/" rel="alternate" type="text/html" />
     <author>
       <name>Emmanuel Bernard</name>
     </author>
@@ -656,7 +656,7 @@
       &lt;p&gt;Please, please, please go and review the specification and tell us if something
       needs to be fixed.&lt;/p&gt;
       
-      &lt;p&gt;You can &lt;a href=&quot;http://beanvalidation.org/1.1/spec/1.1.0.beta3/?utm_source=blog&amp;amp;utm_medium=web&amp;amp;utm_content=spec&amp;amp;utm_campaign=1_1_beta3&quot;&gt;access the specification here&lt;/a&gt;.
+      &lt;p&gt;You can &lt;a href=&quot;http://beanvalidation.github.io/1.1/spec/1.1.0.beta3/?utm_source=blog&amp;amp;utm_medium=web&amp;amp;utm_content=spec&amp;amp;utm_campaign=1_1_beta3&quot;&gt;access the specification here&lt;/a&gt;.
       All changes are marked with a different
       color. &lt;span style=&quot;background-color:#DDFFDD;&quot;&gt;Green for additions&lt;/span&gt;,
       &lt;span style=&quot;background-color:#FFFFDD;&quot;&gt;yellow for changes&lt;/span&gt; and
@@ -667,21 +667,21 @@
       
       &lt;ul&gt;
       &lt;li&gt;on our &lt;a href=&quot;https://lists.jboss.org/mailman/listinfo/beanvalidation-dev&quot;&gt;mailing list&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;in our &lt;a href=&quot;http://beanvalidation.org/issues&quot;&gt;issue tracker&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;in our &lt;a href=&quot;http://beanvalidation.github.io/issues&quot;&gt;issue tracker&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;or on the Bean Validation &lt;a href=&quot;https://forum.hibernate.org/viewforum.php?f=26&quot;&gt;forum&lt;/a&gt;&lt;/li&gt;
       &lt;/ul&gt;
       
       
       &lt;p&gt;If you want to go to the next step and contribute, send us an email to
-      the mailing list and read &lt;a href=&quot;http://beanvalidation.org/contribute/&quot;&gt;how to contribute&lt;/a&gt;.&lt;/p&gt;
+      the mailing list and read &lt;a href=&quot;http://beanvalidation.github.io/contribute/&quot;&gt;how to contribute&lt;/a&gt;.&lt;/p&gt;
     </content>
   </entry>
   <entry>
-    <id>http://beanvalidation.org/news/2012/12/18/bean-validation-in-the-press/</id>
+    <id>http://beanvalidation.github.io/news/2012/12/18/bean-validation-in-the-press/</id>
     <title>Bean Validation in the press</title>
     <updated>2016-02-11T10:46:23+00:00</updated>
     <published>2012-12-18T00:00:00+00:00</published>
-    <link href="http://beanvalidation.org/news/2012/12/18/bean-validation-in-the-press/" rel="alternate" type="text/html" />
+    <link href="http://beanvalidation.github.io/news/2012/12/18/bean-validation-in-the-press/" rel="alternate" type="text/html" />
     <author>
       <name>Gunnar Morling</name>
     </author>
@@ -704,17 +704,17 @@
       community-centered way of creating the spec in particular.&lt;/p&gt;
       
       &lt;p&gt;The publisher and authors generously provided us with a PDF of the article
-      which you can download &lt;a href=&quot;http://beanvalidation.org/downloads/javamagazin_2012_10_Einer_fuer_alle_alle_fuer_einen_Bean_Validation_1_1.pdf&quot;&gt;here&lt;/a&gt;.
+      which you can download &lt;a href=&quot;http://beanvalidation.github.io/downloads/javamagazin_2012_10_Einer_fuer_alle_alle_fuer_einen_Bean_Validation_1_1.pdf&quot;&gt;here&lt;/a&gt;.
       Alternatively you can also read the article
       &lt;a href=&quot;http://it-republik.de/jaxenter/artikel/Einer-fuer-alle-%96-alle-fuer-einen-Bean-Validation-1.1-5372.html&quot;&gt;online&lt;/a&gt;.&lt;/p&gt;
     </content>
   </entry>
   <entry>
-    <id>http://beanvalidation.org/news/2012/12/11/should-getters-be-considered-methods/</id>
+    <id>http://beanvalidation.github.io/news/2012/12/11/should-getters-be-considered-methods/</id>
     <title>Should getters be validated when they are called?</title>
     <updated>2016-02-11T10:46:23+00:00</updated>
     <published>2012-12-11T00:00:00+00:00</published>
-    <link href="http://beanvalidation.org/news/2012/12/11/should-getters-be-considered-methods/" rel="alternate" type="text/html" />
+    <link href="http://beanvalidation.github.io/news/2012/12/11/should-getters-be-considered-methods/" rel="alternate" type="text/html" />
     <author>
       <name>Emmanuel Bernard</name>
     </author>
@@ -897,11 +897,11 @@
     </content>
   </entry>
   <entry>
-    <id>http://beanvalidation.org/news/2012/11/29/public-review-ballot/</id>
+    <id>http://beanvalidation.github.io/news/2012/11/29/public-review-ballot/</id>
     <title>Public review ballot favorable to Bean Validation 1.1</title>
     <updated>2016-02-11T10:46:23+00:00</updated>
     <published>2012-11-29T00:00:00+00:00</published>
-    <link href="http://beanvalidation.org/news/2012/11/29/public-review-ballot/" rel="alternate" type="text/html" />
+    <link href="http://beanvalidation.github.io/news/2012/11/29/public-review-ballot/" rel="alternate" type="text/html" />
     <author>
       <name>Emmanuel Bernard</name>
     </author>
@@ -926,11 +926,11 @@
     </content>
   </entry>
   <entry>
-    <id>http://beanvalidation.org/news/2012/11/27/1-1-beta2-is-out/</id>
+    <id>http://beanvalidation.github.io/news/2012/11/27/1-1-beta2-is-out/</id>
     <title>Bean Validation 1.1 Beta 2 is out</title>
     <updated>2016-02-11T10:46:23+00:00</updated>
     <published>2012-11-27T00:00:00+00:00</published>
-    <link href="http://beanvalidation.org/news/2012/11/27/1-1-beta2-is-out/" rel="alternate" type="text/html" />
+    <link href="http://beanvalidation.github.io/news/2012/11/27/1-1-beta2-is-out/" rel="alternate" type="text/html" />
     <author>
       <name>Emmanuel Bernard</name>
     </author>
@@ -950,16 +950,16 @@
       to actually implement the specification. We did a minor release
       to fix those glitches.&lt;/p&gt;
       
-      &lt;p&gt;Check out the &lt;a href=&quot;http://beanvalidation.org/1.1/spec/1.1.0.beta2&quot;&gt;specification&lt;/a&gt; and make sure to
+      &lt;p&gt;Check out the &lt;a href=&quot;http://beanvalidation.github.io/1.1/spec/1.1.0.beta2&quot;&gt;specification&lt;/a&gt; and make sure to
       use 1.1.0.Beta2 if you plan on implementing the specification early.&lt;/p&gt;
     </content>
   </entry>
   <entry>
-    <id>http://beanvalidation.org/news/2012/10/22/release-1-1-public-review/</id>
+    <id>http://beanvalidation.github.io/news/2012/10/22/release-1-1-public-review/</id>
     <title>Public Review Draft for Bean Validation 1.1</title>
     <updated>2016-02-11T10:46:23+00:00</updated>
     <published>2012-10-22T00:00:00+00:00</published>
-    <link href="http://beanvalidation.org/news/2012/10/22/release-1-1-public-review/" rel="alternate" type="text/html" />
+    <link href="http://beanvalidation.github.io/news/2012/10/22/release-1-1-public-review/" rel="alternate" type="text/html" />
     <author>
       <name>Emmanuel Bernard</name>
     </author>
@@ -1001,7 +1001,7 @@
       &lt;p&gt;We have been doing our work in the open but if you have not yet paid much attention
       now is the time to fix that :)&lt;/p&gt;
       
-      &lt;p&gt;You can &lt;a href=&quot;http://beanvalidation.org/1.1/spec/1.1.0.beta1/?utm_source=blog&amp;amp;utm_medium=web&amp;amp;utm_content=spec&amp;amp;utm_campaign=1_1_pr1&quot;&gt;access the draft on this website&lt;/a&gt;.
+      &lt;p&gt;You can &lt;a href=&quot;http://beanvalidation.github.io/1.1/spec/1.1.0.beta1/?utm_source=blog&amp;amp;utm_medium=web&amp;amp;utm_content=spec&amp;amp;utm_campaign=1_1_pr1&quot;&gt;access the draft on this website&lt;/a&gt;.
       All changes are marked with a different
       color. &lt;span style=&quot;background-color:#DDFFDD;&quot;&gt;Green for additions&lt;/span&gt;,
       &lt;span style=&quot;background-color:#FFFFDD;&quot;&gt;yellow for changes&lt;/span&gt; and
@@ -1012,13 +1012,13 @@
       
       &lt;ul&gt;
       &lt;li&gt;on our &lt;a href=&quot;https://lists.jboss.org/mailman/listinfo/beanvalidation-dev&quot;&gt;mailing list&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;in our &lt;a href=&quot;http://beanvalidation.org/issues&quot;&gt;issue tracker&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;in our &lt;a href=&quot;http://beanvalidation.github.io/issues&quot;&gt;issue tracker&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;or on the Bean Validation &lt;a href=&quot;https://forum.hibernate.org/viewforum.php?f=26&quot;&gt;forum&lt;/a&gt;&lt;/li&gt;
       &lt;/ul&gt;
       
       
       &lt;p&gt;If you want to go to the next step and contribute, send us an email to
-      the mailing list and read &lt;a href=&quot;http://beanvalidation.org/contribute/&quot;&gt;how to contribute&lt;/a&gt;.&lt;/p&gt;
+      the mailing list and read &lt;a href=&quot;http://beanvalidation.github.io/contribute/&quot;&gt;how to contribute&lt;/a&gt;.&lt;/p&gt;
       
       &lt;h2&gt;What's new in this draft&lt;/h2&gt;
       
@@ -1048,11 +1048,11 @@
     </content>
   </entry>
   <entry>
-    <id>http://beanvalidation.org/news/2012/09/12/fine-control-over-method-validation/</id>
+    <id>http://beanvalidation.github.io/news/2012/09/12/fine-control-over-method-validation/</id>
     <title>Fine control over method validation in Bean Validation... or not!</title>
     <updated>2016-02-11T10:46:23+00:00</updated>
     <published>2012-09-12T00:00:00+00:00</published>
-    <link href="http://beanvalidation.org/news/2012/09/12/fine-control-over-method-validation/" rel="alternate" type="text/html" />
+    <link href="http://beanvalidation.github.io/news/2012/09/12/fine-control-over-method-validation/" rel="alternate" type="text/html" />
     <author>
       <name>Emmanuel Bernard</name>
     </author>
@@ -1254,11 +1254,11 @@
     </content>
   </entry>
   <entry>
-    <id>http://beanvalidation.org/news/2012/08/31/big-push-on-bean-validation/</id>
+    <id>http://beanvalidation.github.io/news/2012/08/31/big-push-on-bean-validation/</id>
     <title>Big push on Bean Validation 1.1</title>
     <updated>2016-02-11T10:46:23+00:00</updated>
     <published>2012-08-31T00:00:00+00:00</published>
-    <link href="http://beanvalidation.org/news/2012/08/31/big-push-on-bean-validation/" rel="alternate" type="text/html" />
+    <link href="http://beanvalidation.github.io/news/2012/08/31/big-push-on-bean-validation/" rel="alternate" type="text/html" />
     <author>
       <name>Emmanuel Bernard</name>
     </author>
@@ -1307,21 +1307,21 @@
       We will also work with other expert groups to clarify the integration (CDI,
       JAX-RS, Java EE...).&lt;/p&gt;
       
-      &lt;p&gt;Our priority list is &lt;a href=&quot;http://beanvalidation.org/roadmap/#priorities&quot;&gt;published&lt;/a&gt; in the open. We will probably adjust it
+      &lt;p&gt;Our priority list is &lt;a href=&quot;http://beanvalidation.github.io/roadmap/#priorities&quot;&gt;published&lt;/a&gt; in the open. We will probably adjust it
       a bit but the main lines are now fixed. If you feel that something important is missing,
       come and help us identify it and build it.&lt;/p&gt;
       
       &lt;p&gt;And remember, if you come later and complain about Bean Validation, we will ask you:
-      &lt;a href=&quot;http://beanvalidation.org/contribute/&quot;&gt;where&lt;/a&gt; &lt;a href=&quot;https://github.com/beanvalidation/beanvalidation-spec&quot;&gt;were&lt;/a&gt;
+      &lt;a href=&quot;http://beanvalidation.github.io/contribute/&quot;&gt;where&lt;/a&gt; &lt;a href=&quot;https://github.com/beanvalidation/beanvalidation-spec&quot;&gt;were&lt;/a&gt;
       &lt;a href=&quot;https://github.com/hibernate/hibernate-validator&quot;&gt;you&lt;/a&gt;? ;)&lt;/p&gt;
     </content>
   </entry>
   <entry>
-    <id>http://beanvalidation.org/news/2012/08/29/methodvalidation-inheritance/</id>
+    <id>http://beanvalidation.github.io/news/2012/08/29/methodvalidation-inheritance/</id>
     <title>Method validation and inheritance - feedback needed!</title>
     <updated>2016-02-11T10:46:23+00:00</updated>
     <published>2012-08-29T00:00:00+00:00</published>
-    <link href="http://beanvalidation.org/news/2012/08/29/methodvalidation-inheritance/" rel="alternate" type="text/html" />
+    <link href="http://beanvalidation.github.io/news/2012/08/29/methodvalidation-inheritance/" rel="alternate" type="text/html" />
     <author>
       <name>Gunnar Morling</name>
     </author>
@@ -1447,11 +1447,11 @@
     </content>
   </entry>
   <entry>
-    <id>http://beanvalidation.org/news/2012/06/28/hibernate-validator-5-alpha/</id>
+    <id>http://beanvalidation.github.io/news/2012/06/28/hibernate-validator-5-alpha/</id>
     <title>Hibernate Validator 5 alpha for Bean Validation 1.1 is out</title>
     <updated>2016-02-11T10:46:23+00:00</updated>
     <published>2012-06-28T00:00:00+00:00</published>
-    <link href="http://beanvalidation.org/news/2012/06/28/hibernate-validator-5-alpha/" rel="alternate" type="text/html" />
+    <link href="http://beanvalidation.github.io/news/2012/06/28/hibernate-validator-5-alpha/" rel="alternate" type="text/html" />
     <author>
       <name>Emmanuel Bernard</name>
     </author>
@@ -1480,11 +1480,11 @@
     </content>
   </entry>
   <entry>
-    <id>http://beanvalidation.org/news/2012/06/06/continuous-publication-specification-snapshot/</id>
+    <id>http://beanvalidation.github.io/news/2012/06/06/continuous-publication-specification-snapshot/</id>
     <title>Continuous publication of the specification snapshot</title>
     <updated>2016-02-11T10:46:23+00:00</updated>
     <published>2012-06-06T00:00:00+00:00</published>
-    <link href="http://beanvalidation.org/news/2012/06/06/continuous-publication-specification-snapshot/" rel="alternate" type="text/html" />
+    <link href="http://beanvalidation.github.io/news/2012/06/06/continuous-publication-specification-snapshot/" rel="alternate" type="text/html" />
     <author>
       <name>Emmanuel Bernard</name>
     </author>
@@ -1494,17 +1494,17 @@
       The expert group has been using it for a while, we simply forgot to announce it publicly....
     </summary>
     <content type="html">
-      &lt;p&gt;The latest snapshot of the specification is now always published &lt;a href=&quot;http://beanvalidation.org/latest-draft/&quot;&gt;on the site&lt;/a&gt;
+      &lt;p&gt;The latest snapshot of the specification is now always published &lt;a href=&quot;http://beanvalidation.github.io/latest-draft/&quot;&gt;on the site&lt;/a&gt;
       as soon as we push change to the Git repository.
       The expert group has been using it for a while, we simply forgot to announce it publicly.&lt;/p&gt;
     </content>
   </entry>
   <entry>
-    <id>http://beanvalidation.org/news/2012/03/28/jcp-release-1-1-edr1/</id>
+    <id>http://beanvalidation.github.io/news/2012/03/28/jcp-release-1-1-edr1/</id>
     <title>Bean Validation 1.1 officially reaches the JCP</title>
     <updated>2016-02-11T10:46:23+00:00</updated>
     <published>2012-03-28T00:00:00+00:00</published>
-    <link href="http://beanvalidation.org/news/2012/03/28/jcp-release-1-1-edr1/" rel="alternate" type="text/html" />
+    <link href="http://beanvalidation.github.io/news/2012/03/28/jcp-release-1-1-edr1/" rel="alternate" type="text/html" />
     <author>
       <name>Emmanuel Bernard</name>
     </author>
@@ -1537,11 +1537,11 @@
     </content>
   </entry>
   <entry>
-    <id>http://beanvalidation.org/news/2012/03/16/artifacts-1-1-edr1/</id>
+    <id>http://beanvalidation.github.io/news/2012/03/16/artifacts-1-1-edr1/</id>
     <title>Code artifacts published for Bean Validation 1.1 early draft 1</title>
     <updated>2016-02-11T10:46:23+00:00</updated>
     <published>2012-03-16T00:00:00+00:00</published>
-    <link href="http://beanvalidation.org/news/2012/03/16/artifacts-1-1-edr1/" rel="alternate" type="text/html" />
+    <link href="http://beanvalidation.github.io/news/2012/03/16/artifacts-1-1-edr1/" rel="alternate" type="text/html" />
     <author>
       <name>Emmanuel Bernard</name>
     </author>
@@ -1594,11 +1594,11 @@
     </content>
   </entry>
   <entry>
-    <id>http://beanvalidation.org/news/2012/03/13/release-1-1-edr1/</id>
+    <id>http://beanvalidation.github.io/news/2012/03/13/release-1-1-edr1/</id>
     <title>Bean Validation 1.1 early draft 1 is out - time for feedback</title>
     <updated>2016-02-11T10:46:23+00:00</updated>
     <published>2012-03-13T00:00:00+00:00</published>
-    <link href="http://beanvalidation.org/news/2012/03/13/release-1-1-edr1/" rel="alternate" type="text/html" />
+    <link href="http://beanvalidation.github.io/news/2012/03/13/release-1-1-edr1/" rel="alternate" type="text/html" />
     <author>
       <name>Emmanuel Bernard</name>
     </author>
@@ -1635,7 +1635,7 @@
       
       &lt;p&gt;The draft is making its way through the official channels of the JCP but
       we also wanted to release it in full openned. For people in a hurry,
-      &lt;a href=&quot;http://beanvalidation.org/1.1/spec/1.0.0.alpha1/?utm_source=blog&amp;amp;utm_medium=web&amp;amp;utm_content=spec&amp;amp;utm_campaign=1_1_edr1&quot;&gt;the spec draft is here&lt;/a&gt;.&lt;/p&gt;
+      &lt;a href=&quot;http://beanvalidation.github.io/1.1/spec/1.0.0.alpha1/?utm_source=blog&amp;amp;utm_medium=web&amp;amp;utm_content=spec&amp;amp;utm_campaign=1_1_edr1&quot;&gt;the spec draft is here&lt;/a&gt;.&lt;/p&gt;
       
       &lt;h2&gt;What's new&lt;/h2&gt;
       
@@ -1652,7 +1652,7 @@
       
       &lt;p&gt;The specification, the reference implementation, the TCK, this website... everything is open sourced.
       All work done on Bean Validation 1.1 is done in the open either on the mailing list, the issue tracker
-      or via GitHub pull requests. Check out more in the &lt;a href=&quot;http://beanvalidation.org/contribute&quot;&gt;how to contribute section&lt;/a&gt;.&lt;/p&gt;
+      or via GitHub pull requests. Check out more in the &lt;a href=&quot;http://beanvalidation.github.io/contribute&quot;&gt;how to contribute section&lt;/a&gt;.&lt;/p&gt;
       
       &lt;h3&gt;Method-level validation&lt;/h3&gt;
       
@@ -1699,7 +1699,7 @@
       
       &lt;h2&gt;How to read the spec and provide feedback&lt;/h2&gt;
       
-      &lt;p&gt;The draft has been published &lt;a href=&quot;http://beanvalidation.org/1.1/spec/1.0.0.alpha1/?utm_source=blog&amp;amp;utm_medium=web&amp;amp;utm_content=spec&amp;amp;utm_campaign=1_1_edr1&quot;&gt;here&lt;/a&gt; and all changes are marked with a different
+      &lt;p&gt;The draft has been published &lt;a href=&quot;http://beanvalidation.github.io/1.1/spec/1.0.0.alpha1/?utm_source=blog&amp;amp;utm_medium=web&amp;amp;utm_content=spec&amp;amp;utm_campaign=1_1_edr1&quot;&gt;here&lt;/a&gt; and all changes are marked with a different
       color. &lt;span style=&quot;background-color:#DDFFDD;&quot;&gt;Green for additions&lt;/span&gt;,
       &lt;span style=&quot;background-color:#FFFFDD;&quot;&gt;yellow for changes&lt;/span&gt; and
       &lt;span style=&quot;text-decoration: line-through;background-color: #FFDDDD;&quot;&gt;struck through red for removals&lt;/span&gt;
@@ -1709,21 +1709,21 @@
       
       &lt;ul&gt;
       &lt;li&gt;on our &lt;a href=&quot;https://lists.jboss.org/mailman/listinfo/beanvalidation-dev&quot;&gt;mailing list&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;in our &lt;a href=&quot;http://beanvalidation.org/issues&quot;&gt;issue tracker&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;in our &lt;a href=&quot;http://beanvalidation.github.io/issues&quot;&gt;issue tracker&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;or on the Bean Validation &lt;a href=&quot;https://forum.hibernate.org/viewforum.php?f=26&quot;&gt;forum&lt;/a&gt;&lt;/li&gt;
       &lt;/ul&gt;
       
       
       &lt;p&gt;If you want to go to the next step and contribute, send us an email to the mailing list and read
-      &lt;a href=&quot;http://beanvalidation.org/contribute&quot;&gt;how to contribute&lt;/a&gt;.&lt;/p&gt;
+      &lt;a href=&quot;http://beanvalidation.github.io/contribute&quot;&gt;how to contribute&lt;/a&gt;.&lt;/p&gt;
     </content>
   </entry>
   <entry>
-    <id>http://beanvalidation.org/news/2012/02/01/method-level-proposal/</id>
+    <id>http://beanvalidation.github.io/news/2012/02/01/method-level-proposal/</id>
     <title>Proposal for method validation added</title>
     <updated>2016-02-11T10:46:23+00:00</updated>
     <published>2012-02-01T00:00:00+00:00</published>
-    <link href="http://beanvalidation.org/news/2012/02/01/method-level-proposal/" rel="alternate" type="text/html" />
+    <link href="http://beanvalidation.github.io/news/2012/02/01/method-level-proposal/" rel="alternate" type="text/html" />
     <author>
       <name>Gunnar Morling</name>
     </author>
@@ -1739,16 +1739,16 @@
       &lt;p&gt;The first draft of the proposal for method-level validation is online. The proposal covers the declaration of parameter as well as
       return values constraints, extensions to the &lt;code&gt;Validator&lt;/code&gt; API, related additions to the meta-data API etc.&lt;/p&gt;
       
-      &lt;p&gt;So check out the &lt;a href=&quot;http://beanvalidation.org/proposals/BVAL-241&quot;&gt;proposal document&lt;/a&gt; and let us know what you think, e.g. by sending your questions or remarks to the
+      &lt;p&gt;So check out the &lt;a href=&quot;http://beanvalidation.github.io/proposals/BVAL-241&quot;&gt;proposal document&lt;/a&gt; and let us know what you think, e.g. by sending your questions or remarks to the
       &lt;a href=&quot;https://lists.jboss.org/mailman/listinfo/beanvalidation-dev&quot;&gt;beanvalidation-dev&lt;/a&gt; mailing list.&lt;/p&gt;
     </content>
   </entry>
   <entry>
-    <id>http://beanvalidation.org/news/2011/10/21/dependency-injection-proposal/</id>
+    <id>http://beanvalidation.github.io/news/2011/10/21/dependency-injection-proposal/</id>
     <title>Adding proposal section and first proposal</title>
     <updated>2016-02-11T10:46:23+00:00</updated>
     <published>2011-10-21T00:00:00+00:00</published>
-    <link href="http://beanvalidation.org/news/2011/10/21/dependency-injection-proposal/" rel="alternate" type="text/html" />
+    <link href="http://beanvalidation.github.io/news/2011/10/21/dependency-injection-proposal/" rel="alternate" type="text/html" />
     <author>
       <name>Emmanuel Bernard</name>
     </author>
@@ -1762,19 +1762,19 @@
       dependency injection in ConstraintValidator instances....
     </summary>
     <content type="html">
-      &lt;p&gt;We have introduced a new section of the website called &lt;a href=&quot;http://beanvalidation.org/proposals&quot;&gt;proposals&lt;/a&gt;.
+      &lt;p&gt;We have introduced a new section of the website called &lt;a href=&quot;http://beanvalidation.github.io/proposals&quot;&gt;proposals&lt;/a&gt;.
       This will include wiki-style, work in progress proposals for various features being worked on.&lt;/p&gt;
       
       &lt;p&gt;Check out the first proposal page describing ideas and open questions on how to propose
-      &lt;a href=&quot;http://beanvalidation.org/proposals/BVAL-238&quot;&gt;dependency injection in &lt;code&gt;ConstraintValidator&lt;/code&gt; instances&lt;/a&gt;.&lt;/p&gt;
+      &lt;a href=&quot;http://beanvalidation.github.io/proposals/BVAL-238&quot;&gt;dependency injection in &lt;code&gt;ConstraintValidator&lt;/code&gt; instances&lt;/a&gt;.&lt;/p&gt;
     </content>
   </entry>
   <entry>
-    <id>http://beanvalidation.org/news/2011/09/16/method-level-validation/</id>
+    <id>http://beanvalidation.github.io/news/2011/09/16/method-level-validation/</id>
     <title>Work on method level validation</title>
     <updated>2016-02-11T10:46:23+00:00</updated>
     <published>2011-09-16T00:00:00+00:00</published>
-    <link href="http://beanvalidation.org/news/2011/09/16/method-level-validation/" rel="alternate" type="text/html" />
+    <link href="http://beanvalidation.github.io/news/2011/09/16/method-level-validation/" rel="alternate" type="text/html" />
     <author>
       <name>Emmanuel Bernard</name>
     </author>
@@ -1810,15 +1810,15 @@
       }&lt;/pre&gt;
       
       
-      &lt;p&gt;Want to know more? Join the expert group mailing list. &lt;a href=&quot;http://beanvalidation.org/contribute&quot;&gt;Learn how&lt;/a&gt;.&lt;/p&gt;
+      &lt;p&gt;Want to know more? Join the expert group mailing list. &lt;a href=&quot;http://beanvalidation.github.io/contribute&quot;&gt;Learn how&lt;/a&gt;.&lt;/p&gt;
     </content>
   </entry>
   <entry>
-    <id>http://beanvalidation.org/news/2011/09/01/spec-repository-out/</id>
+    <id>http://beanvalidation.github.io/news/2011/09/01/spec-repository-out/</id>
     <title>The specification repository is released</title>
     <updated>2016-02-11T10:46:23+00:00</updated>
     <published>2011-09-01T00:00:00+00:00</published>
-    <link href="http://beanvalidation.org/news/2011/09/01/spec-repository-out/" rel="alternate" type="text/html" />
+    <link href="http://beanvalidation.github.io/news/2011/09/01/spec-repository-out/" rel="alternate" type="text/html" />
     <author>
       <name>Emmanuel Bernard</name>
     </author>
@@ -1853,15 +1853,15 @@
       &lt;/ul&gt;
       
       
-      &lt;p&gt;Want to contribute? &lt;a href=&quot;http://beanvalidation.org/contribute&quot;&gt;Learn how&lt;/a&gt;.&lt;/p&gt;
+      &lt;p&gt;Want to contribute? &lt;a href=&quot;http://beanvalidation.github.io/contribute&quot;&gt;Learn how&lt;/a&gt;.&lt;/p&gt;
     </content>
   </entry>
   <entry>
-    <id>http://beanvalidation.org/news/2011/07/23/voted-yes/</id>
+    <id>http://beanvalidation.github.io/news/2011/07/23/voted-yes/</id>
     <title>Bean Validation has been voted yes!</title>
     <updated>2016-02-11T10:46:23+00:00</updated>
     <published>2011-07-23T00:00:00+00:00</published>
-    <link href="http://beanvalidation.org/news/2011/07/23/voted-yes/" rel="alternate" type="text/html" />
+    <link href="http://beanvalidation.github.io/news/2011/07/23/voted-yes/" rel="alternate" type="text/html" />
     <author>
       <name>Emmanuel Bernard</name>
     </author>
@@ -1880,11 +1880,11 @@
     </content>
   </entry>
   <entry>
-    <id>http://beanvalidation.org/news/2011/07/22/review-ballot/</id>
+    <id>http://beanvalidation.github.io/news/2011/07/22/review-ballot/</id>
     <title>Bean Validation in review ballot</title>
     <updated>2016-02-11T10:46:23+00:00</updated>
     <published>2011-07-22T00:00:00+00:00</published>
-    <link href="http://beanvalidation.org/news/2011/07/22/review-ballot/" rel="alternate" type="text/html" />
+    <link href="http://beanvalidation.github.io/news/2011/07/22/review-ballot/" rel="alternate" type="text/html" />
     <author>
       <name>Emmanuel Bernard</name>
     </author>
@@ -1897,11 +1897,11 @@
     </content>
   </entry>
   <entry>
-    <id>http://beanvalidation.org/news/2011/07/21/Site-is-live/</id>
+    <id>http://beanvalidation.github.io/news/2011/07/21/Site-is-live/</id>
     <title>The website is live!</title>
     <updated>2016-02-11T10:46:23+00:00</updated>
     <published>2011-07-21T00:00:00+00:00</published>
-    <link href="http://beanvalidation.org/news/2011/07/21/Site-is-live/" rel="alternate" type="text/html" />
+    <link href="http://beanvalidation.github.io/news/2011/07/21/Site-is-live/" rel="alternate" type="text/html" />
     <author>
       <name>Emmanuel Bernard</name>
     </author>
