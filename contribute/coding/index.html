@@ -1,0 +1,119 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>
+      Bean Validation - Working with the API and TCK sources
+    </title>
+    <link href="http://beanvalidation.org/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="http://beanvalidation.org/stylesheets/print.css" media="print" rel="stylesheet" type="text/css">
+    <!--[if lt IE 8]>
+      <link href="#{site.base_url}/stylesheets/ie.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <![endif]-->
+    <link href="#{site.base_url}/news/news.atom" rel="alternate" type="application/atom+xml">
+    <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="/javascripts/patternfly.js"></script>
+    <script src="/javascripts/bootstrap.js"></script>
+  </head>
+  <body>
+    <header role="banner">
+      <nav class="navbar navbar-default navbar-pf" role="navigation">
+        <div class="navbar-header">
+          <button class="navbar-toggle" data-target=".navbar-collapse-1" data-toggle="collapse" type="button">
+            <span class="sr-only">Toggle Navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="http://beanvalidation.org" id="logo" title="Bean Validation">
+            Bean Validation
+          </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-primary navbar-right" id="meny-primary">
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org">Home</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/news">News</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/1.1">Specification</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/1.1/tck">TCK</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/1.1/ri">RI</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/1.1/certified">Certified</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/contribute">Contribute</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/licensing">Licensing</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <div class="container" id="overview">
+      <div class="clearfix row" id="content">
+        <div class="col-sm-12 col-md-12 col-lg-12 clearfix" id="main">
+          <h1>Working with the API and TCK sources</h1>
+          <h2>API</h2>
+          
+          <h3>Pull requests</h3>
+          
+          <p>Changes to the Bean Validation API are realized using <a href="http://help.github.com/send-pull-requests/">pull requests</a>
+          against the <a href="https://github.com/beanvalidation/beanvalidation-api">API repository</a> on GitHub.
+          Use the <a href="/contribute/specification">same rules</a> than for submitting a specification change to the spec repository.</p>
+          
+          <h3>Coding guidelines</h3>
+          
+          <p>Obey to the following rules when working on the API sources:</p>
+          
+          <ul>
+          <li><p>JavaDoc</p>
+          
+          <ul>
+          <li>Make sure each member is completely documented</li>
+          <li>Provide package-level documentation when adding new packages</li>
+          <li>Use <code>{@code}</code> instead of <code>&lt;code&gt;</code>, because it is more readable and <code>{@code}</code> also escapes meta characters</li>
+          <li><code>@param</code>, <code>@return</code> and <code>@throw</code> don't end with a '.'</li>
+          <li>If referring to other classes and methods use <code>{@link}</code></li>
+          <li>Use <code>&lt;ul/&gt;</code> instead of '-' for enumerations</li>
+          <li>Use <code>@since</code> to document in which spec revision a type/member was added to the API</li>
+          <li>Refer to <a href="http://www.oracle.com/technetwork/java/javase/documentation/index-137868.html">How to Write Doc Comments</a> and Joshua Bloch's "Effective Java" for more information on writing good comments.</li>
+          </ul>
+          </li>
+          <li><p>Use the IntelliJ <a href="https://community.jboss.org/wiki/ContributingToHibernateValidator#Coding_Guidelines">code style template</a>
+           from the reference implementation to format API sources</p></li>
+          </ul>
+          
+          
+          <h2>TCK</h2>
+          
+          <p>Information on how to work with the TCK, running it against a given implementation etc. can be found in</p>
+          
+          <ul>
+          <li>the TCK <a href="http://docs.jboss.org/hibernate/stable/beanvalidation/tck/reference/html_single/">reference guide</a></li>
+          <li>the <a href="https://community.jboss.org/wiki/BeanValidationTCK">wiki</a> of the reference implementation</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer class="container" id="widget-footer" role="contentinfo">
+    <hr>
+    <div class="row">
+      <div class="widget col-md-12 widget_text">
+        Copyright (c) Red Hat, Inc., Emmanuel Bernard
+        <a href="http://redhat.com" id="logo-redhat">Red Hat</a>
+      </div>
+    </div>
+  </footer>
+</html>

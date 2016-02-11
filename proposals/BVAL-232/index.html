@@ -1,0 +1,268 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>
+      Bean Validation - Support cross-parameter constraints
+    </title>
+    <link href="http://beanvalidation.org/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="http://beanvalidation.org/stylesheets/print.css" media="print" rel="stylesheet" type="text/css">
+    <!--[if lt IE 8]>
+      <link href="#{site.base_url}/stylesheets/ie.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <![endif]-->
+    <link href="#{site.base_url}/news/news.atom" rel="alternate" type="application/atom+xml">
+    <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="/javascripts/patternfly.js"></script>
+    <script src="/javascripts/bootstrap.js"></script>
+  </head>
+  <body>
+    <header role="banner">
+      <nav class="navbar navbar-default navbar-pf" role="navigation">
+        <div class="navbar-header">
+          <button class="navbar-toggle" data-target=".navbar-collapse-1" data-toggle="collapse" type="button">
+            <span class="sr-only">Toggle Navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="http://beanvalidation.org" id="logo" title="Bean Validation">
+            Bean Validation
+          </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-primary navbar-right" id="meny-primary">
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org">Home</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/news">News</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/1.1">Specification</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/1.1/tck">TCK</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/1.1/ri">RI</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/1.1/certified">Certified</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/contribute">Contribute</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/licensing">Licensing</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <div class="container" id="overview">
+      <div class="clearfix row" id="content">
+        <div class="col-sm-12 col-md-12 col-lg-12 clearfix" id="main">
+          <h1>Support cross-parameter constraints</h1>
+          <p><a href="https://hibernate.onjira.com/browse/BVAL-232">Link to JIRA ticket</a></p>
+          
+          <h2>Problem</h2>
+          
+          <p>Decide how to express cross parameter constraints in method validation
+          and how the constraint validation contract looks like.</p>
+          
+          <p>Note that this is a follow up on <a href="/proposals/BVAL-241/#cross_parameter">this discussion</a>.</p>
+          
+          <h2>Solution</h2>
+          
+          <h3>Cross parameter validation and return value</h3>
+          
+          <p>The group agrees not to support cross validation of both parameters and return
+          value in a single constraint validator.</p>
+          
+          <h3>Where to host cross-parameter constraints</h3>
+          
+          <p>We use the method as host to the return value constraints and possibly <code>@Valid</code>.
+          That is unfortunately also the natural place for cross parameter constraints.</p>
+          
+          <p>I cannot think of another place to put them. There is also no easy way to add a
+          visual cue and differentiate a regular constraint from a cross param constraint
+          except by its meta annotation. We would rely on the user adding a visual cue in
+          the constraint name. Which kind of cue? Put <code>param</code> in the constraint name?</p>
+          
+          <p>Any one can think of a better approach?</p>
+          
+          <h4>Bean Validation class</h4>
+          
+          <pre><code>@interface CrossParameterConstraint {&#x000A;    public Class&lt;? extends CrossParameterConstraintValidator&lt;?&gt;&gt;[] validatedBy();&#x000A;}&#x000A;&#x000A;interface CrossParameterConstraintValidator&lt;A extends Annotation&gt; {&#x000A;    void initialize(A constraintAnnotation);&#x000A;    [...]&#x000A;}&#x000A;</code></pre>
+          
+          <blockquote><p>Question: does these different annotations/interfaces affect the metadata API?</p>
+          
+          <p>Question: can the same constraint annotation be annotated by both
+          <code>@Constraint</code> and <code>@CrossParameterConstraint</code>: <code>@ScriptAssert</code> is a good candidate
+          Note: how does composition plays into this?</p></blockquote>
+          
+          <p>The main problem I can see is that it is not possible to differentiate return value
+          constraints from cross-parameter constraints. I'm inclined to not allow it.</p>
+          
+          <h4>Constraint implementor code</h4>
+          
+          <pre><code>@CrossParameterConstraint(validatedBy=CheckRetypedPasswordValidator.class)&#x000A;@interface  CheckRetypedPasswordParameter {&#x000A;    String message() default "...";&#x000A;    Class&lt;?&gt;[] groups() default {};&#x000A;    class&lt;? extends Payload&gt;[] payload();&#x000A;}&#x000A;&#x000A;class CheckRetypedPasswordValidator implements&#x000A;        CrossParameterConstraintValidator&lt;CheckRetypedPasswordParameter&gt; {&#x000A;    ...&#x000A;}&#x000A;</code></pre>
+          
+          <h4>Constraint user code</h4>
+          
+          <pre><code>class AccountService {&#x000A;    //cross param constraints&#x000A;    @CheckRetypedPasswordParameter&#x000A;    //return value constraints&#x000A;    @Valid @NotNull&#x000A;    User createUser(@NotEmpty String username, @Email String email, String password, String retypedPassword);&#x000A;}&#x000A;</code></pre>
+          
+          <h3>What is the cross parameter constraint validator contract?</h3>
+          
+          <p>There has been two leading proposals. The others are described in the
+          <a href="/proposals/BVAL-241/#cross_parameter">previous proposal</a>.</p>
+          
+          <h4>Generic approach</h4>
+          
+          <pre><code>interface CrossParameterConstraintValidator&lt;A extends Annotations&gt; {&#x000A;    void initialize(...) { ... }&#x000A;    boolean isValid(Object[] parameterValues, ConstraintValidatorContext context);&#x000A;}&#x000A;</code></pre>
+          
+          <p>A given constraint <strong>cannot host more than one of these generic <code>CrossParameterConstraintValidator</code>
+          implementation</strong> or we would not be able to choose which one to use.</p>
+          
+          <h4>Type-safe approach (with annotation processors)</h4>
+          
+          <p>A more type-safe approach is to reuse the parameters signature of the method to match.
+          While the Java compiler cannot discover problems, both an annotation processor and the bean validation provider at runtime
+          can detect inconsistent contracts and raise respectively compilation errors and deployment time exception.</p>
+          
+          <pre><code>class CheckRetypedPasswordValidator implements&#x000A;        CrossParameterConstraintValidator&lt;CheckRetypedPasswordParameter&gt; {&#x000A;    void initialize(...) { ... }&#x000A;    boolean isValid(String username, String email, String password, String retypedPassword,&#x000A;                    ConstraintValidatorContext context) {&#x000A;        ...&#x000A;    }&#x000A;}&#x000A;</code></pre>
+          
+          <p>The goal of the type-safe constraint is to raise an error if the method signature changes.
+          It means that <strong>we cannot have both the generic method signature and a type-safe signature
+          for the same constraint</strong> or we would lose the type-safety mechanism.</p>
+          
+          <p>To keep options opened, we need to split the <strong>cross parameter constraint validator in two
+          interfaces</strong>:</p>
+          
+          <ul>
+          <li><code>CrossParameterConstraintValidator</code> hosting the <code>initialize</code> contract</li>
+          <li><code>GenericCrossParameterConstraintValidator</code> hosting the generic <code>isValid</code> method</li>
+          </ul>
+          
+          
+          <blockquote><p>Should we allow several type-safe method for a given validator or even for
+          a given constraint?</p></blockquote>
+          
+          <p>There is no good argument one way or the other as of today.</p>
+          
+          <blockquote><p>What would be the rules to decide if a method matches?</p></blockquote>
+          
+          <p>There are two approaches:</p>
+          
+          <ul>
+          <li>use exact matches (parameter types and numbers)</li>
+          <li>use the more sophisticated JLS rules around method overloading selection</li>
+          </ul>
+          
+          
+          <p>The later is definitely cleaner but the rules are not trivial to understand
+          and implement. On the other hand, that's idiomatic Java.
+          Do generics complicate the picture?</p>
+          
+          <h5>DIY type-safe approach</h5>
+          
+          <p>We can offer a <code>TypesafeCrossParameterConstraintValidator</code> abstract class that
+          needs to be extended and that will host the type-safe <code>isValid</code> method.
+          The generic <code>isValid</code> method would be implemented by <code>TypesafeCrossParameterConstraintValidator</code>
+          and implement the method selection.</p>
+          
+          <p>An alternative proposal would be to add a helper method to select the most specific
+          type-safe method. Such a method could be hosted on <code>CrossParameterConstraintValidator</code>
+          or on the context object.</p>
+          
+          <p>The alternative approach lets each bv provider implement the method selection logic.
+          However it asks more work from the constraint violation developer.</p>
+          
+          <h4>ConstraintViolation and Metadata API</h4>
+          
+          <blockquote><p>How to represent cross parameter constraints in <code>Constraintviolation</code>?</p>
+          
+          <p>What should <code>getInvalidValue()</code>/<code>getLeafBean()</code> return?</p></blockquote>
+          
+          <p>This is not 100% intuitive but we could return the <code>Object[]</code> of
+          parameters when <code>getInvalidValue()</code> is called.</p>
+          
+          <blockquote><p>What should <code>getPropertyPath()</code> return?</p></blockquote>
+          
+          <p>We likely need to introduce a <code>ParametersDescriptor</code> that would
+          represent this particular case. That seems the most natural approach.</p>
+          
+          <blockquote><p>Should the constraint violation report return the parameters being tested?</p></blockquote>
+          
+          <p>Today, cross-parameter constraints (or should it be constraint validators)
+          do not return the actual parameters being considered in violation.</p>
+          
+          <p>I imagine we could have a way to return parameter indexes as part of the
+          <code>ConstraintViolation</code> or the <code>ParametersDescriptor</code>.</p>
+          
+          <p>But do we want such a feature? And if yes, should it be statically defined or dynamically
+          defined. And if static, should it be hosted on the cross parameters
+          constraint or the cross parameters constraint validator implementation?</p>
+          
+          <p>One vehicle would be a tailored constraint violation builder that can add parameter
+          index(es). Alternative options are:</p>
+          
+          <ul>
+          <li>have <code>isValid</code> return the parameter indexes</li>
+          <li>add a constract to <code>CrossParameterConstraintViolation</code> returning the parameter indexes involved</li>
+          </ul>
+          
+          
+          <h4>Discussions</h4>
+          
+          <p>I think we must put the generic approach in because that's the only way to write non
+          method specific cross parameter constraints. Two examples of such constraints are</p>
+          
+          <ul>
+          <li>script based constraints</li>
+          <li>generic password retype checks based on the parameter indexes
+          <code>@AreEqual(indexes={2,3}, message="Passwords must be identical")</code></li>
+          </ul>
+          
+          
+          <p>So the remaining question is do we also support the type-safe approach in parallel?
+          There is debate in the expert group and many questions remain opened.
+          I think we should pursue the idea though and decide whether to include it or not at
+          a later stage.</p>
+          
+          <p>In terms of todo and priority, I think we should:</p>
+          
+          <ol>
+          <li>explore the idea of returning the parameter indexes involved</li>
+          <li>start with the generic approach and put that in the spec</li>
+          <li>add the type-safe approach as a proposal in the spec</li>
+          </ol>
+          
+                      <div id="disqus_thread"></div>
+                      <script type="text/javascript">
+                      var disqus_shortname = 'beanvalidation';
+                      var disqus_url = "http://beanvalidation.org/proposals/BVAL-232/";
+                      var disqus_developer = null;
+                      var disqus_identifier = null;
+                      (function() {
+                        var dsq = document.createElement("script"); dsq.type = "text/javascript"; dsq.async = true;
+                        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                        (document.getElementsByTagName("head")[0] || document.getElementsByTagName("body")[0]).appendChild(dsq);
+                      })();
+                      </script>
+                      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript=beanvalidation">comments powered by Disqus.</a></noscript>
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer class="container" id="widget-footer" role="contentinfo">
+    <hr>
+    <div class="row">
+      <div class="widget col-md-12 widget_text">
+        Copyright (c) Red Hat, Inc., Emmanuel Bernard
+        <a href="http://redhat.com" id="logo-redhat">Red Hat</a>
+      </div>
+    </div>
+  </footer>
+</html>

@@ -1,0 +1,157 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>
+      Bean Validation - How to contribute to this website
+    </title>
+    <link href="http://beanvalidation.org/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="http://beanvalidation.org/stylesheets/print.css" media="print" rel="stylesheet" type="text/css">
+    <!--[if lt IE 8]>
+      <link href="#{site.base_url}/stylesheets/ie.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <![endif]-->
+    <link href="#{site.base_url}/news/news.atom" rel="alternate" type="application/atom+xml">
+    <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="/javascripts/patternfly.js"></script>
+    <script src="/javascripts/bootstrap.js"></script>
+  </head>
+  <body>
+    <header role="banner">
+      <nav class="navbar navbar-default navbar-pf" role="navigation">
+        <div class="navbar-header">
+          <button class="navbar-toggle" data-target=".navbar-collapse-1" data-toggle="collapse" type="button">
+            <span class="sr-only">Toggle Navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="http://beanvalidation.org" id="logo" title="Bean Validation">
+            Bean Validation
+          </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-primary navbar-right" id="meny-primary">
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org">Home</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/news">News</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/1.1">Specification</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/1.1/tck">TCK</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/1.1/ri">RI</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/1.1/certified">Certified</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/contribute">Contribute</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/licensing">Licensing</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <div class="container" id="overview">
+      <div class="clearfix row" id="content">
+        <div class="col-sm-12 col-md-12 col-lg-12 clearfix" id="main">
+          <h1>How to contribute to this website</h1>
+          <p>This website's sources are hosted on GitHub at
+          <a href="https://github.com/beanvalidation/beanvalidation.org">https://github.com/beanvalidation/beanvalidation.org</a> and its pages are written
+          in <a href="http://daringfireball.net/projects/markdown/">Markdown</a> and simple and intuitive
+          markup language.</p>
+          
+          <p>Send a pull request with your changes and you are done.</p>
+          
+          <h2>infrastructure</h2>
+          
+          <p>You need to:</p>
+          
+          <ul>
+          <li>get Ruby</li>
+          <li>if on Mac OS, get XCode (needed for native gems)</li>
+          <li><code>gem install awestruct</code> or <code>sudo gem install awestruct</code></li>
+          <li><code>git clone git://github.com/beanvalidation/beanvalidation.org.git;cd beanvalidation.org</code></li>
+          </ul>
+          
+          
+          <h2>Serve the site locally</h2>
+          
+          <ul>
+          <li>Go in your <code>~/beanvalidation.org</code> directory.</li>
+          <li>Run  <code>awestruct -d</code></li>
+          <li>Open your browser to <a href="http://localhost:4242">http://localhost:4242</a></li>
+          </ul>
+          
+          
+          <p>Any change will be automatically picked up except for <code>_partials</code> files, <code>_base.css</code>
+          and sometimes new blog entries.</p>
+          
+          <h3>If your changes are not visible...</h3>
+          
+          <p>If for whatever reason you make some changes which don't show up, you can
+          completely regenerate the site:</p>
+          
+          <pre><code>awestruct -d --force&#x000A;</code></pre>
+          
+          <h3>If serving the site is slow...</h3>
+          
+          <p>On Linux, serving the file may be atrociously slow
+          (something to do with WEBRick).</p>
+          
+          <p>Use the following alternative:</p>
+          
+          <ul>
+          <li>Go in your <code>~/beanvalidation.org</code> directory.</li>
+          <li>Run  <code>awestruct --auto -P development</code></li>
+          <li>In parallel, go to the <code>~/beanvalidation.org/_site</code> directory</li>
+          <li>Run <code>python -m SimpleHTTPServer 4242</code></li>
+          </ul>
+          
+          
+          <p>You should be back to millisecond serving :)</p>
+          
+          <h2>Markup samples</h2>
+          
+          <p>You can find sample files in the Git repository itself for both .md and
+          .html.haml syntaxes. Look at them especially the .md file as it
+          shows how a page should be written and how to use syntax highlighting.</p>
+          
+          <p>Menus are in <code>_layout</code>. When you create a page, give it the right metadata:</p>
+          
+          <ul>
+          <li><code>title</code></li>
+          <li><code>author</code></li>
+          <li><code>layout</code></li>
+          <li><code>comments</code> (optional)</li>
+          </ul>
+          
+          
+          <p>When you set the <code>comments</code> property to <code>true</code>, a disqus comment section
+          is added at the bottom of the page.</p>
+          
+          <p>Here is an example</p>
+          
+          <pre><code>---&#x000A;title: How to contribute to this website&#x000A;layout: default&#x000A;author: Emmanuel Bernard&#x000A;---&#x000A;&#x000A;This is the content of my page.&#x000A;</code></pre>
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer class="container" id="widget-footer" role="contentinfo">
+    <hr>
+    <div class="row">
+      <div class="widget col-md-12 widget_text">
+        Copyright (c) Red Hat, Inc., Emmanuel Bernard
+        <a href="http://redhat.com" id="logo-redhat">Red Hat</a>
+      </div>
+    </div>
+  </footer>
+</html>

@@ -1,0 +1,210 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>
+      Bean Validation - Introduce an evaluation order for constraints defined on a single property
+    </title>
+    <link href="http://beanvalidation.org/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="http://beanvalidation.org/stylesheets/print.css" media="print" rel="stylesheet" type="text/css">
+    <!--[if lt IE 8]>
+      <link href="#{site.base_url}/stylesheets/ie.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <![endif]-->
+    <link href="#{site.base_url}/news/news.atom" rel="alternate" type="application/atom+xml">
+    <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="/javascripts/patternfly.js"></script>
+    <script src="/javascripts/bootstrap.js"></script>
+  </head>
+  <body>
+    <header role="banner">
+      <nav class="navbar navbar-default navbar-pf" role="navigation">
+        <div class="navbar-header">
+          <button class="navbar-toggle" data-target=".navbar-collapse-1" data-toggle="collapse" type="button">
+            <span class="sr-only">Toggle Navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="http://beanvalidation.org" id="logo" title="Bean Validation">
+            Bean Validation
+          </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-primary navbar-right" id="meny-primary">
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org">Home</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/news">News</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/1.1">Specification</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/1.1/tck">TCK</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/1.1/ri">RI</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/1.1/certified">Certified</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/contribute">Contribute</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/licensing">Licensing</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <div class="container" id="overview">
+      <div class="clearfix row" id="content">
+        <div class="col-sm-12 col-md-12 col-lg-12 clearfix" id="main">
+          <h1>Introduce an evaluation order for constraints defined on a single property</h1>
+          <p><a href="https://hibernate.onjira.com/browse/BVAL-248">Link to JIRA ticket</a></p>
+          
+          <h2>Goals</h2>
+          
+          <p>A popular use case requires to:</p>
+          
+          <ul>
+          <li>avoid running expensive/complex constraints before cheap/simple ones</li>
+          <li>still return at least one constraint failure per target (eg property)</li>
+          </ul>
+          
+          
+          <p>Group sequence as defined in 1.0 does not let you do that as it stops validation
+          globally for the subsequent groups if a failure is found.</p>
+          
+          <h2>Related issues</h2>
+          
+          <p>A partial solution for this could be provided by making sure <code>@ReportAsSingleViolation</code> does not
+          validate the composing constraint if a composed constraint fails. See <a href="https://hibernate.onjira.com/browse/BVAL-259">BVAL-259</a> and
+          <a href="https://hibernate.onjira.com/browse/BVAL-220">BVAL-220</a>.</p>
+          
+          <h2>Solutions</h2>
+          
+          <h3>Option 1: <code>@GroupSequence</code> with ordering scope</h3>
+          
+          <p>We can reuse group sequence but refine the scope of their execution from global to per target.
+          A target is a property (field, getter) or a class.</p>
+          
+          <pre><code>interface Cheap {}&#x000A;interface Expensive {}&#x000A;&#x000A;@GroupSequence(value={Cheap.class,Expensive.class}, scope=PER_TARGET)&#x000A;public class DomainObject {&#x000A;&#x000A;    @Size(max=50, groups=Cheap.class) // constraint 1a&#x000A;    @Pattern(regexp="[a-z]*", groups=Expensive.class)  // constraint 1b&#x000A;    private String name;&#x000A;&#x000A;    @Size(max=20, groups=Cheap.class) // constraint 2a&#x000A;    @URL(groups=Expensive.class) // constraint 2b&#x000A;    private String email;&#x000A;&#x000A;    @Size(max=100, groups=Cheap.class) // constraint 3a&#x000A;    @Pattern(regexp="[0-9]*", groups=Expensive.class) // constraint 3b&#x000A;    private String password;&#x000A;}&#x000A;</code></pre>
+          
+          <p>The default <code>@GroupSequence.scope</code> would be <code>GLOBAL</code> which is the current behavior. <code>PER_TARGET</code> would mean that sequences are
+          applied per target. We stop validating a specific target (property or class) for subsequent groups
+          of this sequence if a constraint fails on the target itself.</p>
+          
+          <p>In our example we could get the following constraint failures:</p>
+          
+          <ul>
+          <li>name: size beyond 50</li>
+          <li>email: not a url</li>
+          <li>password: too long</li>
+          </ul>
+          
+          
+          <p>This solution is not technically as orthogonal than a true salience model (see below).
+          In particular, to mix that with partial validation, one has to create one group sequence
+          per partial group. Is that a problem in practice? It already reduces the number of
+          interfaces to create by a whole lot.</p>
+          
+          <p>Also, one could write a preset of <code>PER_TARGET</code> group sequence and reuse it across all the project.</p>
+          
+          <p>We can apply the same kind of ordering solution on <code>@ReportAsSingleViolation</code>.</p>
+          
+          <h3>Option 2: Add explicit <em>order</em> parameter to constraints</h3>
+          
+          <p>We can't rely on the order annotations are declared in the source file as Java compilers and runtime do not
+          guarantee that. We might work around that with annotation processors or ways to read data from the bytecode
+          but I'd see that as overkill. <strong>Thoughts?</strong> So we need explicit order numbers defining a proper ordering.</p>
+          
+          <pre><code>public class DomainObject {&#x000A;&#x000A;   @ConstraintSequence(value={PER_TARGET))&#x000A;   @Size(max=50, ordering=1) // constraint 1a&#x000A;   @Pattern(regexp="[a-z]*", ordering=2)  // constraint 1b&#x000A;   private String name;&#x000A;&#x000A;   @ConstraintSequence(value={PER_TARGET))&#x000A;   @Size(max=20,  ordering=1) // constraint 2a&#x000A;   @URL(ordering=2) // constraint 2b&#x000A;   private String email;&#x000A;&#x000A;   @ConstraintSequence(value={PER_TARGET))&#x000A;   @Size(max=100, ordering=1) // constraint 3a&#x000A;   @Pattern(regexp="[0-9]*", ordering=2) // constraint 3b&#x000A;   private String password;&#x000A;}&#x000A;</code></pre>
+          
+          <p>Constraints with lower numbers would be executed before constraints with higher numbers.</p>
+          
+          <p>Ordering would be an orthogonal concern to groups entirely which is a plus compared to Option 1.
+          But numbers are:</p>
+          
+          <ul>
+          <li>inelegant</li>
+          <li>meaningless per se and not self documented</li>
+          <li>error prone: it's easy to have strange behaviors because someone changes one of the numbers</li>
+          <li>hard to reorder or insert if not properly anticipated - think Basic line numbers (10, 20, 30, 35, 37, 38, 40, 50) :)</li>
+          </ul>
+          
+          
+          <p>This solution will only work on constraints written for Bean Validation 1.1 and above as we would require
+          to add an <code>order</code> parameter to the constraint. There are two options, use an annotation on the param definition
+          or use the <code>valid</code> prefix.</p>
+          
+          <pre><code>@Constraint(validatedBy = {})&#x000A;@interface Size {&#x000A;    ...&#x000A;    @javax.validation.constraint.param.Order int order default 0;&#x000A;}&#x000A;&#x000A;//or&#x000A;&#x000A;@Constraint(validatedBy = {})&#x000A;@interface Size {&#x000A;    ...&#x000A;    int validOrder default 0;&#x000A;}&#x000A;</code></pre>
+          
+          <p>Older constraints not defining order will be executed before the other ones.</p>
+          
+          <p>Questions:</p>
+          
+          <ul>
+          <li>should number ordering be honored per target only? Or globally? Or should it be configurable?
+          What about inheritance? If per target, that would probably reduce some of the candidates for bugs.
+          Inheritance would still be a problem.</li>
+          </ul>
+          
+          
+          <p>Note that global ordering might reduce performance of Bean Validation engines.</p>
+          
+          <h3>Option 3: <code>@ConstraintSequence</code></h3>
+          
+          <p>The general idea is to define the sequence of constraints as it should be applied</p>
+          
+          <pre><code>@NotEmpty()&#x000A;@IsValidBinCodeNumber()&#x000A;@IsCardBannedNumber()&#x000A;@IsValidCardNumber()&#x000A;@ConstraintSequence(value={NotEmpty.class, IsValidBinCodeNumber.class,IsCardBannedNumber.class, IsValidCardNumber.class},&#x000A;                    shortCirtcuit=true)&#x000A;private String creditCard;&#x000A;</code></pre>
+          
+          <p>It suffers a few drawbacks:</p>
+          
+          <ul>
+          <li>does not accept parameters</li>
+          <li>does not accept multiple constraints of the same type</li>
+          <li>cannot do parallel reports (ie all errors of order=1) but that's a lesser concern</li>
+          </ul>
+          
+          
+          <p>So in its current form is not usable.</p>
+          
+          <h3>Number groups</h3>
+          
+          <p>We can offer number groups to reduce the number of groups a user has to declare.</p>
+          
+          <pre><code>package javax.validation.groups;&#x000A;&#x000A;@GroupSequence({Level1.class, Level2.class, Level3.class, Level4.class, Level5.class, Level6.class, Level7.class, Level8.class, Level9.class, Level10.class})&#x000A;interface Order {&#x000A;    interface Level1 {}&#x000A;    interface Level2 {}&#x000A;    interface Level3 {}&#x000A;    ...&#x000A;    interface Level10 {}&#x000A;}&#x000A;</code></pre>
+          
+          <p>I am not a big fan of this solution though.</p>
+          
+                      <div id="disqus_thread"></div>
+                      <script type="text/javascript">
+                      var disqus_shortname = 'beanvalidation';
+                      var disqus_url = "http://beanvalidation.org/proposals/BVAL-248/";
+                      var disqus_developer = null;
+                      var disqus_identifier = null;
+                      (function() {
+                        var dsq = document.createElement("script"); dsq.type = "text/javascript"; dsq.async = true;
+                        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                        (document.getElementsByTagName("head")[0] || document.getElementsByTagName("body")[0]).appendChild(dsq);
+                      })();
+                      </script>
+                      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript=beanvalidation">comments powered by Disqus.</a></noscript>
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer class="container" id="widget-footer" role="contentinfo">
+    <hr>
+    <div class="row">
+      <div class="widget col-md-12 widget_text">
+        Copyright (c) Red Hat, Inc., Emmanuel Bernard
+        <a href="http://redhat.com" id="logo-redhat">Red Hat</a>
+      </div>
+    </div>
+  </footer>
+</html>

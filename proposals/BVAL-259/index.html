@@ -1,0 +1,122 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>
+      Bean Validation - Enforce evaluation of composed constraints stops on first validation error in case of @ReportAsSingleViolation
+    </title>
+    <link href="http://beanvalidation.org/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="http://beanvalidation.org/stylesheets/print.css" media="print" rel="stylesheet" type="text/css">
+    <!--[if lt IE 8]>
+      <link href="#{site.base_url}/stylesheets/ie.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <![endif]-->
+    <link href="#{site.base_url}/news/news.atom" rel="alternate" type="application/atom+xml">
+    <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="/javascripts/patternfly.js"></script>
+    <script src="/javascripts/bootstrap.js"></script>
+  </head>
+  <body>
+    <header role="banner">
+      <nav class="navbar navbar-default navbar-pf" role="navigation">
+        <div class="navbar-header">
+          <button class="navbar-toggle" data-target=".navbar-collapse-1" data-toggle="collapse" type="button">
+            <span class="sr-only">Toggle Navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="http://beanvalidation.org" id="logo" title="Bean Validation">
+            Bean Validation
+          </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-primary navbar-right" id="meny-primary">
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org">Home</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/news">News</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/1.1">Specification</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/1.1/tck">TCK</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/1.1/ri">RI</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/1.1/certified">Certified</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/contribute">Contribute</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/licensing">Licensing</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <div class="container" id="overview">
+      <div class="clearfix row" id="content">
+        <div class="col-sm-12 col-md-12 col-lg-12 clearfix" id="main">
+          <h1>Enforce evaluation of composed constraints stops on first validation error in case of @ReportAsSingleViolation</h1>
+          <p><a href="https://hibernate.onjira.com/browse/BVAL-259">Link to JIRA ticket</a></p>
+          
+          <h2>Goals</h2>
+          
+          <p>The BV spec currently says in a note:</p>
+          
+          <blockquote><p>If a composing constraint fails and if the composed constraint is marked as @ReportAsSingleViolation,
+          the Bean Validation provider is free to not process the other composing constraints for this composed constraint.</p></blockquote>
+          
+          <p>However, this behavior is not enforced. The aim is to mandate this behavior and make it potentially
+          configurable (<a href="https://hibernate.onjira.com/browse/BVAL-220">BVAL-220</a>)</p>
+          
+          <h2>Related issues</h2>
+          
+          <p>Let composed constraint return the message of the first failing constraint (<a href="https://hibernate.onjira.com/browse/BVAL-261">BVAL-261</a>),
+          eg:</p>
+          
+          <pre><code>@ReportAsSingleViolation(messageSource=ByOriginatingConstraint)&#x000A;</code></pre>
+          
+          <h2>Solutions</h2>
+          
+          <h3>Option 1: Just enforce the behavior which is currently jsut added as a note</h3>
+          
+          <h3>Option 2: Make the behavior configurable</h3>
+          
+          <p>For example:</p>
+          
+          <pre><code>@ReportAsSingleViolation(shortCircuit=true)&#x000A;@NotNull&#x000A;@Constraint(validatedBy=MyValidator)&#x000A;public @interface MyConstraint {}&#x000A;</code></pre>
+          
+                      <div id="disqus_thread"></div>
+                      <script type="text/javascript">
+                      var disqus_shortname = 'beanvalidation';
+                      var disqus_url = "http://beanvalidation.org/proposals/BVAL-259/";
+                      var disqus_developer = null;
+                      var disqus_identifier = null;
+                      (function() {
+                        var dsq = document.createElement("script"); dsq.type = "text/javascript"; dsq.async = true;
+                        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                        (document.getElementsByTagName("head")[0] || document.getElementsByTagName("body")[0]).appendChild(dsq);
+                      })();
+                      </script>
+                      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript=beanvalidation">comments powered by Disqus.</a></noscript>
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer class="container" id="widget-footer" role="contentinfo">
+    <hr>
+    <div class="row">
+      <div class="widget col-md-12 widget_text">
+        Copyright (c) Red Hat, Inc., Emmanuel Bernard
+        <a href="http://redhat.com" id="logo-redhat">Red Hat</a>
+      </div>
+    </div>
+  </footer>
+</html>

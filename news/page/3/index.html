@@ -1,0 +1,447 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>
+      Bean Validation - News
+    </title>
+    <link href="http://beanvalidation.org/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="http://beanvalidation.org/stylesheets/print.css" media="print" rel="stylesheet" type="text/css">
+    <!--[if lt IE 8]>
+      <link href="#{site.base_url}/stylesheets/ie.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <![endif]-->
+    <link href="#{site.base_url}/news/news.atom" rel="alternate" type="application/atom+xml">
+    <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="/javascripts/patternfly.js"></script>
+    <script src="/javascripts/bootstrap.js"></script>
+  </head>
+  <body>
+    <header role="banner">
+      <nav class="navbar navbar-default navbar-pf" role="navigation">
+        <div class="navbar-header">
+          <button class="navbar-toggle" data-target=".navbar-collapse-1" data-toggle="collapse" type="button">
+            <span class="sr-only">Toggle Navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="http://beanvalidation.org" id="logo" title="Bean Validation">
+            Bean Validation
+          </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-primary navbar-right" id="meny-primary">
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org">Home</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/news">News</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/1.1">Specification</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/1.1/tck">TCK</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/1.1/ri">RI</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/1.1/certified">Certified</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/contribute">Contribute</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/licensing">Licensing</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <div class="container" id="overview">
+      <div class="clearfix row" id="content">
+        <div class="col-sm-9 col-md-9 col-lg-9 clearfix" id="main">
+          <article class="post">
+            <header>
+              <h1 class="title">
+                <a href="/news/2012/12/18/bean-validation-in-the-press/">Bean Validation in the press</a>
+              </h1>
+              <span class="author">
+                by
+                <b>Gunnar Morling</b>
+              </span>
+              <span class="date">
+                on 18 Dec 2012
+              </span>
+              <span class="tags">
+                <a class="label label-info" href="/news/tags/press/">press</a>
+              </span>
+            </header>
+            <div class="body">
+              <p>The German journal <a href="http://www.javamagazin.de/">Javamagazin</a> recently
+              published an article about the works on Bean Validation 1.1. The article
+              is full of praise for the new version in general and our open,
+              community-centered way of creating the spec in particular.</p>
+              
+              <p>The publisher and authors generously provided us with a PDF of the article
+              which you can download <a href="/downloads/javamagazin_2012_10_Einer_fuer_alle_alle_fuer_einen_Bean_Validation_1_1.pdf">here</a>.
+              Alternatively you can also read the article
+              <a href="http://it-republik.de/jaxenter/artikel/Einer-fuer-alle-%96-alle-fuer-einen-Bean-Validation-1.1-5372.html">online</a>.</p>
+               <a href="http://beanvalidation.org/news/2012/12/18/bean-validation-in-the-press/#disqus_thread">Comments</a>
+            </div>
+          </article>
+          <article class="post">
+            <header>
+              <h1 class="title">
+                <a href="/news/2012/12/11/should-getters-be-considered-methods/">Should getters be validated when they are called?</a>
+              </h1>
+              <span class="author">
+                by
+                <b>Emmanuel Bernard</b>
+              </span>
+              <span class="date">
+                on 11 Dec 2012
+              </span>
+              <span class="tags">
+                <a class="label label-info" href="/news/tags/feedback/">feedback</a>
+              </span>
+            </header>
+            <div class="body">
+              <p>The expert group is agonizing on a specific issue. We need your
+              feedback. Should getters be considered <em>regular</em> methods and thus be validated
+              when called?</p>
+              
+              <h2>The problem</h2>
+              
+              <p>Existing applications put Bean Validation constraints on properties
+              (ie getters). If we enable validations when getters are called, some
+              applications might fail and Bean Validation would not be backward
+              compatible. Besides, it is unlikely that you want to validate genuine getters
+              when they are called. These are state, not operations for the most part.</p>
+              
+              <p>First off what does it mean to be a getter. A method is a getter if:</p>
+              
+              <ul>
+              <li>its name starts with <code>is</code>, has no parameter and its return type is <code>Boolean</code></li>
+              <li>or its name starts with <code>get</code> and has not parameter</li>
+              </ul>
+              
+              
+              <p>If in your service (say a CDI bean), you have an action method with
+              no parameter and starting with <code>get</code>, and if you have added constraints
+              to validate the return value upon method call, we cannot differentiate
+              this action method from a genuine getter.</p>
+              
+              <p>We have several solutions to work around the problem and we would like
+              to know which one you prefer.</p>
+              
+              <h2>Solutions</h2>
+              
+              <p>We can use a few levers to work around the issue:</p>
+              
+              <ul>
+              <li>ask you to enable method validation explicitly</li>
+              <li>offer a coarse or fine grained solution to change the default behavior</li>
+              </ul>
+              
+              
+              <h3>Solution 1: enable method validation out of the box</h3>
+              
+              <p>If method validation is enabled out of the box then the sensible default is
+              to exclude getters from method validation.</p>
+              
+              <p>This approach is friendly out of the box and will work as expected most of
+              the time (except for action methods with no parameter, starting with <code>get</code>
+              and with constraints on the return value).</p>
+              
+              <p>The downside of this approach is that in this very specific case where
+              an action method is also a getter, method validation would be disabled
+              out of the box and a manual intervention would be necessary.</p>
+              
+              <p>You can change the default approach in two ways:</p>
+              
+              <h4>Solution 1.a: global flag</h4>
+              
+              <p>Use a global flag to disable method validation entirely or ask for getters
+              to be validated upon call. You would use <code>validation.xml</code> for that:</p>
+              
+              <pre><code>&lt;method-validation mode="INCLUDE_GETTERS"/&gt;&#x000A;</code></pre>
+              
+              <p>There is no way to change the behavior for a specific (set of) class.</p>
+              
+              <h4>Solution 1.b: fine grained flag</h4>
+              
+              <p>An alternative solution is to change method validation behavior in a
+              much more fine-grained approach:</p>
+              
+              <ul>
+              <li>set the default approach globally
+              in <code>validation.xml</code></li>
+              <li>set or override the setting for a given package (including sub-packages?)
+              via <code>@ValidateOnCall</code> as a package annotation (or <code>validation.xml</code>)</li>
+              <li>set or override the setting for a given class
+              via <code>@ValidateOnCall</code> as a type annotation (or <code>validation.xml</code>)</li>
+              <li>set or override the setting for a given method
+              via <code>@ValidateOnCall</code> as a method annotation (or <code>validation.xml</code>)</li>
+              </ul>
+              
+              
+              <p>A <code>@ValidateOnCall</code> annotation can be overridden in <code>validation.xml</code> like we do for
+              constraints declarations.</p>
+              
+              <pre><code>public class AwesomeService {&#x000A;    // not a getter - validated by default&#x000A;    @NotNull Currency provideMainCurrency(@ISO @NotNull String country) { ... }&#x000A;&#x000A;    // not a getter - validated by default&#x000A;    @NotNull Currency getAlternativeCurrencies(@ISO @NotNull String country) { ... }&#x000A;&#x000A;    // getter - must use @ValidateOnCall to activate&#x000A;    @ValidateOnCall(mode=INCLUDE_GETTERS)&#x000A;    @NotNull getAllCurrencies() { ... }&#x000A;}&#x000A;</code></pre>
+              
+              <p>Note that, we could put <code>@ValidateOnCall(mode=INCLUDE_GETTERS)</code> on the package
+              of service classes</p>
+              
+              <pre><code>@ValidateOnCall(mode=INCLUDE_GETTERS)&#x000A;package com.acme.gladiator.action;&#x000A;</code></pre>
+              
+              <p>In this case, <code>getAllCurrencies()</code> does not need to be annotated with <code>@ValidateOnCall</code>.</p>
+              
+              <h3>Solution 2: disable method validation out of the box</h3>
+              
+              <p>In this situation, a user wanting to enable method validation needs to both:</p>
+              
+              <ul>
+              <li>add the constraints on methods</li>
+              <li>add the flag to enable method validation</li>
+              </ul>
+              
+              
+              <p>The method validation flag would both allow it to be enabled and decide if getters
+              should be considered.</p>
+              
+              <p>This approach is the least surprise approach as nothing is happening that you
+              have not explicitly asked for. The drawback is that it requires a manual intervention to enable
+              method validation in a given archive which is not groovy.</p>
+              
+              <h4>Solution 2.a: global flag</h4>
+              
+              <p>For all archives using method validation, a <code>META-INF/validation.xml</code> file must
+              be added. The file would contain the explicit setting:</p>
+              
+              <pre><code>&lt;method-validation mode="INCLUDE_GETTER"/&gt;&#x000A;</code></pre>
+              
+              <p>There is no way to change the behavior for a specific (set of) classes.</p>
+              
+              <h4>Solution 2.b: fine grained flag</h4>
+              
+              <p>As described in the previous section, we could enable method validation at
+              the package, class and method level using either a <code>@ValidateOnCall</code> annotation
+              or via the <code>validation.xml</code>. In this approach, <code>validation.xml</code> is not mandatory
+              to enable method validation provided that you use <code>@ValidateOnCall</code> in your code.</p>
+              
+              <h2>So what's your favorite?</h2>
+              
+              <p>My personal favorite is to enable non-getter method validation out of the
+              box and offer fine-grained options to override the behavior. That's solution
+              1.b. My reasoning is the following:</p>
+              
+              <ul>
+              <li>I want ease of use and method validation enabled by default</li>
+              <li>actions methods named like a getter, with no parameter and constraints
+              on its return value will be rare - return value constraint are less common
+              than parameter methods</li>
+              </ul>
+              
+              
+              <p>Some in the expert group do prefer solution 2.a or 2.b.</p>
+              
+              <p>What's your take? And why do you prefer this approach?</p>
+               <a href="http://beanvalidation.org/news/2012/12/11/should-getters-be-considered-methods/#disqus_thread">Comments</a>
+            </div>
+          </article>
+          <article class="post">
+            <header>
+              <h1 class="title">
+                <a href="/news/2012/11/29/public-review-ballot/">Public review ballot favorable to Bean Validation 1.1</a>
+              </h1>
+              <span class="author">
+                by
+                <b>Emmanuel Bernard</b>
+              </span>
+              <span class="date">
+                on 29 Nov 2012
+              </span>
+              <span class="tags">
+                <a class="label label-info" href="/news/tags/jcp/">jcp</a>
+              </span>
+            </header>
+            <div class="body">
+              <p>The Java expert comity has <a href="http://jcp.org/en/jsr/results?id=5386">just approved</a>
+              the public review version of Bean Validation 1.1.</p>
+              
+              <p>What does that mean for the spec? We keep going and carry on our work
+              to finalize the specification.</p>
+              
+              <p>Onwards.</p>
+               <a href="http://beanvalidation.org/news/2012/11/29/public-review-ballot/#disqus_thread">Comments</a>
+            </div>
+          </article>
+          <article class="post">
+            <header>
+              <h1 class="title">
+                <a href="/news/2012/11/27/1-1-beta2-is-out/">Bean Validation 1.1 Beta 2 is out</a>
+              </h1>
+              <span class="author">
+                by
+                <b>Emmanuel Bernard</b>
+              </span>
+              <span class="date">
+                on 27 Nov 2012
+              </span>
+              <span class="tags">
+                <a class="label label-info" href="/news/tags/release/">release</a>
+              </span>
+            </header>
+            <div class="body">
+              <p>With Hibernate Validation, the reference implementation catching
+              up with the public review draft, we found a couple of minor glitches
+              to actually implement the specification. We did a minor release
+              to fix those glitches.</p>
+              
+              <p>Check out the <a href="/1.1/spec/1.1.0.beta2">specification</a> and make sure to
+              use 1.1.0.Beta2 if you plan on implementing the specification early.</p>
+               <a href="http://beanvalidation.org/news/2012/11/27/1-1-beta2-is-out/#disqus_thread">Comments</a>
+            </div>
+          </article>
+          <article class="post">
+            <header>
+              <h1 class="title">
+                <a href="/news/2012/10/22/release-1-1-public-review/">Public Review Draft for Bean Validation 1.1</a>
+              </h1>
+              <span class="author">
+                by
+                <b>Emmanuel Bernard</b>
+              </span>
+              <span class="date">
+                on 22 Oct 2012
+              </span>
+              <span class="tags">
+                <a class="label label-info" href="/news/tags/release/">release</a>
+              </span>
+            </header>
+            <div class="body">
+              <p>Last Friday I have handed over the Public Review Draft to the JCP.</p>
+              
+              <p>Beyond the new features and polishing of existing ones (see below),
+              the Public Review Draft marks the point where:</p>
+              
+              <ul>
+              <li>the community at large is invited to comment on the specification before the last
+              leg of work towards the final release starts</li>
+              <li>the JCP executive commitee votes on the current work at the end of the review
+              period</li>
+              </ul>
+              
+              
+              <p>We have been doing our work in the open but if you have not yet paid much attention
+              now is the time to fix that :)</p>
+              
+              <p>You can <a href="/1.1/spec/1.1.0.beta1/?utm_source=blog&amp;utm_medium=web&amp;utm_content=spec&amp;utm_campaign=1_1_pr1">access the draft on this website</a>.
+              All changes are marked with a different
+              color. <span style="background-color:#DDFFDD;">Green for additions</span>,
+              <span style="background-color:#FFFFDD;">yellow for changes</span> and
+              <span style="text-decoration: line-through;background-color: #FFDDDD;">struck through red for removals</span>
+              . This will help you see what has changed precisely.</p>
+              
+              <p>Please send us your remarks and comments:</p>
+              
+              <ul>
+              <li>on our <a href="https://lists.jboss.org/mailman/listinfo/beanvalidation-dev">mailing list</a></li>
+              <li>in our <a href="/issues">issue tracker</a></li>
+              <li>or on the Bean Validation <a href="https://forum.hibernate.org/viewforum.php?f=26">forum</a></li>
+              </ul>
+              
+              
+              <p>If you want to go to the next step and contribute, send us an email to
+              the mailing list and read <a href="/contribute/">how to contribute</a>.</p>
+              
+              <h2>What's new in this draft</h2>
+              
+              <p>A lot of work has been done to polish or rework the features introduced
+              in the first draft. We have also added a few additional improvements:</p>
+              
+              <ul>
+              <li>improved integration with CDI: dependency injection, component
+              lifecycle management and interception for method validation</li>
+              <li>add rules describing method validation in particular how an interception
+              technology ought to integrate: this will offer better portability</li>
+              <li>add support for cross parameter validators on method validation</li>
+              <li>add metadata APIs to identify constrained methods</li>
+              <li>add support for group conversion (i.e., change the targeted group when
+              cascading validation)</li>
+              <li>clarify that composed constraints should fail fast when <code>@RepostAsSingleViolation</code>
+              is present</li>
+              <li>support <code>CharSequence</code> (used to be <code>String</code>) for built-in constraints</li>
+              </ul>
+              
+              
+              <h2>Contributions</h2>
+              
+              <p>As usual, many thanks to the community for its feedback, the expert group for its
+              work. Special thanks to Gunnar and Hardy who worked round the clock this past two
+              weeks to integrate all planned improvements in the specification document.</p>
+               <a href="http://beanvalidation.org/news/2012/10/22/release-1-1-public-review/#disqus_thread">Comments</a>
+            </div>
+          </article>
+          <div class="pagination-links"><a href="/news/page/2/" class="previous-link">Previous</a> <a href="/news/" class="page-link">1</a> <a href="/news/page/2/" class="page-link">2</a> <span class="current-page">3</span> <a href="/news/page/4/" class="page-link">4</a> <a href="/news/page/5/" class="page-link">5</a> <a href="/news/page/6/" class="page-link">6</a> <a href="/news/page/4/" class="next-link">Next</a> </div>
+        </div>
+        <div class="sidebar sidebar-right col-sm-3 col-md-3 col-lg-3" id="sidebar" role="complementary">
+          <div id="newsfeed">
+            <h2>
+              <a href="http://beanvalidation.org/news/news.atom"><img alt="atom feed" src="http://beanvalidation.org/images/feed-icon-28x28.png"></a>
+              <a href="http://beanvalidation.org/news/news.atom">
+                Latest news
+              </a>
+            </h2>
+            <div id="newsfeed-message">
+              Stay up to date, subscribe to the&nbsp;<a href="http://beanvalidation.org/news/news.atom">news feed</a>.
+            </div>
+          </div>
+          <a class="news-link" href="/news/2015/06/18/bean-validation-tck-1-1-4-released/">Bean Validation TCK 1.1.4.Final released</a>
+          <a class="news-link" href="/news/2014/06/18/bean-validation-tcks-now-with-support-for-java-se-8/">Bean Validation TCKs now with signature files for Java SE 8</a>
+          <a class="news-link" href="/news/2014/05/28/training-materials/">Training materials on Bean Validation 1.1</a>
+          <a class="news-link" href="/news/2013/06/04/xml-namespace-and-jcp/">XML namespace and JCP</a>
+          <a class="news-link" href="/news/2013/05/02/bean-validation-1-1-is-a-spec/">Bean Validation 1.1 is a spec</a>
+          <a class="news-link" href="/news/2013/03/21/bean-validation-1-1-final-approval-ballot/">Bean Validation 1.1 CR3 - Final Approval Ballot</a>
+          <a class="news-link" href="/news/2013/02/20/bean-validation-1-1-proposed-final-draft/">Bean Validation 1.1 CR1 - Proposed Final Draft</a>
+          <a class="news-link" href="/news/2013/02/15/bean-validation-1-1-beta4/">Bean Validation 1.1 Beta 4 - issue smashing edition</a>
+          <a class="news-link" href="/news/2013/02/05/javaspotlight-podcast-on-bean-validation-1-1/">Java Spotlight Podcast on Bean Validation 1.1</a>
+          <a class="news-link" href="/news/2013/02/01/bean-validation-1-1-beta3-last-line/">Bean Validation 1.1 Beta 3 - the last line</a>
+          <a class="news-link" href="/news/2012/12/18/bean-validation-in-the-press/">Bean Validation in the press</a>
+          <a class="news-link" href="/news/2012/12/11/should-getters-be-considered-methods/">Should getters be validated when they are called?</a>
+          <a class="news-link" href="/news/2012/11/29/public-review-ballot/">Public review ballot favorable to Bean Validation 1.1</a>
+          <a class="news-link" href="/news/2012/11/27/1-1-beta2-is-out/">Bean Validation 1.1 Beta 2 is out</a>
+          <a class="news-link" href="/news/2012/10/22/release-1-1-public-review/">Public Review Draft for Bean Validation 1.1</a>
+          <a class="news-link" href="/news/2012/09/12/fine-control-over-method-validation/">Fine control over method validation in Bean Validation... or not!</a>
+          <a class="news-link" href="/news/2012/08/31/big-push-on-bean-validation/">Big push on Bean Validation 1.1</a>
+          <a class="news-link" href="/news/2012/08/29/methodvalidation-inheritance/">Method validation and inheritance - feedback needed!</a>
+          <a class="news-link" href="/news/2012/06/28/hibernate-validator-5-alpha/">Hibernate Validator 5 alpha for Bean Validation 1.1 is out</a>
+          <a class="news-link" href="/news/2012/06/06/continuous-publication-specification-snapshot/">Continuous publication of the specification snapshot</a>
+          <a class="news-link" href="/news/2012/03/28/jcp-release-1-1-edr1/">Bean Validation 1.1 officially reaches the JCP</a>
+          <a class="news-link" href="/news/2012/03/16/artifacts-1-1-edr1/">Code artifacts published for Bean Validation 1.1 early draft 1</a>
+          <a class="news-link" href="/news/2012/03/13/release-1-1-edr1/">Bean Validation 1.1 early draft 1 is out - time for feedback</a>
+          <a class="news-link" href="/news/2012/02/01/method-level-proposal/">Proposal for method validation added</a>
+          <a class="news-link" href="/news/2011/10/21/dependency-injection-proposal/">Adding proposal section and first proposal</a>
+          <a class="news-link" href="/news/2011/09/16/method-level-validation/">Work on method level validation</a>
+          <a class="news-link" href="/news/2011/09/01/spec-repository-out/">The specification repository is released</a>
+          <a class="news-link" href="/news/2011/07/23/voted-yes/">Bean Validation has been voted yes!</a>
+          <a class="news-link" href="/news/2011/07/22/review-ballot/">Bean Validation in review ballot</a>
+          <a class="news-link" href="/news/2011/07/21/Site-is-live/">The website is live!</a>
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer class="container" id="widget-footer" role="contentinfo">
+    <hr>
+    <div class="row">
+      <div class="widget col-md-12 widget_text">
+        Copyright (c) Red Hat, Inc., Emmanuel Bernard
+        <a href="http://redhat.com" id="logo-redhat">Red Hat</a>
+      </div>
+    </div>
+  </footer>
+</html>

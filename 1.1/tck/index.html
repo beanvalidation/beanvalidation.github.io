@@ -1,0 +1,112 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>
+      Bean Validation - Bean Validation 1.1 TCK
+    </title>
+    <link href="http://beanvalidation.org/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="http://beanvalidation.org/stylesheets/print.css" media="print" rel="stylesheet" type="text/css">
+    <!--[if lt IE 8]>
+      <link href="#{site.base_url}/stylesheets/ie.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <![endif]-->
+    <link href="#{site.base_url}/news/news.atom" rel="alternate" type="application/atom+xml">
+    <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="/javascripts/patternfly.js"></script>
+    <script src="/javascripts/bootstrap.js"></script>
+  </head>
+  <body>
+    <header role="banner">
+      <nav class="navbar navbar-default navbar-pf" role="navigation">
+        <div class="navbar-header">
+          <button class="navbar-toggle" data-target=".navbar-collapse-1" data-toggle="collapse" type="button">
+            <span class="sr-only">Toggle Navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="http://beanvalidation.org" id="logo" title="Bean Validation">
+            Bean Validation
+          </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-primary navbar-right" id="meny-primary">
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org">Home</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/news">News</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/1.1">Specification</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/1.1/tck">TCK</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/1.1/ri">RI</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/1.1/certified">Certified</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/contribute">Contribute</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/licensing">Licensing</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <div class="container" id="overview">
+      <div class="clearfix row" id="content">
+        <div class="col-sm-12 col-md-12 col-lg-12 clearfix" id="main">
+          <h1>Bean Validation 1.1 TCK</h1>
+          <p>A TCK, or Technology Compatibility Kit, is one of the three required pieces for any JSR
+          (the other two being the specification document and the reference implementation). The TCK is a set
+          of tools and tests to verify that an implementation of the technology conforms to the specification.</p>
+          
+          <p>The Bean Validation 1.1 TCK is licensed under the Apache Software License 2.0 and hosted in a GitHub
+          <a href="https://github.com/beanvalidation/beanvalidation-tck">repository</a>.
+          The repository consists of multiple artifacts, containing tooling, documentation and most importantly
+          a set of <a href="http://arquillian.org/">Arquillian</a> tests. There are also two
+          <a href="https://github.com/beanvalidation/beanvalidation-tck/tree/master/setup-examples">setup examples</a>,
+          demonstrating the setup of the test harness using Maven and Ant.</p>
+          
+          <p>The Bean Validation 1.1 TCK is built using Maven and publishes project artifacts to the JBoss Maven Repository.
+          You can browse the available TCK releases
+          <a href="http://repository.jboss.org/nexus/content/groups/public-jboss/org/hibernate/beanvalidation/tck">here</a>.</p>
+          
+          <p>The latest version used to test Bean Validation 1.1 (JSR 349) is:</p>
+          
+          <pre><code>&lt;dependency&gt;&#x000A;    &lt;groupId&gt;org.hibernate.beanvalidation.tck&lt;/groupId&gt;&#x000A;    &lt;artifactId&gt;beanvalidation-tck-tests&lt;/artifactId&gt;&#x000A;    &lt;version&gt;1.1.4.Final&lt;/version&gt;&#x000A;&lt;/dependency&gt;&#x000A;</code></pre>
+          
+          <p>Distribution bundles are available on the SourceForge
+          <a href="http://sourceforge.net/projects/hibernate/files/beanvalidation-tck">File Release System</a> and come as
+          <a href="http://sourceforge.net/projects/hibernate/files/beanvalidation-tck/1.1.4.Final/beanvalidation-tck-dist-1.1.4.Final.zip/download">ZIP</a>
+          or <a href="http://sourceforge.net/projects/hibernate/files/beanvalidation-tck/1.1.4.Final/beanvalidation-tck-dist-1.1.4.Final.tar.gz/download">TGZ</a>
+          archive.
+          They contain JARs, documentation, source code, et al.</p>
+          
+          <p>You can find the TCK reference manual also online in three different formats -
+          <a href="http://docs.jboss.org/hibernate/beanvalidation/tck/1.1/reference/html">html</a>,
+          <a href="http://docs.jboss.org/hibernate/beanvalidation/tck/1.1/reference/html_single/">html (single-page)</a>,
+          <a href="http://docs.jboss.org/hibernate/beanvalidation/tck/1.1/reference/pdf/beanvalidation-tck-documentation.pdf">PDF</a>.</p>
+          
+          <p>To report a bug or challenge a test use our <a href="https://hibernate.atlassian.net/browse/BVTCK">issue tracker</a>.</p>
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer class="container" id="widget-footer" role="contentinfo">
+    <hr>
+    <div class="row">
+      <div class="widget col-md-12 widget_text">
+        Copyright (c) Red Hat, Inc., Emmanuel Bernard
+        <a href="http://redhat.com" id="logo-redhat">Red Hat</a>
+      </div>
+    </div>
+  </footer>
+</html>

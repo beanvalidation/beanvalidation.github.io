@@ -1,0 +1,198 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>
+      Bean Validation - Home
+    </title>
+    <link href="http://beanvalidation.org/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="http://beanvalidation.org/stylesheets/print.css" media="print" rel="stylesheet" type="text/css">
+    <!--[if lt IE 8]>
+      <link href="#{site.base_url}/stylesheets/ie.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <![endif]-->
+    <link href="#{site.base_url}/news/news.atom" rel="alternate" type="application/atom+xml">
+    <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="/javascripts/patternfly.js"></script>
+    <script src="/javascripts/bootstrap.js"></script>
+  </head>
+  <body>
+    <header role="banner">
+      <nav class="navbar navbar-default navbar-pf" role="navigation">
+        <div class="navbar-header">
+          <button class="navbar-toggle" data-target=".navbar-collapse-1" data-toggle="collapse" type="button">
+            <span class="sr-only">Toggle Navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="http://beanvalidation.org" id="logo" title="Bean Validation">
+            Bean Validation
+          </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-primary navbar-right" id="meny-primary">
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org">Home</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/news">News</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/1.1">Specification</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/1.1/tck">TCK</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/1.1/ri">RI</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/1.1/certified">Certified</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/contribute">Contribute</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/licensing">Licensing</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <div class="jumbotron">
+      <h1>Bean Validation</h1>
+      <p>Constrain once, validate everywhere</p>
+    </div>
+    <div class="container" id="overview">
+      <div class="clearfix row" id="content">
+        <div class="col-sm-9 col-md-9 col-lg-9 clearfix" id="main">
+          <div class="sect1">
+          <h2 id="what-is-bean-validation"><a class="anchor" href="#what-is-bean-validation"></a>What is Bean Validation</h2>
+          <div class="sectionbody">
+          <div class="paragraph">
+          <p>Bean Validation is a Java specification which</p>
+          </div>
+          <div class="ulist">
+          <ul>
+          <li>
+          <p>lets you express constraints on object models via annotations</p>
+          </li>
+          <li>
+          <p>lets you write custom constraints in an extensible way</p>
+          </li>
+          <li>
+          <p>provides the APIs to validate objects and object graphs</p>
+          </li>
+          <li>
+          <p>provides the APIs to validate parameters and return values of methods
+          and constructors</p>
+          </li>
+          <li>
+          <p>reports the set of violations (localized)</p>
+          </li>
+          <li>
+          <p>runs in Java SE but is integrated in Java EE (6 and 7)</p>
+          </li>
+          </ul>
+          </div>
+          <div class="listingblock">
+          <div class="content">
+          <pre class="CodeRay highlight"><code data-lang="java"><span style="color:#088;font-weight:bold">public</span> <span style="color:#339;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">User</span> {&#x000A;&#x000A;    <span style="color:#088;font-weight:bold">private</span> <span style="color:#0a8;font-weight:bold">String</span> email;&#x000A;&#x000A;    <span style="color:#007">@NotNull</span> <span style="color:#007">@Email</span>&#x000A;    <span style="color:#088;font-weight:bold">public</span> <span style="color:#0a8;font-weight:bold">String</span> getEmail() {&#x000A;      <span style="color:#080;font-weight:bold">return</span> email;&#x000A;    }&#x000A;&#x000A;    <span style="color:#088;font-weight:bold">public</span> <span style="color:#339;font-weight:bold">void</span> setEmail(<span style="color:#0a8;font-weight:bold">String</span> email) {&#x000A;      <span style="color:#950">this</span>.email = email;&#x000A;    }&#x000A;}&#x000A;&#x000A;<span style="color:#088;font-weight:bold">public</span> <span style="color:#339;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">UserService</span> {&#x000A;&#x000A;  <span style="color:#088;font-weight:bold">public</span> <span style="color:#339;font-weight:bold">void</span> createUser(<span style="color:#007">@Email</span> <span style="color:#0a8;font-weight:bold">String</span> email,&#x000A;                         <span style="color:#007">@NotNull</span> <span style="color:#0a8;font-weight:bold">String</span> name) {&#x000A;    ...&#x000A;  }&#x000A;}</code></pre>
+          </div>
+          </div>
+          <div class="paragraph">
+          <p>While you can run validation manually, it is more natural to
+          let other specifications and frameworks validate data at the right
+          time (user input in presentation frameworks, business service
+          execution by CDI, entity insert or update by JPA).</p>
+          </div>
+          <div class="paragraph">
+          <p>In other words, <em>run once, constrain anywhere</em>.</p>
+          </div>
+          <div class="paragraph">
+          <p><a href="http://./1.1/">Learn more and get the specification&#8230;&#8203;</a></p>
+          </div>
+          </div>
+          </div>
+        </div>
+        <div class="sidebar sidebar-right col-sm-3 col-md-3 col-lg-3" id="sidebar" role="complementary">
+          <div id="newsfeed">
+            <h2>
+              <a href="http://beanvalidation.org/news/news.atom"><img alt="atom feed" src="http://beanvalidation.org/images/feed-icon-28x28.png"></a>
+              <a href="http://beanvalidation.org/news/news.atom">
+                Latest news
+              </a>
+            </h2>
+            <div id="newsfeed-message">
+              Stay up to date, subscribe to the&nbsp;<a href="http://beanvalidation.org/news/news.atom">news feed</a>.
+            </div>
+          </div>
+          <div id="latest-news">
+            <div class="item">
+              <h3>
+                <a href="/news/2015/06/18/bean-validation-tck-1-1-4-released/">Bean Validation TCK 1.1.4.Final released</a>
+              </h3>
+              <h4>18 June 2015</h4>
+              <div class="body">
+                Exactly one year after the last maintenance release we've published version 1.1.4.Final of the Bean Validation TCK today.
+                It contains exactly one issue, BVTCK-68,
+                which is about the removal of two tests...
+              </div>
+              <div class="tail">
+                <a href="http://beanvalidation.org/news/2015/06/18/bean-validation-tck-1-1-4-released/">Read more</a>
+                <hr>
+              </div>
+            </div>
+            <div class="item">
+              <h3>
+                <a href="/news/2014/06/18/bean-validation-tcks-now-with-support-for-java-se-8/">Bean Validation TCKs now with signature files for Java SE 8</a>
+              </h3>
+              <h4>18 June 2014</h4>
+              <div class="body">
+                Good news for those of you who want to certify the compatibility of a Bean Validation
+                implementation (and its API JAR) against Java SE 8.
+                
+                We have released updates to the Bean...
+              </div>
+              <div class="tail">
+                <a href="http://beanvalidation.org/news/2014/06/18/bean-validation-tcks-now-with-support-for-java-se-8/">Read more</a>
+                <hr>
+              </div>
+            </div>
+            <div class="item">
+              <h3>
+                <a href="/news/2014/05/28/training-materials/">Training materials on Bean Validation 1.1</a>
+              </h3>
+              <h4>28 May 2014</h4>
+              <div class="body">
+                I have two good Bean Validation related content for you today.
+                
+                Training slides (in French)
+                
+                Laurent Guerin wrote a comprehensive training on Bean Validation (1.0 and 1.1) for French students.
+                The slides are...
+              </div>
+              <div class="tail">
+                <a href="http://beanvalidation.org/news/2014/05/28/training-materials/">Read more</a>
+                <hr>
+              </div>
+            </div>
+            <div id="even-more">
+              <a href="http://beanvalidation.org/news">Even more news!</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer class="container" id="widget-footer" role="contentinfo">
+    <hr>
+    <div class="row">
+      <div class="widget col-md-12 widget_text">
+        Copyright (c) Red Hat, Inc., Emmanuel Bernard
+        <a href="http://redhat.com" id="logo-redhat">Red Hat</a>
+      </div>
+    </div>
+  </footer>
+</html>

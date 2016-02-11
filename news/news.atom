@@ -1,0 +1,1916 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<feed xml:lang="en-US" xmlns="http://www.w3.org/2005/Atom">
+  <id>http://beanvalidation.org/</id>
+  <title>Bean Validation</title>
+  <updated>2016-02-11T10:46:23+00:00</updated>
+  <link href="http://beanvalidation.org/news/news.atom" rel="self" type="application/atom+xml" />
+  <link href="http://beanvalidation.org/" rel="alternate" type="text/html" />
+  <entry>
+    <id>http://beanvalidation.org/news/2015/06/18/bean-validation-tck-1-1-4-released/</id>
+    <title>Bean Validation TCK 1.1.4.Final released</title>
+    <updated>2016-02-11T10:46:23+00:00</updated>
+    <published>2015-06-18T00:00:00+00:00</published>
+    <link href="http://beanvalidation.org/news/2015/06/18/bean-validation-tck-1-1-4-released/" rel="alternate" type="text/html" />
+    <author>
+      <name>Gunnar Morling</name>
+    </author>
+    <category term="tck"></category>
+    <summary>
+      Exactly one year after the last maintenance release we've published version 1.1.4.Final of the Bean Validation TCK today.
+      It contains exactly one issue, BVTCK-68,
+      which is about the removal of two tests from the TCK which could not be tested in a portable manner across containers.
+      Check out the issue itself for the complete story.
+      
+      As always, the new TCK version is available for download as TAR.GZ and ZIP on SourceForge.
+      Alternatively you can obtain the test suite via Maven, Gradle etc. using the coordinates org.hibernate.beanvalidation.tck:beanvalidation-tck-tests:1.1.4.Final.
+      
+      More information about the Bean Validation TCK can be found here and the TCK reference guide.
+      In case you have any...
+    </summary>
+    <content type="html">
+      &lt;p&gt;Exactly one year after the last maintenance release we've published version 1.1.4.Final of the Bean Validation TCK today.
+      It contains exactly one issue, &lt;a href=&quot;https://hibernate.atlassian.net/browse/BVTCK-68&quot;&gt;BVTCK-68&lt;/a&gt;,
+      which is about the removal of two tests from the TCK which could not be tested in a portable manner across containers.
+      Check out the issue itself for the complete story.&lt;/p&gt;
+      
+      &lt;p&gt;As always, the new TCK version is available for download as TAR.GZ and ZIP on &lt;a href=&quot;http://sourceforge.net/projects/hibernate/files/beanvalidation-tck/1.1.4.Final/&quot;&gt;SourceForge&lt;/a&gt;.
+      Alternatively you can obtain the test suite via Maven, Gradle etc. using the coordinates &lt;em&gt;org.hibernate.beanvalidation.tck:beanvalidation-tck-tests:1.1.4.Final&lt;/em&gt;.&lt;/p&gt;
+      
+      &lt;p&gt;More information about the Bean Validation TCK can be found &lt;a href=&quot;http://beanvalidation.org/1.1/tck/&quot;&gt;here&lt;/a&gt; and the &lt;a href=&quot;https://docs.jboss.org/hibernate/beanvalidation/tck/1.1/reference/html_single/&quot;&gt;TCK reference guide&lt;/a&gt;.
+      In case you have any questions or ideas around the Bean Validation specification in general or the TCK
+      in particular, don't hesitate to contact us through &lt;a href=&quot;https://lists.jboss.org/mailman/listinfo/beanvalidation-dev&quot;&gt;our mailing list&lt;/a&gt;.&lt;/p&gt;
+    </content>
+  </entry>
+  <entry>
+    <id>http://beanvalidation.org/news/2014/06/18/bean-validation-tcks-now-with-support-for-java-se-8/</id>
+    <title>Bean Validation TCKs now with signature files for Java SE 8</title>
+    <updated>2016-02-11T10:46:23+00:00</updated>
+    <published>2014-06-18T00:00:00+00:00</published>
+    <link href="http://beanvalidation.org/news/2014/06/18/bean-validation-tcks-now-with-support-for-java-se-8/" rel="alternate" type="text/html" />
+    <author>
+      <name>Gunnar Morling</name>
+    </author>
+    <category term="tck"></category>
+    <summary>
+      Good news for those of you who want to certify the compatibility of a Bean Validation
+      implementation (and its API JAR) against Java SE 8.
+      
+      We have released updates to the Bean Validation TCK 1.0 and 1.1;
+      The versions are 1.0.7.GA and 1.1.3.Final, respectively.
+      Both TCK releases come now with a version of the API signature file which works with Java SE 8.
+      This signature file can be used to assert API compatibility with JSR 303/349 via
+      the SigTest tool.
+      SigTest 3.0 needs to be used from now on. Note that the actual tests of the TCKs remain unchanged.
+      
+      You can get distribution bundles with the new signature...
+    </summary>
+    <content type="html">
+      &lt;p&gt;Good news for those of you who want to certify the compatibility of a Bean Validation
+      implementation (and its API JAR) against Java SE 8.&lt;/p&gt;
+      
+      &lt;p&gt;We have released updates to the Bean Validation TCK 1.0 and 1.1;
+      The versions are 1.0.7.GA and 1.1.3.Final, respectively.
+      Both TCK releases come now with a version of the API signature file which works with Java SE 8.
+      This signature file can be used to assert API compatibility with JSR 303/349 via
+      the &lt;a href=&quot;https://wiki.openjdk.java.net/display/CodeTools/SigTest&quot;&gt;SigTest&lt;/a&gt; tool.
+      SigTest 3.0 needs to be used from now on. Note that the actual tests of the TCKs remain unchanged.&lt;/p&gt;
+      
+      &lt;p&gt;You can get distribution bundles with the new signature file from SourceForge
+      (&lt;a href=&quot;http://sourceforge.net/projects/hibernate/files/beanvalidation-tck/1.0.7.GA/&quot;&gt;1.0&lt;/a&gt;,
+      &lt;a href=&quot;http://sourceforge.net/projects/hibernate/files/beanvalidation-tck/1.1.3.Final/&quot;&gt;1.1&lt;/a&gt;).&lt;/p&gt;
+      
+      &lt;p&gt;More information about the Bean Validation TCK can be found &lt;a href=&quot;http://beanvalidation.org/1.1/tck/&quot;&gt;here&lt;/a&gt;.
+      Refer to the TCK reference guide (&lt;a href=&quot;https://docs.jboss.org/hibernate/beanvalidation/tck/1.0/reference/html_single/#sigtest&quot;&gt;1.0&lt;/a&gt;, &lt;a href=&quot;https://docs.jboss.org/hibernate/beanvalidation/tck/1.1/reference/html_single/#sigtest&quot;&gt;1.1&lt;/a&gt;)
+      if you would like to learn more about the process of asserting API compatibility.&lt;/p&gt;
+      
+      &lt;p&gt;Don't hesitate to &lt;a href=&quot;https://lists.jboss.org/mailman/listinfo/beanvalidation-dev&quot;&gt;contact us&lt;/a&gt;
+      in case you have any questions around the Bean Validation specification in general or the TCK
+      in particular.&lt;/p&gt;
+    </content>
+  </entry>
+  <entry>
+    <id>http://beanvalidation.org/news/2014/05/28/training-materials/</id>
+    <title>Training materials on Bean Validation 1.1</title>
+    <updated>2016-02-11T10:46:23+00:00</updated>
+    <published>2014-05-28T00:00:00+00:00</published>
+    <link href="http://beanvalidation.org/news/2014/05/28/training-materials/" rel="alternate" type="text/html" />
+    <author>
+      <name>Emmanuel Bernard</name>
+    </author>
+    <category term="training"></category>
+    <summary>
+      I have two good Bean Validation related content for you today.
+      
+      Training slides (in French)
+      
+      Laurent Guerin wrote a comprehensive training on Bean Validation (1.0 and 1.1) for French students.
+      The slides are available under a Creative Commons license.
+      I did review them and they are very good.
+      
+      The bad news is that they are in French.
+      The good news is that they are in French!
+      
+      Video training (in English)
+      
+      Antonio Goncalves, my esteemed co-host of Les Cast Codeurs has published
+      a 2 and a half hour video training on Bean Validation.
+      It is hosted on Pluralsight where packages start at $29 / month but you can get the first...
+    </summary>
+    <content type="html">
+      &lt;p&gt;I have two good Bean Validation related content for you today.&lt;/p&gt;
+      
+      &lt;h2&gt;Training slides (in French)&lt;/h2&gt;
+      
+      &lt;p&gt;Laurent Guerin wrote a comprehensive training on Bean Validation (1.0 and 1.1) for French students.
+      The &lt;a href=&quot;http://fr.slideshare.net/lguerin/cours-javabean-validationv11&quot;&gt;slides are available&lt;/a&gt; under a Creative Commons license.
+      I did review them and they are very good.&lt;/p&gt;
+      
+      &lt;p&gt;The bad news is that they are in French.
+      The good news is that they are in French!&lt;/p&gt;
+      
+      &lt;h2&gt;Video training (in English)&lt;/h2&gt;
+      
+      &lt;p&gt;Antonio Goncalves, my esteemed co-host of &lt;a href=&quot;http://lescastcodeurs.com&quot;&gt;Les Cast Codeurs&lt;/a&gt; has published
+      a &lt;a href=&quot;http://pluralsight.com/training/Courses/Description/bean-validation&quot;&gt;2 and a half hour video training&lt;/a&gt; on Bean Validation.
+      It is hosted on Pluralsight where packages start at $29 / month but you can get the first 10 days free.&lt;/p&gt;
+      
+      &lt;p&gt;The good news is that Antonio has a Dr Love / French accent combo voice.
+      The bad news? I'll let you find out ;)&lt;/p&gt;
+      
+      &lt;p&gt;Let me know if you have found good materials on Bean Validation.
+      We might start a dedicated page on the website.&lt;/p&gt;
+    </content>
+  </entry>
+  <entry>
+    <id>http://beanvalidation.org/news/2013/06/04/xml-namespace-and-jcp/</id>
+    <title>XML namespace and JCP</title>
+    <updated>2016-02-11T10:46:23+00:00</updated>
+    <published>2013-06-04T00:00:00+00:00</published>
+    <link href="http://beanvalidation.org/news/2013/06/04/xml-namespace-and-jcp/" rel="alternate" type="text/html" />
+    <author>
+      <name>Emmanuel Bernard</name>
+    </author>
+    <category term="feedback"></category>
+    <summary>
+      Antonio Goncalves, fellow JCP member and friend has asked
+      me
+      why Bean Validation XML's namespace has not moved from its original location to
+      the jcp.org location like other Java EE 7 specifications.
+      
+      I don't remember being aware that such a move was orchestrated so there are two
+      possible reasons:
+      
+      
+      I was never been made aware of the move,
+      I was aware of it but considered that it was low priority compared to the other
+      issues we were working on.
+      
+      
+      
+      Provided we had to work hard till the last minute, and that the community never
+      was keen on the XML support we put in Bean Validation, #2 is not impossible but
+      I...
+    </summary>
+    <content type="html">
+      &lt;p&gt;Antonio Goncalves, fellow JCP member and friend &lt;a href=&quot;http://antoniogoncalves.org/2013/06/04/java-ee-7-deployment-descriptors/&quot;&gt;has asked
+      me&lt;/a&gt;
+      why Bean Validation XML's namespace has not moved from its original location to
+      the jcp.org location like other Java EE 7 specifications.&lt;/p&gt;
+      
+      &lt;p&gt;I don't remember being aware that such a move was orchestrated so there are two
+      possible reasons:&lt;/p&gt;
+      
+      &lt;ol&gt;
+      &lt;li&gt;I was never been made aware of the move,&lt;/li&gt;
+      &lt;li&gt;I was aware of it but considered that it was low priority compared to the &lt;a href=&quot;https://hibernate.atlassian.net/issues/?jql=project%20%3D%20BVAL%20AND%20fixVersion%20in%20(%221.1.0.Alpha1%20(early%20draft%201)%22%2C%20%221.1.0.Beta1%20(public%20draft%201)%22%2C%20%221.1.0.Beta2%22%2C%20%221.1.0.Beta3%22%2C%20%221.1.0.Beta4%22%2C%20%221.1.0.CR1%22%2C%20%221.1.0.CR2%22%2C%20%221.1.0.CR3%22%2C%20%221.1.0.Final%22)%20AND%20status%20in%20(Resolved%2C%20Closed)&quot;&gt;other
+      issues&lt;/a&gt; we were working on.&lt;/li&gt;
+      &lt;/ol&gt;
+      
+      
+      &lt;p&gt;Provided we had to work hard till the last minute, and that the community never
+      was keen on the XML support we put in Bean Validation, #2 is not impossible but
+      I suspect it's #1 or I would have opened an issue to track the task.&lt;/p&gt;
+      
+      &lt;p&gt;Anyways, that's not a problem. Anyone can open an issue (I've just &lt;a href=&quot;https://hibernate.atlassian.net/browse/BVAL-455&quot;&gt;created
+      one&lt;/a&gt; for this task), write a
+      couple of pull requests to fix the spec, TCK and RI as explained in &lt;a href=&quot;http://beanvalidation.org/contribute/&quot;&gt;our
+      contribute section&lt;/a&gt;. Scratch your own itch: so who's jumping? :)&lt;/p&gt;
+      
+      &lt;p&gt;We will have to wait for the next version of the spec to avoid breaking older
+      applications but if it's committed, it won't be forgotten.&lt;/p&gt;
+      
+      &lt;p&gt;PS: no, I'm not bitter, but since I haven't blogged in a while that was a good
+      occasion to remind everyone of the power of contributions ;)&lt;/p&gt;
+    </content>
+  </entry>
+  <entry>
+    <id>http://beanvalidation.org/news/2013/05/02/bean-validation-1-1-is-a-spec/</id>
+    <title>Bean Validation 1.1 is a spec</title>
+    <updated>2016-02-11T10:46:23+00:00</updated>
+    <published>2013-05-02T00:00:00+00:00</published>
+    <link href="http://beanvalidation.org/news/2013/05/02/bean-validation-1-1-is-a-spec/" rel="alternate" type="text/html" />
+    <author>
+      <name>Emmanuel Bernard</name>
+    </author>
+    <category term="release"></category>
+    <summary>
+      It's now official, these couple of years of work have made it into an
+      official JCP specification.
+      Bean Validation is also part of Java EE 7 which has
+      been approved too
+      a few of days ago.
+      
+      We have already discussed the features at great length here but to do a short
+      summary:
+      
+      
+      support for method and constructor validation (via CDI, JAX-RS etc)
+      integration with CDI (Validator and ValidatorFactory injectable,
+      ConstraintValidator instances being CDI beans and thus accept @Inject,
+      etc)
+      EL expressions based error messages
+      group conversion in object graphs
+      
+      
+      
+      I would like to thank the expert group and the community at large (without your
+      input there would be no 1.1), Hardy and Gunnar that...
+    </summary>
+    <content type="html">
+      &lt;p&gt;It's now official, these couple of years of work have made it into &lt;a href=&quot;http://jcp.org/en/jsr/results?id=5488&quot;&gt;an
+      official JCP specification&lt;/a&gt;.
+      Bean Validation is also part of Java EE 7 which has
+      &lt;a href=&quot;https://blogs.oracle.com/theaquarium/entry/java_ee_7_platform_completes&quot;&gt;been approved too&lt;/a&gt;
+      a few of days ago.&lt;/p&gt;
+      
+      &lt;p&gt;We have already discussed the features at great length here but to do a short
+      summary:&lt;/p&gt;
+      
+      &lt;ul&gt;
+      &lt;li&gt;support for method and constructor validation (via CDI, JAX-RS etc)&lt;/li&gt;
+      &lt;li&gt;integration with CDI (&lt;code&gt;Validator&lt;/code&gt; and &lt;code&gt;ValidatorFactory&lt;/code&gt; injectable,
+      &lt;code&gt;ConstraintValidator&lt;/code&gt; instances being CDI beans and thus accept &lt;code&gt;@Inject&lt;/code&gt;,
+      etc)&lt;/li&gt;
+      &lt;li&gt;EL expressions based error messages&lt;/li&gt;
+      &lt;li&gt;group conversion in object graphs&lt;/li&gt;
+      &lt;/ul&gt;
+      
+      
+      &lt;p&gt;I would like to thank the &lt;strong&gt;expert group&lt;/strong&gt; and the &lt;strong&gt;community&lt;/strong&gt; at large (without your
+      input there would be no 1.1), &lt;strong&gt;Hardy&lt;/strong&gt; and &lt;strong&gt;Gunnar&lt;/strong&gt; that worked round to clock on the
+      spec, the RI and the TCK and deliver everything on time, &lt;strong&gt;Pete&lt;/strong&gt; for being my
+      springboard when all hell broke lose and the &lt;strong&gt;folks at Oracle&lt;/strong&gt; who worked with us
+      to integrate Bean Validation with the rest of the Java EE ecosystem whether it
+      be spec, implementation or TCK.&lt;/p&gt;
+      
+      &lt;p&gt;Go grab &lt;a href=&quot;http://validator.hibernate.org&quot;&gt;Hibernate Validator&lt;/a&gt;, the RI. The team
+      has even spent an extra couple of weeks to deliver a nice documentation. And if you
+      can't sleep, go read the &lt;a href=&quot;http://beanvalidation.org/1.1/&quot;&gt;specification itself&lt;/a&gt;.&lt;/p&gt;
+    </content>
+  </entry>
+  <entry>
+    <id>http://beanvalidation.org/news/2013/03/21/bean-validation-1-1-final-approval-ballot/</id>
+    <title>Bean Validation 1.1 CR3 - Final Approval Ballot</title>
+    <updated>2016-02-11T10:46:23+00:00</updated>
+    <published>2013-03-21T00:00:00+00:00</published>
+    <link href="http://beanvalidation.org/news/2013/03/21/bean-validation-1-1-final-approval-ballot/" rel="alternate" type="text/html" />
+    <author>
+      <name>Emmanuel Bernard</name>
+    </author>
+    <category term="release"></category>
+    <summary>
+      Bean Validation, Hibernate Validator (its Reference Implementation) and the
+      Test Compatibility Kit have been handed over to the JCP for what is called the
+      Final Approval Ballot. That's when the expert committee votes for the go /
+      no-go of the specification going final as it is.
+      
+      We have found a few glitches when working on both the RI and the TCK in the
+      last month but everything is in order now. The biggest visible change for you
+      is that we renamed @ValidateExecutable into @ValidateOnExecution and we added a
+      way to disable method validation entirely via the XML deployment descriptor.
+      
+      We worked hard to make a stellar TCK. Let's...
+    </summary>
+    <content type="html">
+      &lt;p&gt;Bean Validation, Hibernate Validator (its Reference Implementation) and the
+      Test Compatibility Kit have been handed over to the JCP for what is called the
+      Final Approval Ballot. That's when the expert committee votes for the go /
+      no-go of the specification going final as it is.&lt;/p&gt;
+      
+      &lt;p&gt;We have found a few glitches when working on both the RI and the TCK in the
+      last month but everything is in order now. The biggest visible change for you
+      is that we renamed &lt;code&gt;@ValidateExecutable&lt;/code&gt; into &lt;code&gt;@ValidateOnExecution&lt;/code&gt; and we added a
+      way to disable method validation entirely via the XML deployment descriptor.&lt;/p&gt;
+      
+      &lt;p&gt;We worked hard to make a stellar TCK. Let's speak numbers: the specification
+      has &lt;strong&gt;549 assertions&lt;/strong&gt; including &lt;strong&gt;492 testable&lt;/strong&gt;. We cover &lt;strong&gt;98,8%&lt;/strong&gt; of them
+      with &lt;strong&gt;1500 tests&lt;/strong&gt;. Good luck to all future Bean Validation 1.1 implementors
+      :)&lt;/p&gt;
+      
+      &lt;p&gt;Everything is already available for you to use:&lt;/p&gt;
+      
+      &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;http://beanvalidation.org/1.1/spec/1.1.0.cr3/&quot;&gt;the specification&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;http://www.hibernate.org/subprojects/validator/download&quot;&gt;Hibernate Validator (the
+      RI)&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;http://www.hibernate.org/subprojects/validator/download&quot;&gt;the TCK&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+      
+      
+      &lt;p&gt;Enjoy!&lt;/p&gt;
+    </content>
+  </entry>
+  <entry>
+    <id>http://beanvalidation.org/news/2013/02/20/bean-validation-1-1-proposed-final-draft/</id>
+    <title>Bean Validation 1.1 CR1 - Proposed Final Draft</title>
+    <updated>2016-02-11T10:46:23+00:00</updated>
+    <published>2013-02-20T00:00:00+00:00</published>
+    <link href="http://beanvalidation.org/news/2013/02/20/bean-validation-1-1-proposed-final-draft/" rel="alternate" type="text/html" />
+    <author>
+      <name>Emmanuel Bernard</name>
+    </author>
+    <category term="release"></category>
+    <summary>
+      Our Proposed Final Draft has been officially handed over to the JCP last night.
+      
+      After a frantic month of work culminating with two weeks of monomaniac focus, we
+      are finally handing over the Bean Validation 1.1 Proposed Final Draft to the
+      JCP. Of course everything is open source so you can get it too:
+      
+      
+      the spec
+      the JavaDoc
+      and the API JAR: maven coordinates javax.validation:validation-api:1.1.0.CR1
+      
+      
+      
+      What's new in Bean Validation 1.1?
+      
+      The specification
+      highlights very well
+      the main features of this version but to summarize them:
+      
+      
+      work done entirely in the open
+      support for dependency injection and better integration with CDI
+      support for method and constructor validation
+      support for group conversion when cascading
+      support for...
+    </summary>
+    <content type="html">
+      &lt;p&gt;Our Proposed Final Draft has been officially handed over to the JCP last night.&lt;/p&gt;
+      
+      &lt;p&gt;After a frantic month of work culminating with two weeks of monomaniac focus, we
+      are finally handing over the Bean Validation 1.1 Proposed Final Draft to the
+      JCP. Of course everything is open source so you can get it too:&lt;/p&gt;
+      
+      &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;http://beanvalidation.org/1.1/spec/1.1.0.cr1/?utm_source=blog&amp;amp;utm_medium=web&amp;amp;utm_content=spec&amp;amp;utm_campaign=1_1_cr1&quot;&gt;the spec&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;http://docs.jboss.org/hibernate/beanvalidation/spec/1.1/api/&quot;&gt;the JavaDoc&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;and the API JAR: maven coordinates &lt;a href=&quot;https://repository.jboss.org/nexus/content/groups/public-jboss/javax/validation/validation-api/1.1.0.CR1/&quot;&gt;javax.validation:validation-api:1.1.0.CR1&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+      
+      
+      &lt;h2&gt;What's new in Bean Validation 1.1?&lt;/h2&gt;
+      
+      &lt;p&gt;The specification
+      &lt;a href=&quot;http://beanvalidation.org/1.1/spec/1.1.0.cr1/#whatsnew&quot;&gt;highlights very well&lt;/a&gt;
+      the main features of this version but to summarize them:&lt;/p&gt;
+      
+      &lt;ul&gt;
+      &lt;li&gt;work done entirely in the open&lt;/li&gt;
+      &lt;li&gt;support for dependency injection and better integration with CDI&lt;/li&gt;
+      &lt;li&gt;support for method and constructor validation&lt;/li&gt;
+      &lt;li&gt;support for group conversion when cascading&lt;/li&gt;
+      &lt;li&gt;support for EL based message interpolation&lt;/li&gt;
+      &lt;/ul&gt;
+      
+      
+      &lt;h2&gt;What's different between Beta 4 and CR 1?&lt;/h2&gt;
+      
+      &lt;p&gt;We did a lot of polishing and nailed a lot of remaining corner cases. Here is a
+      few of the tasks we worked on:&lt;/p&gt;
+      
+      &lt;ul&gt;
+      &lt;li&gt;rework of the JavaDoc&lt;/li&gt;
+      &lt;li&gt;move to &lt;code&gt;@SupportValidationTarget&lt;/code&gt; on &lt;code&gt;ConstraintValidator&lt;/code&gt; instead of the
+      additional &lt;code&gt;@CrossParameterConstraint&lt;/code&gt; on the constraint to mark a constraint
+      as cross-parameter&lt;/li&gt;
+      &lt;li&gt;many more examples in the specification&lt;/li&gt;
+      &lt;li&gt;improve node creation logic when nodes are added programmatically&lt;/li&gt;
+      &lt;li&gt;improve the creation logic of custom nodes when using the programmatic API of
+      &lt;code&gt;ConstraintViolationBuilder&lt;/code&gt; in a &lt;code&gt;ConstraintValidator&lt;/code&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+      
+      
+      &lt;p&gt;And of course many hours rereading the specification to find holes and fix them.&lt;/p&gt;
+      
+      &lt;h2&gt;Review&lt;/h2&gt;
+      
+      &lt;p&gt;Hibernate Validator 5.0.0.CR1 and the TCK should be here any minute. Help us
+      make this spec as good as possible by reviewing it and opening issues where it
+      itches you.&lt;/p&gt;
+      
+      &lt;p&gt;You can &lt;a href=&quot;http://beanvalidation.org/1.1/spec/1.1.0.cr1/?utm_source=blog&amp;amp;utm_medium=web&amp;amp;utm_content=spec&amp;amp;utm_campaign=1_1_cr1&quot;&gt;access the specification here&lt;/a&gt;.
+      All changes are marked with a different
+      color. &lt;span style=&quot;background-color:#DDFFDD;&quot;&gt;Green for additions&lt;/span&gt;,
+      &lt;span style=&quot;background-color:#FFFFDD;&quot;&gt;yellow for changes&lt;/span&gt;.
+      This will help you see what has changed precisely.&lt;/p&gt;
+      
+      &lt;p&gt;Please send us your remarks and comments:&lt;/p&gt;
+      
+      &lt;ul&gt;
+      &lt;li&gt;on our &lt;a href=&quot;https://lists.jboss.org/mailman/listinfo/beanvalidation-dev&quot;&gt;mailing list&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;in our &lt;a href=&quot;http://beanvalidation.org/issues&quot;&gt;issue tracker&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;or on the Bean Validation &lt;a href=&quot;https://forum.hibernate.org/viewforum.php?f=26&quot;&gt;forum&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+      
+      
+      &lt;p&gt;Many many thanks to my partners in crime Hardy and Gunnar that worked around the
+      clock with me to deliver this proposed final draft right on time but with no
+      compromise on quality.&lt;/p&gt;
+    </content>
+  </entry>
+  <entry>
+    <id>http://beanvalidation.org/news/2013/02/15/bean-validation-1-1-beta4/</id>
+    <title>Bean Validation 1.1 Beta 4 - issue smashing edition</title>
+    <updated>2016-02-11T10:46:23+00:00</updated>
+    <published>2013-02-15T00:00:00+00:00</published>
+    <link href="http://beanvalidation.org/news/2013/02/15/bean-validation-1-1-beta4/" rel="alternate" type="text/html" />
+    <author>
+      <name>Emmanuel Bernard</name>
+    </author>
+    <category term="release"></category>
+    <summary>
+      Our proposed final draft is due soon but we did one last drop of the
+      specification and the API jar. We worked all over the board (and the
+      clock) but the most notable improvements are:
+      
+      Improvements on the CDI integration section
+      
+      We made it much more descriptive of the expected behavior instead of
+      imposing an implementation pattern.
+      We have also added the method and constructor interception priority
+      as defined in the Java EE specification and the interceptor specification
+      in particular.
+      
+      Thanks Pete for your help.
+      
+      Remove the link between the Node API and the metadata API
+      
+      This is something we could not make work, so we fall back into a more
+      redundant...
+    </summary>
+    <content type="html">
+      &lt;p&gt;Our proposed final draft is due soon but we did one last drop of the
+      specification and the API jar. We worked all over the board (and the
+      clock) but the most notable improvements are:&lt;/p&gt;
+      
+      &lt;h2&gt;Improvements on the CDI integration section&lt;/h2&gt;
+      
+      &lt;p&gt;We made it much more descriptive of the expected behavior instead of
+      imposing an implementation pattern.
+      We have also added the method and constructor interception priority
+      as defined in the Java EE specification and the interceptor specification
+      in particular.&lt;/p&gt;
+      
+      &lt;p&gt;Thanks Pete for your help.&lt;/p&gt;
+      
+      &lt;h2&gt;Remove the link between the Node API and the metadata API&lt;/h2&gt;
+      
+      &lt;p&gt;This is something we could not make work, so we fall back into a more
+      redundant but we think cleaner design. We also made the node builder
+      API easier to use despite the increased number of node types.&lt;/p&gt;
+      
+      &lt;pre&gt;&lt;code&gt;//Cross-parameter constraint on a method
+      //mergeAddresses(Map&amp;lt;String,Address&amp;gt; addresses, Map&amp;lt;String,Address&amp;gt; otherAddresses)
+      //Build a constraint violation on the default path + &quot;otherAddresses[&quot;home&quot;]
+      //ie. the Address bean hosted in the &quot;home&quot; key of the &quot;otherAddresses&quot; map parameter
+      context.buildConstraintViolationWithTemplate(
+              &quot;Map entry home present in both and does not match&quot;)
+                      .addParameterNode(1)
+                      .addBeanNode()
+                          .inIterable().atKey(&quot;home&quot;)
+                      .addConstraintViolation();
+      &lt;/code&gt;&lt;/pre&gt;
+      
+      &lt;h2&gt;Clarification around method validation (metadata, cross-parameter, reports)&lt;/h2&gt;
+      
+      &lt;p&gt;We now have an explicit cross-parameter concept materialized in the metadata
+      API. It makes for a more regular and easier to browse API.
+      &lt;code&gt;ConstraintViolation&lt;/code&gt; has also seen some improvements and adaptations to make
+      it ready for prime - method validation - time.&lt;/p&gt;
+      
+      &lt;h2&gt;Mark a method as (non) validated&lt;/h2&gt;
+      
+      &lt;p&gt;We slightly improved &lt;code&gt;@ValidateExecutable&lt;/code&gt; to be more friendly when
+      put on a specific method. To force a getter to be validated or to
+      force a method to not be validated is now more readable.&lt;/p&gt;
+      
+      &lt;pre&gt;&lt;code&gt;public class Operations {
+          @ValidateExecutable
+          @Status
+          public String getStatus() { ... }
+      
+          @ValidateExecutable(ExecutableType.NONE)
+          public void apply(@Valid Operation operation) { ... }
+      }
+      &lt;/code&gt;&lt;/pre&gt;
+      
+      &lt;h2&gt;Review&lt;/h2&gt;
+      
+      &lt;p&gt;Let us know what you think.&lt;/p&gt;
+      
+      &lt;p&gt;You can &lt;a href=&quot;http://beanvalidation.org/1.1/spec/1.1.0.beta4/?utm_source=blog&amp;amp;utm_medium=web&amp;amp;utm_content=spec&amp;amp;utm_campaign=1_1_beta4&quot;&gt;access the specification here&lt;/a&gt;.
+      All changes are marked with a different
+      color. &lt;span style=&quot;background-color:#DDFFDD;&quot;&gt;Green for additions&lt;/span&gt;,
+      &lt;span style=&quot;background-color:#FFFFDD;&quot;&gt;yellow for changes&lt;/span&gt; and
+      &lt;span style=&quot;text-decoration: line-through;background-color: #FFDDDD;&quot;&gt;struck through red for removals&lt;/span&gt;
+      . This will help you see what has changed precisely.&lt;/p&gt;
+      
+      &lt;p&gt;Please send us your remarks and comments:&lt;/p&gt;
+      
+      &lt;ul&gt;
+      &lt;li&gt;on our &lt;a href=&quot;https://lists.jboss.org/mailman/listinfo/beanvalidation-dev&quot;&gt;mailing list&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;in our &lt;a href=&quot;http://beanvalidation.org/issues&quot;&gt;issue tracker&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;or on the Bean Validation &lt;a href=&quot;https://forum.hibernate.org/viewforum.php?f=26&quot;&gt;forum&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+      
+      
+      &lt;p&gt;If you want to go to the next step and contribute, send us an email to
+      the mailing list and read &lt;a href=&quot;http://beanvalidation.org/contribute/&quot;&gt;how to contribute&lt;/a&gt;.&lt;/p&gt;
+    </content>
+  </entry>
+  <entry>
+    <id>http://beanvalidation.org/news/2013/02/05/javaspotlight-podcast-on-bean-validation-1-1/</id>
+    <title>Java Spotlight Podcast on Bean Validation 1.1</title>
+    <updated>2016-02-11T10:46:23+00:00</updated>
+    <published>2013-02-05T00:00:00+00:00</published>
+    <link href="http://beanvalidation.org/news/2013/02/05/javaspotlight-podcast-on-bean-validation-1-1/" rel="alternate" type="text/html" />
+    <author>
+      <name>Emmanuel Bernard</name>
+    </author>
+    <category term="press"></category>
+    <summary>
+      Roger Brinkle from Java Spotlight Podcast
+      has interviewed me on the status of Bean Validation 1.1. It's 20 mins long so you
+      won't suffer too much :)
+      
+      The podcast is available here.
+      Unfortunately the audio of the interview is not great, so if you find it hard
+      to follow, I have put an alternative recording with better quality of the
+      interview itself. Get the mp3....
+    </summary>
+    <content type="html">
+      &lt;p&gt;Roger Brinkle from &lt;a href=&quot;https://blogs.oracle.com/javaspotlight/&quot;&gt;Java Spotlight Podcast&lt;/a&gt;
+      has interviewed me on the status of Bean Validation 1.1. It's 20 mins long so you
+      won't suffer too much :)&lt;/p&gt;
+      
+      &lt;p&gt;The podcast is available &lt;a href=&quot;http://goo.gl/UphGL&quot;&gt;here&lt;/a&gt;.
+      Unfortunately the audio of the interview is not great, so if you find it hard
+      to follow, I have put an alternative recording with better quality of the
+      interview itself. &lt;a href=&quot;http://beanvalidation.org/downloads/javaspotlight-119-interview.mp3&quot;&gt;Get the mp3&lt;/a&gt;.&lt;/p&gt;
+    </content>
+  </entry>
+  <entry>
+    <id>http://beanvalidation.org/news/2013/02/01/bean-validation-1-1-beta3-last-line/</id>
+    <title>Bean Validation 1.1 Beta 3 - the last line</title>
+    <updated>2016-02-11T10:46:23+00:00</updated>
+    <published>2013-02-01T00:00:00+00:00</published>
+    <link href="http://beanvalidation.org/news/2013/02/01/bean-validation-1-1-beta3-last-line/" rel="alternate" type="text/html" />
+    <author>
+      <name>Emmanuel Bernard</name>
+    </author>
+    <category term="release"></category>
+    <summary>
+      With two months since the last release and more than 38 (non trivial)
+      issues behind us, we felt that it was a good time to release a new version.
+      We are less than 20 days from the proposed final draft so feedback time and
+      polishing are going into overdrive.
+      
+      Expect a reference implementation and a much improved TCK aligned with this
+      version in the next few days.
+      
+      What's new
+      
+      There are too many improvements so let's pick three.
+      
+      Enable / disable method validation
+      
+      We worked a lot on method validation and in particular how you can control
+      whether or not a method or constructor is being validated. You can use
+      @ValidateExecutable...
+    </summary>
+    <content type="html">
+      &lt;p&gt;With two months since the last release and more than 38 (non trivial)
+      issues behind us, we felt that it was a good time to release a new version.
+      We are less than 20 days from the proposed final draft so feedback time and
+      polishing are going into overdrive.&lt;/p&gt;
+      
+      &lt;p&gt;Expect a reference implementation and a much improved TCK aligned with this
+      version in the next few days.&lt;/p&gt;
+      
+      &lt;h2&gt;What's new&lt;/h2&gt;
+      
+      &lt;p&gt;There are too many improvements so let's pick three.&lt;/p&gt;
+      
+      &lt;h3&gt;Enable / disable method validation&lt;/h3&gt;
+      
+      &lt;p&gt;We worked a lot on method validation and in particular how you can control
+      whether or not a method or constructor is being validated. You can use
+      &lt;code&gt;@ValidateExecutable&lt;/code&gt; and the XML &lt;code&gt;validated-executables&lt;/code&gt; element in
+      &lt;code&gt;validation.xml&lt;/code&gt; to do that.&lt;/p&gt;
+      
+      &lt;h3&gt;Message interpolation with UEL&lt;/h3&gt;
+      
+      &lt;p&gt;We have also greatly enhanced message interpolation. You can now use the unified
+      expression language inside your messages. This elegantly solves a lot of feature
+      requests we had in this area like:&lt;/p&gt;
+      
+      &lt;ul&gt;
+      &lt;li&gt;the ability to put the validated value in the message&lt;/li&gt;
+      &lt;li&gt;the ability to format numbers, dates etc according to the locale&lt;/li&gt;
+      &lt;/ul&gt;
+      
+      
+      &lt;p&gt;Here is an example from &lt;code&gt;@DecimalMin&lt;/code&gt;. It uses the min boundary &lt;code&gt;value&lt;/code&gt;, the
+      &lt;code&gt;inclusive&lt;/code&gt; parameter in an EL and use a formaatter to display the erroneous
+      value:&lt;/p&gt;
+      
+      &lt;pre&gt;&lt;code&gt;${formatter.format(&quot;%1$2f&quot;, validatedValue} is incorrect ; must be greater than ${inclusive == true ? 'or equal to ' : ''}{value}
+      &lt;/code&gt;&lt;/pre&gt;
+      
+      &lt;p&gt;Which will be interpolated into&lt;/p&gt;
+      
+      &lt;pre&gt;&lt;code&gt;324.32 is incorrect ; must be greater than or equal to 500
+      &lt;/code&gt;&lt;/pre&gt;
+      
+      &lt;h3&gt;Generic and cross-parameter constraints&lt;/h3&gt;
+      
+      &lt;p&gt;Finally we have introduce the ability to make constraints both generic and
+      cross-parameter aware. This is useful for constraints like &lt;code&gt;@ScriptAssert&lt;/code&gt; that
+      are very flexible.&lt;/p&gt;
+      
+      &lt;h2&gt;Review&lt;/h2&gt;
+      
+      &lt;p&gt;Please, please, please go and review the specification and tell us if something
+      needs to be fixed.&lt;/p&gt;
+      
+      &lt;p&gt;You can &lt;a href=&quot;http://beanvalidation.org/1.1/spec/1.1.0.beta3/?utm_source=blog&amp;amp;utm_medium=web&amp;amp;utm_content=spec&amp;amp;utm_campaign=1_1_beta3&quot;&gt;access the specification here&lt;/a&gt;.
+      All changes are marked with a different
+      color. &lt;span style=&quot;background-color:#DDFFDD;&quot;&gt;Green for additions&lt;/span&gt;,
+      &lt;span style=&quot;background-color:#FFFFDD;&quot;&gt;yellow for changes&lt;/span&gt; and
+      &lt;span style=&quot;text-decoration: line-through;background-color: #FFDDDD;&quot;&gt;struck through red for removals&lt;/span&gt;
+      . This will help you see what has changed precisely.&lt;/p&gt;
+      
+      &lt;p&gt;Please send us your remarks and comments:&lt;/p&gt;
+      
+      &lt;ul&gt;
+      &lt;li&gt;on our &lt;a href=&quot;https://lists.jboss.org/mailman/listinfo/beanvalidation-dev&quot;&gt;mailing list&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;in our &lt;a href=&quot;http://beanvalidation.org/issues&quot;&gt;issue tracker&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;or on the Bean Validation &lt;a href=&quot;https://forum.hibernate.org/viewforum.php?f=26&quot;&gt;forum&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+      
+      
+      &lt;p&gt;If you want to go to the next step and contribute, send us an email to
+      the mailing list and read &lt;a href=&quot;http://beanvalidation.org/contribute/&quot;&gt;how to contribute&lt;/a&gt;.&lt;/p&gt;
+    </content>
+  </entry>
+  <entry>
+    <id>http://beanvalidation.org/news/2012/12/18/bean-validation-in-the-press/</id>
+    <title>Bean Validation in the press</title>
+    <updated>2016-02-11T10:46:23+00:00</updated>
+    <published>2012-12-18T00:00:00+00:00</published>
+    <link href="http://beanvalidation.org/news/2012/12/18/bean-validation-in-the-press/" rel="alternate" type="text/html" />
+    <author>
+      <name>Gunnar Morling</name>
+    </author>
+    <category term="press"></category>
+    <summary>
+      The German journal Javamagazin recently
+      published an article about the works on Bean Validation 1.1. The article
+      is full of praise for the new version in general and our open,
+      community-centered way of creating the spec in particular.
+      
+      The publisher and authors generously provided us with a PDF of the article
+      which you can download here.
+      Alternatively you can also read the article
+      online....
+    </summary>
+    <content type="html">
+      &lt;p&gt;The German journal &lt;a href=&quot;http://www.javamagazin.de/&quot;&gt;Javamagazin&lt;/a&gt; recently
+      published an article about the works on Bean Validation 1.1. The article
+      is full of praise for the new version in general and our open,
+      community-centered way of creating the spec in particular.&lt;/p&gt;
+      
+      &lt;p&gt;The publisher and authors generously provided us with a PDF of the article
+      which you can download &lt;a href=&quot;http://beanvalidation.org/downloads/javamagazin_2012_10_Einer_fuer_alle_alle_fuer_einen_Bean_Validation_1_1.pdf&quot;&gt;here&lt;/a&gt;.
+      Alternatively you can also read the article
+      &lt;a href=&quot;http://it-republik.de/jaxenter/artikel/Einer-fuer-alle-%96-alle-fuer-einen-Bean-Validation-1.1-5372.html&quot;&gt;online&lt;/a&gt;.&lt;/p&gt;
+    </content>
+  </entry>
+  <entry>
+    <id>http://beanvalidation.org/news/2012/12/11/should-getters-be-considered-methods/</id>
+    <title>Should getters be validated when they are called?</title>
+    <updated>2016-02-11T10:46:23+00:00</updated>
+    <published>2012-12-11T00:00:00+00:00</published>
+    <link href="http://beanvalidation.org/news/2012/12/11/should-getters-be-considered-methods/" rel="alternate" type="text/html" />
+    <author>
+      <name>Emmanuel Bernard</name>
+    </author>
+    <category term="feedback"></category>
+    <summary>
+      The expert group is agonizing on a specific issue. We need your
+      feedback. Should getters be considered regular methods and thus be validated
+      when called?
+      
+      The problem
+      
+      Existing applications put Bean Validation constraints on properties
+      (ie getters). If we enable validations when getters are called, some
+      applications might fail and Bean Validation would not be backward
+      compatible. Besides, it is unlikely that you want to validate genuine getters
+      when they are called. These are state, not operations for the most part.
+      
+      First off what does it mean to be a getter. A method is a getter if:
+      
+      
+      its name starts with is, has no parameter and its return type is...
+    </summary>
+    <content type="html">
+      &lt;p&gt;The expert group is agonizing on a specific issue. We need your
+      feedback. Should getters be considered &lt;em&gt;regular&lt;/em&gt; methods and thus be validated
+      when called?&lt;/p&gt;
+      
+      &lt;h2&gt;The problem&lt;/h2&gt;
+      
+      &lt;p&gt;Existing applications put Bean Validation constraints on properties
+      (ie getters). If we enable validations when getters are called, some
+      applications might fail and Bean Validation would not be backward
+      compatible. Besides, it is unlikely that you want to validate genuine getters
+      when they are called. These are state, not operations for the most part.&lt;/p&gt;
+      
+      &lt;p&gt;First off what does it mean to be a getter. A method is a getter if:&lt;/p&gt;
+      
+      &lt;ul&gt;
+      &lt;li&gt;its name starts with &lt;code&gt;is&lt;/code&gt;, has no parameter and its return type is &lt;code&gt;Boolean&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;or its name starts with &lt;code&gt;get&lt;/code&gt; and has not parameter&lt;/li&gt;
+      &lt;/ul&gt;
+      
+      
+      &lt;p&gt;If in your service (say a CDI bean), you have an action method with
+      no parameter and starting with &lt;code&gt;get&lt;/code&gt;, and if you have added constraints
+      to validate the return value upon method call, we cannot differentiate
+      this action method from a genuine getter.&lt;/p&gt;
+      
+      &lt;p&gt;We have several solutions to work around the problem and we would like
+      to know which one you prefer.&lt;/p&gt;
+      
+      &lt;h2&gt;Solutions&lt;/h2&gt;
+      
+      &lt;p&gt;We can use a few levers to work around the issue:&lt;/p&gt;
+      
+      &lt;ul&gt;
+      &lt;li&gt;ask you to enable method validation explicitly&lt;/li&gt;
+      &lt;li&gt;offer a coarse or fine grained solution to change the default behavior&lt;/li&gt;
+      &lt;/ul&gt;
+      
+      
+      &lt;h3&gt;Solution 1: enable method validation out of the box&lt;/h3&gt;
+      
+      &lt;p&gt;If method validation is enabled out of the box then the sensible default is
+      to exclude getters from method validation.&lt;/p&gt;
+      
+      &lt;p&gt;This approach is friendly out of the box and will work as expected most of
+      the time (except for action methods with no parameter, starting with &lt;code&gt;get&lt;/code&gt;
+      and with constraints on the return value).&lt;/p&gt;
+      
+      &lt;p&gt;The downside of this approach is that in this very specific case where
+      an action method is also a getter, method validation would be disabled
+      out of the box and a manual intervention would be necessary.&lt;/p&gt;
+      
+      &lt;p&gt;You can change the default approach in two ways:&lt;/p&gt;
+      
+      &lt;h4&gt;Solution 1.a: global flag&lt;/h4&gt;
+      
+      &lt;p&gt;Use a global flag to disable method validation entirely or ask for getters
+      to be validated upon call. You would use &lt;code&gt;validation.xml&lt;/code&gt; for that:&lt;/p&gt;
+      
+      &lt;pre&gt;&lt;code&gt;&amp;lt;method-validation mode=&quot;INCLUDE_GETTERS&quot;/&amp;gt;
+      &lt;/code&gt;&lt;/pre&gt;
+      
+      &lt;p&gt;There is no way to change the behavior for a specific (set of) class.&lt;/p&gt;
+      
+      &lt;h4&gt;Solution 1.b: fine grained flag&lt;/h4&gt;
+      
+      &lt;p&gt;An alternative solution is to change method validation behavior in a
+      much more fine-grained approach:&lt;/p&gt;
+      
+      &lt;ul&gt;
+      &lt;li&gt;set the default approach globally
+      in &lt;code&gt;validation.xml&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;set or override the setting for a given package (including sub-packages?)
+      via &lt;code&gt;@ValidateOnCall&lt;/code&gt; as a package annotation (or &lt;code&gt;validation.xml&lt;/code&gt;)&lt;/li&gt;
+      &lt;li&gt;set or override the setting for a given class
+      via &lt;code&gt;@ValidateOnCall&lt;/code&gt; as a type annotation (or &lt;code&gt;validation.xml&lt;/code&gt;)&lt;/li&gt;
+      &lt;li&gt;set or override the setting for a given method
+      via &lt;code&gt;@ValidateOnCall&lt;/code&gt; as a method annotation (or &lt;code&gt;validation.xml&lt;/code&gt;)&lt;/li&gt;
+      &lt;/ul&gt;
+      
+      
+      &lt;p&gt;A &lt;code&gt;@ValidateOnCall&lt;/code&gt; annotation can be overridden in &lt;code&gt;validation.xml&lt;/code&gt; like we do for
+      constraints declarations.&lt;/p&gt;
+      
+      &lt;pre&gt;&lt;code&gt;public class AwesomeService {
+          // not a getter - validated by default
+          @NotNull Currency provideMainCurrency(@ISO @NotNull String country) { ... }
+      
+          // not a getter - validated by default
+          @NotNull Currency getAlternativeCurrencies(@ISO @NotNull String country) { ... }
+      
+          // getter - must use @ValidateOnCall to activate
+          @ValidateOnCall(mode=INCLUDE_GETTERS)
+          @NotNull getAllCurrencies() { ... }
+      }
+      &lt;/code&gt;&lt;/pre&gt;
+      
+      &lt;p&gt;Note that, we could put &lt;code&gt;@ValidateOnCall(mode=INCLUDE_GETTERS)&lt;/code&gt; on the package
+      of service classes&lt;/p&gt;
+      
+      &lt;pre&gt;&lt;code&gt;@ValidateOnCall(mode=INCLUDE_GETTERS)
+      package com.acme.gladiator.action;
+      &lt;/code&gt;&lt;/pre&gt;
+      
+      &lt;p&gt;In this case, &lt;code&gt;getAllCurrencies()&lt;/code&gt; does not need to be annotated with &lt;code&gt;@ValidateOnCall&lt;/code&gt;.&lt;/p&gt;
+      
+      &lt;h3&gt;Solution 2: disable method validation out of the box&lt;/h3&gt;
+      
+      &lt;p&gt;In this situation, a user wanting to enable method validation needs to both:&lt;/p&gt;
+      
+      &lt;ul&gt;
+      &lt;li&gt;add the constraints on methods&lt;/li&gt;
+      &lt;li&gt;add the flag to enable method validation&lt;/li&gt;
+      &lt;/ul&gt;
+      
+      
+      &lt;p&gt;The method validation flag would both allow it to be enabled and decide if getters
+      should be considered.&lt;/p&gt;
+      
+      &lt;p&gt;This approach is the least surprise approach as nothing is happening that you
+      have not explicitly asked for. The drawback is that it requires a manual intervention to enable
+      method validation in a given archive which is not groovy.&lt;/p&gt;
+      
+      &lt;h4&gt;Solution 2.a: global flag&lt;/h4&gt;
+      
+      &lt;p&gt;For all archives using method validation, a &lt;code&gt;META-INF/validation.xml&lt;/code&gt; file must
+      be added. The file would contain the explicit setting:&lt;/p&gt;
+      
+      &lt;pre&gt;&lt;code&gt;&amp;lt;method-validation mode=&quot;INCLUDE_GETTER&quot;/&amp;gt;
+      &lt;/code&gt;&lt;/pre&gt;
+      
+      &lt;p&gt;There is no way to change the behavior for a specific (set of) classes.&lt;/p&gt;
+      
+      &lt;h4&gt;Solution 2.b: fine grained flag&lt;/h4&gt;
+      
+      &lt;p&gt;As described in the previous section, we could enable method validation at
+      the package, class and method level using either a &lt;code&gt;@ValidateOnCall&lt;/code&gt; annotation
+      or via the &lt;code&gt;validation.xml&lt;/code&gt;. In this approach, &lt;code&gt;validation.xml&lt;/code&gt; is not mandatory
+      to enable method validation provided that you use &lt;code&gt;@ValidateOnCall&lt;/code&gt; in your code.&lt;/p&gt;
+      
+      &lt;h2&gt;So what's your favorite?&lt;/h2&gt;
+      
+      &lt;p&gt;My personal favorite is to enable non-getter method validation out of the
+      box and offer fine-grained options to override the behavior. That's solution
+      1.b. My reasoning is the following:&lt;/p&gt;
+      
+      &lt;ul&gt;
+      &lt;li&gt;I want ease of use and method validation enabled by default&lt;/li&gt;
+      &lt;li&gt;actions methods named like a getter, with no parameter and constraints
+      on its return value will be rare - return value constraint are less common
+      than parameter methods&lt;/li&gt;
+      &lt;/ul&gt;
+      
+      
+      &lt;p&gt;Some in the expert group do prefer solution 2.a or 2.b.&lt;/p&gt;
+      
+      &lt;p&gt;What's your take? And why do you prefer this approach?&lt;/p&gt;
+    </content>
+  </entry>
+  <entry>
+    <id>http://beanvalidation.org/news/2012/11/29/public-review-ballot/</id>
+    <title>Public review ballot favorable to Bean Validation 1.1</title>
+    <updated>2016-02-11T10:46:23+00:00</updated>
+    <published>2012-11-29T00:00:00+00:00</published>
+    <link href="http://beanvalidation.org/news/2012/11/29/public-review-ballot/" rel="alternate" type="text/html" />
+    <author>
+      <name>Emmanuel Bernard</name>
+    </author>
+    <category term="jcp"></category>
+    <summary>
+      The Java expert comity has just approved
+      the public review version of Bean Validation 1.1.
+      
+      What does that mean for the spec? We keep going and carry on our work
+      to finalize the specification.
+      
+      Onwards....
+    </summary>
+    <content type="html">
+      &lt;p&gt;The Java expert comity has &lt;a href=&quot;http://jcp.org/en/jsr/results?id=5386&quot;&gt;just approved&lt;/a&gt;
+      the public review version of Bean Validation 1.1.&lt;/p&gt;
+      
+      &lt;p&gt;What does that mean for the spec? We keep going and carry on our work
+      to finalize the specification.&lt;/p&gt;
+      
+      &lt;p&gt;Onwards.&lt;/p&gt;
+    </content>
+  </entry>
+  <entry>
+    <id>http://beanvalidation.org/news/2012/11/27/1-1-beta2-is-out/</id>
+    <title>Bean Validation 1.1 Beta 2 is out</title>
+    <updated>2016-02-11T10:46:23+00:00</updated>
+    <published>2012-11-27T00:00:00+00:00</published>
+    <link href="http://beanvalidation.org/news/2012/11/27/1-1-beta2-is-out/" rel="alternate" type="text/html" />
+    <author>
+      <name>Emmanuel Bernard</name>
+    </author>
+    <category term="release"></category>
+    <summary>
+      With Hibernate Validation, the reference implementation catching
+      up with the public review draft, we found a couple of minor glitches
+      to actually implement the specification. We did a minor release
+      to fix those glitches.
+      
+      Check out the specification and make sure to
+      use 1.1.0.Beta2 if you plan on implementing the specification early....
+    </summary>
+    <content type="html">
+      &lt;p&gt;With Hibernate Validation, the reference implementation catching
+      up with the public review draft, we found a couple of minor glitches
+      to actually implement the specification. We did a minor release
+      to fix those glitches.&lt;/p&gt;
+      
+      &lt;p&gt;Check out the &lt;a href=&quot;http://beanvalidation.org/1.1/spec/1.1.0.beta2&quot;&gt;specification&lt;/a&gt; and make sure to
+      use 1.1.0.Beta2 if you plan on implementing the specification early.&lt;/p&gt;
+    </content>
+  </entry>
+  <entry>
+    <id>http://beanvalidation.org/news/2012/10/22/release-1-1-public-review/</id>
+    <title>Public Review Draft for Bean Validation 1.1</title>
+    <updated>2016-02-11T10:46:23+00:00</updated>
+    <published>2012-10-22T00:00:00+00:00</published>
+    <link href="http://beanvalidation.org/news/2012/10/22/release-1-1-public-review/" rel="alternate" type="text/html" />
+    <author>
+      <name>Emmanuel Bernard</name>
+    </author>
+    <category term="release"></category>
+    <summary>
+      Last Friday I have handed over the Public Review Draft to the JCP.
+      
+      Beyond the new features and polishing of existing ones (see below),
+      the Public Review Draft marks the point where:
+      
+      
+      the community at large is invited to comment on the specification before the last
+      leg of work towards the final release starts
+      the JCP executive commitee votes on the current work at the end of the review
+      period
+      
+      
+      
+      We have been doing our work in the open but if you have not yet paid much attention
+      now is the time to fix that :)
+      
+      You can access the draft on this website.
+      All changes are marked with a...
+    </summary>
+    <content type="html">
+      &lt;p&gt;Last Friday I have handed over the Public Review Draft to the JCP.&lt;/p&gt;
+      
+      &lt;p&gt;Beyond the new features and polishing of existing ones (see below),
+      the Public Review Draft marks the point where:&lt;/p&gt;
+      
+      &lt;ul&gt;
+      &lt;li&gt;the community at large is invited to comment on the specification before the last
+      leg of work towards the final release starts&lt;/li&gt;
+      &lt;li&gt;the JCP executive commitee votes on the current work at the end of the review
+      period&lt;/li&gt;
+      &lt;/ul&gt;
+      
+      
+      &lt;p&gt;We have been doing our work in the open but if you have not yet paid much attention
+      now is the time to fix that :)&lt;/p&gt;
+      
+      &lt;p&gt;You can &lt;a href=&quot;http://beanvalidation.org/1.1/spec/1.1.0.beta1/?utm_source=blog&amp;amp;utm_medium=web&amp;amp;utm_content=spec&amp;amp;utm_campaign=1_1_pr1&quot;&gt;access the draft on this website&lt;/a&gt;.
+      All changes are marked with a different
+      color. &lt;span style=&quot;background-color:#DDFFDD;&quot;&gt;Green for additions&lt;/span&gt;,
+      &lt;span style=&quot;background-color:#FFFFDD;&quot;&gt;yellow for changes&lt;/span&gt; and
+      &lt;span style=&quot;text-decoration: line-through;background-color: #FFDDDD;&quot;&gt;struck through red for removals&lt;/span&gt;
+      . This will help you see what has changed precisely.&lt;/p&gt;
+      
+      &lt;p&gt;Please send us your remarks and comments:&lt;/p&gt;
+      
+      &lt;ul&gt;
+      &lt;li&gt;on our &lt;a href=&quot;https://lists.jboss.org/mailman/listinfo/beanvalidation-dev&quot;&gt;mailing list&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;in our &lt;a href=&quot;http://beanvalidation.org/issues&quot;&gt;issue tracker&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;or on the Bean Validation &lt;a href=&quot;https://forum.hibernate.org/viewforum.php?f=26&quot;&gt;forum&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+      
+      
+      &lt;p&gt;If you want to go to the next step and contribute, send us an email to
+      the mailing list and read &lt;a href=&quot;http://beanvalidation.org/contribute/&quot;&gt;how to contribute&lt;/a&gt;.&lt;/p&gt;
+      
+      &lt;h2&gt;What's new in this draft&lt;/h2&gt;
+      
+      &lt;p&gt;A lot of work has been done to polish or rework the features introduced
+      in the first draft. We have also added a few additional improvements:&lt;/p&gt;
+      
+      &lt;ul&gt;
+      &lt;li&gt;improved integration with CDI: dependency injection, component
+      lifecycle management and interception for method validation&lt;/li&gt;
+      &lt;li&gt;add rules describing method validation in particular how an interception
+      technology ought to integrate: this will offer better portability&lt;/li&gt;
+      &lt;li&gt;add support for cross parameter validators on method validation&lt;/li&gt;
+      &lt;li&gt;add metadata APIs to identify constrained methods&lt;/li&gt;
+      &lt;li&gt;add support for group conversion (i.e., change the targeted group when
+      cascading validation)&lt;/li&gt;
+      &lt;li&gt;clarify that composed constraints should fail fast when &lt;code&gt;@RepostAsSingleViolation&lt;/code&gt;
+      is present&lt;/li&gt;
+      &lt;li&gt;support &lt;code&gt;CharSequence&lt;/code&gt; (used to be &lt;code&gt;String&lt;/code&gt;) for built-in constraints&lt;/li&gt;
+      &lt;/ul&gt;
+      
+      
+      &lt;h2&gt;Contributions&lt;/h2&gt;
+      
+      &lt;p&gt;As usual, many thanks to the community for its feedback, the expert group for its
+      work. Special thanks to Gunnar and Hardy who worked round the clock this past two
+      weeks to integrate all planned improvements in the specification document.&lt;/p&gt;
+    </content>
+  </entry>
+  <entry>
+    <id>http://beanvalidation.org/news/2012/09/12/fine-control-over-method-validation/</id>
+    <title>Fine control over method validation in Bean Validation... or not!</title>
+    <updated>2016-02-11T10:46:23+00:00</updated>
+    <published>2012-09-12T00:00:00+00:00</published>
+    <link href="http://beanvalidation.org/news/2012/09/12/fine-control-over-method-validation/" rel="alternate" type="text/html" />
+    <author>
+      <name>Emmanuel Bernard</name>
+    </author>
+    <category term="feedback-needed"></category>
+    <summary>
+      I need your feedback on whether or not you need fine controls on method
+      validation.
+      
+      Some context
+      
+      Bean Validation 1.1 introduces the idea of method validation. When
+      the method is called, parameters and return value can be validated.
+      The constraints are of course defined as Bean Validation constraint
+      annotations.
+      
+      I am working on the chapter describing how interceptor technologies like
+      CDI, EJB, Spring, Guice, AspectJ should integrate it.
+      
+      We have decided to convert most of the
+      recommendations into mandatory rules. In particular, methods annotated
+      with constraints should be validated by the integration technology
+      by default.
+      
+      Early in the design we have introduced an annotation @MethodValidated
+      that lets you control a few things:
+      
+      
+      which group should...
+    </summary>
+    <content type="html">
+      &lt;p&gt;I need your feedback on whether or not you need fine controls on method
+      validation.&lt;/p&gt;
+      
+      &lt;h2&gt;Some context&lt;/h2&gt;
+      
+      &lt;p&gt;Bean Validation 1.1 introduces the idea of method validation. When
+      the method is called, parameters and return value can be validated.
+      The constraints are of course defined as Bean Validation constraint
+      annotations.&lt;/p&gt;
+      
+      &lt;p&gt;I am working on the chapter describing how interceptor technologies like
+      CDI, EJB, Spring, Guice, AspectJ should integrate it.&lt;/p&gt;
+      
+      &lt;p&gt;We have decided to convert most of the
+      recommendations into mandatory rules. In particular, methods annotated
+      with constraints should be validated by the integration technology
+      by default.&lt;/p&gt;
+      
+      &lt;p&gt;Early in the design we have introduced an annotation &lt;code&gt;@MethodValidated&lt;/code&gt;
+      that lets you control a few things:&lt;/p&gt;
+      
+      &lt;ul&gt;
+      &lt;li&gt;which group should be used for validation (defaulting to &lt;code&gt;Default&lt;/code&gt;)&lt;/li&gt;
+      &lt;li&gt;what part should be validated: parameters, return value, both or none&lt;/li&gt;
+      &lt;/ul&gt;
+      
+      
+      &lt;p&gt;This annotation made sense when validation was not on by default but I am
+      now questioning its usefulness.&lt;/p&gt;
+      
+      &lt;p&gt;&lt;strong&gt;I have a bunch of questions for you&lt;/strong&gt;. I tried to keep them short and to
+      the point so feel free to answer them one by one. They also go from easy
+      to more convoluted. Are you up for the challenge?&lt;/p&gt;
+      
+      &lt;p&gt;Note that I have added a bonus question in the end.&lt;/p&gt;
+      
+      &lt;h2&gt;What's your use case for disabling method validation?&lt;/h2&gt;
+      
+      &lt;p&gt;Why would you want to disable method validation on a given method or a
+      given class?&lt;/p&gt;
+      
+      &lt;pre&gt;&lt;code&gt;public class UserService {
+          @MethodValidated(validationMode=NONE)
+          public void createUser(
+              @NotEmpty @Email String email,
+              @Valid Address address ) {
+              ...
+          }
+      }
+      &lt;/code&gt;&lt;/pre&gt;
+      
+      &lt;p&gt;If you have a use case, would it be fulfilled with the &lt;code&gt;@MethodValidated&lt;/code&gt;
+      annotation as described?&lt;/p&gt;
+      
+      &lt;h2&gt;What's your use case for changing the default group?&lt;/h2&gt;
+      
+      &lt;p&gt;&lt;code&gt;@MethodValidated(groups=Heavy.class)&lt;/code&gt; let's you change validation from
+      the &lt;code&gt;Default&lt;/code&gt; group to the group of your choice - in this case &lt;code&gt;Heavy&lt;/code&gt;.&lt;/p&gt;
+      
+      &lt;p&gt;Provided that we will offer support for group translation when cascading
+      &lt;a href=&quot;http://beanvalidation.org/proposals/BVAL-208/&quot;&gt;http://beanvalidation.org/proposals/BVAL-208/&lt;/a&gt;&lt;/p&gt;
+      
+      &lt;pre&gt;&lt;code&gt;public class UserService {
+          public void createUser(
+              @NotEmpty @Email String email,
+              @Valid @ConvertGroup(from=Default.class, to=BasicPostal.class)
+              Address address ) {
+              ...
+          }
+      }
+      &lt;/code&gt;&lt;/pre&gt;
+      
+      &lt;p&gt;do we really need the ability do decide which group to use to validate a
+      given method? What would be the use case?&lt;/p&gt;
+      
+      &lt;p&gt;To me it seems that it could makes sense to validate one group over
+      another based on:&lt;/p&gt;
+      
+      &lt;ul&gt;
+      &lt;li&gt;some environmental consideration
+      say a newbie user has more constraints on how it enters data
+      than an advanced user hence different groups&lt;/li&gt;
+      &lt;li&gt;the caller
+      say a branch of the code wants to apply different rules than
+      an other&lt;/li&gt;
+      &lt;/ul&gt;
+      
+      
+      &lt;p&gt;In both case, it does not make sense to define the group via an
+      annotation on the method to be validated.
+      This would need to be a rather container specific behavior to let people
+      inject the right group for the right context.&lt;/p&gt;
+      
+      &lt;h2&gt;When would you want to only validate parameters or return values?&lt;/h2&gt;
+      
+      &lt;p&gt;&lt;code&gt;@MethodValidated.validationMode&lt;/code&gt; let's you validate both method
+      parameters as well as return value, or either one of them or none at all.&lt;/p&gt;
+      
+      &lt;pre&gt;&lt;code&gt;@MethodValidated(validationMode=PARAMETERS)
+      public class UserService {
+          @Valid
+          public User createUser(
+              @NotEmpty @Email String email,
+              @Valid Address address ) {
+              ...
+          }
+      }
+      &lt;/code&gt;&lt;/pre&gt;
+      
+      &lt;p&gt;Do you have a use case in mind for such need?&lt;/p&gt;
+      
+      &lt;h2&gt;What inheritance rules make sense for &lt;code&gt;@MethodValidated&lt;/code&gt;?&lt;/h2&gt;
+      
+      &lt;p&gt;Assuming we have &lt;code&gt;@MethodValidated&lt;/code&gt;, we need to define the overriding
+      rules.&lt;/p&gt;
+      
+      &lt;p&gt;We could decide that &lt;code&gt;@MethodValided&lt;/code&gt; must be placed on the method to be
+      validated (no overriding rule), or we could try and add some or all of
+      the following rules:&lt;/p&gt;
+      
+      &lt;ol&gt;
+      &lt;li&gt;&lt;code&gt;@MethodValidated&lt;/code&gt; definitions on a method overrides the ones on a class&lt;/li&gt;
+      &lt;li&gt;&lt;code&gt;@MethodValidated&lt;/code&gt; definition on a subclass overrides the ones on superclasses&lt;/li&gt;
+      &lt;/ol&gt;
+      
+      
+      &lt;p&gt;Here is an example&lt;/p&gt;
+      
+      &lt;pre&gt;&lt;code&gt;//example of rule 1
+      @MethodValidated(validationMode=PARAMETERS)
+      public class UserService {
+          @MethodValidated(validationMode=BOTH)
+          @Valid
+          public User createUser(
+              @NotEmpty @Email String email,
+              @Valid Address address ) {
+              ...
+          }
+      }
+      &lt;/code&gt;&lt;/pre&gt;
+      
+      &lt;p&gt;Interfaces make things harder as there would be no magic rule to decide
+      which definition has precedence over another in case of conflict.&lt;/p&gt;
+      
+      &lt;p&gt;We could consider that methods of a class implementing an interface
+      inherit the interface hosted &lt;code&gt;@MethodValidated&lt;/code&gt; definition (unless overridden).
+      And in case two interfaces define the same method, overriding the
+      &lt;code&gt;@MethodValidated&lt;/code&gt; definition would be mandatory.&lt;/p&gt;
+      
+      &lt;p&gt;I can live with rule 1, I can support rule 2. but I feel that the rules
+      related to interfaces make things quite complex and not especially
+      readable. Plus I don't see why you would want to add &lt;code&gt;@MethodValidated&lt;/code&gt;
+      on an interface. Not surprising as I don't see why one would do it on a
+      class method anyways ;)&lt;/p&gt;
+      
+      &lt;p&gt;What do you make of that?&lt;/p&gt;
+      
+      &lt;h2&gt;You are a convinced @MethodValidated fan? What about the name?&lt;/h2&gt;
+      
+      &lt;p&gt;We have never found a good name for this annotation anyways. If you
+      like and want this annotation, how should it be named?&lt;/p&gt;
+      
+      &lt;p&gt;Yep that's the bonus question, sorry.&lt;/p&gt;
+      
+      &lt;h2&gt;Conclusion&lt;/h2&gt;
+      
+      &lt;p&gt;I realize that it must look like I am having a &lt;code&gt;@MethodValidated&lt;/code&gt;
+      mid-life crisis but better now than later :D&lt;/p&gt;
+    </content>
+  </entry>
+  <entry>
+    <id>http://beanvalidation.org/news/2012/08/31/big-push-on-bean-validation/</id>
+    <title>Big push on Bean Validation 1.1</title>
+    <updated>2016-02-11T10:46:23+00:00</updated>
+    <published>2012-08-31T00:00:00+00:00</published>
+    <link href="http://beanvalidation.org/news/2012/08/31/big-push-on-bean-validation/" rel="alternate" type="text/html" />
+    <author>
+      <name>Emmanuel Bernard</name>
+    </author>
+    <category term="status-update"></category>
+    <summary>
+      Like most of you, the Bean Validation specification is coming back from holiday
+      fresh and motivated.
+      
+      Java EE 7 is coming soon and to avoid missing the train, it is time to reap the fruits of all the discussions
+      we have had over the last few months. I expect September and October to be focused
+      on:
+      
+      
+      integrating the various proposals in the speficication and flesh out
+      the remaining problems
+      taking decisions to unstuck discussions
+      iterating over the features proposed in the early draft
+      (we have had good feedback from the JAX-RS expert group to refine
+      method validation)
+      
+      
+      
+      The rest of the time will be focused on writing the reference implementation
+      and the...
+    </summary>
+    <content type="html">
+      &lt;p&gt;Like most of you, the Bean Validation specification is coming back from holiday
+      fresh and motivated.&lt;/p&gt;
+      
+      &lt;p&gt;Java EE 7 is coming soon and to avoid missing the train, it is time to reap the fruits of all the discussions
+      we have had over the last few months. I expect September and October to be focused
+      on:&lt;/p&gt;
+      
+      &lt;ul&gt;
+      &lt;li&gt;integrating the various proposals in the speficication and flesh out
+      the remaining problems&lt;/li&gt;
+      &lt;li&gt;taking decisions to unstuck discussions&lt;/li&gt;
+      &lt;li&gt;iterating over the features proposed in the early draft
+      (we have had good feedback from the JAX-RS expert group to refine
+      method validation)&lt;/li&gt;
+      &lt;/ul&gt;
+      
+      
+      &lt;p&gt;The rest of the time will be focused on writing the reference implementation
+      and the TCK and refine the various new features.
+      We will also work with other expert groups to clarify the integration (CDI,
+      JAX-RS, Java EE...).&lt;/p&gt;
+      
+      &lt;p&gt;Our priority list is &lt;a href=&quot;http://beanvalidation.org/roadmap/#priorities&quot;&gt;published&lt;/a&gt; in the open. We will probably adjust it
+      a bit but the main lines are now fixed. If you feel that something important is missing,
+      come and help us identify it and build it.&lt;/p&gt;
+      
+      &lt;p&gt;And remember, if you come later and complain about Bean Validation, we will ask you:
+      &lt;a href=&quot;http://beanvalidation.org/contribute/&quot;&gt;where&lt;/a&gt; &lt;a href=&quot;https://github.com/beanvalidation/beanvalidation-spec&quot;&gt;were&lt;/a&gt;
+      &lt;a href=&quot;https://github.com/hibernate/hibernate-validator&quot;&gt;you&lt;/a&gt;? ;)&lt;/p&gt;
+    </content>
+  </entry>
+  <entry>
+    <id>http://beanvalidation.org/news/2012/08/29/methodvalidation-inheritance/</id>
+    <title>Method validation and inheritance - feedback needed!</title>
+    <updated>2016-02-11T10:46:23+00:00</updated>
+    <published>2012-08-29T00:00:00+00:00</published>
+    <link href="http://beanvalidation.org/news/2012/08/29/methodvalidation-inheritance/" rel="alternate" type="text/html" />
+    <author>
+      <name>Gunnar Morling</name>
+    </author>
+    <category term="feedback-needed"></category>
+    <summary>
+      Now that everybody is returning from their summer holidays, also the Bean Validation team
+      is getting back to their desks in order to work with full steam towards revision 1.1.
+      
+      As you know, the largest new feature will be
+      method validation, that is the validation
+      of method parameters and return values using constraint annotations. Bean Validation 1.1
+      early draft 1 lays the
+      ground for this, and right now we're tackling some
+      advanced questions still open in that area
+      (btw. if you haven't yet tried out the
+      reference implementation
+      of ED1, this is the perfect time to do so and give us your feedback).
+      
+      The problem
+      
+      One question the EG currently is discussing
+      is...
+    </summary>
+    <content type="html">
+      &lt;p&gt;Now that everybody is returning from their summer holidays, also the Bean Validation team
+      is getting back to their desks in order to work with full steam towards revision 1.1.&lt;/p&gt;
+      
+      &lt;p&gt;As you know, the largest new feature will be
+      &lt;a href=&quot;http://beanvalidation.org/1.1/spec/#d0e2147&quot;&gt;method validation&lt;/a&gt;, that is the validation
+      of method parameters and return values using constraint annotations. Bean Validation 1.1
+      &lt;a href=&quot;http://beanvalidation.org/news/2012/03/13/release-1-1-edr1/&quot;&gt;early draft 1&lt;/a&gt; lays the
+      ground for this, and right now we're tackling some
+      &lt;a href=&quot;https://hibernate.onjira.com/browse/BVAL-272&quot;&gt;advanced questions&lt;/a&gt; still open in that area
+      (btw. if you haven't yet tried out the
+      &lt;a href=&quot;http://in.relation.to/Bloggers/FirstAlphaReleaseOfHibernateValidator5&quot;&gt;reference implementation&lt;/a&gt;
+      of ED1, this is the perfect time to do so and give us your feedback).&lt;/p&gt;
+      
+      &lt;h2&gt;The problem&lt;/h2&gt;
+      
+      &lt;p&gt;One question the EG currently is &lt;a href=&quot;http://lists.jboss.org/pipermail/beanvalidation-dev/2012-August/000504.html&quot;&gt;discussing&lt;/a&gt;
+      is whether and, if so, how a refinement of method constraints should be allowed in
+      sub-types. That is, if a class implements a method of an interface or overrides a method
+      from a super class, should the sub-type be allowed to place any additional constraints?&lt;/p&gt;
+      
+      &lt;p&gt;The current draft defines the following rules for such cases (see the
+      &lt;a href=&quot;http://beanvalidation.org/1.1/spec/#d0e2429&quot;&gt;draft document&lt;/a&gt; for all the gory details):&lt;/p&gt;
+      
+      &lt;ul&gt;
+      &lt;li&gt;No parameter constraints may be specified in addition to those constraints defined on
+      the method in the interface or super class.&lt;/li&gt;
+      &lt;li&gt;Return value constraints may be added in sub-types.&lt;/li&gt;
+      &lt;/ul&gt;
+      
+      
+      &lt;h2&gt;The rationale&lt;/h2&gt;
+      
+      &lt;p&gt;The rationale behind this is the principle of
+      &lt;a href=&quot;http://en.wikipedia.org/wiki/Liskov_substitution_principle&quot;&gt;behavioral sub-typing&lt;/a&gt;, which
+      demands that wherever a given type &lt;code&gt;T&lt;/code&gt; is used, it should be possible to replace &lt;code&gt;T&lt;/code&gt; with
+      a sub-type &lt;code&gt;S&lt;/code&gt; of &lt;code&gt;T&lt;/code&gt;. This means that a sub-type must not strengthen a method's
+      preconditions (by adding parameter constraints), as this might cause client code working
+      correctly against &lt;code&gt;T&lt;/code&gt; to fail when working against &lt;code&gt;S&lt;/code&gt;. A sub-type may also not weaken a
+      method's postconditions. However, a sub-type may strengthen the method's postconditions
+      (by adding return value constraints), as client code working against &lt;code&gt;T&lt;/code&gt; still will work
+      against &lt;code&gt;S&lt;/code&gt;.&lt;/p&gt;
+      
+      &lt;h2&gt;Can you show me some code, please?&lt;/h2&gt;
+      
+      &lt;p&gt;To give you an example, the following shows a constraint declaration considered illegal as
+      of the current draft, as parameter constraints are added to the &lt;code&gt;placeOrder()&lt;/code&gt; method in a
+      sub-class of &lt;code&gt;OrderService&lt;/code&gt;:&lt;/p&gt;
+      
+      &lt;pre&gt;&lt;code&gt;public class OrderService {
+          void placeOrder(@NotNull String customerCode, @NotNull Item item, int quantity) { ... }
+      }
+      
+      public class SimpleOrderService extends OrderService {
+      
+          @Override
+          public void placeOrder(
+              @Size(min=3, max=20) String customerCode,
+              Item item,
+              @Min(1) int quantity) { ... }
+      }
+      &lt;/code&gt;&lt;/pre&gt;
+      
+      &lt;h2&gt;Alternatives&lt;/h2&gt;
+      
+      &lt;p&gt;While this approach works, follows principles of clean OO design and also
+      &lt;a href=&quot;http://research.microsoft.com/en-us/projects/contracts/&quot;&gt;is employed&lt;/a&gt; by other
+      &lt;em&gt;Programming by Contract&lt;/em&gt; solutions, some voices in the EG expressed doubts whether the
+      handling of parameter constraints isn't too restrictive and thus may limit innovation in
+      that area. In particular with respect to legacy code, the question was raised whether it
+      shouldn't be allowed to add parameter constraints in sub-types.&lt;/p&gt;
+      
+      &lt;p&gt;One example may be a legacy interface, which &lt;em&gt;technically&lt;/em&gt; has no constraints (that is, no
+      parameter constraints are placed on its methods), but comes with a verbal description of
+      preconditions in its documentation. In this case an implementor of that interface might
+      wish to implement this contract by placing corresponding constraint annotations on the
+      implementation.&lt;/p&gt;
+      
+      &lt;p&gt;An open question in this situation is what should the behavior be if the
+      interface is being constrained afterwards?&lt;/p&gt;
+      
+      &lt;h2&gt;Give use your feedback!&lt;/h2&gt;
+      
+      &lt;p&gt;So what do you think, should such a refinement of parameter constraints be allowed or not?
+      Possible alternatives:&lt;/p&gt;
+      
+      &lt;ul&gt;
+      &lt;li&gt;allow such a refinement by default&lt;/li&gt;
+      &lt;li&gt;have some sort of switch controlling the behavior (either standardized or provider-specific)&lt;/li&gt;
+      &lt;/ul&gt;
+      
+      
+      &lt;p&gt;As there are pro's and con's of either approach, we'd very interested in user feedback on this.&lt;/p&gt;
+      
+      &lt;p&gt;Let us know what you think by posting a comment directly to this blog, shooting a message
+      to the &lt;a href=&quot;https://lists.jboss.org/mailman/listinfo/beanvalidation-dev&quot;&gt;mailing list&lt;/a&gt; or
+      participating in this &lt;a href=&quot;http://www.doodle.com/qp78u6mqzetuas7p&quot;&gt;Doodle vote&lt;/a&gt;. Which use cases
+      you have encountered come to mind where the possibility to refine parameter constraints
+      may help you?&lt;/p&gt;
+    </content>
+  </entry>
+  <entry>
+    <id>http://beanvalidation.org/news/2012/06/28/hibernate-validator-5-alpha/</id>
+    <title>Hibernate Validator 5 alpha for Bean Validation 1.1 is out</title>
+    <updated>2016-02-11T10:46:23+00:00</updated>
+    <published>2012-06-28T00:00:00+00:00</published>
+    <link href="http://beanvalidation.org/news/2012/06/28/hibernate-validator-5-alpha/" rel="alternate" type="text/html" />
+    <author>
+      <name>Emmanuel Bernard</name>
+    </author>
+    <category term="test"></category>
+    <summary>
+      Hibernate Validator, the reference implementation for Bean Validation has just been released
+      in version 5 alpha. This version implements the new features described in
+      Bean Validation 1.1 first draft.
+      
+      Integrators, spec leads and users should all go and try this release to see if some
+      adjustments are needed. On the menu: method validation, dependency
+      injection and more.
+      
+      Read more about it in Hardy's blog post....
+    </summary>
+    <content type="html">
+      &lt;p&gt;Hibernate Validator, the reference implementation for Bean Validation has just been &lt;a href=&quot;http://in.relation.to/Bloggers/FirstAlphaReleaseOfHibernateValidator5&quot;&gt;released
+      in version 5 alpha&lt;/a&gt;. This version implements the new features described in
+      Bean Validation 1.1 first draft.&lt;/p&gt;
+      
+      &lt;p&gt;Integrators, spec leads and users should all go and try this release to see if some
+      adjustments are needed. On the menu: method validation, dependency
+      injection and more.&lt;/p&gt;
+      
+      &lt;p&gt;Read more about it in &lt;a href=&quot;http://in.relation.to/Bloggers/FirstAlphaReleaseOfHibernateValidator5&quot;&gt;Hardy's blog post&lt;/a&gt;.&lt;/p&gt;
+    </content>
+  </entry>
+  <entry>
+    <id>http://beanvalidation.org/news/2012/06/06/continuous-publication-specification-snapshot/</id>
+    <title>Continuous publication of the specification snapshot</title>
+    <updated>2016-02-11T10:46:23+00:00</updated>
+    <published>2012-06-06T00:00:00+00:00</published>
+    <link href="http://beanvalidation.org/news/2012/06/06/continuous-publication-specification-snapshot/" rel="alternate" type="text/html" />
+    <author>
+      <name>Emmanuel Bernard</name>
+    </author>
+    <summary>
+      The latest snapshot of the specification is now always published on the site
+      as soon as we push change to the Git repository.
+      The expert group has been using it for a while, we simply forgot to announce it publicly....
+    </summary>
+    <content type="html">
+      &lt;p&gt;The latest snapshot of the specification is now always published &lt;a href=&quot;http://beanvalidation.org/latest-draft/&quot;&gt;on the site&lt;/a&gt;
+      as soon as we push change to the Git repository.
+      The expert group has been using it for a while, we simply forgot to announce it publicly.&lt;/p&gt;
+    </content>
+  </entry>
+  <entry>
+    <id>http://beanvalidation.org/news/2012/03/28/jcp-release-1-1-edr1/</id>
+    <title>Bean Validation 1.1 officially reaches the JCP</title>
+    <updated>2016-02-11T10:46:23+00:00</updated>
+    <published>2012-03-28T00:00:00+00:00</published>
+    <link href="http://beanvalidation.org/news/2012/03/28/jcp-release-1-1-edr1/" rel="alternate" type="text/html" />
+    <author>
+      <name>Emmanuel Bernard</name>
+    </author>
+    <category term="release"></category>
+    <summary>
+      Bean Validation 1.1 early draft 1 officially reaches the JCP and is available
+      on their website. You already knew about it from the release
+      and artifacts announcements.
+      
+      That's still a significant milestone that has to be reached by the JCP rules.
+      A specification needs to produce a certain amount of output which is regulated
+      by the JCP itself. If you are curious, I encourage you to read the process document.
+      
+      Note that JSR-349 (Bean Validation 1.1) does run under the previous version of
+      this process but in practice we obey the rules of the current version
+      (especially in openness)....
+    </summary>
+    <content type="html">
+      &lt;p&gt;Bean Validation 1.1 early draft 1 officially reaches the JCP and is available
+      &lt;a href=&quot;http://jcp.org/aboutJava/communityprocess/edr/jsr349/index.html&quot;&gt;on their website&lt;/a&gt;. You already knew about it from the &lt;a href=&quot;http://beanvalidation.org/news/2012/03/13/release-1-1-edr1/?utm_source=blog&amp;amp;utm_medium=web&amp;amp;utm_content=blogedr1&amp;amp;utm_campaign=1_1_edr1&quot;&gt;release&lt;/a&gt;
+      and &lt;a href=&quot;http://beanvalidation.org/news/2012/03/16/artifacts-1-1-edr1/?utm_source=blog&amp;amp;utm_medium=web&amp;amp;utm_content=blogedr1&amp;amp;utm_campaign=1_1_edr1&quot;&gt;artifacts&lt;/a&gt; announcements.&lt;/p&gt;
+      
+      &lt;p&gt;That's still a significant milestone that has to be reached by the JCP rules.
+      A specification needs to produce a certain amount of output which is regulated
+      by the JCP itself. If you are curious, I encourage you to read the &lt;a href=&quot;http://jcp.org/en/procedures/jcp2&quot;&gt;process document&lt;/a&gt;.&lt;/p&gt;
+      
+      &lt;p&gt;Note that JSR-349 (Bean Validation 1.1) does run under the previous version of
+      this process but in practice we obey the rules of the current version
+      (especially in openness).&lt;/p&gt;
+    </content>
+  </entry>
+  <entry>
+    <id>http://beanvalidation.org/news/2012/03/16/artifacts-1-1-edr1/</id>
+    <title>Code artifacts published for Bean Validation 1.1 early draft 1</title>
+    <updated>2016-02-11T10:46:23+00:00</updated>
+    <published>2012-03-16T00:00:00+00:00</published>
+    <link href="http://beanvalidation.org/news/2012/03/16/artifacts-1-1-edr1/" rel="alternate" type="text/html" />
+    <author>
+      <name>Emmanuel Bernard</name>
+    </author>
+    <category term="release"></category>
+    <summary>
+      Following the release of the first early draft for Bean Validation 1.1,
+      we have published the code artifacts:
+      
+      
+      the code source
+      the jar
+      the JavaDoc
+      
+      
+      
+      All are available on JBoss's Maven repository. Alternatively, you can
+      reference them in your Maven POM
+      
+      &lt;dependency&gt;
+          &lt;groupId&gt;javax.validation&lt;/groupId&gt;
+          &lt;artifactId&gt;validation-api&lt;/artifactId&gt;
+          &lt;version&gt;1.1.0.Alpha1&lt;/version&gt;
+      &lt;/dependency&gt;
+      
+      
+      Enjoy....
+    </summary>
+    <content type="html">
+      &lt;p&gt;Following the release of the &lt;a href=&quot;http://beanvalidation.org/news/2012/03/13/release-1-1-edr1/?utm_source=blog&amp;amp;utm_medium=web&amp;amp;utm_content=blogedr1&amp;amp;utm_campaign=1_1_edr1&quot;&gt;first early draft&lt;/a&gt; for Bean Validation 1.1,
+      we have published the code artifacts:&lt;/p&gt;
+      
+      &lt;ul&gt;
+      &lt;li&gt;the code source&lt;/li&gt;
+      &lt;li&gt;the jar&lt;/li&gt;
+      &lt;li&gt;the JavaDoc&lt;/li&gt;
+      &lt;/ul&gt;
+      
+      
+      &lt;p&gt;All are available on &lt;a href=&quot;https://repository.jboss.org/nexus/content/groups/public/javax/validation/validation-api/1.1.0.Alpha1/&quot;&gt;JBoss's Maven repository&lt;/a&gt;. Alternatively, you can
+      reference them in your Maven POM&lt;/p&gt;
+      
+      &lt;pre&gt;&lt;code&gt;&amp;lt;dependency&amp;gt;
+          &amp;lt;groupId&amp;gt;javax.validation&amp;lt;/groupId&amp;gt;
+          &amp;lt;artifactId&amp;gt;validation-api&amp;lt;/artifactId&amp;gt;
+          &amp;lt;version&amp;gt;1.1.0.Alpha1&amp;lt;/version&amp;gt;
+      &amp;lt;/dependency&amp;gt;
+      &lt;/code&gt;&lt;/pre&gt;
+      
+      &lt;p&gt;Enjoy.&lt;/p&gt;
+    </content>
+  </entry>
+  <entry>
+    <id>http://beanvalidation.org/news/2012/03/13/release-1-1-edr1/</id>
+    <title>Bean Validation 1.1 early draft 1 is out - time for feedback</title>
+    <updated>2016-02-11T10:46:23+00:00</updated>
+    <published>2012-03-13T00:00:00+00:00</published>
+    <link href="http://beanvalidation.org/news/2012/03/13/release-1-1-edr1/" rel="alternate" type="text/html" />
+    <author>
+      <name>Emmanuel Bernard</name>
+    </author>
+    <category term="release"></category>
+    <summary>
+      After a long time in the shadows of open work... Ahem, take two. After a long time at work,
+      I am very pleased to announce Bean Validation 1.1 early draft 1.
+      This is our first big milestone since the release of 1.0.
+      
+      The draft is making its way through the official channels of the JCP but
+      we also wanted to release it in full openned. For people in a hurry,
+      the spec draft is here.
+      
+      What's new
+      
+      We worked on three major areas:
+      
+      
+      openess
+      method level validation
+      dependency injection
+      
+      
+      
+      Openess
+      
+      The specification, the reference implementation, the TCK, this website... everything is open sourced.
+      All work done on Bean Validation 1.1 is done in...
+    </summary>
+    <content type="html">
+      &lt;p&gt;After a long time in the shadows of open work... Ahem, take two. After a long time at work,
+      I am very pleased to announce Bean Validation 1.1 early draft 1.
+      This is our first big milestone since the release of 1.0.&lt;/p&gt;
+      
+      &lt;p&gt;The draft is making its way through the official channels of the JCP but
+      we also wanted to release it in full openned. For people in a hurry,
+      &lt;a href=&quot;http://beanvalidation.org/1.1/spec/1.0.0.alpha1/?utm_source=blog&amp;amp;utm_medium=web&amp;amp;utm_content=spec&amp;amp;utm_campaign=1_1_edr1&quot;&gt;the spec draft is here&lt;/a&gt;.&lt;/p&gt;
+      
+      &lt;h2&gt;What's new&lt;/h2&gt;
+      
+      &lt;p&gt;We worked on three major areas:&lt;/p&gt;
+      
+      &lt;ul&gt;
+      &lt;li&gt;openess&lt;/li&gt;
+      &lt;li&gt;method level validation&lt;/li&gt;
+      &lt;li&gt;dependency injection&lt;/li&gt;
+      &lt;/ul&gt;
+      
+      
+      &lt;h3&gt;Openess&lt;/h3&gt;
+      
+      &lt;p&gt;The specification, the reference implementation, the TCK, this website... everything is open sourced.
+      All work done on Bean Validation 1.1 is done in the open either on the mailing list, the issue tracker
+      or via GitHub pull requests. Check out more in the &lt;a href=&quot;http://beanvalidation.org/contribute&quot;&gt;how to contribute section&lt;/a&gt;.&lt;/p&gt;
+      
+      &lt;h3&gt;Method-level validation&lt;/h3&gt;
+      
+      &lt;p&gt;You can now put constraints declarations on parameters and return values of methods and constructors.&lt;/p&gt;
+      
+      &lt;pre&gt;&lt;code&gt;@MethodValidated 
+      public class OrderService {
+      
+          public OrderService(@NotNull CreditCardProcessor creditCardProcessor) {
+              //...
+          }
+      
+          public void placeOrder(
+              @NotNull @Size(min=3, max=20) String customerCode,
+              @NotNull @Valid Item item,
+              @Min(1) int quantity) {
+      
+              //...
+          }
+      }
+      &lt;/code&gt;&lt;/pre&gt;
+      
+      &lt;p&gt;Interception frameworks like CDI will check these constraints upon method calls thanks to the
+      &lt;code&gt;@MethodValidated&lt;/code&gt; annotation. Read more in the spec.&lt;/p&gt;
+      
+      &lt;h3&gt;Dependency injection&lt;/h3&gt;
+      
+      &lt;p&gt;Bean Validation uses a few components &lt;code&gt;MessageInterpolator&lt;/code&gt;, &lt;code&gt;TraversableResolver&lt;/code&gt;, &lt;code&gt;ConstraintValidatorFactory&lt;/code&gt;
+      and most importantly &lt;code&gt;ConstraintValidator&lt;/code&gt;. We have standardized how these objects are managed by a container
+      and how these objects can benefit from container services.&lt;/p&gt;
+      
+      &lt;p&gt;That means that your constraint validator implementation will be able to get resources injected automatically.&lt;/p&gt;
+      
+      &lt;p&gt;While we go into details on how it will fit in CDI and Java EE, we have worked hard to make it container
+      agnostic. If you write or use other containers (Guice, Spring Framework, Avalon :) ), check out
+      if it fits properly.&lt;/p&gt;
+      
+      &lt;h2&gt;Contributions&lt;/h2&gt;
+      
+      &lt;p&gt;We have had tremendous help from the Bean Validation community at large but I would
+      like to give a massive thank you to &lt;a href=&quot;http://musingsofaprogrammingaddict.blogspot.com/&quot;&gt;Gunnar Morling&lt;/a&gt; who stepped
+      up and lead the work on method-level validation. This is by far the biggest new
+      feature of Bean Validation 1.1.&lt;/p&gt;
+      
+      &lt;h2&gt;How to read the spec and provide feedback&lt;/h2&gt;
+      
+      &lt;p&gt;The draft has been published &lt;a href=&quot;http://beanvalidation.org/1.1/spec/1.0.0.alpha1/?utm_source=blog&amp;amp;utm_medium=web&amp;amp;utm_content=spec&amp;amp;utm_campaign=1_1_edr1&quot;&gt;here&lt;/a&gt; and all changes are marked with a different
+      color. &lt;span style=&quot;background-color:#DDFFDD;&quot;&gt;Green for additions&lt;/span&gt;,
+      &lt;span style=&quot;background-color:#FFFFDD;&quot;&gt;yellow for changes&lt;/span&gt; and
+      &lt;span style=&quot;text-decoration: line-through;background-color: #FFDDDD;&quot;&gt;struck through red for removals&lt;/span&gt;
+      . This will help you see what has changed precisely.&lt;/p&gt;
+      
+      &lt;p&gt;Have feedback? Please talk to us either:&lt;/p&gt;
+      
+      &lt;ul&gt;
+      &lt;li&gt;on our &lt;a href=&quot;https://lists.jboss.org/mailman/listinfo/beanvalidation-dev&quot;&gt;mailing list&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;in our &lt;a href=&quot;http://beanvalidation.org/issues&quot;&gt;issue tracker&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;or on the Bean Validation &lt;a href=&quot;https://forum.hibernate.org/viewforum.php?f=26&quot;&gt;forum&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+      
+      
+      &lt;p&gt;If you want to go to the next step and contribute, send us an email to the mailing list and read
+      &lt;a href=&quot;http://beanvalidation.org/contribute&quot;&gt;how to contribute&lt;/a&gt;.&lt;/p&gt;
+    </content>
+  </entry>
+  <entry>
+    <id>http://beanvalidation.org/news/2012/02/01/method-level-proposal/</id>
+    <title>Proposal for method validation added</title>
+    <updated>2016-02-11T10:46:23+00:00</updated>
+    <published>2012-02-01T00:00:00+00:00</published>
+    <link href="http://beanvalidation.org/news/2012/02/01/method-level-proposal/" rel="alternate" type="text/html" />
+    <author>
+      <name>Gunnar Morling</name>
+    </author>
+    <category term="proposal"></category>
+    <summary>
+      The first draft of the proposal for method-level validation is online. The proposal covers the declaration of parameter as well as
+      return values constraints, extensions to the Validator API, related additions to the meta-data API etc.
+      
+      So check out the proposal document and let us know what you think, e.g. by sending your questions or remarks to the
+      beanvalidation-dev mailing list....
+    </summary>
+    <content type="html">
+      &lt;p&gt;The first draft of the proposal for method-level validation is online. The proposal covers the declaration of parameter as well as
+      return values constraints, extensions to the &lt;code&gt;Validator&lt;/code&gt; API, related additions to the meta-data API etc.&lt;/p&gt;
+      
+      &lt;p&gt;So check out the &lt;a href=&quot;http://beanvalidation.org/proposals/BVAL-241&quot;&gt;proposal document&lt;/a&gt; and let us know what you think, e.g. by sending your questions or remarks to the
+      &lt;a href=&quot;https://lists.jboss.org/mailman/listinfo/beanvalidation-dev&quot;&gt;beanvalidation-dev&lt;/a&gt; mailing list.&lt;/p&gt;
+    </content>
+  </entry>
+  <entry>
+    <id>http://beanvalidation.org/news/2011/10/21/dependency-injection-proposal/</id>
+    <title>Adding proposal section and first proposal</title>
+    <updated>2016-02-11T10:46:23+00:00</updated>
+    <published>2011-10-21T00:00:00+00:00</published>
+    <link href="http://beanvalidation.org/news/2011/10/21/dependency-injection-proposal/" rel="alternate" type="text/html" />
+    <author>
+      <name>Emmanuel Bernard</name>
+    </author>
+    <category term="proposal"></category>
+    <category term="site"></category>
+    <summary>
+      We have introduced a new section of the website called proposals.
+      This will include wiki-style, work in progress proposals for various features being worked on.
+      
+      Check out the first proposal page describing ideas and open questions on how to propose
+      dependency injection in ConstraintValidator instances....
+    </summary>
+    <content type="html">
+      &lt;p&gt;We have introduced a new section of the website called &lt;a href=&quot;http://beanvalidation.org/proposals&quot;&gt;proposals&lt;/a&gt;.
+      This will include wiki-style, work in progress proposals for various features being worked on.&lt;/p&gt;
+      
+      &lt;p&gt;Check out the first proposal page describing ideas and open questions on how to propose
+      &lt;a href=&quot;http://beanvalidation.org/proposals/BVAL-238&quot;&gt;dependency injection in &lt;code&gt;ConstraintValidator&lt;/code&gt; instances&lt;/a&gt;.&lt;/p&gt;
+    </content>
+  </entry>
+  <entry>
+    <id>http://beanvalidation.org/news/2011/09/16/method-level-validation/</id>
+    <title>Work on method level validation</title>
+    <updated>2016-02-11T10:46:23+00:00</updated>
+    <published>2011-09-16T00:00:00+00:00</published>
+    <link href="http://beanvalidation.org/news/2011/09/16/method-level-validation/" rel="alternate" type="text/html" />
+    <author>
+      <name>Emmanuel Bernard</name>
+    </author>
+    <category term="proposal"></category>
+    <summary>
+      The expert groups has begun its work on method-level validation. A feature that was drafted in the
+      latest spec (appendix) but that we could nto finish in time.
+      
+      You will be able to define constraints on parameters and your favorite interception technology
+      (CDI, @Inject, AspectJ, Spring etc) will call Bean Validation.
+      
+      The final approach is not fixed yet but it will look like this.
+      
+      public class BidManager {
+          public void placeBid(&#64;Min(0) BigDecimal upTo) { ... }
+      }
+      
+      
+      
+      Want to know more? Join the expert group mailing list. Learn how....
+    </summary>
+    <content type="html">
+      &lt;p&gt;The expert groups has begun its work on method-level validation. A feature that was drafted in the
+      latest spec (appendix) but that we could nto finish in time.&lt;/p&gt;
+      
+      &lt;p&gt;You will be able to define constraints on parameters and your favorite interception technology
+      (CDI, @Inject, AspectJ, Spring etc) will call Bean Validation.&lt;/p&gt;
+      
+      &lt;p&gt;The final approach is not fixed yet but it will look like this.&lt;/p&gt;
+      
+      &lt;pre&gt;public class BidManager {
+          public void placeBid(@Min(0) BigDecimal upTo) { ... }
+      }&lt;/pre&gt;
+      
+      
+      &lt;p&gt;Want to know more? Join the expert group mailing list. &lt;a href=&quot;http://beanvalidation.org/contribute&quot;&gt;Learn how&lt;/a&gt;.&lt;/p&gt;
+    </content>
+  </entry>
+  <entry>
+    <id>http://beanvalidation.org/news/2011/09/01/spec-repository-out/</id>
+    <title>The specification repository is released</title>
+    <updated>2016-02-11T10:46:23+00:00</updated>
+    <published>2011-09-01T00:00:00+00:00</published>
+    <link href="http://beanvalidation.org/news/2011/09/01/spec-repository-out/" rel="alternate" type="text/html" />
+    <author>
+      <name>Emmanuel Bernard</name>
+    </author>
+    <category term="open"></category>
+    <summary>
+      The last piece of the puzzle is now in the open. I have just released the specification repository on GitHub.
+      
+      The list of repositories for the spec are
+      
+      
+      Specification repository
+      Reference implementation repository
+      API repository
+      TCK repository
+      This website source
+      
+      
+      
+      Want to contribute? Learn how....
+    </summary>
+    <content type="html">
+      &lt;p&gt;The last piece of the puzzle is now in the open. I have just released the specification repository on GitHub.&lt;/p&gt;
+      
+      &lt;p&gt;The list of repositories for the spec are&lt;/p&gt;
+      
+      &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://github.com/beanvalidation/beanvalidation-spec&quot;&gt;Specification repository&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://github.com/hibernate/hibernate-validator&quot;&gt;Reference implementation repository&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://github.com/beanvalidation/beanvalidation-api&quot;&gt;API repository&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://github.com/beanvalidation/beanvalidation-tck&quot;&gt;TCK repository&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://github.com/beanvalidation/beanvalidation.org&quot;&gt;This website source&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+      
+      
+      &lt;p&gt;Want to contribute? &lt;a href=&quot;http://beanvalidation.org/contribute&quot;&gt;Learn how&lt;/a&gt;.&lt;/p&gt;
+    </content>
+  </entry>
+  <entry>
+    <id>http://beanvalidation.org/news/2011/07/23/voted-yes/</id>
+    <title>Bean Validation has been voted yes!</title>
+    <updated>2016-02-11T10:46:23+00:00</updated>
+    <published>2011-07-23T00:00:00+00:00</published>
+    <link href="http://beanvalidation.org/news/2011/07/23/voted-yes/" rel="alternate" type="text/html" />
+    <author>
+      <name>Emmanuel Bernard</name>
+    </author>
+    <category term="jcp"></category>
+    <summary>
+      The expert committee has voted yes on JSR-349. That means
+      the work for Bean Validation 1.1 can start. Read some more on Emmanuel's blog.
+      
+      The next few days will be dedicated getting an expert group up and running....
+    </summary>
+    <content type="html">
+      &lt;p&gt;The expert committee has &lt;a href=&quot;http://jcp.org/en/jsr/results?id=5227&quot;&gt;voted yes&lt;/a&gt; on JSR-349. That means
+      the work for Bean Validation 1.1 can start. Read some more on &lt;a href=&quot;http://in.relation.to/Bloggers/BeanValidation11HasStartedJoinUs&quot;&gt;Emmanuel's blog&lt;/a&gt;.&lt;/p&gt;
+      
+      &lt;p&gt;The next few days will be dedicated getting an expert group up and running.&lt;/p&gt;
+    </content>
+  </entry>
+  <entry>
+    <id>http://beanvalidation.org/news/2011/07/22/review-ballot/</id>
+    <title>Bean Validation in review ballot</title>
+    <updated>2016-02-11T10:46:23+00:00</updated>
+    <published>2011-07-22T00:00:00+00:00</published>
+    <link href="http://beanvalidation.org/news/2011/07/22/review-ballot/" rel="alternate" type="text/html" />
+    <author>
+      <name>Emmanuel Bernard</name>
+    </author>
+    <category term="jcp"></category>
+    <summary>
+      The specification has been proposed to the JCP expert committee and is in review ballot. Stay tuned for the real work to begin....
+    </summary>
+    <content type="html">
+      &lt;p&gt;The specification has been proposed to the JCP expert committee and is in review ballot. Stay tuned for the real work to begin.&lt;/p&gt;
+    </content>
+  </entry>
+  <entry>
+    <id>http://beanvalidation.org/news/2011/07/21/Site-is-live/</id>
+    <title>The website is live!</title>
+    <updated>2016-02-11T10:46:23+00:00</updated>
+    <published>2011-07-21T00:00:00+00:00</published>
+    <link href="http://beanvalidation.org/news/2011/07/21/Site-is-live/" rel="alternate" type="text/html" />
+    <author>
+      <name>Emmanuel Bernard</name>
+    </author>
+    <category term="site"></category>
+    <summary>
+      The website is live!...
+    </summary>
+    <content type="html">
+      &lt;p&gt;The website is live!&lt;/p&gt;
+    </content>
+  </entry>
+</feed>

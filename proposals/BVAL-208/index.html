@@ -1,0 +1,173 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>
+      Bean Validation - Support groups translation when cascading operations
+    </title>
+    <link href="http://beanvalidation.org/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="http://beanvalidation.org/stylesheets/print.css" media="print" rel="stylesheet" type="text/css">
+    <!--[if lt IE 8]>
+      <link href="#{site.base_url}/stylesheets/ie.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <![endif]-->
+    <link href="#{site.base_url}/news/news.atom" rel="alternate" type="application/atom+xml">
+    <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="/javascripts/patternfly.js"></script>
+    <script src="/javascripts/bootstrap.js"></script>
+  </head>
+  <body>
+    <header role="banner">
+      <nav class="navbar navbar-default navbar-pf" role="navigation">
+        <div class="navbar-header">
+          <button class="navbar-toggle" data-target=".navbar-collapse-1" data-toggle="collapse" type="button">
+            <span class="sr-only">Toggle Navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="http://beanvalidation.org" id="logo" title="Bean Validation">
+            Bean Validation
+          </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-primary navbar-right" id="meny-primary">
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org">Home</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/news">News</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/1.1">Specification</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/1.1/tck">TCK</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/1.1/ri">RI</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/1.1/certified">Certified</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/contribute">Contribute</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/licensing">Licensing</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <div class="container" id="overview">
+      <div class="clearfix row" id="content">
+        <div class="col-sm-12 col-md-12 col-lg-12 clearfix" id="main">
+          <h1>Support groups translation when cascading operations</h1>
+          <p><a href="https://hibernate.onjira.com/browse/BVAL-208">Link to JIRA ticket</a></p>
+          
+          <h2>Problem</h2>
+          
+          <p>We want to address the following problems:</p>
+          
+          <ol>
+          <li>upon <code>@Valid</code>, translate a given group request to another group</li>
+          <li>choose a given group upon method validation</li>
+          </ol>
+          
+          
+          <p>Step 2. is handled by <code>@MethodValidated</code> and described in the method validation triggering section.</p>
+          
+          <h2>Solution</h2>
+          
+          <p>There has been some thinking into reusing <code>@Valid</code> for group translation but the common trend
+          is to keep them separate. If you think otherwise, please discuss in the beanvalidation development
+          mailing list. We are interested in your feedback.</p>
+          
+          <p>We have also contemplated the idea of merging this feature with the annotation used to trigger
+          method validation. Since method validation also hosts a validation mode, we decided to keep
+          them separated.</p>
+          
+          <blockquote><p>Question: should we embed one in the other or use both as elements of
+          orthogonal concern?
+          for example <code>@MethodValidated(mode=PARAMETERS) @ConvertGroup(from=Default.class, to=Basic.class)</code></p></blockquote>
+          
+          <p>The proposition is as followed.</p>
+          
+          <p>When an element is annotated with <code>@Valid</code>, validation is propagated. Groups are passed as
+          is to the nested elements unless the <code>@ConvertGroup</code> annotation is used.</p>
+          
+          <p>If the group expected to be passed to the nested element validation is defined
+          as the <code>from</code> attribute of a <code>@ConvertGroup</code> annotation, the group used to effectively
+          validate the nested element is the corresponding group defined in the <code>to</code> attribute.</p>
+          
+          <p>The first rule matching is used. If a rule is found matching, subsequent rules are no longer
+          evaluated. In particular, if a set of <code>@ConvertGroup</code> definition chains groups A to B
+          and B to C, the group A will be converted to B and not to C.</p>
+          
+          <blockquote><p>Question: are these rules making sense?</p></blockquote>
+          
+          <pre><code>/**&#x000A; * During cascading convert group &lt;code&gt;from&lt;/code&gt; to&#x000A; * to group &lt;code&gt;to&lt;/code&gt;&#x000A; *&#x000A; * @author Emmanuel Bernard &lt;emmanuel@hibernate.org&gt;&#x000A; */&#x000A;public @interface ConvertGroup {&#x000A;    Class&lt;?&gt; from();&#x000A;    Class&lt;?&gt; to();&#x000A;&#x000A;    public @interface List {&#x000A;        ConvertGroup[] value();&#x000A;    }&#x000A;}&#x000A;</code></pre>
+          
+          <p>Alternative proposal:</p>
+          
+          <pre><code>/**&#x000A; * During cascading convert group &lt;code&gt;from&lt;/code&gt; of&#x000A; * a given index to group &lt;code&gt;to&lt;/code&gt; with the same&#x000A; * index.&#x000A; *&#x000A; * @author Emmanuel Bernard &lt;emmanuel@hibernate.org&gt;&#x000A; */&#x000A;public @interface ConvertGroup {&#x000A;    Class&lt;?&gt;[] from();&#x000A;    Class&lt;?&gt;[] to();&#x000A;}&#x000A;</code></pre>
+          
+          <h2>Examples</h2>
+          
+          <pre><code>public class User {&#x000A;    @Valid&#x000A;    @ConvertGroup.List( {&#x000A;        @ConvertGroup(from=Default.class, to=BasicPostal.class),&#x000A;        @ConvertGroup(from=Complete.class, to=FullPostal.class)&#x000A;    } )&#x000A;    Set&lt;Address&gt; getAddresses() { ... }&#x000A;}&#x000A;&#x000A;// vs&#x000A;&#x000A;public class User {&#x000A;    @Valid&#x000A;    @ConvertGroup(&#x000A;        from={Default.class, Complete.class},&#x000A;        to={BasicPostal.class, FullPostal.class}&#x000A;    )&#x000A;    Set&lt;Address&gt; getAddresses() { ... }&#x000A;}&#x000A;</code></pre>
+          
+          <h2>Questions and todos</h2>
+          
+          <blockquote><p>Question, what should the annotation name be:</p>
+          
+          <ul>
+          <li><code>@ConvertGroup</code></li>
+          <li><code>@TanslateGroup</code></li>
+          <li>?</li>
+          </ul>
+          
+          
+          <p>Open question: can one define a class-level <code>@ConvertGroup</code> that would be applied
+          to all @Valid of a given bean?<br/>
+          My gut feeling is that it is not necessary as one use group conversion to
+          convert the group in one context (the main bean) to a group in
+          another context (the associated bean). I don't see a reason to have the
+          same context across associated beans?<br/>
+          Am I missing a use case?</p></blockquote>
+          
+          <p>TODO: describe and study how the group sequence resolution affects / is affected
+          by the group conversion.</p>
+          
+          <p>TODO: think about rules that validate the same object twice but with different
+          groups (X =gA-to-gB-> Y -gB-to-gA-> X). I imagine that the non circularity
+          rule we have is either OK or need to be changed to take the validated group
+          into consideration. The tuple instance+group is the unique identifier.</p>
+          
+                      <div id="disqus_thread"></div>
+                      <script type="text/javascript">
+                      var disqus_shortname = 'beanvalidation';
+                      var disqus_url = "http://beanvalidation.org/proposals/BVAL-208/";
+                      var disqus_developer = null;
+                      var disqus_identifier = null;
+                      (function() {
+                        var dsq = document.createElement("script"); dsq.type = "text/javascript"; dsq.async = true;
+                        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                        (document.getElementsByTagName("head")[0] || document.getElementsByTagName("body")[0]).appendChild(dsq);
+                      })();
+                      </script>
+                      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript=beanvalidation">comments powered by Disqus.</a></noscript>
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer class="container" id="widget-footer" role="contentinfo">
+    <hr>
+    <div class="row">
+      <div class="widget col-md-12 widget_text">
+        Copyright (c) Red Hat, Inc., Emmanuel Bernard
+        <a href="http://redhat.com" id="logo-redhat">Red Hat</a>
+      </div>
+    </div>
+  </footer>
+</html>

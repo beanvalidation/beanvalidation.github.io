@@ -1,0 +1,201 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>
+      Bean Validation - Determine whether or not getters should be considered when validating methods on interception
+    </title>
+    <link href="http://beanvalidation.org/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="http://beanvalidation.org/stylesheets/print.css" media="print" rel="stylesheet" type="text/css">
+    <!--[if lt IE 8]>
+      <link href="#{site.base_url}/stylesheets/ie.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <![endif]-->
+    <link href="#{site.base_url}/news/news.atom" rel="alternate" type="application/atom+xml">
+    <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="/javascripts/patternfly.js"></script>
+    <script src="/javascripts/bootstrap.js"></script>
+  </head>
+  <body>
+    <header role="banner">
+      <nav class="navbar navbar-default navbar-pf" role="navigation">
+        <div class="navbar-header">
+          <button class="navbar-toggle" data-target=".navbar-collapse-1" data-toggle="collapse" type="button">
+            <span class="sr-only">Toggle Navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="http://beanvalidation.org" id="logo" title="Bean Validation">
+            Bean Validation
+          </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-primary navbar-right" id="meny-primary">
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org">Home</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/news">News</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/1.1">Specification</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/1.1/tck">TCK</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/1.1/ri">RI</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/1.1/certified">Certified</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/contribute">Contribute</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="http://beanvalidation.org/licensing">Licensing</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <div class="container" id="overview">
+      <div class="clearfix row" id="content">
+        <div class="col-sm-12 col-md-12 col-lg-12 clearfix" id="main">
+          <h1>Determine whether or not getters should be considered when validating methods on interception</h1>
+          <p><a href="https://hibernate.onjira.com/browse/BVAL-327">Link to JIRA ticket</a></p>
+          
+          <h2>Problem</h2>
+          
+          <p>Getters are the vehicle for properties which are handled in Bean Validation 1.0.
+          Should we also consider getter calls as regular methods. There are pros and cons for
+          both approaches. Let's list them</p>
+          
+          <h2>Pros</h2>
+          
+          <p>A getter is a method: for the sake of consistency and least surprise, we should
+          consider getters when methods are validated.</p>
+          
+          <p>Action methods starting with <code>get</code> would be considered getters and excluded from
+          method validation.</p>
+          
+          <p>Components subject to method validation (CDI components) are typically not the ones
+          hosting properties - though see below in cons.</p>
+          
+          <h2>Cons</h2>
+          
+          <p>Applications with existing constrained properties might fail due to validation happening
+          at previously unexpected times (ie when getters are called).</p>
+          
+          <p>Most <code>getProperty</code> / <code>isProperty</code> methods are getters 80%/20% rule.</p>
+          
+          <p>While the problem might not be acute for CDI and its currently limited interception
+          capabilities, technologies like AspectJ will intercept and validate getters in
+          a much broader area.</p>
+          
+          <p>Also, there are some thinking about making JPA entities actual CDI beans in which
+          case all getter calls could be intercepted. This is coming from the rich entity camp.
+          While not considered for EE 7, that might very well come in the future.</p>
+          
+          <h2>Customization mechanisms</h2>
+          
+          <p>Because the choice is not clear, the consensus is that some customization
+          mechanism should be available, either:</p>
+          
+          <ul>
+          <li>as proprietary extensions</li>
+          <li>as spec defined</li>
+          </ul>
+          
+          
+          <p>Due to the usefulness and the usage impact with other specification integrations
+          I think we should standardize it in the specification.</p>
+          
+          <h3>Assuming getters are not considered methods to be validated by default</h3>
+          
+          <p>We could offer the following options:</p>
+          
+          <ul>
+          <li>a global flag to enable getter validation<br/>
+          I fail to see the use case ATM, idea?</li>
+          <li>a per method or per class flag <code>@ValidateOnCall(GETTER)</code><br/>
+          that would require to define class inheritance rules on this annotation
+          as well as method inheritance</li>
+          </ul>
+          
+          
+          <h3>Assuming getters are considered methods to be validated by default</h3>
+          
+          <p>We could offer the following options:</p>
+          
+          <ul>
+          <li>a global flag to disable getter validation<br/>
+          we would use a global flag to disable JPA entity getter validations for example</li>
+          <li>a per method or per class flag <code>@ValidateOnCall(GETTER)</code><br/>
+          that would require to define class inheritance rules on this annotation
+          as well as method inheritance</li>
+          </ul>
+          
+          
+          <h3>Assuming method validation has to be activated</h3>
+          
+          <p>We could envision to force all components expecting method validation to be
+          annotated either at the method or class level.</p>
+          
+          <pre><code>@ValidateOnCall({GETTERS, METHODS})&#x000A;public class AddressService {&#x000A;    public void addAddress(&#x000A;        @NotNull @Valid User user, @Valid @NotNull Address address) {&#x000A;        ...&#x000A;    }&#x000A;}&#x000A;</code></pre>
+          
+          <p>That would require to define class inheritance rules on this annotation
+          as well as method inheritance.</p>
+          
+          <p>If we go that way, we might even imagine more features down the road like
+          <code>@ValidateOnCall(OBJECT)</code> to validate the whole object upon specific
+          method calls.
+          That would make the JAX-RS integration more "standard" but would force
+          people to explicitly mark components that ought to be method constrained
+          which we agreed was not the best outcome:</p>
+          
+          <ul>
+          <li>verboseness - constraints declared and metadata annotation used</li>
+          <li>easy to forget</li>
+          </ul>
+          
+          
+          <h3>Against @ValidateOnCall</h3>
+          
+          <p>Gunnar is on the side of not introducing <code>@ValidateOnCall</code> as it can be simulated
+          by groups:</p>
+          
+          <pre><code>public static class Foo {&#x000A;&#x000A;   //doesn't get validated during method validation of Default group&#x000A;   @NotNull(groups=AllConstraints.class)&#x000A;   private String getBar() { ... }&#x000A;&#x000A;   //does get validated during method validation&#x000A;   @NotNull&#x000A;   private String getBaz() { ... }&#x000A;}&#x000A;&#x000A;//use this e.g. to validate upon entity persisting&#x000A;public interface AllConstraints extends Default {}&#x000A;</code></pre>
+          
+          <p>My problem with this approach is its verboseness and the fact that
+          teams might want to preemptively use this verbose pattern "just in
+          case".</p>
+          
+                      <div id="disqus_thread"></div>
+                      <script type="text/javascript">
+                      var disqus_shortname = 'beanvalidation';
+                      var disqus_url = "http://beanvalidation.org/proposals/BVAL-327/";
+                      var disqus_developer = null;
+                      var disqus_identifier = null;
+                      (function() {
+                        var dsq = document.createElement("script"); dsq.type = "text/javascript"; dsq.async = true;
+                        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                        (document.getElementsByTagName("head")[0] || document.getElementsByTagName("body")[0]).appendChild(dsq);
+                      })();
+                      </script>
+                      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript=beanvalidation">comments powered by Disqus.</a></noscript>
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer class="container" id="widget-footer" role="contentinfo">
+    <hr>
+    <div class="row">
+      <div class="widget col-md-12 widget_text">
+        Copyright (c) Red Hat, Inc., Emmanuel Bernard
+        <a href="http://redhat.com" id="logo-redhat">Red Hat</a>
+      </div>
+    </div>
+  </footer>
+</html>
