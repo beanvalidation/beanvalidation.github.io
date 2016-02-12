@@ -2,13 +2,13 @@
 <feed xml:lang="en-US" xmlns="http://www.w3.org/2005/Atom">
   <id>http://beanvalidation.github.io/</id>
   <title>Bean Validation</title>
-  <updated>2016-02-11T10:46:23+00:00</updated>
+  <updated>2016-02-11T22:05:29+00:00</updated>
   <link href="http://beanvalidation.github.io/news/news.atom" rel="self" type="application/atom+xml" />
   <link href="http://beanvalidation.github.io/" rel="alternate" type="text/html" />
   <entry>
     <id>http://beanvalidation.github.io/news/2015/06/18/bean-validation-tck-1-1-4-released/</id>
     <title>Bean Validation TCK 1.1.4.Final released</title>
-    <updated>2016-02-11T10:46:23+00:00</updated>
+    <updated>2016-02-11T22:05:29+00:00</updated>
     <published>2015-06-18T00:00:00+00:00</published>
     <link href="http://beanvalidation.github.io/news/2015/06/18/bean-validation-tck-1-1-4-released/" rel="alternate" type="text/html" />
     <author>
@@ -44,7 +44,7 @@
   <entry>
     <id>http://beanvalidation.github.io/news/2014/06/18/bean-validation-tcks-now-with-support-for-java-se-8/</id>
     <title>Bean Validation TCKs now with signature files for Java SE 8</title>
-    <updated>2016-02-11T10:46:23+00:00</updated>
+    <updated>2016-02-11T22:05:29+00:00</updated>
     <published>2014-06-18T00:00:00+00:00</published>
     <link href="http://beanvalidation.github.io/news/2014/06/18/bean-validation-tcks-now-with-support-for-java-se-8/" rel="alternate" type="text/html" />
     <author>
@@ -91,7 +91,7 @@
   <entry>
     <id>http://beanvalidation.github.io/news/2014/05/28/training-materials/</id>
     <title>Training materials on Bean Validation 1.1</title>
-    <updated>2016-02-11T10:46:23+00:00</updated>
+    <updated>2016-02-11T22:05:29+00:00</updated>
     <published>2014-05-28T00:00:00+00:00</published>
     <link href="http://beanvalidation.github.io/news/2014/05/28/training-materials/" rel="alternate" type="text/html" />
     <author>
@@ -144,7 +144,7 @@
   <entry>
     <id>http://beanvalidation.github.io/news/2013/06/04/xml-namespace-and-jcp/</id>
     <title>XML namespace and JCP</title>
-    <updated>2016-02-11T10:46:23+00:00</updated>
+    <updated>2016-02-11T22:05:29+00:00</updated>
     <published>2013-06-04T00:00:00+00:00</published>
     <link href="http://beanvalidation.github.io/news/2013/06/04/xml-namespace-and-jcp/" rel="alternate" type="text/html" />
     <author>
@@ -206,7 +206,7 @@
   <entry>
     <id>http://beanvalidation.github.io/news/2013/05/02/bean-validation-1-1-is-a-spec/</id>
     <title>Bean Validation 1.1 is a spec</title>
-    <updated>2016-02-11T10:46:23+00:00</updated>
+    <updated>2016-02-11T22:05:29+00:00</updated>
     <published>2013-05-02T00:00:00+00:00</published>
     <link href="http://beanvalidation.github.io/news/2013/05/02/bean-validation-1-1-is-a-spec/" rel="alternate" type="text/html" />
     <author>
@@ -271,7 +271,7 @@
   <entry>
     <id>http://beanvalidation.github.io/news/2013/03/21/bean-validation-1-1-final-approval-ballot/</id>
     <title>Bean Validation 1.1 CR3 - Final Approval Ballot</title>
-    <updated>2016-02-11T10:46:23+00:00</updated>
+    <updated>2016-02-11T22:05:29+00:00</updated>
     <published>2013-03-21T00:00:00+00:00</published>
     <link href="http://beanvalidation.github.io/news/2013/03/21/bean-validation-1-1-final-approval-ballot/" rel="alternate" type="text/html" />
     <author>
@@ -323,7 +323,7 @@
   <entry>
     <id>http://beanvalidation.github.io/news/2013/02/20/bean-validation-1-1-proposed-final-draft/</id>
     <title>Bean Validation 1.1 CR1 - Proposed Final Draft</title>
-    <updated>2016-02-11T10:46:23+00:00</updated>
+    <updated>2016-02-11T22:05:29+00:00</updated>
     <published>2013-02-20T00:00:00+00:00</published>
     <link href="http://beanvalidation.github.io/news/2013/02/20/bean-validation-1-1-proposed-final-draft/" rel="alternate" type="text/html" />
     <author>
@@ -434,7 +434,7 @@
   <entry>
     <id>http://beanvalidation.github.io/news/2013/02/15/bean-validation-1-1-beta4/</id>
     <title>Bean Validation 1.1 Beta 4 - issue smashing edition</title>
-    <updated>2016-02-11T10:46:23+00:00</updated>
+    <updated>2016-02-11T22:05:29+00:00</updated>
     <published>2013-02-15T00:00:00+00:00</published>
     <link href="http://beanvalidation.github.io/news/2013/02/15/bean-validation-1-1-beta4/" rel="alternate" type="text/html" />
     <author>
@@ -544,7 +544,7 @@
   <entry>
     <id>http://beanvalidation.github.io/news/2013/02/05/javaspotlight-podcast-on-bean-validation-1-1/</id>
     <title>Java Spotlight Podcast on Bean Validation 1.1</title>
-    <updated>2016-02-11T10:46:23+00:00</updated>
+    <updated>2016-02-11T22:05:29+00:00</updated>
     <published>2013-02-05T00:00:00+00:00</published>
     <link href="http://beanvalidation.github.io/news/2013/02/05/javaspotlight-podcast-on-bean-validation-1-1/" rel="alternate" type="text/html" />
     <author>
@@ -575,7 +575,7 @@
   <entry>
     <id>http://beanvalidation.github.io/news/2013/02/01/bean-validation-1-1-beta3-last-line/</id>
     <title>Bean Validation 1.1 Beta 3 - the last line</title>
-    <updated>2016-02-11T10:46:23+00:00</updated>
+    <updated>2016-02-11T22:05:29+00:00</updated>
     <published>2013-02-01T00:00:00+00:00</published>
     <link href="http://beanvalidation.github.io/news/2013/02/01/bean-validation-1-1-beta3-last-line/" rel="alternate" type="text/html" />
     <author>
@@ -679,7 +679,7 @@
   <entry>
     <id>http://beanvalidation.github.io/news/2012/12/18/bean-validation-in-the-press/</id>
     <title>Bean Validation in the press</title>
-    <updated>2016-02-11T10:46:23+00:00</updated>
+    <updated>2016-02-11T22:05:29+00:00</updated>
     <published>2012-12-18T00:00:00+00:00</published>
     <link href="http://beanvalidation.github.io/news/2012/12/18/bean-validation-in-the-press/" rel="alternate" type="text/html" />
     <author>
@@ -712,7 +712,7 @@
   <entry>
     <id>http://beanvalidation.github.io/news/2012/12/11/should-getters-be-considered-methods/</id>
     <title>Should getters be validated when they are called?</title>
-    <updated>2016-02-11T10:46:23+00:00</updated>
+    <updated>2016-02-11T22:05:29+00:00</updated>
     <published>2012-12-11T00:00:00+00:00</published>
     <link href="http://beanvalidation.github.io/news/2012/12/11/should-getters-be-considered-methods/" rel="alternate" type="text/html" />
     <author>
@@ -899,7 +899,7 @@
   <entry>
     <id>http://beanvalidation.github.io/news/2012/11/29/public-review-ballot/</id>
     <title>Public review ballot favorable to Bean Validation 1.1</title>
-    <updated>2016-02-11T10:46:23+00:00</updated>
+    <updated>2016-02-11T22:05:29+00:00</updated>
     <published>2012-11-29T00:00:00+00:00</published>
     <link href="http://beanvalidation.github.io/news/2012/11/29/public-review-ballot/" rel="alternate" type="text/html" />
     <author>
@@ -928,7 +928,7 @@
   <entry>
     <id>http://beanvalidation.github.io/news/2012/11/27/1-1-beta2-is-out/</id>
     <title>Bean Validation 1.1 Beta 2 is out</title>
-    <updated>2016-02-11T10:46:23+00:00</updated>
+    <updated>2016-02-11T22:05:29+00:00</updated>
     <published>2012-11-27T00:00:00+00:00</published>
     <link href="http://beanvalidation.github.io/news/2012/11/27/1-1-beta2-is-out/" rel="alternate" type="text/html" />
     <author>
@@ -957,7 +957,7 @@
   <entry>
     <id>http://beanvalidation.github.io/news/2012/10/22/release-1-1-public-review/</id>
     <title>Public Review Draft for Bean Validation 1.1</title>
-    <updated>2016-02-11T10:46:23+00:00</updated>
+    <updated>2016-02-11T22:05:29+00:00</updated>
     <published>2012-10-22T00:00:00+00:00</published>
     <link href="http://beanvalidation.github.io/news/2012/10/22/release-1-1-public-review/" rel="alternate" type="text/html" />
     <author>
@@ -1050,7 +1050,7 @@
   <entry>
     <id>http://beanvalidation.github.io/news/2012/09/12/fine-control-over-method-validation/</id>
     <title>Fine control over method validation in Bean Validation... or not!</title>
-    <updated>2016-02-11T10:46:23+00:00</updated>
+    <updated>2016-02-11T22:05:29+00:00</updated>
     <published>2012-09-12T00:00:00+00:00</published>
     <link href="http://beanvalidation.github.io/news/2012/09/12/fine-control-over-method-validation/" rel="alternate" type="text/html" />
     <author>
@@ -1256,7 +1256,7 @@
   <entry>
     <id>http://beanvalidation.github.io/news/2012/08/31/big-push-on-bean-validation/</id>
     <title>Big push on Bean Validation 1.1</title>
-    <updated>2016-02-11T10:46:23+00:00</updated>
+    <updated>2016-02-11T22:05:29+00:00</updated>
     <published>2012-08-31T00:00:00+00:00</published>
     <link href="http://beanvalidation.github.io/news/2012/08/31/big-push-on-bean-validation/" rel="alternate" type="text/html" />
     <author>
@@ -1319,7 +1319,7 @@
   <entry>
     <id>http://beanvalidation.github.io/news/2012/08/29/methodvalidation-inheritance/</id>
     <title>Method validation and inheritance - feedback needed!</title>
-    <updated>2016-02-11T10:46:23+00:00</updated>
+    <updated>2016-02-11T22:05:29+00:00</updated>
     <published>2012-08-29T00:00:00+00:00</published>
     <link href="http://beanvalidation.github.io/news/2012/08/29/methodvalidation-inheritance/" rel="alternate" type="text/html" />
     <author>
@@ -1449,7 +1449,7 @@
   <entry>
     <id>http://beanvalidation.github.io/news/2012/06/28/hibernate-validator-5-alpha/</id>
     <title>Hibernate Validator 5 alpha for Bean Validation 1.1 is out</title>
-    <updated>2016-02-11T10:46:23+00:00</updated>
+    <updated>2016-02-11T22:05:29+00:00</updated>
     <published>2012-06-28T00:00:00+00:00</published>
     <link href="http://beanvalidation.github.io/news/2012/06/28/hibernate-validator-5-alpha/" rel="alternate" type="text/html" />
     <author>
@@ -1482,7 +1482,7 @@
   <entry>
     <id>http://beanvalidation.github.io/news/2012/06/06/continuous-publication-specification-snapshot/</id>
     <title>Continuous publication of the specification snapshot</title>
-    <updated>2016-02-11T10:46:23+00:00</updated>
+    <updated>2016-02-11T22:05:29+00:00</updated>
     <published>2012-06-06T00:00:00+00:00</published>
     <link href="http://beanvalidation.github.io/news/2012/06/06/continuous-publication-specification-snapshot/" rel="alternate" type="text/html" />
     <author>
@@ -1502,7 +1502,7 @@
   <entry>
     <id>http://beanvalidation.github.io/news/2012/03/28/jcp-release-1-1-edr1/</id>
     <title>Bean Validation 1.1 officially reaches the JCP</title>
-    <updated>2016-02-11T10:46:23+00:00</updated>
+    <updated>2016-02-11T22:05:29+00:00</updated>
     <published>2012-03-28T00:00:00+00:00</published>
     <link href="http://beanvalidation.github.io/news/2012/03/28/jcp-release-1-1-edr1/" rel="alternate" type="text/html" />
     <author>
@@ -1539,7 +1539,7 @@
   <entry>
     <id>http://beanvalidation.github.io/news/2012/03/16/artifacts-1-1-edr1/</id>
     <title>Code artifacts published for Bean Validation 1.1 early draft 1</title>
-    <updated>2016-02-11T10:46:23+00:00</updated>
+    <updated>2016-02-11T22:05:29+00:00</updated>
     <published>2012-03-16T00:00:00+00:00</published>
     <link href="http://beanvalidation.github.io/news/2012/03/16/artifacts-1-1-edr1/" rel="alternate" type="text/html" />
     <author>
@@ -1596,7 +1596,7 @@
   <entry>
     <id>http://beanvalidation.github.io/news/2012/03/13/release-1-1-edr1/</id>
     <title>Bean Validation 1.1 early draft 1 is out - time for feedback</title>
-    <updated>2016-02-11T10:46:23+00:00</updated>
+    <updated>2016-02-11T22:05:29+00:00</updated>
     <published>2012-03-13T00:00:00+00:00</published>
     <link href="http://beanvalidation.github.io/news/2012/03/13/release-1-1-edr1/" rel="alternate" type="text/html" />
     <author>
@@ -1721,7 +1721,7 @@
   <entry>
     <id>http://beanvalidation.github.io/news/2012/02/01/method-level-proposal/</id>
     <title>Proposal for method validation added</title>
-    <updated>2016-02-11T10:46:23+00:00</updated>
+    <updated>2016-02-11T22:05:29+00:00</updated>
     <published>2012-02-01T00:00:00+00:00</published>
     <link href="http://beanvalidation.github.io/news/2012/02/01/method-level-proposal/" rel="alternate" type="text/html" />
     <author>
@@ -1746,7 +1746,7 @@
   <entry>
     <id>http://beanvalidation.github.io/news/2011/10/21/dependency-injection-proposal/</id>
     <title>Adding proposal section and first proposal</title>
-    <updated>2016-02-11T10:46:23+00:00</updated>
+    <updated>2016-02-11T22:05:29+00:00</updated>
     <published>2011-10-21T00:00:00+00:00</published>
     <link href="http://beanvalidation.github.io/news/2011/10/21/dependency-injection-proposal/" rel="alternate" type="text/html" />
     <author>
@@ -1772,7 +1772,7 @@
   <entry>
     <id>http://beanvalidation.github.io/news/2011/09/16/method-level-validation/</id>
     <title>Work on method level validation</title>
-    <updated>2016-02-11T10:46:23+00:00</updated>
+    <updated>2016-02-11T22:05:29+00:00</updated>
     <published>2011-09-16T00:00:00+00:00</published>
     <link href="http://beanvalidation.github.io/news/2011/09/16/method-level-validation/" rel="alternate" type="text/html" />
     <author>
@@ -1816,7 +1816,7 @@
   <entry>
     <id>http://beanvalidation.github.io/news/2011/09/01/spec-repository-out/</id>
     <title>The specification repository is released</title>
-    <updated>2016-02-11T10:46:23+00:00</updated>
+    <updated>2016-02-11T22:05:29+00:00</updated>
     <published>2011-09-01T00:00:00+00:00</published>
     <link href="http://beanvalidation.github.io/news/2011/09/01/spec-repository-out/" rel="alternate" type="text/html" />
     <author>
@@ -1859,7 +1859,7 @@
   <entry>
     <id>http://beanvalidation.github.io/news/2011/07/23/voted-yes/</id>
     <title>Bean Validation has been voted yes!</title>
-    <updated>2016-02-11T10:46:23+00:00</updated>
+    <updated>2016-02-11T22:05:29+00:00</updated>
     <published>2011-07-23T00:00:00+00:00</published>
     <link href="http://beanvalidation.github.io/news/2011/07/23/voted-yes/" rel="alternate" type="text/html" />
     <author>
@@ -1882,7 +1882,7 @@
   <entry>
     <id>http://beanvalidation.github.io/news/2011/07/22/review-ballot/</id>
     <title>Bean Validation in review ballot</title>
-    <updated>2016-02-11T10:46:23+00:00</updated>
+    <updated>2016-02-11T22:05:29+00:00</updated>
     <published>2011-07-22T00:00:00+00:00</published>
     <link href="http://beanvalidation.github.io/news/2011/07/22/review-ballot/" rel="alternate" type="text/html" />
     <author>
@@ -1899,7 +1899,7 @@
   <entry>
     <id>http://beanvalidation.github.io/news/2011/07/21/Site-is-live/</id>
     <title>The website is live!</title>
-    <updated>2016-02-11T10:46:23+00:00</updated>
+    <updated>2016-02-11T22:05:29+00:00</updated>
     <published>2011-07-21T00:00:00+00:00</published>
     <link href="http://beanvalidation.github.io/news/2011/07/21/Site-is-live/" rel="alternate" type="text/html" />
     <author>
