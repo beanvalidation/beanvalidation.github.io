@@ -1,0 +1,251 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>
+      Bean Validation - Validate a list of changes without applying them to the actual object
+    </title>
+    <link href="../../stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="../../stylesheets/print.css" media="print" rel="stylesheet" type="text/css">
+    <!--[if lt IE 8]>
+      <link href="../../stylesheets/ie.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <![endif]-->
+    <link href="../../news/news.atom" rel="alternate" type="application/atom+xml">
+    <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="/javascripts/patternfly.js"></script>
+    <script src="/javascripts/bootstrap.js"></script>
+  </head>
+  <body>
+    <header role="banner">
+      <nav class="navbar navbar-default navbar-pf" role="navigation">
+        <div class="navbar-header">
+          <button class="navbar-toggle" data-target=".navbar-collapse-1" data-toggle="collapse" type="button">
+            <span class="sr-only">Toggle Navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../.." id="logo" title="Bean Validation">
+            Bean Validation
+          </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-primary navbar-right" id="meny-primary">
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="../..">Home</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="../../news">News</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="../../1.1">Specification</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="../../1.1/tck">TCK</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="../../1.1/ri">RI</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="../../1.1/certified">Certified</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="../../contribute">Contribute</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="../../licensing">Licensing</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <div class="container" id="overview">
+      <div class="clearfix row" id="content">
+        <div class="col-sm-12 col-md-12 col-lg-12 clearfix" id="main">
+          <h1>Validate a list of changes without applying them to the actual object</h1>
+          <h1>Validate a list of changes without applying them to the actual object</h1>
+          
+          <p>[Link to JIRA ticket][jira]<br/>
+          <a href="https://hibernate.atlassian.net/browse/BVAL-214">Related JIRA</a></p>
+          
+          <h2>Problem</h2>
+          
+          <p>When validating user input from a UI which is bound to the data model it is desirable to do the validation <em>before</em> propagating the values into the model.
+          This prevents the model from being tainted with invalid values.
+          For single properties there is <code>Validator#validateValue()</code> for this purpose, but an equivalent solution for class-level constraints is lacking today.</p>
+          
+          <h2>Proposition</h2>
+          
+          <p>Provide a new method <code>Validator#validateValues()</code> similar to the existing <code>validateValue()</code> which takes several property values and validates them as if they were the actual values of the given bean types.</p>
+          
+          <p><strong>TL;DR:</strong> My preference is <code>validateValues(Class&lt;T&gt; bean, ValidatedValues values, Class&lt;?&gt;... groups)</code> and exposing values through the generic property retrieval API. I like that it doesn't require cloning and enables nice cross-field validation. I think the compatability issue with existing class-level validators is acceptable, people using that feature are very likely in control of that validator implementation and can adapt it.</p>
+          
+          <p>The problem comprises two orthogonal challenges: How to pass in the values to be validated and how to expose these to constraint validators. Solutions for both are discussed below.</p>
+          
+          <h3>How to pass in the values?</h3>
+          
+          <h4>Using a map</h4>
+          
+          <p>Simply a <code>Map&lt;String, Object&gt; values</code>.</p>
+          
+          <p><strong>Pro:</strong></p>
+          
+          <ul>
+          <li>Similar to <code>validateValue()</code></li>
+          <li>Conceptually simple</li>
+          </ul>
+          
+          
+          <p><strong>Cons:</strong></p>
+          
+          <ul>
+          <li>Requires complete values for nested properties/collections</li>
+          <li>Cannot distinguish between field/property level constraints</li>
+          </ul>
+          
+          
+          <h4>Using a builder API</h4>
+          
+          <p>E.g. some like this:</p>
+          
+          <pre><code>ValidatedValues = new ValidatedValues.Builder()&#x000A;    .property( "name" ).set( "Bob ")&#x000A;    .list( "emails" ).add( "bob@example.com" )&#x000A;    .set( "nickNames" ).remove ("Bobster" )&#x000A;    .map( "addresses" ).key( "home" ).put( new Addres(...) )&#x000A;    .property( "phone" ).property( "areaCode" ).set( 040 )&#x000A;    .build();&#x000A;</code></pre>
+          
+          <p><code>validateValues()</code> would take the built container.</p>
+          
+          <p><strong>Pro:</strong></p>
+          
+          <ul>
+          <li>Need only to pass changed values</li>
+          <li>Can address single properties of nested elements</li>
+          <li>Could use <code>ElementType</code> to express something is field vs. property value</li>
+          </ul>
+          
+          
+          <p><strong>Cons:</strong></p>
+          
+          <ul>
+          <li>API tough to get right?</li>
+          <li>How much will "automated" / generic callers such as JSF benefit from it?</li>
+          </ul>
+          
+          
+          <p>For identifying properties, method literals (for getters) could be used. Or the JPA metamodel? Or a new bean metamodel?</p>
+          
+          <h3>How to represent the given values to constraint validators?</h3>
+          
+          <p>Orthogonal to the question how values are passed in we need to decide how to expose these to constraint validators.</p>
+          
+          <h4>By cloning a bean</h4>
+          
+          <p><code>validateValue()</code> would take a bean <em>instance</em> and the values (assuming the builder approach for the sake of discussion for now):</p>
+          
+          <pre><code>&lt;T&gt; Set&lt;ConstraintViolation&lt;T&gt;&gt; Validator#validateValues(T bean, ValidatedValues values, Class&lt;?&gt;... groups)&#x000A;</code></pre>
+          
+          <p>The values will be applied to a <em>clone</em> of the given object which then is validated.</p>
+          
+          <p><strong>Pro:</strong></p>
+          
+          <ul>
+          <li>The solution is transparent to existing class-level constraints, they'd see the validated bean as if it had the given property values</li>
+          </ul>
+          
+          
+          <p><strong>Con:</strong></p>
+          
+          <ul>
+          <li>Requires validated bean types to be clonable; That's a nasty requirement, esp. when it comes to JPA entities with lazy props etc.</li>
+          <li>Need a bean <em>instance</em> which might not be present, esp. given the use case is up-front validation, so you might want to delay instantation until validation passed</li>
+          </ul>
+          
+          
+          <p>The requirement for clonability could possibly be mitigated by introducing a cloning SPI. By default, BV providers would resort to expecting beans to implement <code>Cloneable</code>. But alternative implementations could be based on less intrusive cloning approaches such as resorting to copy constructors or libraries such as https://github.com/kostaskougios/cloning</p>
+          
+          <h4>Through a generic API from constraint validator context</h4>
+          
+          <p><code>validateValue()</code> would take a bean <em>type</em> and the values:</p>
+          
+          <pre><code>&lt;T&gt; Set&lt;ConstraintViolation&lt;T&gt;&gt; Validator#validateValues(Class&lt;T&gt; bean, ValidatedValues values, Class&lt;?&gt;... groups)&#x000A;</code></pre>
+          
+          <p>The values will be exposed through a generic property retrieval API:</p>
+          
+          <pre><code>@PasswordsMatch&#x000A;public class UserDataBean {&#x000A;    String name;&#x000A;    String password;&#x000A;    String passwordRepeat;&#x000A;}&#x000A;&#x000A;public class PasswordMatchValidator implements ConstraintValidator&lt;PasswordsMatch, UserDataBean&gt; {&#x000A;&#x000A;    void initialize(PasswordsMatch annotation) {&#x000A;    }&#x000A;&#x000A;    boolean isValid(UserDataBean value, ConstraintValidatorContext ctx) {&#x000A;        String password = null;&#x000A;        String passwordRepeat = null;&#x000A;&#x000A;        // value null can have two reasons here:&#x000A;        // a) a null reference / collection entry during cascaded validation&#x000A;        // b) validateValues(); In this case we can get the property values from the context&#x000A;        if ( value == null ) {&#x000A;            password = (String) ctx.property( "password" ).get();&#x000A;            passwordRepeat = (String) ctx.property( "passwordRepeat" ).get();&#x000A;        }&#x000A;        else {&#x000A;            password = value.password;&#x000A;            passwordRepeat = value.passwordRepeat;&#x000A;        }&#x000A;&#x000A;        // TODO Make null-safe&#x000A;        return password.equals( passwordRepeat );&#x000A;    }&#x000A;}&#x000A;</code></pre>
+          
+          <p>The values would be exposed through the constraint validator context. The API would mirror the one using for passing values:</p>
+          
+          <pre><code>ctx.property( "name" ).get();&#x000A;ctx.list( "emails" ).index( 1 ).get();&#x000A;ctx.map( "addresses" ).key( "home" ).get();&#x000A;ctx.property( "phone" ).property( "areaCode" ).get();&#x000A;ctx.map( "addresses" ).key( "home" ).property( "street" ).get();&#x000A;</code></pre>
+          
+          <p><strong>Pro:</strong></p>
+          
+          <ul>
+          <li>No requirement for clonability towards validated bean types</li>
+          <li>No bean instance needed, resembles more closely the current <code>validateValue()</code> method</li>
+          <li>Enables much simpler cross-field constraints (see below)</li>
+          </ul>
+          
+          
+          <p><strong>Cons:</strong></p>
+          
+          <ul>
+          <li>Solution is not transparent to class-level constraint validators, they must account for the fact that values are to be obtained through the context; I think it's ok, but existing validators need updating.</li>
+          </ul>
+          
+          
+          <p>This proposal enables cross-field constraints nicely:</p>
+          
+          <pre><code>public class UserDataBean {&#x000A;    String name;&#x000A;    String password;&#x000A;&#x000A;    @Equals("password")&#x000A;    String passwordRepeat;&#x000A;}&#x000A;&#x000A;public class EqualsValidator implements ConstraintValidator&lt;Equals, String&gt; {&#x000A;&#x000A;    private String compareTo;&#x000A;&#x000A;    void initialize(Equals annotation) {&#x000A;        this.compareTo = annotation.value();&#x000A;    }&#x000A;&#x000A;    boolean isValid(String value, ConstraintValidatorContext ctx) {&#x000A;        if  ( value == null ) {&#x000A;            return true;&#x000A;        }&#x000A;&#x000A;        String comparedValue = (String) ctx.property( compareTo ).get();&#x000A;        return value.equals( comparedValue );&#x000A;    }&#x000A;}&#x000A;</code></pre>
+          
+          <p>That's nicer than the traditional class-level constraint. The good thing is that it'd work automatically in both cases:</p>
+          
+          <ul>
+          <li><code>validate()</code> (provided we expose all the properties of the bean instance)</li>
+          <li><code>validateValues()</code> - here we'd take the values passed by the user</li>
+          </ul>
+          
+          
+          <h4>Through a proxy</h4>
+          
+          <p>Values passed to <code>validateValues()</code> could also be exposed through a proxy, but its disadvantages make it unattractive:</p>
+          
+          <p><strong>Pros:</strong></p>
+          
+          <ul>
+          <li>Requirement for proxyability is less intrusive then for clonability</li>
+          <li>No bean instance needed</li>
+          </ul>
+          
+          
+          <p><strong>Cons:</strong></p>
+          
+          <ul>
+          <li>Not all beans can be proxied</li>
+          <li>Solution is not transparent to class-level constraint validators, they must not access fields directly, so we'd still need a vehicle for field constraints</li>
+          </ul>
+          
+                      <div id="disqus_thread"></div>
+                      <script type="text/javascript">
+                      var disqus_shortname = 'beanvalidation';
+                      var disqus_url = "http://beanvalidation.org/proposals/BVAL-214/";
+                      var disqus_developer = null;
+                      var disqus_identifier = null;
+                      (function() {
+                        var dsq = document.createElement("script"); dsq.type = "text/javascript"; dsq.async = true;
+                        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                        (document.getElementsByTagName("head")[0] || document.getElementsByTagName("body")[0]).appendChild(dsq);
+                      })();
+                      </script>
+                      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript=beanvalidation">comments powered by Disqus.</a></noscript>
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer class="container" id="widget-footer" role="contentinfo">
+    <hr>
+    <div class="row">
+      <div class="widget col-md-12 widget_text">
+        Copyright (c) Red Hat, Inc., Emmanuel Bernard
+        <a href="http://redhat.com" id="logo-redhat">Red Hat</a>
+      </div>
+    </div>
+  </footer>
+</html>
