@@ -1,0 +1,604 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>
+      Bean Validation - Validating elements contained in a container (like collections)
+    </title>
+    <link href="../../stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="../../stylesheets/print.css" media="print" rel="stylesheet" type="text/css">
+    <!--[if lt IE 8]>
+      <link href="../../stylesheets/ie.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <![endif]-->
+    <link href="../../news/news.atom" rel="alternate" type="application/atom+xml">
+    <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="/javascripts/patternfly.js"></script>
+    <script src="/javascripts/bootstrap.js"></script>
+  </head>
+  <body>
+    <header role="banner">
+      <nav class="navbar navbar-default navbar-pf" role="navigation">
+        <div class="navbar-header">
+          <button class="navbar-toggle" data-target=".navbar-collapse-1" data-toggle="collapse" type="button">
+            <span class="sr-only">Toggle Navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../.." id="logo" title="Bean Validation">
+            Bean Validation
+          </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-primary navbar-right" id="meny-primary">
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="../..">Home</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="../../news">News</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="../../1.1">Specification</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="../../1.1/tck">TCK</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="../../1.1/ri">RI</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="../../1.1/certified">Certified</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="../../contribute">Contribute</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="../../licensing">Licensing</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <div class="container" id="overview">
+      <div class="clearfix row" id="content">
+        <div class="col-sm-12 col-md-12 col-lg-12 clearfix" id="main">
+          <h1>Validating elements contained in a container (like collections)</h1>
+          <p><a href="https://hibernate.onjira.com/browse/BVAL-508">Link to JIRA ticket</a><br/>
+          <a href="https://hibernate.atlassian.net/browse/BVAL-499">Related JIRA</a><br/>
+          <a href="/glossary/">Java generics glossary</a></p>
+          
+          <h2>Problem</h2>
+          
+          <p>It is useful to be able to apply constrains on elements contained in a so called <em>container</em>.
+          Examples of containers are:</p>
+          
+          <ul>
+          <li><code>Collection</code></li>
+          <li><code>Optional</code></li>
+          <li>JavaFX's <code>Property</code></li>
+          </ul>
+          
+          
+          <p>But today the constraints are applied on the container value itself and not its content.</p>
+          
+          <h2>Proposition 1</h2>
+          
+          <h3>Containers</h3>
+          
+          <p>Bean Validation will offer the notion of container of values to validate.
+          Containers can contain one value, or several values (<code>Optional</code> vs <code>Collection</code>).
+          A container can contain several types of values: a <code>Map</code> contains keys and values for example.</p>
+          
+          <p>Extractors for the specific tuple container and value type can be implemented.</p>
+          
+          <p>We differentiate single and plural for two reasons:</p>
+          
+          <ul>
+          <li>we could have different functional rules depending on the case</li>
+          <li><p>it avoids the unnecessary instantiation of an <code>Iterator</code> in the singular case</p>
+          
+          <p>  // Draft proposal for the contract
+            public interface SingleContainerValueExtractor&lt;CONTAINER,CONTAINED> {
+                CONTAINED extractValue(CONTAINER container);
+            }</p>
+          
+          <p>  public interface ManyContainerValuesExtractor&lt;CONTAINER,CONTAINED> {
+                Iterable<CONTAINED> extractValue(CONTAINER container);
+            }</p>
+          
+          <p>  // Examples</p>
+          
+          <p>  public class OptionalContainerExtractor<T> implements SingleContainerValueExtractor&lt;Optional&lt;@ExtractedValue T>,T> {
+                T extractValue(Optional<T> optional) { ... };
+            }</p></li>
+          </ul>
+          
+          
+          <p>Bean Validation will have out of the box support for containers <code>Iterable</code> and <code>Map</code>.</p>
+          
+          <p>TODO: any other Java SE type to consider?
+          TODO: should we support JavaFX Property<T>?</p>
+          
+          <p>Custom container extractors can be provided via:</p>
+          
+          <ul>
+          <li>property describing the list of FQCN (in the XML configuration file for example)</li>
+          <li>factory builder: offer an API to add extractor classes before building <code>ValidatorFactory</code></li>
+          <li>service locator: use the SL pattern to find the enlistable extractors</li>
+          </ul>
+          
+          
+          <p>TODO: refine how the container implementations are discovered.
+          See <a href="http://docs.jboss.org/hibernate/validator/5.2/reference/en-US/html_single/#section-value-handling">Hibernate Validator's feature</a></p>
+          
+          <h4>When are containers used?</h4>
+          
+          <p>When a property is of a known container, constraints declarations are explored.
+          A typical example is a property using constraints on type parameters of <code>TYPE_USE</code> (<code>Collection&lt;@Size String&gt;</code>).</p>
+          
+          <p>If constraints are discovered, the unwrapping mechanism is used
+          to read contained value(s) and potentially apply constraints on them (see below).</p>
+          
+          <p>Does that mean that if we find a type use constraint, there is no need for <code>@Valid</code>?</p>
+          
+          <ul>
+          <li>that would allow us not to require <code>@Valid</code> for <code>Optional&lt;@notNull String&gt;</code></li>
+          <li>when constraint annotations are present on the member or method declaration itself,
+          we also enforce the use of containers (assuming the proper use of <code>@ConstraintsApplyTo</code>)</li>
+          </ul>
+          
+          
+          <p>Containers of containers are applied recursively if necessary.
+          TODO: infinite loops?</p>
+          
+          <h4>Which container extractor to use?</h4>
+          
+          <p>An extractor is associated to a container type (e.g. <code>Collection</code>) and a value type (e.g. the element of the collection).
+          For a given container + value type tuple,
+          the extractor used is the one targeting the most specific container type that is a supertype of the container.
+          Rules used are the same used by the constraint validator selection. TODO: handles interfaces?</p>
+          
+          <p>Value type is the data returned by the extractor, for example:</p>
+          
+          <ul>
+          <li>the collection elements</li>
+          <li>the map keys</li>
+          <li>the map values</li>
+          </ul>
+          
+          
+          <p>Depending on where constraints are placed, they will be applied to one or the other value type.
+          The following rules apply to link the constraints to the value type and thus the extractor.</p>
+          
+          <p>An extractor must annotate the type parameter it targets as value type with <code>@ExtractedValue</code>.</p>
+          
+          <pre><code>// extract the key of a map: constraints on map keys are thus applied&#x000A;class MapKeyExtractor extends ManyContainerValuesExtractor&lt;Map&lt;@ExtractedValue Key,Value&gt;&gt;, Key&gt; {&#x000A;}&#x000A;</code></pre>
+          
+          <p><code>@ExtractedValue</code> can point to a specific supertype type parameter</p>
+          
+          <pre><code>// declare List&lt;T&gt; as the type parameter targeted (index)&#x000A;class IntegerList extends ManyContainerValuesExtractor&lt;@ExtractedValue(typeParameterHost=List.class, typeParameterIndex=0) IntegerList, Integer&gt; {&#x000A;}&#x000A;&#x000A;// declare List&lt;T&gt; as the type parameter targeted (name)&#x000A;// probably a bit brittle&#x000A;class IntegerList extends ManyContainerValuesExtractor&lt;@ExtractedValue(typeParameterHost=List.class, typeParameterName="E") IntegerList, Integer&gt; {&#x000A;}&#x000A;</code></pre>
+          
+          <p>Note that it is possible that there are no type parameter associated to the extractor.
+          The constraints are hosted not on a type parameter but on the field or getter itself in conjunction with <code>@ConstraintsApplyTo(CONTAINED_VALUES)</code>.
+          See next section for a detailed explanation of <code>@ConstraintsApplyTo</code>.</p>
+          
+          <pre><code>class SomeContainer { ... }&#x000A;&#x000A;class ExamplePojo {&#x000A;    // constraint applies to what's inside SomeContainer&#x000A;    @NotNull @ConstraintsApplyTo(CONTAINED_VALUE) SomeContainer foo;&#x000A;}&#x000A;&#x000A;class SomeContainerExtractor extends SingleContainerValueExtractor&lt;@ExtractedValue SomeContainer,Containee&gt; {&#x000A;    ...&#x000A;}&#x000A;</code></pre>
+          
+          <p>In this case the type parameter is identified as an ad-hoc "no type parameter".</p>
+          
+          <p>We can also enhance the extractor contract to return a generic <code>Path</code> object representing how navigation from the container to the value type happens (or is represented).
+          TODO: refine the <code>Path</code> approach. One specific question is around indexing of List or keys for Maps. Template?</p>
+          
+          <h5>Alternative approach: extractors returning <code>ValueAndPath</code></h5>
+          
+          <p>Gunnar proposes an alternative to the extractor.
+          This alternative provides:</p>
+          
+          <ul>
+          <li>one extractor per container type (and not container + value type)</li>
+          <li>the extractor selected is the one matching the most specific super type of the container
+          
+          <ul>
+          <li>only one extractor is executed per container</li>
+          </ul>
+          
+          
+          <p>  interface SingleValueExtractor&lt;I, O> {</p>
+          
+          <pre><code>  O extractValue(I input);&#x000A;&#x000A;  // only invoked if invalid; Property name enough as input?&#x000A;  // do we even need any input?&#x000A;  Path.Node getNode(String property);&#x000A;</code></pre>
+          
+          <p>  }</p>
+          
+          <p>  interface MultiValueExtractor&lt;I, O> {</p>
+          
+          <pre><code>  ValueAndNodeIterator&lt;O&gt; extractValues(I input);&#x000A;&#x000A;  // should it extend Java Iterator?&#x000A;  public interface ValueAndNodeIterator&lt;O&gt; {&#x000A;&#x000A;      boolean hasNext();&#x000A;&#x000A;      O next();&#x000A;&#x000A;      // Used to identify the location where constraints should be looked for&#x000A;      TypeVariable&lt;?&gt; typeVariable();&#x000A;&#x000A;      // only invoked if invalid; Property name enough as input?&#x000A;      // might need to be Path instead of Path.Node&#x000A;      Path.Node getNode(String property);&#x000A;  }&#x000A;</code></pre>
+          
+          <p>  }</p>
+          
+          <p>  // implementation example
+            class MapExtractor implements MultiValueExtractor&lt;Map, Object> {</p>
+          
+          <pre><code>  public ValueAndNodeIterator&lt;Object&gt; extractValues(Map input) {&#x000A;      Set&lt;Map.Entry&lt;?, ?&gt;&gt; entrySet = input.entrySet();&#x000A;      final Iterator&lt;Map.Entry&gt; iterator = input.entrySet().iterator();&#x000A;      final TypeVariable&lt;Class&lt;Map&gt;&gt; k = Map.class.getTypeParameters()[0];&#x000A;      final TypeVariable&lt;Class&lt;Map&gt;&gt; v = Map.class.getTypeParameters()[1];&#x000A;&#x000A;      // returns alternatively key and value for each map entry&#x000A;      return new ValueAndNodeIterator&lt;Object&gt;() {&#x000A;&#x000A;          private boolean atKey = true;&#x000A;          private Map.Entry&lt;?, ?&gt; current;&#x000A;&#x000A;          public boolean hasNext() {&#x000A;              return iterator.hasNext();&#x000A;          }&#x000A;&#x000A;          public Object next() {&#x000A;              if ( atKey ) {&#x000A;                  current = iterator.next();&#x000A;                  atKey = false;&#x000A;                  return current.getKey();&#x000A;              }&#x000A;              else {&#x000A;                  atKey = true;&#x000A;                  return current.getValue();&#x000A;              }&#x000A;          }&#x000A;&#x000A;          public TypeVariable&lt;?&gt; typeVariable() {&#x000A;              return atKey ? k : v;&#x000A;          }&#x000A;&#x000A;          public Node getNode(String property) {&#x000A;              // TODO Auto-generated method stub&#x000A;              return null;&#x000A;          }&#x000A;      };&#x000A;  }&#x000A;</code></pre>
+          
+          <p>  }</p></li>
+          </ul>
+          
+          
+          <p>In this approach, a container offering multiple value types (like <code>Map</code>) will have a unique extractor.
+          This extractor will return (an iterator of) the values and offer the ability to compute the <code>Path.Node</code>
+          and retrieve the <code>TypeVariable</code>.
+          For example the map extractor will return <code>2n</code> elements (for a map of <code>n</code>).</p>
+          
+          <p>The <code>TypeVariable</code> is used to know which type parameter this value corresponds to.
+          Constraints will be looked on this type parameter - whether on the class itself or its subclasses.</p>
+          
+          <p>Open questions and limitations:</p>
+          
+          <ul>
+          <li>is <code>TypeVariable</code> both enough and necessary to express the type parameter targeted?
+          
+          <ul>
+          <li>an alternative is to provide an object containing the same info as <code>@ExtractedValue</code>: parameter host and parameter index</li>
+          <li>At first sight, <code>TypeVariable</code> does not provide the parameter host information</li>
+          </ul>
+          </li>
+          <li>this model makes extractor resolution simpler as a single extractor is present per container</li>
+          <li>but it does not allow extractor composition
+          
+          <ul>
+          <li>a subclass of Collection with special extracting demands will need to reimplement the regular collection extraction logic as well as its custom one in one class</li>
+          </ul>
+          </li>
+          </ul>
+          
+          
+          <h3>Constraints applied and containers</h3>
+          
+          <p>Constraints declared on the type parameter of a type use will be applied to the contained value
+          as extracted by the container logic.</p>
+          
+          <pre><code>// each String of the collection is validated for the regexp&#x000A;Set&lt;@Pattern(...) String&gt; emails;&#x000A;</code></pre>
+          
+          <p>By default, constraints declared on the container will apply to the container.
+          This ensures backward compatibility.</p>
+          
+          <pre><code>// @Size is applied on the collection&#x000A;@Size(min=5) List&lt;Integer&gt; ages;&#x000A;</code></pre>
+          
+          <p>Extractors can specify that constraints declared on the container apply to the contained value(s);</p>
+          
+          <pre><code>@ConstraintsApplyTo(CONTAINED_VALUES)&#x000A;public class JavaFXPropertyContainerExtractor&lt;T&gt; implements SingleContainerValueExtractor&lt;Property&lt;T&gt;,T&gt; { ... }&#x000A;&#x000A;// test that the age is at least 5&#x000A;@Min(5) IntegerProperty age;&#x000A;</code></pre>
+          
+          <p>This is useful for JavaFX to force the validation of the contained properties.</p>
+          
+          <p>One can also force the constraints to apply to the container or the container value per site</p>
+          
+          <pre><code>// the list must have 5 elements at least&#x000A;@ConstraintsApplyTo(CONTAINED_VALUES)&#x000A;@Size(min=5)&#x000A;Optional&lt;List&lt;Integer&gt;&gt; ages;&#x000A;&#x000A;class IntegerList extends ArrayList&lt;Integer&gt; {};&#x000A;&#x000A;// each age must be &gt;= at 2&#x000A;@ConstraintsApplyTo(CONTAINED_VALUES)&#x000A;@Min(2)&#x000A;IntegerList ages;&#x000A;</code></pre>
+          
+          <p>Note that the preferred form is <code>List&lt;@Min(2) Integer&gt; ages;</code>.</p>
+          
+          <p>Here is a scary example</p>
+          
+          <pre><code>// each integer must be &gt;= at 2&#x000A;@ConstraintsApplyTo(CONTAINED_VALUES)&#x000A;@Min(2)&#x000A;Optional&lt;@ConstraintsApplyTo(CONTAINED_VALUES) List&lt;Integer&gt;&gt; weirdo;&#x000A;</code></pre>
+          
+          <p><code>@ConstraintApplyTo</code> can be applied in type use slots.</p>
+          
+          <p><code>@ConstraintApplyTo</code> offers a way to define at which level nested container resolution stops (if necessary).
+          Not by an explicit depth level but rather by its placement.</p>
+          
+          <p>Let's show some more examples for good measure</p>
+          
+          <pre><code>@Size Optional&lt;String&gt; foo; // illegal as @Size does not apply to Optional&#x000A;Optional&lt;@Size String&gt; foo; // legal as @Size applies to String&#x000A;&#x000A;@Min IntegerProperty foo; // legal because the extractor for JavaFX uses @ConstraintsApplyTo(CONTAINED_VALUES)&#x000A;&#x000A;@Size Collection&lt;String&gt; foo;  // The size applies to the collection, not the string since the extractor has the default @ConstraintsApplyTo(CONTAINER) value&#x000A;</code></pre>
+          
+          <p>TODO: should we offer a per annotation override:
+          <code>@NotNull(validAppliedTo=CONTAINED_VALUE)</code>.
+          The drawback is that old annotations will have to add the new attribute to offer the option.</p>
+          
+          <p>WARNING: <code>@ConstraintApplyTo</code> can only be used on containers that have a single value type.
+          How to differentiate different value types otherwise ?</p>
+          
+          <h4><code>@Valid</code></h4>
+          
+          <p>Cascading via <code>@Valid</code> should also honor containers.</p>
+          
+          <pre><code>Collection&lt;@Valid PlushGiraffe&gt; giraffes;&#x000A;&#x000A;@Valid&#x000A;Collection&lt;PlushGiraffe&gt; giraffes&#x000A;</code></pre>
+          
+          <p>The first form is the most readable.
+          The second form should be supported for backward compatibility reasons for collections and maps</p>
+          
+          <p>Here are the various questions:</p>
+          
+          <pre><code>class Foo {&#x000A;   @Valid // cascade all or only the legacy ones? gut feeling is legacy&#x000A;   Map&lt;@RegExp(...) String, @Min(4) Integer&gt; bars;&#x000A;&#x000A;   // clear intent&#x000A;   Map&lt;@Valid @RegExp(...) String, @Valid @Min(4) Integer&gt; bars;&#x000A;&#x000A;   // TODO no place to put the @Valid on the key / value&#x000A;   // so we should support legacy Map and decide what to do on random types&#x000A;   StringIntegerMap bazs;&#x000A;}&#x000A;</code></pre>
+          
+          <p>TODO: Find an answer to the <code>@Valid</code> questions</p>
+          
+          <h4><code>@ConstraintsApplyTo</code> Value for built-in containers</h4>
+          
+          <p><code>Optional</code> defaults to <code>CONTAINER</code>.
+          <code>Iterable</code> and <code>Map</code> default to <code>CONTAINER</code>.
+          JavaFX <code>Property&lt;T&gt;</code> defaults to <code>CONTAINED_VALUES</code>.</p>
+          
+          <p>The default for JavaFX property differs
+          because in this community the idiom <code>IntegerProperty</code> prevails over <code>Property&lt;Integer&gt;</code>.</p>
+          
+          <h4>Complex type parameter hierarchies</h4>
+          
+          <p>Complex hierarchies involving multiple levels of generic types are not trivial to solve
+          and will require the use of <a href="https://github.com/FasterXML/java-classmate">FasterXML's Classmate</a>
+          or more likely an enhanced version of it.</p>
+          
+          <pre><code>interface Map&lt;K,V&gt; { ... }&#x000A;// type parameter names change between subclass and superclass&#x000A;// and the position can be different between the class and the implements / extends clause&#x000A;public class CrazyMap&lt;Last, First&gt; implements Map&lt;First, Last&gt; { ... }&#x000A;&#x000A;public class Example {&#x000A;    // String is Map's type parameter V and Long is Map's type parameter K&#x000A;    private CrazyMap&lt;@RegExp(...) String, @Min(0) Long&gt; crazyMap = ...;&#x000A;}&#x000A;</code></pre>
+          
+          <p>In this situation, we need to follow the (annotated) type parameter across two or more levels up the hierarchy chain.
+          Note that type parameter names can vary between the subclass definition and the superclass definition.</p>
+          
+          <p>I've played with Classmate and it does not seem to retain the information in its data even though it solves that problem internally to find the right type.
+          We might need to contribute to expose that somehow.</p>
+          
+          <p>Also I don't think Classmate exposes annotations on type use, so we would need to contribute that or use something else like Jandex or plain Java reflection API.</p>
+          
+          <h4>Alternative model (not preferred)</h4>
+          
+          <p>If a constraint is valid for specific types (say <code>@Size</code> for <code>Collection</code>, and <code>String</code>),
+          it is possible to disambiguate the application of the constraint on the container vs the contained value.
+          In particular for JavaFX.</p>
+          
+          <pre><code>// test that the age is at least 5&#x000A;// since IntegerProperty extends Property which are not supported by Size&#x000A;// but that String is supported for Size&#x000A;@Size(5) StringProperty&lt;String&gt; name;&#x000A;</code></pre>
+          
+          <p>In case the container and the contained values are both supported by a give constraint,
+          <code>@ConstraintsApplyTo</code> becomes mandatory.</p>
+          
+          <p>This model is fully deterministic but:</p>
+          
+          <ul>
+          <li>is hard to grasp and requires advanced knowledge of the constraint validators + conrtainers / contained values to decypher</li>
+          <li>breaks for common constraints like <code>@NotNull</code>, <code>@Size</code>, <code>@Min</code> especially when containers are collections</li>
+          </ul>
+          
+          
+          <p>I propose not to apply it and use the extractor level <code>@ConstraintsApplyTo(CONTAINED_VALUES)</code> as a solution.</p>
+          
+          <h3>Type parameter and constraint propagation</h3>
+          
+          <pre><code>// @NoNull is applied on a type parameter&#x000A;class CustList extends List&lt;@NotNull Customer&gt; {&#x000A;}&#x000A;</code></pre>
+          
+          <p>When and where to apply the not null ? Getters, setters, return types, parameter types?</p>
+          
+          <pre><code>class Foo&lt;T&gt; {&#x000A;    T getSome();&#x000A;    void setFoo(T t);&#x000A;    T retrieveOther();&#x000A;    void processSome(T t);&#x000A;}&#x000A;&#x000A;class Bar extends Foo&lt;@NotNull String&gt; {&#x000A;}&#x000A;</code></pre>
+          
+          <p>Concern what that does, not obvious?
+          Second concern is where is it useful?</p>
+          
+          <p>Proposal: not including this templating feature in the first version of the spec.</p>
+          
+          <h3>"Crazy" Type use</h3>
+          
+          <p>Java 8 annotations can be placed on all type use</p>
+          
+          <pre><code>// type use&#x000A;@NotNull String name = "Emmanuel";&#x000A;new @NonEmpty @Readonly List&lt;String&gt;(myNonEmptyStringSet)&#x000A;myString = (@NonNull String) myObject;&#x000A;@Vernal Date::getDay&#x000A;</code></pre>
+          
+          <p>Type use outside parameterized containers won't be used in Bean Validation - at least for now.
+          Implementing constraint validation in these general areas would require a very instrumented code
+          using a powerful bytecode manipulation engine.
+          The implications of the locations annotations is unknown.</p>
+          
+          <h3>Drawbacks</h3>
+          
+          <p>The logic is less regular than Gunnar's proposal.
+          And thus could lock us for future enhancements.
+          Where? Dunno.</p>
+          
+          <p>But it has less far reaching implications in particular around method validation.</p>
+          
+          <h3>Naming options</h3>
+          
+          <p><code>SingleContainerValueExtractor</code>: <code>ValidatedValueUnwrapper</code>, <code>ValueExtractor</code></p>
+          
+          <h3>Remaining TODOs</h3>
+          
+          <p>Should we have a BV 1.1 based logic that forces to use a global <code>@ConstraintsApplyTo(CONTAINER)</code>
+          to enforce strict backward compatibility.
+          And a BV 2.0 based logic (driven by the XML version?) would have the right ergonomics as described above?</p>
+          
+          <h2>Alternative proposal: Consider type-constraints as instance-specific amendment of constraint set (Gunnar)</h2>
+          
+          <p><strong>TL,DR</strong> The two proposals have converged more or less in the course of the discussion;
+          Essentially this proposal is a generalization of the more explicit approach which considers specific container types (lists, maps etc.) only.
+          Instead of supporting only some explicitly "known" container types, this proposal seeks to generalize that for any generic container type, e.g. a custom <code>Tuple</code> type.</p>
+          
+          <p>Admittedly, the number of such container types is rather limited and we cover the largest part by the spec'ed support for list et al. in the other proposal. And cases like Tuple could be addressed by a custom extractor. So I'd be fine without this feature, as most cases are covered by default and we are extensible for others; We still could spec such generalization later on if we think it makes sense.</p>
+          
+          <h3>Motivation</h3>
+          
+          <p>Currently, constraint meta-data is fixed for a given type by annotating the type's class definition or configuring it in XML.
+          This proposal allows to amend that statically defined constraint meta-data with instance-specific meta-data applied to generic parameters declared by the type.</p>
+          
+          <p>Example:</p>
+          
+          <pre><code>public class Tuple&lt;V1, V2&gt; {&#x000A;&#x000A;    @NotNull&#x000A;    private V1 v1;&#x000A;&#x000A;    @NotNull&#x000A;    private V2 v2;&#x000A;&#x000A;    public V1 getV1() { return v1; }&#x000A;    public V2 getV2() { return v2; }&#x000A;}&#x000A;&#x000A;public class User {&#x000A;&#x000A;    @Valid&#x000A;    private Tuple&lt;String, @Min(1) Integer&gt; nameAndAge = ...;&#x000A;}&#x000A;</code></pre>
+          
+          <p>Calling <code>Validator#validate( new Tuple(...) )</code> will validate the <code>@NotNull</code> constraints statically declared in the <code>Tuple</code> class.
+          Calling <code>Validator#validate( new User(...) )</code> will validate the <code>@NotNull</code> constraints <em>and</em> the instance-specific <code>@Min</code> constraint given for the <code>V2</code> type parameter.</p>
+          
+          <p><strong>Question:</strong> How to obtain the property value, getter vs. field access?</p>
+          
+          <p><strong>Proposal:</strong> Iterate all getters and apply the constraint to all those matching the annotated type (V2); Then iterate all fields and apply to all those matching the annotated type and where no getter for that property has been validated in the first step. I.e. prefer getter over field access.</p>
+          
+          <h3>Constraints of collection elements</h3>
+          
+          <p>This proposal makes the case of constraints on collection elements (list etc.) very regular.</p>
+          
+          <p>Example:</p>
+          
+          <pre><code>@ValidAddress&#x000A;public class Address {}&#x000A;&#x000A;public class User {&#x000A;&#x000A;    @Valid&#x000A;    private List&lt;@Exists Address&gt; addresses;&#x000A;}&#x000A;</code></pre>
+          
+          <p>This adds the <code>@Exists</code> constraint to constraint metadata for <code>&lt;T&gt;</code> of the <code>emails</code> list (i.e. in addition to the statically defined <code>@ValidAddress</code> )
+          When validating a <code>User</code>, the engine will access <code>&lt;T&gt;</code> during cascaded validation (by invoking <code>List#getIterator()</code> or similar).
+          Then both constraints, <code>@Exists</code> and <code>@ValidAddress</code> will be applied.</p>
+          
+          <p>This avoids any assumptions about the type parameter of the collection instance.
+          Specifically, it's not guaranteed that the type parameter of the instance actually represents the one we might think (e.g. <code>&lt;T&gt;</code> of <code>List</code>):</p>
+          
+          <pre><code>public interface IdentifiedStringList&lt;I&gt; extends List&lt;String&gt; {&#x000A;    I getIdentifier();&#x000A;}&#x000A;&#x000A;@Valid&#x000A;private IdentifiedStringList&lt;@Min(1) Long&gt; myLongIdentifiedStringList = ...;&#x000A;</code></pre>
+          
+          <p>Here the <code>@Min</code> constraint must not be applied to the collection elements as it doesn't relate to <code>&lt;T&gt;</code> of <code>List</code> but <code>&lt;I&gt;</code> of <code>IdentifiedStringList</code>.</p>
+          
+          <h3>Obtaining values from containers</h3>
+          
+          <p>Currently cascaded validation applies to bean references and collections (<code>Collection</code>, <code>Map</code>, arrays).
+          This proposal suggests to open that up, allowing to provide support for other cascadable types, e.g. <code>Optional</code>:</p>
+          
+          <pre><code>@Valid&#x000A;private Optional&lt;@Size(max=20) String&gt; name;&#x000A;</code></pre>
+          
+          <p>When encountering <code>@Valid</code>, we'll look for matching extractor implentations.
+          See Emmanuel's original proposal and my alternative above for extractor contracts.</p>
+          
+          <p>A conforming implementation provides out-of-the-box extractor implementations for bean references (used by default) and collections.</p>
+          
+          <p>Representing the <code>Optional</code> case in this generic fashion is nice, but two shortcomings need to be addressed:</p>
+          
+          <ul>
+          <li>There should be no element in the constraint violation path for the wrapped element, only the container itself (this depends on the container type; For <code>Optional</code>, suppressing makes sense, but for <code>List</code> not)</li>
+          <li>The explicitly required <code>@Valid</code> makes it more verbose</li>
+          </ul>
+          
+          
+          <p>This could be mitigated by letting value extractors make this configurable:</p>
+          
+          <pre><code>public interface ValueExtractor {&#x000A;    boolean addPathNodeForExtractedValue();&#x000A;    boolean autoApply();&#x000A;}&#x000A;&#x000A;public class OptionalValueExtractor&lt;T&gt; implements SingleValueExtractor&lt;Optional&lt;T&gt;, T&gt; {&#x000A;    T extractValue(Optional&lt;T&gt; optional) {&#x000A;        return optional.get();&#x000A;    }&#x000A;&#x000A;    boolean addPathNodeForExtractedValue() {&#x000A;        return false;&#x000A;    }&#x000A;&#x000A;    boolean autoApply() {&#x000A;        return true;&#x000A;    }&#x000A;}&#x000A;</code></pre>
+          
+          <p>That way, previous example could look like so, i.e. without <code>@Valid</code>:</p>
+          
+          <pre><code>private Optional&lt;@Size(max=20) String&gt; name;&#x000A;</code></pre>
+          
+          <h4>Alternative for @Valid suggested by Emmanuel</h4>
+          
+          <p>If a member, parameter or return value declaration presents an annotated type use, then @Valid is implied for that declaration. @Valid is permitted but redundant in this case.</p>
+          
+          <pre><code>public class Foo {&#x000A;    Bar&lt;@NotNull Baz&gt; baz;&#x000A;    // equivalent to&#x000A;    @Valid&#x000A; Bar&lt;@NotNull Baz&gt; baz2;&#x000A;}&#x000A;&#x000A;public class Foo {&#x000A;    @Valid //optional&#x000A;    Buz&lt;String, @Min(5) Integer&gt; num;&#x000A;&#x000A;    // validates Buz as there is an optional @Valid here&#x000A;    // inside buz, cascade validation to @Foo&#x000A;    Buz&lt;@Valid Foo, Integer&gt; num;&#x000A;}&#x000A;</code></pre>
+          
+          <p>Note that this model, while regular, is not the behavior of Collection and Map:</p>
+          
+          <ul>
+          <li><code>@Valid Collection&lt;Foo&gt;</code> is equivalent to <code>@Valid Collection&lt;@Valid Foo&gt;</code></li>
+          <li><code>@Valid Map&lt;Foo, Bar&gt;</code> is equivalent to <code>@Valid Collection&lt;Foo, @Valid Bar&gt;</code></li>
+          </ul>
+          
+          
+          <p>TODO:</p>
+          
+          <p>Should we consider the former form as legacy and deprecated?</p>
+          
+          <ul>
+          <li>New code would write it as <code>Collection&lt;@Valid Foo&gt;</code> or <code>@Valid Collection&lt;@Valid Foo&gt;</code> for the verbose.</li>
+          <li>New code would write it as <code>Map&lt;Foo, @Valid Bar&gt;</code> or @Valid Collection&lt;@Valid Foo>` for the verbose.</li>
+          <li>What should <code>@Valid Map&lt;@Valid Foo, Bar&gt;</code> do ?</li>
+          <li>How to disable that implicit <code>@Valid</code>, e.g. if I don't want cascaded validation of <code>Bar&lt;@NotNull Baz&gt; baz</code>?</li>
+          </ul>
+          
+          
+          <h4>Misc.</h4>
+          
+          <p><strong>Explicitly not supported:</strong> Applying constraints to container types with the intention of targetting the wrapped value.
+          I.e. the following would not work:</p>
+          
+          <pre><code>// No validator for @Size+String&#x000A;@Size(max=20)&#x000A;private Optional&lt;String&gt; name;&#x000A;</code></pre>
+          
+          <p>Maybe that's ok, as in most cases there will be a type parameter. For JavaFX with its types such as <code>IntegerProperty</code> we could require compatible implementations to provide the required validator implementions e.g. for <code>@Min</code> + <code>IntegerProperty</code>. Or we ignore that, I've never heard of demand.</p>
+          
+          <p>TODO: Gauge demand for JavaFX support</p>
+          
+          <h4>Questions to address</h4>
+          
+          <ul>
+          <li>does not propagate to method validation (i.e not on type parameter in the definition</li>
+          <li>getter vs field issue</li>
+          <li>Look of constraint on type use of all types to avoid <code>@Valid</code></li>
+          <li>use dynamic constraint declaration when no extractor exists, use the extractor otherwise
+          
+          <ul>
+          <li>all or nothing ? i.e. use both? Probably confusing
+          but what about</li>
+          </ul>
+          
+          
+          <p>  public interface IdentifiedStringList<I> extends List<String> {
+                I getIdentifier();
+            }
+            And its usage:</p>
+          
+          <p>  @Valid
+            private IdentifiedStringList&lt;@Min(1) Long> myLongIdentifiedStringList = ...;</p></li>
+          </ul>
+          
+          
+          <p>I guess it needs an extractor</p>
+          
+          <ul>
+          <li>if collection is to ue generic proposal, clarify how: as both, extractor first?</li>
+          </ul>
+          
+          
+          <h2>Attic</h2>
+          
+          <h3>Type use annotations vs enlisting unwrapping logic</h3>
+          
+          <p>Type use located annotations open opportunity to express the constraints elegantly.</p>
+          
+          <pre><code>// Collection of non null Strings&#x000A;Collection&lt;@NotNull String&gt; names;&#x000A;</code></pre>
+          
+          <p>Note however that this does not work if the constraint is applied on a subtype of the parameterized type.</p>
+          
+          <pre><code>// this works&#x000A;Collection&lt;@NotNull String&gt; names;&#x000A;&#x000A;public StringCollection extends Collection&lt;String&gt; {&#x000A;}&#x000A;&#x000A;// Where to put the @NotNull?&#x000A;StringCollection names;&#x000A;</code></pre>
+          
+          <p>For the latter, one option is to enlist an explicit unwrapper (see <a href="http://docs.jboss.org/hibernate/validator/5.2/reference/en-US/html_single/#section-value-handling">Hibernate Validator's feature</a> ).
+          An unwrapper will apply some unwrapping logic for well known types.
+          It needs to be registered globally (<code>ValidatorFactory</code> or service locator based).
+          For unwrapped properties would consider the annotations hosted on the wrapper</p>
+          
+          <pre><code>class StringCollectionUnwrapper implements ValidatedValueUnwrapper&lt;StringCollection&gt; { ... }&#x000A;&#x000A;@NotNull //applied on the elements of the collection&#x000A;StringCollection names;&#x000A;</code></pre>
+          
+          <p>TODO: What to do about nested unwrappers?
+          Go to the deepest?
+          What to validate for: <code>@Min(23)</code> <code>List&lt;IntegerProperty&gt; bar</code>? <code>List</code> vs. <code>IntegerProperty</code> vs. wrapped <code>Integer</code>?
+          What about <code>Optional&lt;Optional&lt;String&gt;&gt;</code>? Should we unwrap recursively?</p>
+          
+          <h3>Generic mechanism vs special cases</h3>
+          
+          <p>Should collections, optional, javafx properties be all handled by a unified model
+          or should they be specific?</p>
+          
+          <h3>Generic container notion</h3>
+          
+          <p>Offer an service provider offering a way to consider and navigate the element(s) of a container.
+          Container, Optional and Property will be provided as is but other container can be generalized.</p>
+          
+          <p>BTW: Container can be anything Iterable.</p>
+          
+                      <div id="disqus_thread"></div>
+                      <script type="text/javascript">
+                      var disqus_shortname = 'beanvalidation';
+                      var disqus_url = "http://beanvalidation.org/proposals/BVAL-508/";
+                      var disqus_developer = null;
+                      var disqus_identifier = null;
+                      (function() {
+                        var dsq = document.createElement("script"); dsq.type = "text/javascript"; dsq.async = true;
+                        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                        (document.getElementsByTagName("head")[0] || document.getElementsByTagName("body")[0]).appendChild(dsq);
+                      })();
+                      </script>
+                      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript=beanvalidation">comments powered by Disqus.</a></noscript>
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer class="container" id="widget-footer" role="contentinfo">
+    <hr>
+    <div class="row">
+      <div class="widget col-md-12 widget_text">
+        Copyright (c) Red Hat, Inc., Emmanuel Bernard
+        <a href="http://redhat.com" id="logo-redhat">Red Hat</a>
+      </div>
+    </div>
+  </footer>
+</html>
