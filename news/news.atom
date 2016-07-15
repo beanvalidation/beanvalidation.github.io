@@ -2,13 +2,101 @@
 <feed xml:lang="en-US" xmlns="http://www.w3.org/2005/Atom">
   <id>http://beanvalidation.org/</id>
   <title>Bean Validation</title>
-  <updated>2016-02-24T08:16:54+00:00</updated>
+  <updated>2016-07-15T07:55:29+00:00</updated>
   <link href="http://beanvalidation.org/news/news.atom" rel="self" type="application/atom+xml" />
   <link href="http://beanvalidation.org/" rel="alternate" type="text/html" />
   <entry>
+    <id>http://beanvalidation.org/news/2016/07/15/bean-validation-2-0-is-coming/</id>
+    <title>Bean Validation 2.0 - A new JSR is born!</title>
+    <updated>2016-07-15T07:55:29+00:00</updated>
+    <published>2016-07-15T00:00:00+00:00</published>
+    <link href="http://beanvalidation.org/news/2016/07/15/bean-validation-2-0-is-coming/" rel="alternate" type="text/html" />
+    <author>
+      <name>Gunnar Morling</name>
+    </author>
+    <category term="news"></category>
+    <summary>
+      Today I've got some great news to share with you: a new revision of the Bean Validation spec is about to be kicked off!
+      
+      Over the last weeks, we've been busy with preparing a proposal for this JSR and I've submitted it to the JCP (Java Community Process) last week.
+      You can find the proposal for "JSR 380: Bean Validation 2.0" on jcp.org.
+      
+      In the following, let's take a look at what we think should be part of Bean Validation 2.0 and what we've planned as the next steps.
+      
+      Looking back...
+      
+      Bean Validation 1.0 and 1.1 (JSRs 303/349) saw a huge adoption by the Java...
+    </summary>
+    <content type="html">
+      &lt;p&gt;Today I've got some great news to share with you: a new revision of the Bean Validation spec is about to be kicked off!&lt;/p&gt;
+      
+      &lt;p&gt;Over the last weeks, we've been busy with preparing a proposal for this JSR and I've submitted it to the JCP (Java Community Process) last week.
+      You can find the proposal for &quot;JSR 380: Bean Validation 2.0&quot; on &lt;a href=&quot;https://jcp.org/en/jsr/detail?id=380&quot;&gt;jcp.org&lt;/a&gt;.&lt;/p&gt;
+      
+      &lt;p&gt;In the following, let's take a look at what we think should be part of Bean Validation 2.0 and what we've planned as the next steps.&lt;/p&gt;
+      
+      &lt;h2&gt;Looking back...&lt;/h2&gt;
+      
+      &lt;p&gt;Bean Validation 1.0 and 1.1 (JSRs 303/349) saw a huge adoption by the Java community and are integrated with a wide range of technologies, be it other Java standards (e.g. CDI, JPA, JAX-RS)
+      or 3rd party libraries and frameworks such as Spring, Vaadin and many, many more.&lt;/p&gt;
+      
+      &lt;p&gt;The main contribution of Bean Validation 1.1 - the declarative validation of method-level constraints - has been integrated into techs such as CDI and Spring,
+      making it a breeze to write expressive API contracts with constraints which are automatically validated upon execution.&lt;/p&gt;
+      
+      &lt;p&gt;Bean Validation 1.1 has been finalized &lt;a href=&quot;http://beanvalidation.org/news/2013/05/02/bean-validation-1-1-is-a-spec/&quot;&gt;three years ago&lt;/a&gt; and Java continued to evolve since then.
+      Java 8 - released in 2014 - brings many very interesting language features to the table, but also adds a new time and date API and much more.&lt;/p&gt;
+      
+      &lt;h2&gt;...and forward&lt;/h2&gt;
+      
+      &lt;p&gt;So it's about time that Bean Validation supports new JDK types such as &lt;code&gt;LocalTime&lt;/code&gt; or &lt;code&gt;Optional&lt;/code&gt;, but also takes advantage of new (language) features such as type annotations, repeatable annotations, reflective parameter name retrieval, lambda expressions etc.&lt;/p&gt;
+      
+      &lt;p&gt;To give just one example, let's consider the requirement of applying constraints to the elements of a specific collection.
+      This has been a &lt;a href=&quot;https://hibernate.atlassian.net/browse/BVAL-202&quot;&gt;long-standing feature request&lt;/a&gt;, but we could never find a way to solve it generically in an acceptable manner.&lt;/p&gt;
+      
+      &lt;p&gt;Java 8 finally provides the perfect tool to solve this issue: &lt;a href=&quot;https://docs.oracle.com/javase/tutorial/java/annotations/type_annotations.html&quot;&gt;type annotations&lt;/a&gt;.
+      Annotating type parameters of collections is a very intuitive way to apply constraints to collection elements (and not the entire collection itself):&lt;/p&gt;
+      
+      &lt;pre&gt;&lt;code&gt;List&amp;lt;@Email String&amp;gt; emails;
+      &lt;/code&gt;&lt;/pre&gt;
+      
+      &lt;p&gt;Java 8 provides the required APIs to retrieve the constraint annotation from the type parameter and apply the validation accordingly.&lt;/p&gt;
+      
+      &lt;p&gt;But it doesn't stop there.
+      Repeatable annotation types will make it less verbose to specify several constraints of the same type one and the same element.
+      Reflective parameter name retrieval will provide better validation messages out of the box when validating constraints on method parameters.
+      Lambda expressions might be a useful vehicle to express small ad-hoc validation routines.&lt;/p&gt;
+      
+      &lt;h2&gt;What else?&lt;/h2&gt;
+      
+      &lt;p&gt;While we envision supporting and leveraging Java 8 as the &quot;main theme&quot; of Bean Validation 2.0, we hope to address some other issues, too.
+      E.g. there may be support for more customized payloads of constraint violations.
+      Also a builder API for constraint violation exceptions might be useful.
+      As would an API for validating an object graph assuming a list of changes to be applied.
+      Check out the &lt;a href=&quot;https://jcp.org/en/jsr/detail?id=380&quot;&gt;JSR 380 proposal&lt;/a&gt; for some more ideas we have.&lt;/p&gt;
+      
+      &lt;p&gt;While the baseline for Bean Validation 2.0 will be Java 8, we'll also be tracking the ongoing work for Java 9 and work towards making Bean Validation ready for Java 9 and its module system as far as possible.&lt;/p&gt;
+      
+      &lt;p&gt;As the time-line of Bean Validation 2.0 is quite compact, we are very eager to hear from you, the community of users, and learn what would be the things most useful to you.
+      For sure we won't be able to address all potential ideas out there. So if there are features close to your heart which you'd really love to see in the spec, be sure to speak up and let us know.&lt;/p&gt;
+      
+      &lt;h2&gt;What's next?&lt;/h2&gt;
+      
+      &lt;p&gt;As per &lt;a href=&quot;https://jcp.org/en/procedures/jcp2#3.3&quot;&gt;the rules&lt;/a&gt; of the Java Community Process, the Bean Validation 2.0 JSR is currently up for review by the JCP executive committee.
+      After that, there will be an approval ballot and we will hopefully be ready to go and kick off the work on actual spec changes, prototyping new features in the reference implementation and so on.&lt;/p&gt;
+      
+      &lt;p&gt;So if you ever wanted to contribute to a Java Specification Request - be it just by voting for issues, opening new feature requests or actually working on the specification, its reference implementation and the test compatability kit (TCK) - then this is the perfect time.
+      If you are a member of the JCP, you also can &lt;a href=&quot;https://jcp.org/en/jsr/egnom?id=380&quot;&gt;join the expert group&lt;/a&gt;, we'd be very happy to have you aboard.&lt;/p&gt;
+      
+      &lt;p&gt;Whether EG member or not, in order to get the discussion on this JSR proposal started, just drop a comment below, post to the &lt;a href=&quot;https://forum.hibernate.org/viewforum.php?f=26&quot;&gt;feedback forum&lt;/a&gt;, shoot a message to the &lt;a href=&quot;https://lists.jboss.org/mailman/listinfo/beanvalidation-dev&quot;&gt;Bean Validation mailing list&lt;/a&gt; or
+      comment on specific issues in &lt;a href=&quot;https://hibernate.atlassian.net/projects/BVAL/summary&quot;&gt;the tracker&lt;/a&gt;.&lt;/p&gt;
+      
+      &lt;p&gt;We are looking forward to hearing from you and get Bean Validation 2.0 rolling!&lt;/p&gt;
+    </content>
+  </entry>
+  <entry>
     <id>http://beanvalidation.org/news/2015/06/18/bean-validation-tck-1-1-4-released/</id>
     <title>Bean Validation TCK 1.1.4.Final released</title>
-    <updated>2016-02-24T08:16:54+00:00</updated>
+    <updated>2016-07-15T07:40:46+00:00</updated>
     <published>2015-06-18T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2015/06/18/bean-validation-tck-1-1-4-released/" rel="alternate" type="text/html" />
     <author>
@@ -44,7 +132,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2014/06/18/bean-validation-tcks-now-with-support-for-java-se-8/</id>
     <title>Bean Validation TCKs now with signature files for Java SE 8</title>
-    <updated>2016-02-24T08:16:54+00:00</updated>
+    <updated>2016-07-15T07:40:46+00:00</updated>
     <published>2014-06-18T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2014/06/18/bean-validation-tcks-now-with-support-for-java-se-8/" rel="alternate" type="text/html" />
     <author>
@@ -91,7 +179,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2014/05/28/training-materials/</id>
     <title>Training materials on Bean Validation 1.1</title>
-    <updated>2016-02-24T08:16:54+00:00</updated>
+    <updated>2016-07-15T07:40:46+00:00</updated>
     <published>2014-05-28T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2014/05/28/training-materials/" rel="alternate" type="text/html" />
     <author>
@@ -144,7 +232,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2013/06/04/xml-namespace-and-jcp/</id>
     <title>XML namespace and JCP</title>
-    <updated>2016-02-24T08:16:54+00:00</updated>
+    <updated>2016-07-15T07:40:46+00:00</updated>
     <published>2013-06-04T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2013/06/04/xml-namespace-and-jcp/" rel="alternate" type="text/html" />
     <author>
@@ -206,7 +294,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2013/05/02/bean-validation-1-1-is-a-spec/</id>
     <title>Bean Validation 1.1 is a spec</title>
-    <updated>2016-02-24T08:16:54+00:00</updated>
+    <updated>2016-07-15T07:40:46+00:00</updated>
     <published>2013-05-02T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2013/05/02/bean-validation-1-1-is-a-spec/" rel="alternate" type="text/html" />
     <author>
@@ -271,7 +359,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2013/03/21/bean-validation-1-1-final-approval-ballot/</id>
     <title>Bean Validation 1.1 CR3 - Final Approval Ballot</title>
-    <updated>2016-02-24T08:16:54+00:00</updated>
+    <updated>2016-07-15T07:40:46+00:00</updated>
     <published>2013-03-21T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2013/03/21/bean-validation-1-1-final-approval-ballot/" rel="alternate" type="text/html" />
     <author>
@@ -323,7 +411,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2013/02/20/bean-validation-1-1-proposed-final-draft/</id>
     <title>Bean Validation 1.1 CR1 - Proposed Final Draft</title>
-    <updated>2016-02-24T08:16:54+00:00</updated>
+    <updated>2016-07-15T07:40:46+00:00</updated>
     <published>2013-02-20T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2013/02/20/bean-validation-1-1-proposed-final-draft/" rel="alternate" type="text/html" />
     <author>
@@ -434,7 +522,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2013/02/15/bean-validation-1-1-beta4/</id>
     <title>Bean Validation 1.1 Beta 4 - issue smashing edition</title>
-    <updated>2016-02-24T08:16:54+00:00</updated>
+    <updated>2016-07-15T07:40:46+00:00</updated>
     <published>2013-02-15T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2013/02/15/bean-validation-1-1-beta4/" rel="alternate" type="text/html" />
     <author>
@@ -544,7 +632,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2013/02/05/javaspotlight-podcast-on-bean-validation-1-1/</id>
     <title>Java Spotlight Podcast on Bean Validation 1.1</title>
-    <updated>2016-02-24T08:16:54+00:00</updated>
+    <updated>2016-07-15T07:40:46+00:00</updated>
     <published>2013-02-05T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2013/02/05/javaspotlight-podcast-on-bean-validation-1-1/" rel="alternate" type="text/html" />
     <author>
@@ -575,7 +663,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2013/02/01/bean-validation-1-1-beta3-last-line/</id>
     <title>Bean Validation 1.1 Beta 3 - the last line</title>
-    <updated>2016-02-24T08:16:54+00:00</updated>
+    <updated>2016-07-15T07:40:46+00:00</updated>
     <published>2013-02-01T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2013/02/01/bean-validation-1-1-beta3-last-line/" rel="alternate" type="text/html" />
     <author>
@@ -679,7 +767,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2012/12/18/bean-validation-in-the-press/</id>
     <title>Bean Validation in the press</title>
-    <updated>2016-02-24T08:16:54+00:00</updated>
+    <updated>2016-07-15T07:40:46+00:00</updated>
     <published>2012-12-18T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2012/12/18/bean-validation-in-the-press/" rel="alternate" type="text/html" />
     <author>
@@ -712,7 +800,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2012/12/11/should-getters-be-considered-methods/</id>
     <title>Should getters be validated when they are called?</title>
-    <updated>2016-02-24T08:16:54+00:00</updated>
+    <updated>2016-07-15T07:40:46+00:00</updated>
     <published>2012-12-11T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2012/12/11/should-getters-be-considered-methods/" rel="alternate" type="text/html" />
     <author>
@@ -899,7 +987,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2012/11/29/public-review-ballot/</id>
     <title>Public review ballot favorable to Bean Validation 1.1</title>
-    <updated>2016-02-24T08:16:54+00:00</updated>
+    <updated>2016-07-15T07:40:46+00:00</updated>
     <published>2012-11-29T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2012/11/29/public-review-ballot/" rel="alternate" type="text/html" />
     <author>
@@ -928,7 +1016,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2012/11/27/1-1-beta2-is-out/</id>
     <title>Bean Validation 1.1 Beta 2 is out</title>
-    <updated>2016-02-24T08:16:54+00:00</updated>
+    <updated>2016-07-15T07:40:46+00:00</updated>
     <published>2012-11-27T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2012/11/27/1-1-beta2-is-out/" rel="alternate" type="text/html" />
     <author>
@@ -957,7 +1045,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2012/10/22/release-1-1-public-review/</id>
     <title>Public Review Draft for Bean Validation 1.1</title>
-    <updated>2016-02-24T08:16:54+00:00</updated>
+    <updated>2016-07-15T07:40:46+00:00</updated>
     <published>2012-10-22T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2012/10/22/release-1-1-public-review/" rel="alternate" type="text/html" />
     <author>
@@ -1050,7 +1138,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2012/09/12/fine-control-over-method-validation/</id>
     <title>Fine control over method validation in Bean Validation... or not!</title>
-    <updated>2016-02-24T08:16:54+00:00</updated>
+    <updated>2016-07-15T07:40:46+00:00</updated>
     <published>2012-09-12T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2012/09/12/fine-control-over-method-validation/" rel="alternate" type="text/html" />
     <author>
@@ -1256,7 +1344,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2012/08/31/big-push-on-bean-validation/</id>
     <title>Big push on Bean Validation 1.1</title>
-    <updated>2016-02-24T08:16:54+00:00</updated>
+    <updated>2016-07-15T07:40:46+00:00</updated>
     <published>2012-08-31T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2012/08/31/big-push-on-bean-validation/" rel="alternate" type="text/html" />
     <author>
@@ -1319,7 +1407,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2012/08/29/methodvalidation-inheritance/</id>
     <title>Method validation and inheritance - feedback needed!</title>
-    <updated>2016-02-24T08:16:54+00:00</updated>
+    <updated>2016-07-15T07:40:46+00:00</updated>
     <published>2012-08-29T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2012/08/29/methodvalidation-inheritance/" rel="alternate" type="text/html" />
     <author>
@@ -1449,7 +1537,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2012/06/28/hibernate-validator-5-alpha/</id>
     <title>Hibernate Validator 5 alpha for Bean Validation 1.1 is out</title>
-    <updated>2016-02-24T08:16:54+00:00</updated>
+    <updated>2016-07-15T07:40:46+00:00</updated>
     <published>2012-06-28T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2012/06/28/hibernate-validator-5-alpha/" rel="alternate" type="text/html" />
     <author>
@@ -1482,7 +1570,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2012/06/06/continuous-publication-specification-snapshot/</id>
     <title>Continuous publication of the specification snapshot</title>
-    <updated>2016-02-24T08:16:54+00:00</updated>
+    <updated>2016-07-15T07:40:46+00:00</updated>
     <published>2012-06-06T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2012/06/06/continuous-publication-specification-snapshot/" rel="alternate" type="text/html" />
     <author>
@@ -1502,7 +1590,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2012/03/28/jcp-release-1-1-edr1/</id>
     <title>Bean Validation 1.1 officially reaches the JCP</title>
-    <updated>2016-02-24T08:16:54+00:00</updated>
+    <updated>2016-07-15T07:40:46+00:00</updated>
     <published>2012-03-28T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2012/03/28/jcp-release-1-1-edr1/" rel="alternate" type="text/html" />
     <author>
@@ -1539,7 +1627,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2012/03/16/artifacts-1-1-edr1/</id>
     <title>Code artifacts published for Bean Validation 1.1 early draft 1</title>
-    <updated>2016-02-24T08:16:54+00:00</updated>
+    <updated>2016-07-15T07:40:46+00:00</updated>
     <published>2012-03-16T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2012/03/16/artifacts-1-1-edr1/" rel="alternate" type="text/html" />
     <author>
@@ -1596,7 +1684,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2012/03/13/release-1-1-edr1/</id>
     <title>Bean Validation 1.1 early draft 1 is out - time for feedback</title>
-    <updated>2016-02-24T08:16:54+00:00</updated>
+    <updated>2016-07-15T07:40:46+00:00</updated>
     <published>2012-03-13T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2012/03/13/release-1-1-edr1/" rel="alternate" type="text/html" />
     <author>
@@ -1721,7 +1809,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2012/02/01/method-level-proposal/</id>
     <title>Proposal for method validation added</title>
-    <updated>2016-02-24T08:16:54+00:00</updated>
+    <updated>2016-07-15T07:40:46+00:00</updated>
     <published>2012-02-01T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2012/02/01/method-level-proposal/" rel="alternate" type="text/html" />
     <author>
@@ -1746,7 +1834,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2011/10/21/dependency-injection-proposal/</id>
     <title>Adding proposal section and first proposal</title>
-    <updated>2016-02-24T08:16:54+00:00</updated>
+    <updated>2016-07-15T07:40:46+00:00</updated>
     <published>2011-10-21T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2011/10/21/dependency-injection-proposal/" rel="alternate" type="text/html" />
     <author>
@@ -1772,7 +1860,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2011/09/16/method-level-validation/</id>
     <title>Work on method level validation</title>
-    <updated>2016-02-24T08:16:54+00:00</updated>
+    <updated>2016-07-15T07:40:46+00:00</updated>
     <published>2011-09-16T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2011/09/16/method-level-validation/" rel="alternate" type="text/html" />
     <author>
@@ -1816,7 +1904,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2011/09/01/spec-repository-out/</id>
     <title>The specification repository is released</title>
-    <updated>2016-02-24T08:16:54+00:00</updated>
+    <updated>2016-07-15T07:40:46+00:00</updated>
     <published>2011-09-01T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2011/09/01/spec-repository-out/" rel="alternate" type="text/html" />
     <author>
@@ -1859,7 +1947,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2011/07/23/voted-yes/</id>
     <title>Bean Validation has been voted yes!</title>
-    <updated>2016-02-24T08:16:54+00:00</updated>
+    <updated>2016-07-15T07:40:46+00:00</updated>
     <published>2011-07-23T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2011/07/23/voted-yes/" rel="alternate" type="text/html" />
     <author>
@@ -1882,7 +1970,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2011/07/22/review-ballot/</id>
     <title>Bean Validation in review ballot</title>
-    <updated>2016-02-24T08:16:54+00:00</updated>
+    <updated>2016-07-15T07:40:46+00:00</updated>
     <published>2011-07-22T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2011/07/22/review-ballot/" rel="alternate" type="text/html" />
     <author>
@@ -1899,7 +1987,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2011/07/21/Site-is-live/</id>
     <title>The website is live!</title>
-    <updated>2016-02-24T08:16:54+00:00</updated>
+    <updated>2016-07-15T07:40:46+00:00</updated>
     <published>2011-07-21T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2011/07/21/Site-is-live/" rel="alternate" type="text/html" />
     <author>

@@ -4,7 +4,7 @@
     <meta content="IE=Edge" http-equiv="X-UA-Compatible">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>
-      Bean Validation - Public Review Draft for Bean Validation 1.1
+      Bean Validation - Bean Validation 2.0 - A new JSR is born!
     </title>
     <link href="../../../../../stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
     <link href="../../../../../stylesheets/print.css" media="print" rel="stylesheet" type="text/css">
@@ -66,97 +66,97 @@
           <article class="post">
             <header>
               <h1 class="title">
-                Public Review Draft for Bean Validation 1.1
+                Bean Validation 2.0 - A new JSR is born!
               </h1>
               <span class="author">
                 by
-                <b>Emmanuel Bernard</b>
+                <b>Gunnar Morling</b>
               </span>
               <span class="date">
-                on 22 Oct 2012
+                on 15 Jul 2016
               </span>
               <span class="tags">
-                <a class="label label-info" href="/news/tags/release/">release</a>
+                <a class="label label-info" href="/news/tags/news/">news</a>
               </span>
             </header>
             <div class="body">
-              <p>Last Friday I have handed over the Public Review Draft to the JCP.</p>
+              <p>Today I've got some great news to share with you: a new revision of the Bean Validation spec is about to be kicked off!</p>
               
-              <p>Beyond the new features and polishing of existing ones (see below),
-              the Public Review Draft marks the point where:</p>
+              <p>Over the last weeks, we've been busy with preparing a proposal for this JSR and I've submitted it to the JCP (Java Community Process) last week.
+              You can find the proposal for "JSR 380: Bean Validation 2.0" on <a href="https://jcp.org/en/jsr/detail?id=380">jcp.org</a>.</p>
               
-              <ul>
-              <li>the community at large is invited to comment on the specification before the last
-              leg of work towards the final release starts</li>
-              <li>the JCP executive commitee votes on the current work at the end of the review
-              period</li>
-              </ul>
+              <p>In the following, let's take a look at what we think should be part of Bean Validation 2.0 and what we've planned as the next steps.</p>
               
+              <h2>Looking back...</h2>
               
-              <p>We have been doing our work in the open but if you have not yet paid much attention
-              now is the time to fix that :)</p>
+              <p>Bean Validation 1.0 and 1.1 (JSRs 303/349) saw a huge adoption by the Java community and are integrated with a wide range of technologies, be it other Java standards (e.g. CDI, JPA, JAX-RS)
+              or 3rd party libraries and frameworks such as Spring, Vaadin and many, many more.</p>
               
-              <p>You can <a href="/1.1/spec/1.1.0.beta1/?utm_source=blog&amp;utm_medium=web&amp;utm_content=spec&amp;utm_campaign=1_1_pr1">access the draft on this website</a>.
-              All changes are marked with a different
-              color. <span style="background-color:#DDFFDD;">Green for additions</span>,
-              <span style="background-color:#FFFFDD;">yellow for changes</span> and
-              <span style="text-decoration: line-through;background-color: #FFDDDD;">struck through red for removals</span>
-              . This will help you see what has changed precisely.</p>
+              <p>The main contribution of Bean Validation 1.1 - the declarative validation of method-level constraints - has been integrated into techs such as CDI and Spring,
+              making it a breeze to write expressive API contracts with constraints which are automatically validated upon execution.</p>
               
-              <p>Please send us your remarks and comments:</p>
+              <p>Bean Validation 1.1 has been finalized <a href="http://beanvalidation.org/news/2013/05/02/bean-validation-1-1-is-a-spec/">three years ago</a> and Java continued to evolve since then.
+              Java 8 - released in 2014 - brings many very interesting language features to the table, but also adds a new time and date API and much more.</p>
               
-              <ul>
-              <li>on our <a href="https://lists.jboss.org/mailman/listinfo/beanvalidation-dev">mailing list</a></li>
-              <li>in our <a href="/issues">issue tracker</a></li>
-              <li>or on the Bean Validation <a href="https://forum.hibernate.org/viewforum.php?f=26">forum</a></li>
-              </ul>
+              <h2>...and forward</h2>
               
+              <p>So it's about time that Bean Validation supports new JDK types such as <code>LocalTime</code> or <code>Optional</code>, but also takes advantage of new (language) features such as type annotations, repeatable annotations, reflective parameter name retrieval, lambda expressions etc.</p>
               
-              <p>If you want to go to the next step and contribute, send us an email to
-              the mailing list and read <a href="/contribute/">how to contribute</a>.</p>
+              <p>To give just one example, let's consider the requirement of applying constraints to the elements of a specific collection.
+              This has been a <a href="https://hibernate.atlassian.net/browse/BVAL-202">long-standing feature request</a>, but we could never find a way to solve it generically in an acceptable manner.</p>
               
-              <h2>What's new in this draft</h2>
+              <p>Java 8 finally provides the perfect tool to solve this issue: <a href="https://docs.oracle.com/javase/tutorial/java/annotations/type_annotations.html">type annotations</a>.
+              Annotating type parameters of collections is a very intuitive way to apply constraints to collection elements (and not the entire collection itself):</p>
               
-              <p>A lot of work has been done to polish or rework the features introduced
-              in the first draft. We have also added a few additional improvements:</p>
+              <pre><code>List&lt;@Email String&gt; emails;&#x000A;</code></pre>
               
-              <ul>
-              <li>improved integration with CDI: dependency injection, component
-              lifecycle management and interception for method validation</li>
-              <li>add rules describing method validation in particular how an interception
-              technology ought to integrate: this will offer better portability</li>
-              <li>add support for cross parameter validators on method validation</li>
-              <li>add metadata APIs to identify constrained methods</li>
-              <li>add support for group conversion (i.e., change the targeted group when
-              cascading validation)</li>
-              <li>clarify that composed constraints should fail fast when <code>@RepostAsSingleViolation</code>
-              is present</li>
-              <li>support <code>CharSequence</code> (used to be <code>String</code>) for built-in constraints</li>
-              </ul>
+              <p>Java 8 provides the required APIs to retrieve the constraint annotation from the type parameter and apply the validation accordingly.</p>
               
+              <p>But it doesn't stop there.
+              Repeatable annotation types will make it less verbose to specify several constraints of the same type one and the same element.
+              Reflective parameter name retrieval will provide better validation messages out of the box when validating constraints on method parameters.
+              Lambda expressions might be a useful vehicle to express small ad-hoc validation routines.</p>
               
-              <h2>Contributions</h2>
+              <h2>What else?</h2>
               
-              <p>As usual, many thanks to the community for its feedback, the expert group for its
-              work. Special thanks to Gunnar and Hardy who worked round the clock this past two
-              weeks to integrate all planned improvements in the specification document.</p>
+              <p>While we envision supporting and leveraging Java 8 as the "main theme" of Bean Validation 2.0, we hope to address some other issues, too.
+              E.g. there may be support for more customized payloads of constraint violations.
+              Also a builder API for constraint violation exceptions might be useful.
+              As would an API for validating an object graph assuming a list of changes to be applied.
+              Check out the <a href="https://jcp.org/en/jsr/detail?id=380">JSR 380 proposal</a> for some more ideas we have.</p>
+              
+              <p>While the baseline for Bean Validation 2.0 will be Java 8, we'll also be tracking the ongoing work for Java 9 and work towards making Bean Validation ready for Java 9 and its module system as far as possible.</p>
+              
+              <p>As the time-line of Bean Validation 2.0 is quite compact, we are very eager to hear from you, the community of users, and learn what would be the things most useful to you.
+              For sure we won't be able to address all potential ideas out there. So if there are features close to your heart which you'd really love to see in the spec, be sure to speak up and let us know.</p>
+              
+              <h2>What's next?</h2>
+              
+              <p>As per <a href="https://jcp.org/en/procedures/jcp2#3.3">the rules</a> of the Java Community Process, the Bean Validation 2.0 JSR is currently up for review by the JCP executive committee.
+              After that, there will be an approval ballot and we will hopefully be ready to go and kick off the work on actual spec changes, prototyping new features in the reference implementation and so on.</p>
+              
+              <p>So if you ever wanted to contribute to a Java Specification Request - be it just by voting for issues, opening new feature requests or actually working on the specification, its reference implementation and the test compatability kit (TCK) - then this is the perfect time.
+              If you are a member of the JCP, you also can <a href="https://jcp.org/en/jsr/egnom?id=380">join the expert group</a>, we'd be very happy to have you aboard.</p>
+              
+              <p>Whether EG member or not, in order to get the discussion on this JSR proposal started, just drop a comment below, post to the <a href="https://forum.hibernate.org/viewforum.php?f=26">feedback forum</a>, shoot a message to the <a href="https://lists.jboss.org/mailman/listinfo/beanvalidation-dev">Bean Validation mailing list</a> or
+              comment on specific issues in <a href="https://hibernate.atlassian.net/projects/BVAL/summary">the tracker</a>.</p>
+              
+              <p>We are looking forward to hearing from you and get Bean Validation 2.0 rolling!</p>
             </div>
             <footer>
               <div id="post-navigation">
                 <div class="previous">
                   &laquo;
-                  <a href="../../../09/12/fine-control-over-method-validation">Fine control over method validation in Bean Validation... or not!</a>
+                  <a href="../../../../2015/06/18/bean-validation-tck-1-1-4-released">Bean Validation TCK 1.1.4.Final released</a>
                 </div>
                 <div class="next">
-                  &raquo;
-                  <a href="../../../11/27/1-1-beta2-is-out">Bean Validation 1.1 Beta 2 is out</a>
                 </div>
               </div>
               
                           <div id="disqus_thread"></div>
                           <script type="text/javascript">
                           var disqus_shortname = 'beanvalidation';
-                          var disqus_url = "http://beanvalidation.org/news/2012/10/22/release-1-1-public-review/";
+                          var disqus_url = "http://beanvalidation.org/news/2016/07/15/bean-validation-2-0-is-coming/";
                           var disqus_developer = null;
                           var disqus_identifier = null;
                           (function() {
