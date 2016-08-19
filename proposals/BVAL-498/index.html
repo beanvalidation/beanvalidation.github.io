@@ -1,0 +1,128 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>
+      Bean Validation - BVAL-498 Obtain parameter names through reflection
+    </title>
+    <link href="../../stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="../../stylesheets/print.css" media="print" rel="stylesheet" type="text/css">
+    <!--[if lt IE 8]>
+      <link href="../../stylesheets/ie.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <![endif]-->
+    <link href="../../news/news.atom" rel="alternate" type="application/atom+xml">
+    <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="/javascripts/patternfly.js"></script>
+    <script src="/javascripts/bootstrap.js"></script>
+  </head>
+  <body>
+    <header role="banner">
+      <nav class="navbar navbar-default navbar-pf" role="navigation">
+        <div class="navbar-header">
+          <button class="navbar-toggle" data-target=".navbar-collapse-1" data-toggle="collapse" type="button">
+            <span class="sr-only">Toggle Navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../.." id="logo" title="Bean Validation">
+            Bean Validation
+          </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-primary navbar-right" id="meny-primary">
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="../..">Home</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="../../news">News</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="../../specification">Specification</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="../../1.1/tck">TCK</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="../../1.1/ri">RI</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="../../1.1/certified">Certified</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="../../contribute">Contribute</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="../../licensing">Licensing</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <div class="container" id="overview">
+      <div class="clearfix row" id="content">
+        <div class="col-sm-12 col-md-12 col-lg-12 clearfix" id="main">
+          <h1>BVAL-498 Obtain parameter names through reflection</h1>
+          <div id="toc" class="toc">
+          <div id="toctitle">Table of Contents</div>
+          <ul class="sectlevel1">
+          <li><a href="#problem">1. Problem</a></li>
+          <li><a href="#proposition">2. Proposition</a></li>
+          </ul>
+          </div>
+          <div id="preamble">
+          <div class="sectionbody">
+          <div class="paragraph">
+          <p><a href="https://hibernate.atlassian.net/browse/BVAL-498">Related JIRA</a><br>
+          <a href="/glossary/">Java generics glossary</a></p>
+          </div>
+          </div>
+          </div>
+          <div class="sect1">
+          <h2 id="problem"><a class="anchor" href="#problem"></a>1. Problem</h2>
+          <div class="sectionbody">
+          <div class="paragraph">
+          <p>Violations of constraints on method/constructor parameters refer to the name of the parameter. Prior to Java 8, there was no standardized way for obtaining parameter names at runtime, which is why the ParameterNameProvider SPI was introduced in BV 1.1.</p>
+          </div>
+          <div class="paragraph">
+          <p>In Java 8, parameter name retrieval was added to the reflection API eventually.</p>
+          </div>
+          </div>
+          </div>
+          <div class="sect1">
+          <h2 id="proposition"><a class="anchor" href="#proposition"></a>2. Proposition</h2>
+          <div class="sectionbody">
+          <div class="paragraph">
+          <p>Mandate that the default implementation of <code>ParameterNameProvider</code> of conforming BV providers delegates to <code>Executable#getParameters()</code>/ <code>Parameter#getName()</code>. If the validated method has been compiled without the compiler option <em>-parameters</em>, then the same names as with BV 1.1 will be returned, i.e. <code>arg0</code>, <code>arg1</code> etc. If parameter names have been enabled by means of that option, the actual parameter names as contained in the source code will be returned.</p>
+          </div>
+          </div>
+          </div>
+          
+                      <div id="disqus_thread"></div>
+                      <script type="text/javascript">
+                      var disqus_shortname = 'beanvalidation';
+                      var disqus_url = "http://beanvalidation.org/proposals/BVAL-498/";
+                      var disqus_developer = null;
+                      var disqus_identifier = null;
+                      (function() {
+                        var dsq = document.createElement("script"); dsq.type = "text/javascript"; dsq.async = true;
+                        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                        (document.getElementsByTagName("head")[0] || document.getElementsByTagName("body")[0]).appendChild(dsq);
+                      })();
+                      </script>
+                      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript=beanvalidation">comments powered by Disqus.</a></noscript>
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer class="container" id="widget-footer" role="contentinfo">
+    <hr>
+    <div class="row">
+      <div class="widget col-md-12 widget_text">
+        Copyright (c) Red Hat, Inc., Emmanuel Bernard
+        <a href="http://redhat.com" id="logo-redhat">Red Hat</a>
+      </div>
+    </div>
+  </footer>
+</html>
