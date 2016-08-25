@@ -1,0 +1,245 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>
+      Bean Validation - BVAL-496 Support for new date/time types (JSR 310)
+    </title>
+    <link href="../../stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="../../stylesheets/print.css" media="print" rel="stylesheet" type="text/css">
+    <!--[if lt IE 8]>
+      <link href="../../stylesheets/ie.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <![endif]-->
+    <link href="../../news/news.atom" rel="alternate" type="application/atom+xml">
+    <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="/javascripts/patternfly.js"></script>
+    <script src="/javascripts/bootstrap.js"></script>
+  </head>
+  <body>
+    <header role="banner">
+      <nav class="navbar navbar-default navbar-pf" role="navigation">
+        <div class="navbar-header">
+          <button class="navbar-toggle" data-target=".navbar-collapse-1" data-toggle="collapse" type="button">
+            <span class="sr-only">Toggle Navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../.." id="logo" title="Bean Validation">
+            Bean Validation
+          </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-primary navbar-right" id="meny-primary">
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="../..">Home</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="../../news">News</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="../../specification">Specification</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="../../1.1/tck">TCK</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="../../1.1/ri">RI</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="../../1.1/certified">Certified</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="../../contribute">Contribute</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="../../licensing">Licensing</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <div class="container" id="overview">
+      <div class="clearfix row" id="content">
+        <div class="col-sm-12 col-md-12 col-lg-12 clearfix" id="main">
+          <h1>BVAL-496 Support for new date/time types (JSR 310)</h1>
+          <div id="toc" class="toc">
+          <div id="toctitle">Table of Contents</div>
+          <ul class="sectlevel1">
+          <li><a href="#problem">1. Problem</a></li>
+          <li><a href="#proposition">2. Proposition</a>
+          <ul class="sectlevel2">
+          <li><a href="#mandate-code-past-code-code-future-code-support-for-more-types">2.1. Mandate <code>@Past</code>/<code>@Future</code> support for more types</a></li>
+          <li><a href="#make-current-time-and-timezone-customizable">2.2. Make current time and timezone customizable</a></li>
+          </ul>
+          </li>
+          <li><a href="#questions">3. Questions</a></li>
+          </ul>
+          </div>
+          <div id="preamble">
+          <div class="sectionbody">
+          <div class="paragraph">
+          <p><a href="https://hibernate.atlassian.net/browse/BVAL-496">Related JIRA</a></p>
+          </div>
+          </div>
+          </div>
+          <div class="sect1">
+          <h2 id="problem"><a class="anchor" href="#problem"></a>1. Problem</h2>
+          <div class="sectionbody">
+          <div class="olist arabic">
+          <ol class="arabic">
+          <li>
+          <p>Java 8 comes with a whole new set of date/time related types, located in the <a href="https://docs.oracle.com/javase/8/docs/api/index.html?java/time/package-summary.html">java.time</a> package. Those should be supported with <code>@Past</code> and <code>@Future</code>.</p>
+          </li>
+          <li>
+          <p>The time and time zone to compare to during validation are currently fixed to the JVM&#8217;s (default) values. This should be made more flexible, so validation can be done for another time and/or time zone than the JVM&#8217;s values.
+          Use cases: use a different time for testing, obtain the TZ from the currently logged in user, use the logical time of a batch job</p>
+          </li>
+          </ol>
+          </div>
+          </div>
+          </div>
+          <div class="sect1">
+          <h2 id="proposition"><a class="anchor" href="#proposition"></a>2. Proposition</h2>
+          <div class="sectionbody">
+          <div class="sect2">
+          <h3 id="mandate-code-past-code-code-future-code-support-for-more-types"><a class="anchor" href="#mandate-code-past-code-code-future-code-support-for-more-types"></a>2.1. Mandate <code>@Past</code>/<code>@Future</code> support for more types</h3>
+          <div class="ulist">
+          <ul>
+          <li>
+          <p><code>java.time.Instant</code> (trivial, it&#8217;s a fixed instant on the timeline)</p>
+          </li>
+          <li>
+          <p><code>java.time.ZonedDateTime</code>, <code>java.time.OffsetDateTime</code> (also represent one specific instant on the timeline)</p>
+          </li>
+          </ul>
+          </div>
+          <div class="paragraph">
+          <p>Past/future semantics of these can be determined by comparing to the current instant on the timeline (currently that&#8217;s the JVM&#8217;s time, see further below for a proposal to make this more flexible).</p>
+          </div>
+          <div class="paragraph">
+          <p>Besides these types representing an instant on the timeline, JSR 310 also defines data types which represent a date-time without a TZ:</p>
+          </div>
+          <div class="ulist">
+          <ul>
+          <li>
+          <p><code>LocalDateTime</code> (could e.g. represent the date-time "2007-12-03T10:15:30")</p>
+          </li>
+          <li>
+          <p><code>LocalDate</code> (could represent a person&#8217;s birthday)</p>
+          </li>
+          <li>
+          <p><code>Year</code></p>
+          </li>
+          </ul>
+          </div>
+          <div class="paragraph">
+          <p>Past/future semantics of these <strong>cannot</strong> be determined by comparing to the current instant timeline. For instance, e.g. two persons in Australia and Europe may answer differently when being asked at the very same instant "Is 2017-01-01 in the future?". Instead, past/future semantics can only be determined relative to another such local date-time.</p>
+          </div>
+          <div class="paragraph">
+          <p>Proposal: Obtain the date-time representing the local "now" using the JVM&#8217;s time and default TZ (see further below for a proposal to make this more flexible). E.g. if the JVM&#8217;s time is "2007-12-03T10:15:30+01:00 Europe/Paris", the <code>LocalDateTime</code> "2007-12-03T10:15:30" will be used to determine past/future semantics for these local date-times.</p>
+          </div>
+          </div>
+          <div class="sect2">
+          <h3 id="make-current-time-and-timezone-customizable"><a class="anchor" href="#make-current-time-and-timezone-customizable"></a>2.2. Make current time and timezone customizable</h3>
+          <div class="paragraph">
+          <p>To address problem 2., add a new SPI which returns the time and time zone to be used by the validation engine for validating <code>@Past</code> and <code>@Future</code> constraints:</p>
+          </div>
+          <div class="literalblock">
+          <div class="content">
+          <pre>package javax.validation.spi;</pre>
+          </div>
+          </div>
+          <div class="literalblock">
+          <div class="content">
+          <pre>import java.time.ZonedDateTime;</pre>
+          </div>
+          </div>
+          <div class="literalblock">
+          <div class="content">
+          <pre>public interface TimeProvider {</pre>
+          </div>
+          </div>
+          <div class="literalblock">
+          <div class="content">
+          <pre>    // ZDT is a date-time with a time-zone in the ISO-8601 calendar system,&#x000A;    // such as 2007-12-03T10:15:30+01:00 Europe/Paris&#x000A;    ZonedDateTime getCurrentTime();&#x000A;}</pre>
+          </div>
+          </div>
+          <div class="paragraph">
+          <p>BV implementations must use a default <code>TimeProvider</code> which returns the current date-time in the default time zone (typically obtained via <code>ZonedDateTime#now()</code>).</p>
+          </div>
+          <div class="paragraph">
+          <p>When bootstrapping a validator factory or validator, an alternative time provider can be passed</p>
+          </div>
+          <div class="ulist">
+          <ul>
+          <li>
+          <p>via <code>Configuration</code> (also exposes the default time provider)</p>
+          </li>
+          <li>
+          <p>via <code>ValidatorContext</code></p>
+          </li>
+          <li>
+          <p>using XML</p>
+          </li>
+          </ul>
+          </div>
+          <div class="paragraph">
+          <p>E.g.</p>
+          </div>
+          <div class="literalblock">
+          <div class="content">
+          <pre>Validator validator = Validation.byDefaultProvider()&#x000A;    .configure()&#x000A;    .timeProvider( myTimeProvider() )&#x000A;    .buildValidatorFactory()&#x000A;    .getValidator();</pre>
+          </div>
+          </div>
+          <div class="paragraph">
+          <p>Similar to message interpolators etc., custom time providers are CDI-enabled if CDI is present, allowing to inject needed contextual information such as the current requests locale.</p>
+          </div>
+          </div>
+          </div>
+          </div>
+          <div class="sect1">
+          <h2 id="questions"><a class="anchor" href="#questions"></a>3. Questions</h2>
+          <div class="sectionbody">
+          <div class="olist arabic">
+          <ol class="arabic">
+          <li>
+          <p>Proposal 2. assumes that the current time + TZ can be obtained in a rather global fashion, i.e. the logical time of a currently running batch job or the TZ from the currently logged in user&#8217;s profile etc.
+          Is there need to make this more contextual, i.e. expose the validated bean or similar? I can&#8217;t see a use case for this atm.</p>
+          </li>
+          <li>
+          <p>Are there other types in the JSR 310 API which should be supported?</p>
+          </li>
+          </ol>
+          </div>
+          </div>
+          </div>
+          
+                      <div id="disqus_thread"></div>
+                      <script type="text/javascript">
+                      var disqus_shortname = 'beanvalidation';
+                      var disqus_url = "http://beanvalidation.org/proposals/BVAL-496/";
+                      var disqus_developer = null;
+                      var disqus_identifier = null;
+                      (function() {
+                        var dsq = document.createElement("script"); dsq.type = "text/javascript"; dsq.async = true;
+                        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                        (document.getElementsByTagName("head")[0] || document.getElementsByTagName("body")[0]).appendChild(dsq);
+                      })();
+                      </script>
+                      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript=beanvalidation">comments powered by Disqus.</a></noscript>
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer class="container" id="widget-footer" role="contentinfo">
+    <hr>
+    <div class="row">
+      <div class="widget col-md-12 widget_text">
+        Copyright (c) Red Hat, Inc., Emmanuel Bernard
+        <a href="http://redhat.com" id="logo-redhat">Red Hat</a>
+      </div>
+    </div>
+  </footer>
+</html>
