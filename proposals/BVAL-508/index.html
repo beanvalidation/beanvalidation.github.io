@@ -108,7 +108,7 @@
           <h2 id="problem"><a class="anchor" href="#problem"></a>1. Problem</h2>
           <div class="sectionbody">
           <div class="paragraph">
-          <p>It is useful to be able to apply constrains on elements contained in a so called <em>container</em>.
+          <p>It is useful to be able to apply constraints on elements contained in a so called <em>container</em>.
           Examples of containers are:</p>
           </div>
           <div class="ulist">
@@ -224,7 +224,7 @@
           <div class="ulist">
           <ul>
           <li>
-          <p>that would allow us not to require <code>@Valid</code> for <code>Optional&lt;@notNull String&gt;</code></p>
+          <p>that would allow us not to require <code>@Valid</code> for <code>Optional&lt;@NotNull String&gt;</code></p>
           </li>
           <li>
           <p>when constraint annotations are present on the member or method declaration itself,
@@ -242,7 +242,16 @@
           <i class="fa icon-important" title="Important"></i>
           </td>
           <td class="content">
-          TODO: infinite loops?
+          <div class="title">TODO: infinite loops?</div>
+          <div class="paragraph">
+          <p>I don&#8217;t think there is an issue of infinite loop.
+          At runtime, we can stop when we encounter the same container instance for the second time.
+          This is how we do it in Bean Validation today.</p>
+          </div>
+          <div class="paragraph">
+          <p>For the metadata build up, I don&#8217;t think we end up in an infinite loop.
+          The container declarations remain written in the code and thus cannot infinitely loop.</p>
+          </div>
           </td>
           </tr>
           </table>
@@ -254,23 +263,38 @@
           <p>An extractor is associated to a container type (e.g. <code>Collection</code>) and a value type (e.g. the element of the collection).
           For a given container + value type tuple,
           the extractor used is the one targeting the most specific container type that is a supertype of the container.
-          Rules used are the same used by the constraint validator selection. TODO: handles interfaces?</p>
+          Rules used are the same used by the constraint validator selection.</p>
+          </div>
+          <div class="admonitionblock important">
+          <table>
+          <tr>
+          <td class="icon">
+          <i class="fa icon-important" title="Important"></i>
+          </td>
+          <td class="content">
+          TODO: handles interfaces?
+          </td>
+          </tr>
+          </table>
           </div>
           <div class="paragraph">
-          <p>Value type is the data returned by the extractor, for example:</p>
+          <p>Value type is the data type returned by the extractor, for example:</p>
           </div>
           <div class="ulist">
           <ul>
           <li>
-          <p>the collection elements</p>
+          <p>the collection elements type</p>
           </li>
           <li>
-          <p>the map keys</p>
+          <p>the map keys type</p>
           </li>
           <li>
-          <p>the map values</p>
+          <p>the map values type</p>
           </li>
           </ul>
+          </div>
+          <div class="paragraph">
+          <p>Container type and value type are not discovered per instance but per declaration site: in other words, extractor usage can be computed statically (assuming the list of extractors known).</p>
           </div>
           <div class="paragraph">
           <p>Depending on where constraints are placed, they will be applied to one or the other value type.
@@ -289,7 +313,7 @@
           </div>
           <div class="listingblock">
           <div class="content">
-          <pre class="CodeRay highlight"><code data-lang="java"><span style="color:#777">// declare List&lt;T&gt; as the type parameter targeted (index)</span>&#x000A;<span style="color:#339;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">IntegerList</span> <span style="color:#088;font-weight:bold">extends</span> ManyContainerValuesExtractor&lt;<span style="color:#007">@ExtractedValue</span>(typeParameterHost=<span style="color:#0a8;font-weight:bold">List</span>.class, typeParameterIndex=<span style="color:#00D">0</span>) IntegerList, <span style="color:#0a8;font-weight:bold">Integer</span>&gt; {&#x000A;}&#x000A;&#x000A;<span style="color:#777">// declare List&lt;T&gt; as the type parameter targeted (name)</span>&#x000A;<span style="color:#777">// probably a bit brittle</span>&#x000A;<span style="color:#339;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">IntegerList</span> <span style="color:#088;font-weight:bold">extends</span> ManyContainerValuesExtractor&lt;<span style="color:#007">@ExtractedValue</span>(typeParameterHost=<span style="color:#0a8;font-weight:bold">List</span>.class, typeParameterName=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">E</span><span style="color:#710">&quot;</span></span>) IntegerList, <span style="color:#0a8;font-weight:bold">Integer</span>&gt; {&#x000A;}</code></pre>
+          <pre class="CodeRay highlight"><code data-lang="java"><span style="color:#777">// declare List&lt;T&gt; as the type parameter targeted (index)</span>&#x000A;<span style="color:#339;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">IntegerListExtractor</span> <span style="color:#088;font-weight:bold">extends</span> ManyContainerValuesExtractor&lt;<span style="color:#007">@ExtractedValue</span>(typeParameterHost=<span style="color:#0a8;font-weight:bold">List</span>.class, typeParameterIndex=<span style="color:#00D">0</span>) IntegerList, <span style="color:#0a8;font-weight:bold">Integer</span>&gt; {&#x000A;}&#x000A;&#x000A;<span style="color:#777">// declare List&lt;T&gt; as the type parameter targeted (name)</span>&#x000A;<span style="color:#777">// probably a bit brittle</span>&#x000A;<span style="color:#339;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">IntegerList</span> <span style="color:#088;font-weight:bold">extends</span> ManyContainerValuesExtractor&lt;<span style="color:#007">@ExtractedValue</span>(typeParameterHost=<span style="color:#0a8;font-weight:bold">List</span>.class, typeParameterName=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">E</span><span style="color:#710">&quot;</span></span>) IntegerList, <span style="color:#0a8;font-weight:bold">Integer</span>&gt; {&#x000A;}</code></pre>
           </div>
           </div>
           <div class="paragraph">
@@ -570,7 +594,7 @@
           </div>
           </div>
           <div class="paragraph">
-          <p>In case the container and the contained values are both supported by a give constraint,
+          <p>In case the container and the contained values are both supported by a given constraint,
           <code>@ConstraintsApplyTo</code> becomes mandatory.</p>
           </div>
           <div class="paragraph">
@@ -595,7 +619,7 @@
           <h3 id="type-parameter-and-constraint-propagation"><a class="anchor" href="#type-parameter-and-constraint-propagation"></a>2.3. Type parameter and constraint propagation</h3>
           <div class="listingblock">
           <div class="content">
-          <pre class="CodeRay highlight"><code data-lang="java"><span style="color:#777">// @NoNull is applied on a type parameter</span>&#x000A;<span style="color:#339;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">CustList</span> <span style="color:#088;font-weight:bold">extends</span> <span style="color:#0a8;font-weight:bold">List</span>&lt;<span style="color:#007">@NotNull</span> Customer&gt; {&#x000A;}</code></pre>
+          <pre class="CodeRay highlight"><code data-lang="java"><span style="color:#777">// @NotNull is applied on a type parameter</span>&#x000A;<span style="color:#339;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">CustList</span> <span style="color:#088;font-weight:bold">extends</span> <span style="color:#0a8;font-weight:bold">List</span>&lt;<span style="color:#007">@NotNull</span> Customer&gt; {&#x000A;}</code></pre>
           </div>
           </div>
           <div class="paragraph">
@@ -728,7 +752,7 @@
           </div>
           </div>
           <div class="paragraph">
-          <p>This adds the <code>@Exists</code> constraint to constraint metadata for <code>&lt;T&gt;</code> of the <code>emails</code> list (i.e. in addition to the statically defined <code>@ValidAddress</code> ).
+          <p>This adds the <code>@Exists</code> constraint to constraint metadata for <code>&lt;T&gt;</code> of the <code>addresses</code> list (i.e. in addition to the statically defined <code>@ValidAddress</code> ).
           When validating a <code>User</code>, the engine will access <code>&lt;T&gt;</code> during cascaded validation (by invoking <code>List#getIterator()</code> or similar).
           Then both constraints, <code>@Exists</code> and <code>@ValidAddress</code> will be applied.</p>
           </div>
@@ -799,7 +823,7 @@
           </div>
           <div class="listingblock">
           <div class="content">
-          <pre class="CodeRay highlight"><code data-lang="java"><span style="color:#088;font-weight:bold">public</span> <span style="color:#339;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">Foo</span> {&#x000A;    Bar&lt;<span style="color:#007">@NotNull</span> Baz&gt; baz;&#x000A;    <span style="color:#777">// equivalent to</span>&#x000A;    <span style="color:#007">@Valid</span>&#x000A; Bar&lt;<span style="color:#007">@NotNull</span> Baz&gt; baz2;&#x000A;}&#x000A;&#x000A;<span style="color:#088;font-weight:bold">public</span> <span style="color:#339;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">Foo</span> {&#x000A;    <span style="color:#007">@Valid</span> <span style="color:#777">//optional</span>&#x000A;    Buz&lt;<span style="color:#0a8;font-weight:bold">String</span>, <span style="color:#007">@Min</span>(<span style="color:#00D">5</span>) <span style="color:#0a8;font-weight:bold">Integer</span>&gt; num;&#x000A;&#x000A;    <span style="color:#777">// validates Buz as there is an optional @Valid here</span>&#x000A;    <span style="color:#777">// inside buz, cascade validation to @Foo</span>&#x000A;    Buz&lt;<span style="color:#007">@Valid</span> Foo, <span style="color:#0a8;font-weight:bold">Integer</span>&gt; num;&#x000A;}</code></pre>
+          <pre class="CodeRay highlight"><code data-lang="java"><span style="color:#088;font-weight:bold">public</span> <span style="color:#339;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">Foo</span> {&#x000A;    Bar&lt;<span style="color:#007">@NotNull</span> Baz&gt; baz;&#x000A;    <span style="color:#777">// equivalent to</span>&#x000A;    <span style="color:#007">@Valid</span>&#x000A;    Bar&lt;<span style="color:#007">@NotNull</span> Baz&gt; baz2;&#x000A;}&#x000A;&#x000A;<span style="color:#088;font-weight:bold">public</span> <span style="color:#339;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">Foo</span> {&#x000A;    <span style="color:#007">@Valid</span> <span style="color:#777">//optional</span>&#x000A;    Buz&lt;<span style="color:#0a8;font-weight:bold">String</span>, <span style="color:#007">@Min</span>(<span style="color:#00D">5</span>) <span style="color:#0a8;font-weight:bold">Integer</span>&gt; num;&#x000A;&#x000A;    <span style="color:#777">// validates Buz as there is an optional @Valid here</span>&#x000A;    <span style="color:#777">// inside Buz, cascade validation to @Foo</span>&#x000A;    Buz&lt;<span style="color:#007">@Valid</span> Foo, <span style="color:#0a8;font-weight:bold">Integer</span>&gt; num;&#x000A;}</code></pre>
           </div>
           </div>
           <div class="paragraph">
@@ -879,7 +903,7 @@
           <div class="ulist">
           <ul>
           <li>
-          <p>does not propagate to method validation (i.e not on type parameter in the definition</p>
+          <p>does not propagate to method validation (i.e not on type parameter in the definition)</p>
           </li>
           <li>
           <p>getter vs field issue</p>
@@ -892,7 +916,7 @@
           <div class="ulist">
           <ul>
           <li>
-          <p>all or nothing ? i.e. use both? Probably confusing
+          <p>all or nothing? i.e. use both? Probably confusing
           but what about</p>
           </li>
           </ul>
@@ -979,7 +1003,7 @@
           <div class="sect2">
           <h3 id="generic-container-notion"><a class="anchor" href="#generic-container-notion"></a>4.3. Generic container notion</h3>
           <div class="paragraph">
-          <p>Offer an service provider offering a way to consider and navigate the element(s) of a container.
+          <p>Offer a service provider offering a way to consider and navigate the element(s) of a container.
           Container, Optional and Property will be provided as is but other container can be generalized.</p>
           </div>
           <div class="paragraph">
