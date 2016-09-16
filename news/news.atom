@@ -2,9 +2,56 @@
 <feed xml:lang="en-US" xmlns="http://www.w3.org/2005/Atom">
   <id>http://beanvalidation.org/</id>
   <title>Bean Validation</title>
-  <updated>2016-08-19T09:07:54+00:00</updated>
+  <updated>2016-09-16T05:36:20+00:00</updated>
   <link href="http://beanvalidation.org/news/news.atom" rel="self" type="application/atom+xml" />
   <link href="http://beanvalidation.org/" rel="alternate" type="text/html" />
+  <entry>
+    <id>http://beanvalidation.org/news/2016/09/15/which-constraints-to-add/</id>
+    <title>Feedback needed - Which constraints should be added?</title>
+    <updated>2016-09-16T05:36:20+00:00</updated>
+    <published>2016-09-15T00:00:00+00:00</published>
+    <link href="http://beanvalidation.org/news/2016/09/15/which-constraints-to-add/" rel="alternate" type="text/html" />
+    <author>
+      <name>Gunnar Morling</name>
+    </author>
+    <category term="feedback"></category>
+    <summary>
+      The work on Bean Validation 2.0 is in full swing and there is an issue where we could benefit from your help.
+      
+      Recently we have been discussing whether any new constraints should be added to the specification or not.
+      Traditionally, Bean Validation stayed on the conservative side of things in this regard.
+      It defined only some generically applicable and widely useful constraints in the specification itself, e.g. @NotNull, @Size or @Pattern.
+      
+      Now Marco Molteni did a very interesting analysis on the constraints which are actually used in real world projects by running an analysis of open source projects hosted on GitHub.
+      Only a specific type...
+    </summary>
+    <content type="html">
+      &lt;p&gt;The work on Bean Validation 2.0 is in full swing and there is an issue where we could benefit from your help.&lt;/p&gt;
+      
+      &lt;p&gt;Recently we have been discussing whether any new constraints &lt;a href=&quot;http://lists.jboss.org/pipermail/beanvalidation-dev/2016-August/001000.html&quot;&gt;should be added&lt;/a&gt; to the specification or not.
+      Traditionally, Bean Validation stayed on the conservative side of things in this regard.
+      It defined only some generically applicable and widely useful constraints in the specification itself, e.g. &lt;code&gt;@NotNull&lt;/code&gt;, &lt;code&gt;@Size&lt;/code&gt; or &lt;code&gt;@Pattern&lt;/code&gt;.&lt;/p&gt;
+      
+      &lt;p&gt;Now Marco Molteni did a very interesting analysis on the constraints which are actually used in real world projects by &lt;a href=&quot;http://lists.jboss.org/pipermail/beanvalidation-dev/2016-August/001000.html&quot;&gt;running an analysis&lt;/a&gt; of open source projects hosted on GitHub.
+      Only a specific type of project is hosted there usually (mostly libraries, as opposed to actual end user facing applications),
+      so the numbers should be taken with a grain of salt. But nevertheless they are very interesting.&lt;/p&gt;
+      
+      &lt;p&gt;Marco's analysis shows that besides the BV-defined constraints &lt;code&gt;@NotEmpty&lt;/code&gt; and &lt;code&gt;@NotBlank&lt;/code&gt; - both defined by the reference implementation Hibernate validator - are very frequently used and thus are potential candidates for inclusion into Bean Validation 2.0.
+      The former asserts that the annotated string, collection, map or array is neither null nor empty, the latter validates that the annotated string is neither null nor empty, stripping leading/trailing whitespace.&lt;/p&gt;
+      
+      &lt;p&gt;Another candidate may be &lt;code&gt;@Email&lt;/code&gt;; but validation of e-mail addresses is a surprisingly complex business, with different people having different ideas and expectations of how a valid (or invalid) e-mail address should look like (take a look at the &lt;a href=&quot;https://en.wikipedia.org/wiki/Email_address#Examples&quot;&gt;examples on Wikipedia&lt;/a&gt; to get an idea).
+      Hence I feel this is not something we should aim for in the specification.&lt;/p&gt;
+      
+      &lt;p&gt;To add some further data points, we created the following survey on constraints to be added potentially.
+      Getting back many answers to this poll will help us to form a better understanding of what you, the users out there, really need.
+      If you would like to see support for other constraints not mentioned in the survey, you can add them via the free-text field in the last question.
+      These may be custom constraints defined by a Bean Validation provider, a third-party library or in your own projects which you see yourself using very frequently.&lt;/p&gt;
+      
+      &lt;p&gt;Taking the survey will take you only a minute, so give it a go. Thanks a lot for your help!&lt;/p&gt;
+      
+      &lt;iframe src=&quot;https://docs.google.com/forms/d/e/1FAIpQLScR9o9p2GlrmhrtSinp2D9PY8gN4C-AOA-bjm8bwXkX_4H1Sw/viewform?embedded=true&quot; width=&quot;760&quot; height=&quot;500&quot; frameborder=&quot;0&quot; marginheight=&quot;0&quot; marginwidth=&quot;0&quot;&gt;Loading...&lt;/iframe&gt;
+    </content>
+  </entry>
   <entry>
     <id>http://beanvalidation.org/news/2016/07/15/bean-validation-2-0-is-coming/</id>
     <title>Bean Validation 2.0 - A new JSR is born!</title>
