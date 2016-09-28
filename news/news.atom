@@ -1454,7 +1454,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2012/08/29/methodvalidation-inheritance/</id>
     <title>Method validation and inheritance - feedback needed!</title>
-    <updated>2016-09-19T11:46:11+00:00</updated>
+    <updated>2016-09-28T13:27:51+00:00</updated>
     <published>2012-08-29T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2012/08/29/methodvalidation-inheritance/" rel="alternate" type="text/html" />
     <author>
@@ -1489,7 +1489,7 @@
       of method parameters and return values using constraint annotations. Bean Validation 1.1
       &lt;a href=&quot;http://beanvalidation.org/news/2012/03/13/release-1-1-edr1/&quot;&gt;early draft 1&lt;/a&gt; lays the
       ground for this, and right now we're tackling some
-      &lt;a href=&quot;https://hibernate.onjira.com/browse/BVAL-272&quot;&gt;advanced questions&lt;/a&gt; still open in that area
+      &lt;a href=&quot;https://hibernate.atlassian.net/browse/BVAL-272&quot;&gt;advanced questions&lt;/a&gt; still open in that area
       (btw. if you haven't yet tried out the
       &lt;a href=&quot;http://in.relation.to/Bloggers/FirstAlphaReleaseOfHibernateValidator5&quot;&gt;reference implementation&lt;/a&gt;
       of ED1, this is the perfect time to do so and give us your feedback).&lt;/p&gt;
