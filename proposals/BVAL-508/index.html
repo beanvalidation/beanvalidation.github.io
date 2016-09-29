@@ -160,6 +160,13 @@
           <pre class="CodeRay highlight"><code data-lang="java"><span style="color:#777">// Draft proposal for the contract</span>&#x000A;<span style="color:#088;font-weight:bold">public</span> <span style="color:#339;font-weight:bold">interface</span> <span style="color:#B06;font-weight:bold">SingleContainerValueExtractor</span>&lt;CONTAINER,CONTAINED&gt; {&#x000A;    CONTAINED extractValue(CONTAINER container);&#x000A;}&#x000A;&#x000A;<span style="color:#088;font-weight:bold">public</span> <span style="color:#339;font-weight:bold">interface</span> <span style="color:#B06;font-weight:bold">ManyContainerValuesExtractor</span>&lt;CONTAINER,CONTAINED&gt; {&#x000A;    <span style="color:#0a8;font-weight:bold">Iterable</span>&lt;CONTAINED&gt; extractValue(CONTAINER container);&#x000A;}&#x000A;&#x000A;<span style="color:#777">// Examples</span>&#x000A;&#x000A;<span style="color:#088;font-weight:bold">public</span> <span style="color:#339;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">OptionalContainerExtractor</span>&lt;T&gt; <span style="color:#088;font-weight:bold">implements</span> SingleContainerValueExtractor&lt;Optional&lt;<span style="color:#007">@ExtractedValue</span> T&gt;,T&gt; {&#x000A;    T extractValue(Optional&lt;T&gt; optional) { ... };&#x000A;}</code></pre>
           </div>
           </div>
+          <div class="quoteblock">
+          <blockquote>
+          <div class="paragraph">
+          <p>GM: What&#8217;s the purpose of the CONTAINED parameter? Or put in another way, when would an extractor not implement it with another type parameter as you did here with <code>T</code>?</p>
+          </div>
+          </blockquote>
+          </div>
           <div class="paragraph">
           <p>Bean Validation will have out of the box support for containers <code>Iterable</code> and <code>Map</code>.</p>
           </div>
@@ -226,6 +233,17 @@
           <li>
           <p>that would allow us not to require <code>@Valid</code> for <code>Optional&lt;@NotNull String&gt;</code></p>
           </li>
+          </ul>
+          </div>
+          <div class="quoteblock">
+          <blockquote>
+          <div class="paragraph">
+          <p>GM: What about <code>Optional&lt;@NotNull PandaBear&gt;</code>? Should the presence of <code>@NotNull</code> alone trigger cascaded validation of the contained value? This doesn&#8217;t seem right to me.</p>
+          </div>
+          </blockquote>
+          </div>
+          <div class="ulist">
+          <ul>
           <li>
           <p>when constraint annotations are present on the member or method declaration itself,
           we also enforce the use of containers (assuming the proper use of <code>@ConstraintsApplyTo</code>)</p>
@@ -305,7 +323,7 @@
           </div>
           <div class="listingblock">
           <div class="content">
-          <pre class="CodeRay highlight"><code data-lang="java"><span style="color:#777">// extract the key of a map: constraints on map keys are thus applied</span>&#x000A;<span style="color:#339;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">MapKeyExtractor</span> <span style="color:#088;font-weight:bold">extends</span> ManyContainerValuesExtractor&lt;<span style="color:#0a8;font-weight:bold">Map</span>&lt;<span style="color:#007">@ExtractedValue</span> <span style="color:#0a8;font-weight:bold">Key</span>,Value&gt;&gt;, <span style="color:#0a8;font-weight:bold">Key</span>&gt; {&#x000A;}</code></pre>
+          <pre class="CodeRay highlight"><code data-lang="java"><span style="color:#777">// extract the key of a map: constraints on map keys are thus applied</span>&#x000A;<span style="color:#339;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">MapKeyExtractor</span>&lt;<span style="color:#0a8;font-weight:bold">Key</span>, Value&gt; <span style="color:#088;font-weight:bold">extends</span> ManyContainerValuesExtractor&lt;<span style="color:#0a8;font-weight:bold">Map</span>&lt;<span style="color:#007">@ExtractedValue</span> <span style="color:#0a8;font-weight:bold">Key</span>, Value&gt;, <span style="color:#0a8;font-weight:bold">Key</span>&gt; {&#x000A;}</code></pre>
           </div>
           </div>
           <div class="paragraph">
@@ -523,6 +541,14 @@
           <div class="paragraph">
           <p>The first form is the most readable.
           The second form should be supported for backward compatibility reasons for collections and maps</p>
+          </div>
+          <div class="quoteblock">
+          <blockquote>
+          <div class="paragraph">
+          <p>GM: There is a subtle difference between the two. The first one clearly only applies to the elements of the collection.
+          The second though affects elements of the collection (as "hard-coded" into the spec) and any other constraints on properties if the collection is of a specific type such as <code>MyFancyCollection</code>.</p>
+          </div>
+          </blockquote>
           </div>
           <div class="paragraph">
           <p>Here are the various questions:</p>
