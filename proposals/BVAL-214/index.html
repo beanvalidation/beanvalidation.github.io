@@ -68,12 +68,13 @@
           <div id="toctitle">Table of Contents</div>
           <ul class="sectlevel1">
           <li><a href="#problem">1. Problem</a></li>
-          <li><a href="#proposition">2. Proposition</a>
+          <li><a href="#proposition-1">2. Proposition 1</a>
           <ul class="sectlevel2">
           <li><a href="#how-to-pass-in-the-values">2.1. How to pass in the values?</a></li>
           <li><a href="#how-to-represent-the-given-values-to-constraint-validators">2.2. How to represent the given values to constraint validators?</a></li>
           </ul>
           </li>
+          <li><a href="#proposition-2">3. Proposition 2</a></li>
           </ul>
           </div>
           <div id="preamble">
@@ -94,7 +95,7 @@
           </div>
           </div>
           <div class="sect1">
-          <h2 id="proposition"><a class="anchor" href="#proposition"></a>2. Proposition</h2>
+          <h2 id="proposition-1"><a class="anchor" href="#proposition-1"></a>2. Proposition 1</h2>
           <div class="sectionbody">
           <div class="paragraph">
           <p>Provide a new method <code>Validator#validateValues()</code> similar to the existing <code>validateValue()</code> which takes several property values and validates them as if they were the actual values of the given bean types.</p>
@@ -337,6 +338,93 @@
           </ul>
           </div>
           </div>
+          </div>
+          </div>
+          </div>
+          <div class="sect1">
+          <h2 id="proposition-2"><a class="anchor" href="#proposition-2"></a>3. Proposition 2</h2>
+          <div class="sectionbody">
+          <div class="paragraph">
+          <p>This proposition is based on <strong>Proposition 1</strong> but changes some parts of the API.</p>
+          </div>
+          <div class="paragraph">
+          <p>Since we depend on java 8 I think it would make sense to use <code>Supplier</code> to create the bean mocks for validation. This can look like this:</p>
+          </div>
+          <div class="listingblock">
+          <div class="content">
+          <pre class="CodeRay highlight"><code>BeanValidator&lt;ContactDataModel&gt; contactValidator = BeanValidator.build(ContactDataModel.class);&#x000A;contactValidator.withProperty("city", () -&gt; cityField.getText()).&#x000A;    withProperty("zipCode", () -&gt; zipCodeField.getText());</code></pre>
+          </div>
+          </div>
+          <div class="paragraph">
+          <p>In this example the <code>contactValidator</code> can use several times to validate the input in the UI since the values are not definied at creation of the <code>BeanValidator</code> instance but a <code>Supplier</code> is used to provide the value at runtime. By doing so the <code>BeanValidator</code> can be defined as:</p>
+          </div>
+          <div class="listingblock">
+          <div class="content">
+          <pre class="CodeRay highlight"><code>public interface BeanValidator&lt;T&gt; {&#x000A;&#x000A;    &lt;V&gt; BeanValidator&lt;T&gt; withProperty(String propertyName, Supplier&lt;V&gt; valueSupplier);&#x000A;&#x000A;    Set&lt;ConstraintViolation&lt;T&gt;&gt; validate(Class&lt;?&gt;... groups);&#x000A;&#x000A;    Set&lt;ConstraintViolation&lt;T&gt;&gt; validate(T baseBean, Class&lt;?&gt;... groups);&#x000A;&#x000A;    static &lt;U&gt; BeanValidator&lt;U&gt; build(Class&lt;U&gt; beanClass) {&#x000A;        return ...;&#x000A;    }&#x000A;}</code></pre>
+          </div>
+          </div>
+          <div class="paragraph">
+          <p>As you can see the interface provides 2 methods to validate a bean. In the second method a predefined bean can be passed. This bean will be mutated / cloned based on the configuration of the <code>BeanValidator</code>.</p>
+          </div>
+          <div class="quoteblock">
+          <blockquote>
+          <div class="paragraph">
+          <p>GM: After talking to Hendrik, I realize the reasoning behind using <code>Supplier</code>: It allows to instantiate the <code>BeanValidator</code> object once for a given bean (and thus doing validation of bound fields only once) and then invoke it several times.</p>
+          </div>
+          </blockquote>
+          </div>
+          <div class="paragraph">
+          <p>If you want to define a hierarchy of beans and validate them you need at least one additional method:</p>
+          </div>
+          <div class="listingblock">
+          <div class="content">
+          <pre class="CodeRay highlight"><code>&lt;U&gt; BeanValidator&lt;T&gt; withBeanValidator(String propertyName, BeanValidator&lt;U&gt; propertyValidator);</code></pre>
+          </div>
+          </div>
+          <div class="paragraph">
+          <p>By using this methods it will be quite easy to provide a structured mock for a bean type:</p>
+          </div>
+          <div class="listingblock">
+          <div class="content">
+          <pre class="CodeRay highlight"><code>BeanValidator&lt;ContactDataModel&gt; contactValidator = BeanValidator.build(ContactDataModel.class);&#x000A;    contactValidator.withProperty("city", () -&gt; cityField.getText()).&#x000A;            withProperty("zipCode", () -&gt; zipCodeField.getText());&#x000A;&#x000A;BeanValidator&lt;SampleDataModel&gt; validator = BeanValidator.build(SampleDataModel.class);&#x000A;    validator.withProperty("name", () -&gt; nameField.getText());&#x000A;    validator.withBeanValidator("contact", contactValidator);</code></pre>
+          </div>
+          </div>
+          <div class="paragraph">
+          <p>In addition I think that it will be important to have a better feedback for the violations that are based on a UI field. If you have a violation based on the text of the <code>cityField</code> you normally want to mark that field in the UI. I think a <code>Consumer</code> can really help here:</p>
+          </div>
+          <div class="listingblock">
+          <div class="content">
+          <pre class="CodeRay highlight"><code>contactValidator.withProperty("city", () -&gt; cityField.getText(), v -&gt; markCityField(v));</code></pre>
+          </div>
+          </div>
+          <div class="paragraph">
+          <p>By doing so you will always get the set of violations that is based on the value in the city field. The 3 param of the method is defined as a <code>Consumer&lt;Set&lt;ConstraintViolation&lt;String&gt;&gt;&gt;</code> that will automatically called after each validation. If no violation was created based on the constraints of the <code>city</code> property an empty set will be passed to the <code>Consumer</code>. Otherwise the set will contain all the <code>ConstraintViolation</code> instances that were created based on the constraints of the <code>city</code> property.</p>
+          </div>
+          <div class="paragraph">
+          <p>It&#8217;s quite easy to create helper methods for the consumer and the supplier in application code:</p>
+          </div>
+          <div class="listingblock">
+          <div class="content">
+          <pre class="CodeRay highlight"><code>private Supplier&lt;String&gt; provideText(final TextField textField) {&#x000A;     return () -&gt; textField.getText();&#x000A; }&#x000A;&#x000A; private Consumer&lt;Set&lt;ConstraintViolation&lt;String&gt;&gt;&gt; markTextField(final TextField field) {&#x000A;     return v -&gt; {&#x000A;         if (v.isEmpty()) {&#x000A;             field.getStyleClass().remove("error-class");&#x000A;         } else {&#x000A;             //TODO: show error at textfield based on violations&#x000A;             field.getStyleClass().add("error-class");&#x000A;         }&#x000A;     };&#x000A; }&#x000A;&#x000A; //Create BeanValidator:&#x000A; BeanValidator&lt;ContactDataModel&gt; contactValidator = BeanValidator.build(ContactDataModel.class);&#x000A;         contactValidator.withProperty("city", provideText(cityField), markTextField(cityField)).&#x000A;                 withProperty("zipCode", provideText(zipCodeField), markTextField(zipCodeField));&#x000A;&#x000A; BeanValidator&lt;SampleDataModel&gt; validator = BeanValidator.build(SampleDataModel.class);&#x000A;         validator.withProperty("name", provideText(nameField), markTextField(nameField));&#x000A;         validator.withBeanValidator("contact", contactValidator);</code></pre>
+          </div>
+          </div>
+          <div class="paragraph">
+          <p>After all this changes the <code>BeanValidator</code> interface might look like this:</p>
+          </div>
+          <div class="listingblock">
+          <div class="content">
+          <pre class="CodeRay highlight"><code>public interface BeanValidator&lt;T&gt; {&#x000A;&#x000A;    &lt;V&gt; BeanValidator&lt;T&gt; withProperty(String propertyName, Supplier&lt;V&gt; valueSupplier);&#x000A;&#x000A;    &lt;V&gt; BeanValidator&lt;T&gt; withProperty(String propertyName, Supplier&lt;V&gt; valueSupplier, Consumer&lt;Set&lt;ConstraintViolation&lt;V&gt;&gt;&gt; propertyViolationConsumer);&#x000A;&#x000A;    &lt;U&gt; BeanValidator&lt;T&gt; withBeanValidator(String propertyName, BeanValidator&lt;U&gt; propertyValidator);&#x000A;&#x000A;    Set&lt;ConstraintViolation&lt;T&gt;&gt; validate(Class&lt;?&gt;... groups);&#x000A;&#x000A;    Set&lt;ConstraintViolation&lt;T&gt;&gt; validate(T baseBean, Class&lt;?&gt;... groups);&#x000A;&#x000A;    static &lt;U&gt; BeanValidator&lt;U&gt; build(Class&lt;U&gt; beanClass) {&#x000A;        return null;&#x000A;    }&#x000A;}</code></pre>
+          </div>
+          </div>
+          <div class="quoteblock">
+          <blockquote>
+          <div class="paragraph">
+          <p>GM: The motivation for using <code>Consumer</code> is to have easy access to the violations of a single property instead of having to iterate the set of violations and match corresponding UI fields.</p>
+          </div>
+          </blockquote>
+          </div>
+          <div class="paragraph">
+          <p>You can find a first idea of such an interface and 2 view controller examples here: <a href="https://github.com/guigarage/validation-playground/tree/master/src/main/java/com/guigarage/dynamicvalidation" class="bare">https://github.com/guigarage/validation-playground/tree/master/src/main/java/com/guigarage/dynamicvalidation</a></p>
           </div>
           </div>
           </div>
