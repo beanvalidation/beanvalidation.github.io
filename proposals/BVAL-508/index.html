@@ -155,6 +155,23 @@
           </li>
           </ul>
           </div>
+          <div class="admonitionblock note">
+          <table>
+          <tr>
+          <td class="icon">
+          <i class="fa icon-note" title="Note"></i>
+          </td>
+          <td class="content">
+          <div class="title">On the differentiation of single and plural</div>
+          <div class="paragraph">
+          <p>Some fine the separation of single and plural an overhead.
+          While Bean Validation design is very sensitive to performance waste in the hot spots,
+          let&#8217;s re-discuss that point once we have a RI prototype and can do some tests.</p>
+          </div>
+          </td>
+          </tr>
+          </table>
+          </div>
           <div class="listingblock">
           <div class="content">
           <pre class="CodeRay highlight"><code data-lang="java"><span style="color:#777">// Draft proposal for the contract</span>&#x000A;<span style="color:#088;font-weight:bold">public</span> <span style="color:#339;font-weight:bold">interface</span> <span style="color:#B06;font-weight:bold">SingleContainerValueExtractor</span>&lt;CONTAINER,CONTAINED&gt; {&#x000A;    CONTAINED extractValue(CONTAINER container);&#x000A;}&#x000A;&#x000A;<span style="color:#088;font-weight:bold">public</span> <span style="color:#339;font-weight:bold">interface</span> <span style="color:#B06;font-weight:bold">ManyContainerValuesExtractor</span>&lt;CONTAINER,CONTAINED&gt; {&#x000A;    <span style="color:#0a8;font-weight:bold">Iterable</span>&lt;CONTAINED&gt; extractValue(CONTAINER container);&#x000A;}&#x000A;&#x000A;<span style="color:#777">// Examples</span>&#x000A;&#x000A;<span style="color:#088;font-weight:bold">public</span> <span style="color:#339;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">OptionalContainerExtractor</span>&lt;T&gt; <span style="color:#088;font-weight:bold">implements</span> SingleContainerValueExtractor&lt;Optional&lt;<span style="color:#007">@ExtractedValue</span> T&gt;,T&gt; {&#x000A;    T extractValue(Optional&lt;T&gt; optional) { ... };&#x000A;}</code></pre>
@@ -168,7 +185,7 @@
           </blockquote>
           </div>
           <div class="paragraph">
-          <p>Bean Validation will have out of the box support for containers <code>Iterable</code> and <code>Map</code>.</p>
+          <p>Bean Validation will have out of the box support for containers <code>Iterable</code>, <code>Map</code> and <code>Optional</code>.</p>
           </div>
           <div class="admonitionblock important">
           <table>
