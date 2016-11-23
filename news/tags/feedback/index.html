@@ -66,6 +66,93 @@
           <article class="post">
             <header>
               <h1 class="title">
+                <a href="/news/2016/11/23/survey-constraints-and-parameterized-type/">Survey - Where do you use constraints on parameterized type?</a>
+              </h1>
+              <span class="author">
+                by
+                <b>Emmanuel Bernard</b>
+              </span>
+              <span class="date">
+                on 23 Nov 2016
+              </span>
+              <span class="tags">
+                <a class="label label-info" href="/news/tags/feedback/">feedback</a>
+              </span>
+            </header>
+            <div class="body">
+              <div id="preamble">
+              <div class="sectionbody">
+              <div class="paragraph">
+              <p>For Bean Validation 2, we are working on the support for <code>Collection&lt;@Email String&gt;</code>, <code>Optional&lt;@Min(3) Integer&gt;</code> etc.
+              This has been a very common request and with Java 8 type use support, we can how achieve this.
+              However, we need your feedback on how you would use such feature.</p>
+              </div>
+              </div>
+              </div>
+              <div class="sect1">
+              <h2 id="some-context"><a class="anchor" href="#some-context"></a>Some context</h2>
+              <div class="sectionbody">
+              <div class="paragraph">
+              <p>We have support not only for collections, <code>Optional</code>, Java FX properties but also for what we call custom parameterized containers.
+              We are wondering a few things about custom parameterized containers, namely how common they are.
+              This will affect the trade-offs we want to make on the design of that feature.</p>
+              </div>
+              <div class="sect2">
+              <h3 id="what-is-a-em-container-em"><a class="anchor" href="#what-is-a-em-container-em"></a>What is a <em>container</em>?</h3>
+              <div class="paragraph">
+              <p>A container is a type that wraps and exposes one or several values.
+              The values is what you want to apply your constraints on.
+              And the container is parameterized because at use site, you can declare what type it actually contains.
+              For a <code>Set&lt;@Email String&gt;</code>, we want to make sure every string in the set is an email.</p>
+              </div>
+              <div class="paragraph">
+              <p>Another less obvious example is a tuple class.</p>
+              </div>
+              <div class="listingblock">
+              <div class="content">
+              <pre class="CodeRay highlight"><code data-lang="java"><span style="color:#088;font-weight:bold">public</span> <span style="color:#339;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">Pair</span>&lt;V1,V2&gt; {&#x000A;    V1 getV1() { ... }&#x000A;    V2 getV2(); { ... }&#x000A;}&#x000A;&#x000A;<span style="color:#088;font-weight:bold">public</span> <span style="color:#339;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">Address</span> {&#x000A;    <span style="color:#777">// street1 is mandatory, street2 is optional</span>&#x000A;    <span style="color:#777">// represented via a Pair object</span>&#x000A;    Pair&lt;<span style="color:#007">@NotNull</span> <span style="color:#007">@Size</span>(max=<span style="color:#00D">250</span>) <span style="color:#0a8;font-weight:bold">String</span>, <span style="color:#007">@Size</span>(max=<span style="color:#00D">250</span>) <span style="color:#0a8;font-weight:bold">String</span>&gt; streetFields;&#x000A;}</code></pre>
+              </div>
+              </div>
+              <div class="paragraph">
+              <p>Other examples are:</p>
+              </div>
+              <div class="ulist">
+              <ul>
+              <li>
+              <p>a tree structure containing specific object types</p>
+              </li>
+              <li>
+              <p>Guava&#8217;s Multimap (or any multimap for that matter)</p>
+              </li>
+              </ul>
+              </div>
+              </div>
+              </div>
+              </div>
+              <div class="sect1">
+              <h2 id="questions"><a class="anchor" href="#questions"></a>Questions</h2>
+              <div class="sectionbody">
+              <div class="paragraph">
+              <p>We are wondering which type of parameterized containers you have in your code base
+              and how likely you are going to apply constrains on their contained value.
+              The form is a list of short questions that will help us get a better picture.</p>
+              </div>
+              <div class="paragraph">
+              <p>Here is the <a href="https://docs.google.com/forms/d/e/1FAIpQLSc-s7fSYXiPSuZ0NaT0_-0jBx9TaxrZ-QiLRg_eVRxgrISjrw/viewform">link to the form in a separate page</a>
+              or use it directly embedded below.</p>
+              </div>
+              <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSc-s7fSYXiPSuZ0NaT0_-0jBx9TaxrZ-QiLRg_eVRxgrISjrw/viewform?embedded=true" width="760" height="2800" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+              <div class="paragraph">
+              <p>Many thanks!</p>
+              </div>
+              </div>
+              </div>
+               <a href="http://beanvalidation.org/news/2016/11/23/survey-constraints-and-parameterized-type/#disqus_thread">Comments</a>
+            </div>
+          </article>
+          <article class="post">
+            <header>
+              <h1 class="title">
                 <a href="/news/2016/09/15/which-constraints-to-add/">Feedback needed - Which constraints should be added?</a>
               </h1>
               <span class="author">
@@ -331,6 +418,7 @@
               Stay up to date, subscribe to the&nbsp;<a href="/news/news.atom">news feed</a>.
             </div>
           </div>
+          <a class="news-link" href="/news/2016/11/23/survey-constraints-and-parameterized-type/">Survey - Where do you use constraints on parameterized type?</a>
           <a class="news-link" href="/news/2016/09/15/which-constraints-to-add/">Feedback needed - Which constraints should be added?</a>
           <a class="news-link" href="/news/2016/07/15/bean-validation-2-0-is-coming/">Bean Validation 2.0 - A new JSR is born!</a>
           <a class="news-link" href="/news/2015/06/18/bean-validation-tck-1-1-4-released/">Bean Validation TCK 1.1.4.Final released</a>

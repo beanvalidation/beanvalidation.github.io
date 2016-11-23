@@ -66,6 +66,98 @@
           <article class="post">
             <header>
               <h1 class="title">
+                <a href="/news/2012/03/13/release-1-1-edr1/">Bean Validation 1.1 early draft 1 is out - time for feedback</a>
+              </h1>
+              <span class="author">
+                by
+                <b>Emmanuel Bernard</b>
+              </span>
+              <span class="date">
+                on 13 Mar 2012
+              </span>
+              <span class="tags">
+                <a class="label label-info" href="/news/tags/release/">release</a>
+              </span>
+            </header>
+            <div class="body">
+              <p>After a long time in the shadows of open work... Ahem, take two. After a long time at work,
+              I am very pleased to announce Bean Validation 1.1 early draft 1.
+              This is our first big milestone since the release of 1.0.</p>
+              
+              <p>The draft is making its way through the official channels of the JCP but
+              we also wanted to release it in full openned. For people in a hurry,
+              <a href="/1.1/spec/1.0.0.alpha1/?utm_source=blog&amp;utm_medium=web&amp;utm_content=spec&amp;utm_campaign=1_1_edr1">the spec draft is here</a>.</p>
+              
+              <h2>What's new</h2>
+              
+              <p>We worked on three major areas:</p>
+              
+              <ul>
+              <li>openess</li>
+              <li>method level validation</li>
+              <li>dependency injection</li>
+              </ul>
+              
+              
+              <h3>Openess</h3>
+              
+              <p>The specification, the reference implementation, the TCK, this website... everything is open sourced.
+              All work done on Bean Validation 1.1 is done in the open either on the mailing list, the issue tracker
+              or via GitHub pull requests. Check out more in the <a href="/contribute">how to contribute section</a>.</p>
+              
+              <h3>Method-level validation</h3>
+              
+              <p>You can now put constraints declarations on parameters and return values of methods and constructors.</p>
+              
+              <pre><code>@MethodValidated &#x000A;public class OrderService {&#x000A;&#x000A;    public OrderService(@NotNull CreditCardProcessor creditCardProcessor) {&#x000A;        //...&#x000A;    }&#x000A;&#x000A;    public void placeOrder(&#x000A;        @NotNull @Size(min=3, max=20) String customerCode,&#x000A;        @NotNull @Valid Item item,&#x000A;        @Min(1) int quantity) {&#x000A;&#x000A;        //...&#x000A;    }&#x000A;}&#x000A;</code></pre>
+              
+              <p>Interception frameworks like CDI will check these constraints upon method calls thanks to the
+              <code>@MethodValidated</code> annotation. Read more in the spec.</p>
+              
+              <h3>Dependency injection</h3>
+              
+              <p>Bean Validation uses a few components <code>MessageInterpolator</code>, <code>TraversableResolver</code>, <code>ConstraintValidatorFactory</code>
+              and most importantly <code>ConstraintValidator</code>. We have standardized how these objects are managed by a container
+              and how these objects can benefit from container services.</p>
+              
+              <p>That means that your constraint validator implementation will be able to get resources injected automatically.</p>
+              
+              <p>While we go into details on how it will fit in CDI and Java EE, we have worked hard to make it container
+              agnostic. If you write or use other containers (Guice, Spring Framework, Avalon :) ), check out
+              if it fits properly.</p>
+              
+              <h2>Contributions</h2>
+              
+              <p>We have had tremendous help from the Bean Validation community at large but I would
+              like to give a massive thank you to <a href="http://musingsofaprogrammingaddict.blogspot.com/">Gunnar Morling</a> who stepped
+              up and lead the work on method-level validation. This is by far the biggest new
+              feature of Bean Validation 1.1.</p>
+              
+              <h2>How to read the spec and provide feedback</h2>
+              
+              <p>The draft has been published <a href="/1.1/spec/1.0.0.alpha1/?utm_source=blog&amp;utm_medium=web&amp;utm_content=spec&amp;utm_campaign=1_1_edr1">here</a> and all changes are marked with a different
+              color. <span style="background-color:#DDFFDD;">Green for additions</span>,
+              <span style="background-color:#FFFFDD;">yellow for changes</span> and
+              <span style="text-decoration: line-through;background-color: #FFDDDD;">struck through red for removals</span>
+              . This will help you see what has changed precisely.</p>
+              
+              <p>Have feedback? Please talk to us either:</p>
+              
+              <ul>
+              <li>on our <a href="https://lists.jboss.org/mailman/listinfo/beanvalidation-dev">mailing list</a></li>
+              <li>in our <a href="/issues">issue tracker</a></li>
+              <li>or on the Bean Validation <a href="https://forum.hibernate.org/viewforum.php?f=26">forum</a></li>
+              </ul>
+              
+              
+              <p>If you want to go to the next step and contribute, send us an email to the mailing list and read
+              <a href="/contribute">how to contribute</a>.</p>
+               <a href="http://beanvalidation.org/news/2012/03/13/release-1-1-edr1/#disqus_thread">Comments</a>
+            </div>
+          </article>
+          <article class="post">
+            <header>
+              <h1 class="title">
                 <a href="/news/2012/02/01/method-level-proposal/">Proposal for method validation added</a>
               </h1>
               <span class="author">
@@ -180,30 +272,6 @@
                <a href="http://beanvalidation.org/news/2011/09/01/spec-repository-out/#disqus_thread">Comments</a>
             </div>
           </article>
-          <article class="post">
-            <header>
-              <h1 class="title">
-                <a href="/news/2011/07/23/voted-yes/">Bean Validation has been voted yes!</a>
-              </h1>
-              <span class="author">
-                by
-                <b>Emmanuel Bernard</b>
-              </span>
-              <span class="date">
-                on 23 Jul 2011
-              </span>
-              <span class="tags">
-                <a class="label label-info" href="/news/tags/jcp/">jcp</a>
-              </span>
-            </header>
-            <div class="body">
-              <p>The expert committee has <a href="http://jcp.org/en/jsr/results?id=5227">voted yes</a> on JSR-349. That means
-              the work for Bean Validation 1.1 can start. Read some more on <a href="http://in.relation.to/Bloggers/BeanValidation11HasStartedJoinUs">Emmanuel's blog</a>.</p>
-              
-              <p>The next few days will be dedicated getting an expert group up and running.</p>
-               <a href="http://beanvalidation.org/news/2011/07/23/voted-yes/#disqus_thread">Comments</a>
-            </div>
-          </article>
           <div class="pagination-links"><a href="/news/page/5/" class="previous-link">Previous</a> <a href="/news/" class="page-link">1</a> <a href="/news/page/2/" class="page-link">2</a> <span class="skip">...</span><a href="/news/page/5/" class="page-link">5</a> <span class="current-page">6</span> <a href="/news/page/7/" class="page-link">7</a> <a href="/news/page/7/" class="next-link">Next</a> </div>
         </div>
         <div class="sidebar sidebar-right col-sm-3 col-md-3 col-lg-3" id="sidebar" role="complementary">
@@ -218,6 +286,7 @@
               Stay up to date, subscribe to the&nbsp;<a href="/news/news.atom">news feed</a>.
             </div>
           </div>
+          <a class="news-link" href="/news/2016/11/23/survey-constraints-and-parameterized-type/">Survey - Where do you use constraints on parameterized type?</a>
           <a class="news-link" href="/news/2016/09/15/which-constraints-to-add/">Feedback needed - Which constraints should be added?</a>
           <a class="news-link" href="/news/2016/07/15/bean-validation-2-0-is-coming/">Bean Validation 2.0 - A new JSR is born!</a>
           <a class="news-link" href="/news/2015/06/18/bean-validation-tck-1-1-4-released/">Bean Validation TCK 1.1.4.Final released</a>
