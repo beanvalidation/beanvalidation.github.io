@@ -601,18 +601,18 @@ table.CodeRay td.code>pre{padding:0}
 </ul>
 </li>
 <li><a href="#terminology">Appendix A: Terminology</a></li>
-<li><a href="#appendix-value-extraction">11. Value extraction for cascaded validation and type argument constraints (BVAL-508)</a>
+<li><a href="#appendix-value-extraction">Appendix B: Value extraction for cascaded validation and type argument constraints (BVAL-508)</a>
 <ul class="sectlevel2">
-<li><a href="#_motivation">11.1. Motivation</a></li>
-<li><a href="#_requirements">11.2. Requirements</a></li>
-<li><a href="#_non_requirements">11.3. Non-requirements</a></li>
-<li><a href="#_solution">11.4. Solution</a></li>
-<li><a href="#_open_questions">11.5. Open questions</a></li>
+<li><a href="#_motivation">B.1. Motivation</a></li>
+<li><a href="#_requirements">B.2. Requirements</a></li>
+<li><a href="#_non_requirements">B.3. Non-requirements</a></li>
+<li><a href="#_solution">B.4. Solution</a></li>
+<li><a href="#_open_questions">B.5. Open questions</a></li>
 </ul>
 </li>
-<li><a href="#standard-resolver-messages">Appendix B: Standard ResourceBundle messages</a></li>
-<li><a href="#appendix-jpa">Appendix C: Java Persistence 2.0 and schema generation</a></li>
-<li><a href="#changelog">Appendix D: Changelog</a></li>
+<li><a href="#standard-resolver-messages">Appendix C: Standard ResourceBundle messages</a></li>
+<li><a href="#appendix-jpa">Appendix D: Java Persistence 2.0 and schema generation</a></li>
+<li><a href="#changelog">Appendix E: Changelog</a></li>
 </ul>
 </div>
 </div>
@@ -14847,14 +14847,14 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 </div>
 </div>
 <div class="sect1">
-<h2 id="appendix-value-extraction"><a class="anchor" href="#appendix-value-extraction"></a>11. Value extraction for cascaded validation and type argument constraints (BVAL-508)</h2>
+<h2 id="appendix-value-extraction"><a class="anchor" href="#appendix-value-extraction"></a>Appendix B: Value extraction for cascaded validation and type argument constraints (BVAL-508)</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This appendix describes the current work-in-progress around the retrieval of values to be validated during cascaded validation and evaluation of type argument constraints.
 It is based on the original <a href="http://beanvalidation.org/proposals/BVAL-508/">proposals for BVAL-508</a>.</p>
 </div>
 <div class="sect2">
-<h3 id="_motivation"><a class="anchor" href="#_motivation"></a>11.1. Motivation</h3>
+<h3 id="_motivation"><a class="anchor" href="#_motivation"></a>B.1. Motivation</h3>
 <div class="paragraph">
 <p>Value extraction is needed when constraints are applied to the element(s) stored within a container type.
 There are two categories:</p>
@@ -14885,7 +14885,7 @@ validation of map keys or collection types of other JVM languages (such as Ceylo
 </div>
 </div>
 <div class="sect2">
-<h3 id="_requirements"><a class="anchor" href="#_requirements"></a>11.2. Requirements</h3>
+<h3 id="_requirements"><a class="anchor" href="#_requirements"></a>B.2. Requirements</h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -14912,7 +14912,7 @@ In such case the value should be implicitly extracted from the container if unam
 </div>
 </div>
 <div class="sect2">
-<h3 id="_non_requirements"><a class="anchor" href="#_non_requirements"></a>11.3. Non-requirements</h3>
+<h3 id="_non_requirements"><a class="anchor" href="#_non_requirements"></a>B.3. Non-requirements</h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -14931,7 +14931,7 @@ In such case the value should be implicitly extracted from the container if unam
 </div>
 </div>
 <div class="sect2">
-<h3 id="_solution"><a class="anchor" href="#_solution"></a>11.4. Solution</h3>
+<h3 id="_solution"><a class="anchor" href="#_solution"></a>B.4. Solution</h3>
 <div class="paragraph">
 <p>Value retrieval for cascaded validation and validation of type argument constraints is done via the <code>ValueExtractor</code> API:</p>
 </div>
@@ -14985,7 +14985,7 @@ resulting in the same path as if the constraint had been given on the element it
 That&#8217;s desirable for pure "wrapper types" such as <code>Optional</code>.</p>
 </div>
 <div class="sect3">
-<h4 id="__extractedvalue"><a class="anchor" href="#__extractedvalue"></a>11.4.1. @ExtractedValue</h4>
+<h4 id="__extractedvalue"><a class="anchor" href="#__extractedvalue"></a>B.4.1. @ExtractedValue</h4>
 <div class="paragraph">
 <p>The <code>@ExtractedValue</code> annotation is used to denote the element extracted by a given value extractor:</p>
 </div>
@@ -15075,7 +15075,7 @@ This helps to avoid object allocations and allows to handle the case of a single
 </div>
 </div>
 <div class="sect3">
-<h4 id="_extensions_to_code_node_code"><a class="anchor" href="#_extensions_to_code_node_code"></a>11.4.2. Extensions to <code>Node</code></h4>
+<h4 id="_extensions_to_code_node_code"><a class="anchor" href="#_extensions_to_code_node_code"></a>B.4.2. Extensions to <code>Node</code></h4>
 <div class="paragraph">
 <p>There is a new <code>javax.validation.ElementKind</code>, <code>TYPE_ARGUMENT</code>.
 There is also a new <code>Node</code> sub-type, <code>TypeArgumentNode</code>:</p>
@@ -15096,7 +15096,7 @@ There is also a new <code>Node</code> sub-type, <code>TypeArgumentNode</code>:</
 </div>
 </div>
 <div class="sect3">
-<h4 id="_default_extractors"><a class="anchor" href="#_default_extractors"></a>11.4.3. Default extractors</h4>
+<h4 id="_default_extractors"><a class="anchor" href="#_default_extractors"></a>B.4.3. Default extractors</h4>
 <div class="paragraph">
 <p>Compatible implementations provide extractors for the following types out of the box. They must invoke the right callback methods in order to ensure path nodes in the described form are appended:</p>
 </div>
@@ -15273,7 +15273,7 @@ Both will cause the validation of all the array elements</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_plugging_in_custom_extractors"><a class="anchor" href="#_plugging_in_custom_extractors"></a>11.4.4. Plugging in custom extractors</h4>
+<h4 id="_plugging_in_custom_extractors"><a class="anchor" href="#_plugging_in_custom_extractors"></a>B.4.4. Plugging in custom extractors</h4>
 <div class="paragraph">
 <p>Additional value extractors can be registered with the Bean Validation provider in the following ways:</p>
 </div>
@@ -15299,7 +15299,7 @@ Both will cause the validation of all the array elements</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="appendix-valueextraction-wrappedelements"><a class="anchor" href="#appendix-valueextraction-wrappedelements"></a>11.4.5. Applying element-level constraints to wrapped elements</h4>
+<h4 id="appendix-valueextraction-wrappedelements"><a class="anchor" href="#appendix-valueextraction-wrappedelements"></a>B.4.5. Applying element-level constraints to wrapped elements</h4>
 <div class="paragraph">
 <p>Sometimes there is no type parameter to put a constraint to, but still constraints should be applied to the wrapped value instead of the annotated element
 (a field, property getter, method return value or executable parameter).
@@ -15391,7 +15391,7 @@ I.e. you should prefer</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="appendix-valueextraction-extractorretrieval"><a class="anchor" href="#appendix-valueextraction-extractorretrieval"></a>11.4.6. Retrieval of extractors</h4>
+<h4 id="appendix-valueextraction-extractorretrieval"><a class="anchor" href="#appendix-valueextraction-extractorretrieval"></a>B.4.6. Retrieval of extractors</h4>
 <div class="paragraph">
 <p>When detecting a type argument constraint or cascade, the applicable extractor is determined as follows:</p>
 </div>
@@ -15536,7 +15536,7 @@ This is not possible for retrieval of extractors for cascaded validation.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_examples_11"><a class="anchor" href="#_examples_11"></a>11.4.7. Examples</h4>
+<h4 id="_examples_11"><a class="anchor" href="#_examples_11"></a>B.4.7. Examples</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -15840,19 +15840,19 @@ An extractor for <code>CachableValue</code> must be added, resolving the ambigui
 </div>
 </div>
 <div class="sect3">
-<h4 id="_xml_based_configuration"><a class="anchor" href="#_xml_based_configuration"></a>11.4.8. XML based configuration</h4>
+<h4 id="_xml_based_configuration"><a class="anchor" href="#_xml_based_configuration"></a>B.4.8. XML based configuration</h4>
 <div class="paragraph">
 <p>TODO</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_metadata_retrieval"><a class="anchor" href="#_metadata_retrieval"></a>11.4.9. Metadata retrieval</h4>
+<h4 id="_metadata_retrieval"><a class="anchor" href="#_metadata_retrieval"></a>B.4.9. Metadata retrieval</h4>
 <div class="paragraph">
 <p>TODO</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_misc"><a class="anchor" href="#_misc"></a>11.4.10. Misc.</h4>
+<h4 id="_misc"><a class="anchor" href="#_misc"></a>B.4.10. Misc.</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -15872,7 +15872,7 @@ I.e. the following group conversion declaration is valid:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_open_questions"><a class="anchor" href="#_open_questions"></a>11.5. Open questions</h3>
+<h3 id="_open_questions"><a class="anchor" href="#_open_questions"></a>B.5. Open questions</h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -16116,7 +16116,7 @@ instead of <code>&lt;iterable element&gt;</code>, <code>&lt;map value&gt;</code>
 </div>
 </div>
 <div class="sect1">
-<h2 id="standard-resolver-messages"><a class="anchor" href="#standard-resolver-messages"></a>Appendix B: Standard ResourceBundle messages</h2>
+<h2 id="standard-resolver-messages"><a class="anchor" href="#standard-resolver-messages"></a>Appendix C: Standard ResourceBundle messages</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The properties listed below are resolved by the default message interpolator.</p>
@@ -16146,7 +16146,7 @@ javax.validation.constraints.Size.message=size must be between {min} and {max}</
 </div>
 </div>
 <div class="sect1">
-<h2 id="appendix-jpa"><a class="anchor" href="#appendix-jpa"></a>Appendix C: Java Persistence 2.0 and schema generation</h2>
+<h2 id="appendix-jpa"><a class="anchor" href="#appendix-jpa"></a>Appendix D: Java Persistence 2.0 and schema generation</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>While not specified by this specification or the Java Persistence 2.0 specification, Persistence Providers are encouraged to make use of Bean Validation constraint metadata when generating DDL schemas. The proposal is as followed.</p>
@@ -16224,7 +16224,7 @@ Provide a way to disable BV metadata use by a persistence provider (property bas
 </div>
 </div>
 <div class="sect1">
-<h2 id="changelog"><a class="anchor" href="#changelog"></a>Appendix D: Changelog</h2>
+<h2 id="changelog"><a class="anchor" href="#changelog"></a>Appendix E: Changelog</h2>
 <div class="sectionbody">
 <div class="exampleblock">
 <div class="title">Example 127. Changelog</div>
