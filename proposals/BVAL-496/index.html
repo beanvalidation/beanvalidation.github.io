@@ -70,8 +70,12 @@
           <li><a href="#problem">1. Problem</a></li>
           <li><a href="#proposition">2. Proposition</a>
           <ul class="sectlevel2">
-          <li><a href="#mandate-code-past-code-code-future-code-support-for-more-types">2.1. Mandate <code>@Past</code>/<code>@Future</code> support for more types</a></li>
-          <li><a href="#make-current-time-and-timezone-customizable">2.2. Make current time and timezone customizable</a></li>
+          <li><a href="#mandate-code-past-code-code-future-code-support-for-code-temporalaccessors-code">2.1. Mandate <code>@Past</code>/<code>@Future</code> support for <code>TemporalAccessors</code></a></li>
+          <li><a href="#make-current-instant-customizable">2.2. Make current instant customizable</a></li>
+          <li><a href="#extending-code-past-code-code-future-code-to-support-code-nowisvalid-code">2.3. Extending <code>@Past</code>/<code>@Future</code> to support <code>nowIsValid</code></a></li>
+          <li><a href="#simple-code-temporalamount-code-implementations-support">2.4. "Simple" <code>TemporalAmount</code> implementations support</a></li>
+          <li><a href="#code-duration-code-support">2.5. <code>Duration</code> support</a></li>
+          <li><a href="#code-period-code-support">2.6. <code>Period</code> support</a></li>
           </ul>
           </li>
           <li><a href="#questions">3. Questions</a></li>
@@ -104,78 +108,85 @@
           <h2 id="proposition"><a class="anchor" href="#proposition"></a>2. Proposition</h2>
           <div class="sectionbody">
           <div class="sect2">
-          <h3 id="mandate-code-past-code-code-future-code-support-for-more-types"><a class="anchor" href="#mandate-code-past-code-code-future-code-support-for-more-types"></a>2.1. Mandate <code>@Past</code>/<code>@Future</code> support for more types</h3>
-          <div class="ulist">
-          <ul>
-          <li>
-          <p><code>java.time.Instant</code> (trivial, it&#8217;s a fixed instant on the timeline)</p>
-          </li>
-          <li>
-          <p><code>java.time.ZonedDateTime</code>, <code>java.time.OffsetDateTime</code> (also represent one specific instant on the timeline)</p>
-          </li>
-          </ul>
-          </div>
+          <h3 id="mandate-code-past-code-code-future-code-support-for-code-temporalaccessors-code"><a class="anchor" href="#mandate-code-past-code-code-future-code-support-for-code-temporalaccessors-code"></a>2.1. Mandate <code>@Past</code>/<code>@Future</code> support for <code>TemporalAccessors</code></h3>
           <div class="paragraph">
-          <p>Past/future semantics of these can be determined by comparing to the current instant on the timeline (currently that&#8217;s the JVM&#8217;s time, see further below for a proposal to make this more flexible).</p>
-          </div>
-          <div class="paragraph">
-          <p>Besides these types representing an instant on the timeline, JSR 310 also defines data types which represent a date-time without a TZ:</p>
+          <p>JSR-310 design intentionally encouraged end users to choose concrete types for every day programming, but ensured there were  interfaces and classes that allowed third-party implementations to be  treated as first-class citizens within the framework. Building on that premise and the different use cases that lead to the creation of the several <code>java.time.temporal.TemporalAccessor</code> implementations in Java SE itself (and some in related projects such as <a href="https://github.com/ThreeTen/threeten-extra">ThreeTen-Extra</a>), basic support should be designed around the following requirements for the type:</p>
           </div>
           <div class="ulist">
           <ul>
           <li>
-          <p><code>LocalDateTime</code> (could e.g. represent the date-time "2007-12-03T10:15:30")</p>
+          <p>It implements <code>java.time.temporal.TemporalAccessor</code></p>
           </li>
           <li>
-          <p><code>LocalDate</code> (could represent a person&#8217;s birthday)</p>
+          <p>It implements <code>java.lang.Comparable</code> using a parameter <code>T</code> for which the type is assignable</p>
           </li>
           <li>
-          <p><code>Year</code></p>
+          <p>It has a static method called <code>now</code> with a sole parameter whose type is <code>java.time.Clock</code></p>
           </li>
           </ul>
           </div>
           <div class="paragraph">
-          <p>Past/future semantics of these <strong>cannot</strong> be determined by comparing to the current instant timeline. For instance, e.g. two persons in Australia and Europe may answer differently when being asked at the very same instant "Is 2017-01-01 in the future?". Instead, past/future semantics can only be determined relative to another such local date-time.</p>
+          <p>So, for any type <code>TA</code> that matches the above rules, <code>@Past</code> can be validated with code similar to:</p>
+          </div>
+          <div class="literalblock">
+          <div class="content">
+          <pre>//ClockProvider is documented below&#x000A;Clock clock = clockProvider.getClock();&#x000A;//TA is TemporalAccessor &amp; Comparable&#x000A;//Code for obtaining now static factory omitted&#x000A;TA now = now.invoke(clock);&#x000A;return t.compareTo(now) &lt; 0;</pre>
+          </div>
           </div>
           <div class="paragraph">
-          <p>Proposal: Obtain the date-time representing the local "now" using the JVM&#8217;s time and default TZ (see further below for a proposal to make this more flexible). E.g. if the JVM&#8217;s time is "2007-12-03T10:15:30+01:00 Europe/Paris", the <code>LocalDateTime</code> "2007-12-03T10:15:30" will be used to determine past/future semantics for these local date-times.</p>
+          <p>This set of requirements makes the following Java SE types supported:</p>
+          </div>
+          <div class="ulist">
+          <ul>
+          <li>
+          <p>Specific points in the timeline: <code>java.time.Instant</code>, <code>java.time.OffsetDateTime</code>, <code>java.time.ZonedDateTime</code></p>
+          </li>
+          <li>
+          <p>Wall-clock-like types: <code>java.time.LocalDate</code>, <code>java.time.LocalDateTime</code>, <code>java.time.LocalTime</code></p>
+          </li>
+          <li>
+          <p>Other partial types: <code>java.time.MonthDay</code>, <code>java.time.OffsetTime</code>, <code>java.time.Year</code>, <code>java.time.YearMonth</code></p>
+          </li>
+          <li>
+          <p>Non-ISO calendar types: <code>java.time.chrono.HirajDate</code>, <code>java.time.chrono.JapaneseDate</code>, <code>java.time.chrono.MinguoDate</code>, <code>java.time.chrono.ThaiBuddhistDate</code></p>
+          </li>
+          </ul>
+          </div>
+          <div class="paragraph">
+          <p>These rules would make the following Threeten-Extra types supported:</p>
+          </div>
+          <div class="ulist">
+          <ul>
+          <li>
+          <p>Partial types: <code>org.threeten.extra.DayOfMonth</code>, <code>org.threeten.extra.DayOfYear</code>, <code>org.threeten.extra.YearWeek</code>, <code>org.threeten.extra.YearQuarter</code></p>
+          </li>
+          </ul>
+          </div>
+          <div class="sect3">
+          <h4 id="working-around-limitations-in-code-constraintvalidator-code-that-prevent-the-above-strategy"><a class="anchor" href="#working-around-limitations-in-code-constraintvalidator-code-that-prevent-the-above-strategy"></a>2.1.1. Working around limitations in <code>ConstraintValidator</code> that prevent the above strategy</h4>
+          
           </div>
           </div>
           <div class="sect2">
-          <h3 id="make-current-time-and-timezone-customizable"><a class="anchor" href="#make-current-time-and-timezone-customizable"></a>2.2. Make current time and timezone customizable</h3>
+          <h3 id="make-current-instant-customizable"><a class="anchor" href="#make-current-instant-customizable"></a>2.2. Make current instant customizable</h3>
           <div class="paragraph">
-          <p>To address problem 2., add a new SPI which returns the time and time zone to be used by the validation engine for validating <code>@Past</code> and <code>@Future</code> constraints:</p>
+          <p>To make the current instant customizable, a new SPI which returns <code>java.time.Clock</code> to be used by the validation engine for validating <code>@Past</code> and <code>@Future</code> constraints should be added:</p>
           </div>
-          <div class="literalblock">
+          <div class="listingblock">
           <div class="content">
-          <pre>package javax.validation.spi;</pre>
-          </div>
-          </div>
-          <div class="literalblock">
-          <div class="content">
-          <pre>import java.time.ZonedDateTime;</pre>
-          </div>
-          </div>
-          <div class="literalblock">
-          <div class="content">
-          <pre>public interface TimeProvider {</pre>
-          </div>
-          </div>
-          <div class="literalblock">
-          <div class="content">
-          <pre>    // ZDT is a date-time with a time-zone in the ISO-8601 calendar system,&#x000A;    // such as 2007-12-03T10:15:30+01:00 Europe/Paris&#x000A;    ZonedDateTime getCurrentTime();&#x000A;}</pre>
+          <pre class="CodeRay highlight"><code data-lang="java">    <span style="color:#080;font-weight:bold">package</span> <span style="color:#707;font-weight:bold">javax.validation.spi</span>;&#x000A;&#x000A;    <span style="color:#080;font-weight:bold">import</span> <span style="color:#B44;font-weight:bold">java.time.Clock</span>;&#x000A;&#x000A;    <span style="color:#088;font-weight:bold">public</span> <span style="color:#339;font-weight:bold">interface</span> <span style="color:#B06;font-weight:bold">ClockProvider</span> {&#x000A;        Clock getClock();&#x000A;    }</code></pre>
           </div>
           </div>
           <div class="paragraph">
-          <p>BV implementations must use a default <code>TimeProvider</code> which returns the current date-time in the default time zone (typically obtained via <code>ZonedDateTime#now()</code>).</p>
+          <p>BV implementations must use a default <code>ClockProvider</code> which always returns <code>java.time.Clock.systemDefault()</code>.</p>
           </div>
           <div class="paragraph">
-          <p>When bootstrapping a validator factory or validator, an alternative time provider can be passed</p>
+          <p>When bootstrapping a validator factory or validator, an alternative clock provider can be passed</p>
           </div>
           <div class="ulist">
           <ul>
           <li>
-          <p>via <code>Configuration</code> (also exposes the default time provider)</p>
+          <p>via <code>Configuration</code> (also exposes the default clock provider)</p>
           </li>
           <li>
           <p>via <code>ValidatorContext</code></p>
@@ -190,12 +201,33 @@
           </div>
           <div class="literalblock">
           <div class="content">
-          <pre>Validator validator = Validation.byDefaultProvider()&#x000A;    .configure()&#x000A;    .timeProvider( myTimeProvider() )&#x000A;    .buildValidatorFactory()&#x000A;    .getValidator();</pre>
+          <pre>Validator validator = Validation.byDefaultProvider()&#x000A;    .configure()&#x000A;    .clockProvider( myClockProvider() )&#x000A;    .buildValidatorFactory()&#x000A;    .getValidator();</pre>
           </div>
           </div>
           <div class="paragraph">
-          <p>Similar to message interpolators etc., custom time providers are CDI-enabled if CDI is present, allowing to inject needed contextual information such as the current requests locale.</p>
+          <p>Similar to message interpolators etc., custom clock providers are CDI-enabled if CDI is present, allowing to inject needed contextual information such as the current requests locale.</p>
           </div>
+          </div>
+          <div class="sect2">
+          <h3 id="extending-code-past-code-code-future-code-to-support-code-nowisvalid-code"><a class="anchor" href="#extending-code-past-code-code-future-code-to-support-code-nowisvalid-code"></a>2.3. Extending <code>@Past</code>/<code>@Future</code> to support <code>nowIsValid</code></h3>
+          <div class="paragraph">
+          <p>In many valid use cases, these constraints should consider the current date/time, called now in JSR-310, as valid, especially when it comes to <code>@Future</code>. Therefore, both annotations should be changed to include a new attribute, <code>nowIsValid</code> (maybe <code>nowAsValid</code>), whose default is <code>false</code> in order to maintain backwards compatibility.</p>
+          </div>
+          <div class="paragraph">
+          <p>If the attribute is <code>true</code>, a return equals to <code>0</code> from <code>compareTo</code> will cause the constraint to be considered satisfied.</p>
+          </div>
+          </div>
+          <div class="sect2">
+          <h3 id="simple-code-temporalamount-code-implementations-support"><a class="anchor" href="#simple-code-temporalamount-code-implementations-support"></a>2.4. "Simple" <code>TemporalAmount</code> implementations support</h3>
+          
+          </div>
+          <div class="sect2">
+          <h3 id="code-duration-code-support"><a class="anchor" href="#code-duration-code-support"></a>2.5. <code>Duration</code> support</h3>
+          
+          </div>
+          <div class="sect2">
+          <h3 id="code-period-code-support"><a class="anchor" href="#code-period-code-support"></a>2.6. <code>Period</code> support</h3>
+          
           </div>
           </div>
           </div>
@@ -209,7 +241,7 @@
           Is there need to make this more contextual, i.e. expose the validated bean or similar? I can&#8217;t see a use case for this atm.</p>
           </li>
           <li>
-          <p>Are there other types in the JSR 310 API which should be supported?</p>
+          <p>One of the most common scenarios with date/time types (applies to ranges of all types though) is to have a start and end property for which start must be (sometimes equal or) greater than now and end must be (sometimes equal or) greater than start. Are we not supporting this somehow?</p>
           </li>
           </ol>
           </div>
