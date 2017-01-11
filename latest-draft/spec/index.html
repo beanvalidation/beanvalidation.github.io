@@ -1453,13 +1453,9 @@ limitations under the License.</p>
 <span class="annotation">@Retention</span>(RUNTIME)
 <span class="directive">public</span> <span class="annotation">@interface</span> Audible {
 
-    Age age()
+    Age age() <span class="keyword">default</span> Age.YOUNG;
 
-    <span class="keyword">default</span> Age.YOUNG;
-
-    <span class="predefined-type">String</span> message()
-
-    <span class="keyword">default</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">{com.acme.constraint.Audible.message}</span><span class="delimiter">&quot;</span></span>;
+    <span class="predefined-type">String</span> message() <span class="keyword">default</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">{com.acme.constraint.Audible.message}</span><span class="delimiter">&quot;</span></span>;
 
     <span class="predefined-type">Class</span>&lt;?&gt;<span class="type">[]</span> groups() <span class="keyword">default</span> {};
 
@@ -2306,13 +2302,14 @@ It is also possible to specify a constraint several times by explicitly using th
  * of if the default {@code ConstraintViolation} is disabled, a custom one).
  *
  * @author Emmanuel Bernard
+ * @author Guillaume Smet
  */</span>
 <span class="directive">public</span> <span class="type">interface</span> <span class="class">ConstraintValidatorContext</span> {
 
     <span class="comment">/**
      * Disables the default {@link ConstraintViolation} object generation (which
      * is using the message template declared on the constraint).
-     * &lt;p/&gt;
+     * &lt;p&gt;
      * Useful to set a different violation message or generate a {@code ConstraintViolation}
      * based on a different property.
      */</span>
@@ -2323,27 +2320,40 @@ It is also possible to specify a constraint several times by explicitly using th
      */</span>
     <span class="predefined-type">String</span> getDefaultConstraintMessageTemplate();
 
+
+    <span class="comment">/**
+     * Returns the provider for obtaining the current time in the form of a {@link Clock}, e.g. when validating the
+     * {@code Future} and {@code Past} constraints.
+     *
+     * @return the provider for obtaining the current time, never {@code null}. If no specific provider has been
+     * configured during bootstrap, a default implementation using the current system time and the current default time
+     * zone as returned by {@link Clock#systemDefaultZone()} will be returned.
+     *
+     * @since 2.0
+     */</span>
+    ClockProvider getClockProvider();
+
     <span class="comment">/**
      * Returns a constraint violation builder building a violation report
      * allowing to optionally associate it to a sub path.
      * The violation message will be interpolated.
-     * &lt;p/&gt;
+     * &lt;p&gt;
      * To create the {@link ConstraintViolation}, one must call either one of
      * the {@code addConstraintViolation()} methods available in one of the
      * interfaces of the fluent API.
      * If another method is called after {@code addConstraintViolation()} on
      * {@code ConstraintViolationBuilder} or any of its associated nested interfaces
      * an {@code IllegalStateException} is raised.
-     * &lt;p/&gt;
+     * &lt;p&gt;
      * If {@link ConstraintValidator#isValid(Object, ConstraintValidatorContext)} returns
      * {@code false}, a {@code ConstraintViolation} object will be built per constraint
      * violation report including the default one (unless
      * {@link #disableDefaultConstraintViolation()} has been called).
-     * &lt;p/&gt;
+     * &lt;p&gt;
      * {@code ConstraintViolation} objects generated from such a call
      * contain the same contextual information (root bean, path and so on) unless
      * the path has been overridden.
-     * &lt;p/&gt;
+     * &lt;p&gt;
      * To create a different {@code ConstraintViolation}, a new constraint violation builder
      * has to be retrieved from {@code ConstraintValidatorContext}
      *
@@ -2351,7 +2361,7 @@ It is also possible to specify a constraint several times by explicitly using th
      * &lt;pre&gt;
      * //assuming the following domain model
      * public class User {
-     *     public Map&lt;String,Address&gt; getAddresses() { ... }
+     *     public Map&amp;lt;String,Address&amp;gt; getAddresses() { ... }
      * }
      *
      * public class Address {
@@ -2393,10 +2403,9 @@ It is also possible to specify a constraint several times by explicitly using th
      *             .addPropertyNode( &quot;name&quot; )
      *             .addConstraintViolation();
      * &lt;/pre&gt;
-     * &lt;p/&gt;
+     * &lt;p&gt;
      * Cross-parameter constraints on a method can create a node specific
      * to a particular parameter if required. Let's explore a few examples:
-     * &lt;p/&gt;
      * &lt;pre&gt;
      * //Cross-parameter constraint on method createUser(String password, String passwordRepeat)
      * //Build a constraint violation on the default path + &quot;passwordRepeat&quot;
@@ -2405,7 +2414,7 @@ It is also possible to specify a constraint several times by explicitly using th
      *             .addConstraintViolation();
      *
      * //Cross-parameter constraint on a method
-     * //mergeAddresses(Map&lt;String,Address&gt; addresses, Map&lt;String,Address&gt; otherAddresses)
+     * //mergeAddresses(Map&amp;lt;String,Address&amp;gt; addresses, Map&amp;lt;String,Address&amp;gt; otherAddresses)
      * //Build a constraint violation on the default path + &quot;otherAddresses[&quot;home&quot;]
      * //i.e. the Address bean hosted in the &quot;home&quot; key of the &quot;otherAddresses&quot; map parameter
      * context.buildConstraintViolationWithTemplate(
@@ -2416,7 +2425,7 @@ It is also possible to specify a constraint several times by explicitly using th
      *             .addConstraintViolation();
      *
      * //Cross-parameter constraint on a method
-     * //mergeAddresses(Map&lt;String,Address&gt; addresses, Map&lt;String,Address&gt; otherAddresses)
+     * //mergeAddresses(Map&amp;lt;String,Address&amp;gt; addresses, Map&amp;lt;String,Address&amp;gt; otherAddresses)
      * //Build a constraint violation on the default path + &quot;otherAddresses[&quot;home&quot;].city
      * //i.e. on the &quot;city&quot; property of the Address bean hosted in
      * //the &quot;home&quot; key of the &quot;otherAddresses&quot; map
@@ -2440,6 +2449,7 @@ It is also possible to specify a constraint several times by explicitly using th
      * {@link ValidationException} is thrown.
      *
      * @param type the class of the object to be returned
+     * @param &lt;T&gt; the type of the object to be returned
      * @return an instance of the specified class
      * @throws ValidationException if the provider does not support the call
      *
@@ -2450,11 +2460,11 @@ It is also possible to specify a constraint several times by explicitly using th
     <span class="comment">/**
      * {@link ConstraintViolation} builder allowing to optionally associate
      * the violation report to a sub path.
-     * &lt;p/&gt;
+     * &lt;p&gt;
      * To create the {@code ConstraintViolation}, one must call either one of
      * the {@code addConstraintViolation()} methods available in one of the
      * interfaces of the fluent API.
-     * &lt;p/&gt;
+     * &lt;p&gt;
      * If another method is called after {@code addConstraintViolation()} on
      * {@code ConstraintViolationBuilder} or any of its associated objects
      * an {@code IllegalStateException} is raised.
@@ -2463,7 +2473,7 @@ It is also possible to specify a constraint several times by explicitly using th
 
         <span class="comment">/**
          * Adds a node to the path the {@link ConstraintViolation} will be associated to.
-         * &lt;p/&gt;
+         * &lt;p&gt;
          * {@code name} describes a single property. In particular,
          * dot (.) is not allowed.
          *
@@ -2477,7 +2487,7 @@ It is also possible to specify a constraint several times by explicitly using th
         <span class="comment">/**
          * Adds a property node to the path the {@link ConstraintViolation}
          * will be associated to.
-         * &lt;p/&gt;
+         * &lt;p&gt;
          * {@code name} describes a single property. In particular,
          * dot (.) is not allowed.
          *
@@ -2517,7 +2527,7 @@ It is also possible to specify a constraint several times by explicitly using th
         <span class="comment">/**
          * Adds the new {@link ConstraintViolation} to be generated if the
          * constraint validator marks the value as invalid.
-         * &lt;p/&gt;
+         * &lt;p&gt;
          * Methods of this {@code ConstraintViolationBuilder} instance and its nested
          * objects throw {@code IllegalStateException} from now on.
          *
@@ -2538,7 +2548,7 @@ It is also possible to specify a constraint several times by explicitly using th
             <span class="comment">/**
              * Adds the new {@link ConstraintViolation} to be generated if the
              * constraint validator marks the value as invalid.
-             * &lt;p/&gt;
+             * &lt;p&gt;
              * Methods of the {@code ConstraintViolationBuilder} instance this object
              * comes from and the constraint violation builder nested
              * objects throw {@code IllegalStateException} after this call.
@@ -2568,7 +2578,7 @@ It is also possible to specify a constraint several times by explicitly using th
             <span class="comment">/**
              * Adds the new {@link ConstraintViolation} to be generated if the
              * constraint validator mark the value as invalid.
-             * &lt;p/&gt;
+             * &lt;p&gt;
              * Methods of the {@code ConstraintViolationBuilder} instance this object
              * comes from and the constraint violation builder nested
              * objects throw {@code IllegalStateException} after this call.
@@ -2582,10 +2592,10 @@ It is also possible to specify a constraint several times by explicitly using th
         <span class="comment">/**
          * Represents refinement choices for a node which is
          * in an {@code Iterator} or {@code Map}.
-         * &lt;p/&gt;
+         * &lt;p&gt;
          * If the iterator is an indexed collection or a map,
          * the index or the key should be set.
-         * &lt;p/&gt;
+         * &lt;p&gt;
          * The node is a leaf node (i.e. no subnode can be added).
          *
          * @since 1.1
@@ -2611,7 +2621,7 @@ It is also possible to specify a constraint several times by explicitly using th
             <span class="comment">/**
              * Adds the new {@link ConstraintViolation} to be generated if the
              * constraint validator mark the value as invalid.
-             * &lt;p/&gt;
+             * &lt;p&gt;
              * Methods of the {@code ConstraintViolationBuilder} instance this object
              * comes from and the constraint violation builder nested
              * objects throw {@code IllegalStateException} after this call.
@@ -2632,7 +2642,7 @@ It is also possible to specify a constraint several times by explicitly using th
 
             <span class="comment">/**
              * Adds a node to the path the {@link ConstraintViolation} will be associated to.
-             * &lt;p/&gt;
+             * &lt;p&gt;
              * {@code name} describes a single property. In particular,
              * dot (.) is not allowed.
              *
@@ -2646,7 +2656,7 @@ It is also possible to specify a constraint several times by explicitly using th
             <span class="comment">/**
              * Adds a property node to the path the {@link ConstraintViolation}
              * will be associated to.
-             * &lt;p/&gt;
+             * &lt;p&gt;
              * {@code name} describes a single property. In particular,
              * dot (.) is not allowed.
              *
@@ -2672,7 +2682,7 @@ It is also possible to specify a constraint several times by explicitly using th
             <span class="comment">/**
              * Adds the new {@link ConstraintViolation} to be generated if the
              * constraint validator marks the value as invalid.
-             * &lt;p/&gt;
+             * &lt;p&gt;
              * Methods of the {@code ConstraintViolationBuilder} instance this object
              * comes from and the constraint violation builder nested
              * objects throw {@code IllegalStateException} after this call.
@@ -2740,7 +2750,7 @@ It is also possible to specify a constraint several times by explicitly using th
             <span class="comment">/**
              * Adds the new {@link ConstraintViolation} to be generated if the
              * constraint validator mark the value as invalid.
-             * &lt;p/&gt;
+             * &lt;p&gt;
              * Methods of the {@code ConstraintViolationBuilder} instance this object
              * comes from and the constraint violation builder nested
              * objects throw {@code IllegalStateException} after this call.
@@ -2754,12 +2764,12 @@ It is also possible to specify a constraint several times by explicitly using th
         <span class="comment">/**
          * Represents refinement choices for a node which is
          * in an {@code Iterator} or {@code Map}.
-         * &lt;p/&gt;
+         * &lt;p&gt;
          * If the iterator is an indexed collection or a map,
          * the index or the key should be set.
-         * &lt;p/&gt;
+         * &lt;p&gt;
          * The node is not necessarily a leaf node (i.e. subnodes can
-          * be added).
+         * be added).
          */</span>
         <span class="type">interface</span> <span class="class">NodeContextBuilder</span> {
 
@@ -2810,7 +2820,7 @@ It is also possible to specify a constraint several times by explicitly using th
             <span class="comment">/**
              * Adds a bean node (class-level) to the path the {@link ConstraintViolation}
              * will be associated to.
-             * &lt;p/&gt;
+             * &lt;p&gt;
              * Note that bean nodes are always leaf nodes.
              *
              * @return a builder representing the bean node
@@ -2822,7 +2832,7 @@ It is also possible to specify a constraint several times by explicitly using th
             <span class="comment">/**
              * Adds the new {@link ConstraintViolation} to be generated if the
              * constraint validator mark the value as invalid.
-             * &lt;p/&gt;
+             * &lt;p&gt;
              * Methods of the {@code ConstraintViolationBuilder} instance this object
              * comes from and the constraint violation builder nested
              * objects throw {@code IllegalStateException} after this call.
@@ -2837,7 +2847,11 @@ It is also possible to specify a constraint several times by explicitly using th
 </div>
 </div>
 <div class="paragraph">
-<p>The <code class="classname">ConstraintValidatorContext</code> interface allows redefinition of the default constraint message generated when a constraint is not valid. <span class="tck-testable">By default, each invalid constraint leads to the generation of one error object represented by a <code class="classname">ConstraintViolation</code> object. This object is built from the default constraint message template as defined by the constraint declaration and the context in which the constraint declaration is placed (bean, property, executable parameter, cross-parameter or executable return value).</span></p>
+<p>The <code class="classname">ConstraintValidatorContext</code> interface provides access to contextual information useful for the validation of specific constraints (e.g. <code>getClockProvider()</code>, see <a href="#constraintsdefinitionimplementation-validationimplementation-temporal-validators">Implementation of temporal constraint validators</a> ).</p>
+</div>
+<div class="paragraph">
+<p>It also allows redefinition of the default constraint message generated when a constraint is not valid. <span class="tck-testable">By default, each invalid constraint leads to the generation of one error object represented by a <code class="classname">ConstraintViolation</code> object.
+This object is built from the default constraint message template as defined by the constraint declaration and the context in which the constraint declaration is placed (bean, property, executable parameter, cross-parameter or executable return value).</span></p>
 </div>
 <div class="paragraph">
 <p><span class="tck-testable">The <code class="classname">ConstraintValidatorContext</code> methods let the constraint implementation disable the default <code class="classname">ConstraintViolation</code> generation and create one or more custom ones.</span> <span class="tck-testable">The non-interpolated message passed as a parameter is used to build the <code class="classname">ConstraintViolation</code> message (the message interpolation operation is applied to it).</span></p>
@@ -2935,7 +2949,50 @@ context.buildConstraintViolationWithTemplate(
 <p><span class="tck-testable">If <code class="methodname">disableDefaultConstraintViolation()</code> is called, no custom error is added (using the error builder) and if the constraint is not valid, a <code class="classname">ValidationException</code> is raised.</span></p>
 </div>
 <div class="sect3">
-<h4 id="constraintsdefinitionimplementation-validationimplementation-example"><a class="anchor" href="#constraintsdefinitionimplementation-validationimplementation-example"></a>3.4.1. Examples</h4>
+<h4 id="constraintsdefinitionimplementation-validationimplementation-temporal-validators"><a class="anchor" href="#constraintsdefinitionimplementation-validationimplementation-temporal-validators"></a>3.4.1. Implementation of temporal constraint validators</h4>
+<div class="paragraph">
+<p>[tck-testable]#
+Constraint validators for temporal constraints (either the built-in constraints <code>@Past</code> and <code>@Future</code> or custom temporal constraints) can obtain the current instant from the <code>ClockProvider</code> object exposed by <code>ConstraintValidatorContext#getClockProvider()</code>.#</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="JAVA"><span class="comment">/**
+ * Contract for obtaining the {@link Clock} used as the reference for {@code now} when validating the {@code @Future}
+ * and {@code @Past} constraints.
+ * &lt;p&gt;
+ * The default implementation will return the current system time. Plugging in custom implementations may be useful for
+ * instance in batch applications which need to run with a specific logical date, e.g. with yesterday's date when
+ * re-running a failed batch job execution.
+ * &lt;p&gt;
+ * Implementations must be safe for access from several threads at the same time.
+ *
+ * @author Gunnar Morling
+ * @author Guillaume Smet
+ * @since 2.0
+ */</span>
+<span class="directive">public</span> <span class="type">interface</span> <span class="class">ClockProvider</span> {
+
+    <span class="comment">/**
+     * Returns the clock which serves as the reference for {@code now}.
+     *
+     * @return the clock which serves as the reference for {@code now}; must not be {@code null}
+     */</span>
+    Clock getClock();
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><span class="tck-testable">The <code>getClock()</code> method returns a <code>java.time.Clock</code> object which represents the current instant, date and time using a time zone.
+A conforming Bean Validation implementation provides a default clock provider which returns a clock representing the current system time and default time zone.</span>
+It is recommended that implementations call <code>Clock#systemDefaultZone()</code> to obtain the clock.</p>
+</div>
+<div class="paragraph">
+<p>When bootstrapping a validator factory or validator, an alternative clock provider can be registered (see <a href="#bootstrapping">Bootstrapping</a>).
+This can be useful for testing, for applying the time zone of the currently logged in user in a multi-user, multi time zone application or for running batch applications with a logical date and time different from the actual current date and time.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="constraintsdefinitionimplementation-validationimplementation-example"><a class="anchor" href="#constraintsdefinitionimplementation-validationimplementation-example"></a>3.4.2. Examples</h4>
 <div class="exampleblock">
 <div class="title">Example 21. ConstraintValidator implementation</div>
 <div class="content">
@@ -3104,6 +3161,38 @@ context.buildConstraintViolationWithTemplate(
 <div class="paragraph">
 <p>The default error message is disabled and replaced by a specific error message depending on the type of constraint violation detected. In this case, only one error report is returned at a given time but a constraint validation implementation can return several error reports.</p>
 </div>
+<div class="paragraph">
+<p>The following example shows how to obtain the current date and time via the <code>ClockProvider</code> when validating a temporal constraint such as <code>@Past</code>:</p>
+</div>
+<div class="exampleblock">
+<div class="title">Example 25. Validation of a temporal constraint</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="JAVA"><span class="comment">/**
+ * Validates that the given {@link ZonedDateTime} is in the past.
+ */</span>
+<span class="directive">public</span> <span class="type">class</span> <span class="class">PastValidatorForZonedDateTime</span> <span class="directive">implements</span> ConstraintValidator&lt;Past, ZonedDateTime&gt; {
+
+    <span class="annotation">@Override</span>
+    <span class="directive">public</span> <span class="type">void</span> initialize(Past constraintAnnotation) {
+    }
+
+    <span class="annotation">@Override</span>
+    <span class="directive">public</span> <span class="type">boolean</span> isValid(ZonedDateTime value, ConstraintValidatorContext context) {
+        <span class="keyword">if</span> ( value == <span class="predefined-constant">null</span> ) {
+            <span class="keyword">return</span> <span class="predefined-constant">true</span>;
+        }
+
+        ZonedDateTime now = ZonedDateTime.now( context.getClockProvider().getClock() );
+
+        <span class="keyword">return</span> value.isBefore( now );
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -3129,7 +3218,7 @@ context.buildConstraintViolationWithTemplate(
 </table>
 </div>
 <div class="exampleblock">
-<div class="title">Example 25. ConstraintValidatorFactory interface</div>
+<div class="title">Example 26. ConstraintValidatorFactory interface</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -3292,7 +3381,7 @@ context.buildConstraintViolationWithTemplate(
 <p>In addition to supporting instance validation, validation of graphs of objects is also supported. The result of a graph validation is returned as a unified set of constraint violations. <code class="classname">@Valid</code> is used to express validation traversal of an association.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 26. <code class="classname">@Valid</code> annotation</div>
+<div class="title">Example 27. <code class="classname">@Valid</code> annotation</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -3381,7 +3470,7 @@ context.buildConstraintViolationWithTemplate(
 <p><span class="tck-testable">Groups are represented by interfaces.</span></p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 27. Definition of groups</div>
+<div class="title">Example 28. Definition of groups</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -3403,7 +3492,7 @@ context.buildConstraintViolationWithTemplate(
 <p><span class="tck-testable">A constraint can belong to one or more groups.</span></p>
 </div>
 <div id="example-assigngrouptoconstraints" class="exampleblock">
-<div class="title">Example 28. Assign groups to constraints</div>
+<div class="title">Example 29. Assign groups to constraints</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -3456,7 +3545,7 @@ context.buildConstraintViolationWithTemplate(
 <p>In some situations, a group is a superset of one or more groups. This can be described by Bean Validation. <span class="tck-testable">A group may inherit one or more groups by using interface inheritance.</span></p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 29. Groups can inherit other groups</div>
+<div class="title">Example 30. Groups can inherit other groups</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -3475,7 +3564,7 @@ context.buildConstraintViolationWithTemplate(
 <p>In the following example:</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 30. Use of a inherited group</div>
+<div class="title">Example 31. Use of a inherited group</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -3586,7 +3675,7 @@ context.buildConstraintViolationWithTemplate(
 <p>Here is a usage example:</p>
 </div>
 <div id="example-groupsequence" class="exampleblock">
-<div class="title">Example 31. Make use of group sequence</div>
+<div class="title">Example 32. Make use of group sequence</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -3642,7 +3731,7 @@ context.buildConstraintViolationWithTemplate(
 <p>In <a href="#example-groupsequence">Make use of group sequence</a>, validating the <code class="classname">Default</code> group does not validate <code class="classname">HighLevelCoherence</code> constraints. To ensure a complete validation, a user must use the <code class="classname">Complete</code> group. This breaks some of the encapsulation you could expect. You can work around this by redefining what the <code class="classname">Default</code> group means for a given class. <span class="tck-testable">To redefine <code class="classname">Default</code> for a class, place a <code class="classname">@GroupSequence</code> annotation on the class; this sequence expresses the sequence of groups that does substitute <code class="classname">Default</code> for this class.</span></p>
 </div>
 <div id="example-overridedefaultgroup" class="exampleblock">
-<div class="title">Example 32. Redefining Default group for Address</div>
+<div class="title">Example 33. Redefining Default group for Address</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -3684,7 +3773,7 @@ context.buildConstraintViolationWithTemplate(
 <p>It is possible to implicitly group several constraints in the same group without explicitly listing such a group in the constraint declaration. <span class="tck-testable">Every constraint hosted on an interface <code class="classname">Z</code> and part of the <code class="classname">Default</code> group (implicitly or explicitly) belongs to the group <code class="classname">Z</code>.</span> This is useful to validate the partial state of an object based on a role represented by an interface.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 33. Example of interface / group hosting constraints</div>
+<div class="title">Example 34. Example of interface / group hosting constraints</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -3747,7 +3836,7 @@ context.buildConstraintViolationWithTemplate(
 <p>When performing cascading validation, it is possible to use a different group than the one originally requested using the group conversion feature. Group conversions are declared by using the <code class="classname">@ConvertGroup</code> annotation.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 34. @ConvertGroup annotation</div>
+<div class="title">Example 35. @ConvertGroup annotation</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -3882,7 +3971,7 @@ context.buildConstraintViolationWithTemplate(
 <p>In this example we will reuse the <code class="classname">Address</code> group split and match it to the <code class="classname">User</code> group split.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 35. Example of group conversion</div>
+<div class="title">Example 36. Example of group conversion</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -3922,7 +4011,7 @@ context.buildConstraintViolationWithTemplate(
 <p>The following example shows an illegal declaration of a group conversion rule on a method&#8217;s return value:</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 36. Example of an illegal group conversion</div>
+<div class="title">Example 37. Example of an illegal group conversion</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -4188,7 +4277,7 @@ context.buildConstraintViolationWithTemplate(
 <p><span class="tck-testable">Parameter constraints are declared by putting constraint annotations on method or constructor parameters.</span></p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 37. Declaring parameter constraints</div>
+<div class="title">Example 38. Declaring parameter constraints</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -4251,7 +4340,7 @@ context.buildConstraintViolationWithTemplate(
 <p>Cross-parameter constraints allow to express constraints based on the value of several method parameters, similar to class-level constraints which are based on several properties of a given class. <span class="tck-testable">Cross-parameter constraints are declared by putting cross-parameter constraint annotations on methods or constructors</span> as shown in the following example.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 38. Declaring cross-parameter constraints</div>
+<div class="title">Example 39. Declaring cross-parameter constraints</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -4370,7 +4459,7 @@ context.buildConstraintViolationWithTemplate(
 <p>Some constraints can target both the return value and the array of parameters of an executable. <span class="tck-testable">They are known to be both generic and cross-parameter constraints. When using such constraint on an executable to target the return value, one must set <code class="methodname">validationAppliesTo</code> in case there is an ambiguity.</span> The set of ambiguities is described in <a href="#constraintsdefinitionimplementation-constraintdefinition-validationappliesto">validationAppliesTo</a>. Even without ambiguity, it is recommended to explicitly set <code class="methodname">validationAppliesTo</code> to <code>ConstraintTarget.RETURN_VALUE</code> as it improves readability.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 39. Declaring return value constraints</div>
+<div class="title">Example 40. Declaring return value constraints</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -4442,7 +4531,7 @@ context.buildConstraintViolationWithTemplate(
 </ul>
 </div>
 <div class="exampleblock">
-<div class="title">Example 40. Marking parameters and return values for cascaded validation</div>
+<div class="title">Example 41. Marking parameters and return values for cascaded validation</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -4549,7 +4638,7 @@ context.buildConstraintViolationWithTemplate(
 <p>This sections provides some examples of illegal constraint definitions which violate the rules stated above in one way or another.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 41. Illegally declared parameter constraints on interface implementation</div>
+<div class="title">Example 42. Illegally declared parameter constraints on interface implementation</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -4576,7 +4665,7 @@ context.buildConstraintViolationWithTemplate(
 <p>The constraints in <code class="classname">SimpleOrderService</code> are illegal, as they strengthen the preconditions of the <code class="methodname">placeOrder()</code> method as constituted by the interface <code class="classname">OrderService</code>.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 42. Illegally declared parameter constraints on sub class</div>
+<div class="title">Example 43. Illegally declared parameter constraints on sub class</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -4603,7 +4692,7 @@ context.buildConstraintViolationWithTemplate(
 <p>The constraints in <code class="classname">SimpleOrderService</code> are illegal, as they strengthen the preconditions of the <code class="methodname">placeOrder()</code> method as constituted by the super class <code class="classname">OrderService</code>.</p>
 </div>
 <div id="illegal_constraints_in_parallel_types" class="exampleblock">
-<div class="title">Example 43. Illegally declared parameter constraints on parallel types</div>
+<div class="title">Example 44. Illegally declared parameter constraints on parallel types</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -4635,7 +4724,7 @@ context.buildConstraintViolationWithTemplate(
 <p>Here the class <code class="classname">SimpleOrderService</code> implements the interfaces <code class="classname">OrderService</code> and <code class="classname">OrderPlacementService</code>, which themselves are unrelated to each other but both define a method <code class="methodname">placeOrder()</code> with an identical signature. This hierarchy is illegal with respect to the parameter constraints as a client of <code class="classname">SimpleOrderService</code> would have to fulfill the constraints defined on the interface <code class="classname">OrderPlacementService</code> even if the client only expects <code class="classname">OrderService</code>.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 44. Correctly declared return value constraints on sub class</div>
+<div class="title">Example 45. Correctly declared return value constraints on sub class</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -4744,7 +4833,7 @@ context.buildConstraintViolationWithTemplate(
 </table>
 </div>
 <div id="example-oglimit" class="exampleblock">
-<div class="title">Example 45. Object graph limits</div>
+<div class="title">Example 46. Object graph limits</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -4797,7 +4886,7 @@ Order -(billingAddress)&#8594; Address2 -(inhabitant)&#8594; User -(addresses)&#
 <p><span class="tck-testable"><code class="classname">@Valid</code> is an orthogonal concept to the notion of group. If two groups are in sequence, the first group must pass for all associated objects before the second group is evaluated.</span> Note however that the <code class="classname">Default</code> group sequence overriding is local to the class it is defined on and is not propagated to the associated objects. The following example illustrates this:</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 46. Class Driver with redefined default group</div>
+<div class="title">Example 47. Class Driver with redefined default group</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -4819,7 +4908,7 @@ Order -(billingAddress)&#8594; Address2 -(inhabitant)&#8594; User -(addresses)&#
 </div>
 </div>
 <div class="exampleblock">
-<div class="title">Example 47. Class Car with redefined default group</div>
+<div class="title">Example 48. Class Car with redefined default group</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -4838,7 +4927,7 @@ Order -(billingAddress)&#8594; Address2 -(inhabitant)&#8594; User -(addresses)&#
 </div>
 </div>
 <div class="exampleblock">
-<div class="title">Example 48. Defining a group sequence</div>
+<div class="title">Example 49. Defining a group sequence</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -4850,7 +4939,7 @@ Order -(billingAddress)&#8594; Address2 -(inhabitant)&#8594; User -(addresses)&#
 </div>
 </div>
 <div class="exampleblock">
-<div class="title">Example 49. Group sequence overriding is not propagated to associated objects</div>
+<div class="title">Example 50. Group sequence overriding is not propagated to associated objects</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -5080,7 +5169,7 @@ violations = validator.validate( driver, SequencedGroups.class );
 <p>An example implementation of such a resolver is shown in <a href="#constraintdeclarationvalidationprocess-validationroutine-traversable-jparesolver">Java Persistence aware TraversableResolver</a>.</p>
 </div>
 <div id="constraintdeclarationvalidationprocess-validationroutine-traversable-jparesolver" class="exampleblock">
-<div class="title">Example 50. Java Persistence aware TraversableResolver</div>
+<div class="title">Example 51. Java Persistence aware TraversableResolver</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -5118,7 +5207,7 @@ violations = validator.validate( driver, SequencedGroups.class );
 <p>The following example assumes the object graph defined in <a href="#example-ognav-definitions">Definitions used in the example</a> and assumes the validation operation is applied on an address object.</p>
 </div>
 <div id="example-ognav-definitions" class="exampleblock">
-<div class="title">Example 51. Definitions used in the example</div>
+<div class="title">Example 52. Definitions used in the example</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -5257,7 +5346,7 @@ violations = validator.validate( driver, SequencedGroups.class );
 <p>The following example shows invocations of the <code class="classname">TraversableResolver</code> as to be performed by the Bean Validation provider during method validation. The example is based on the object graph defined in <a href="#example-ognav-definitions">Definitions used in the example</a> and the <code class="classname">AddressService</code> class shown in <a href="#example-ognav-definitions-methodvalidation">Examplary class <code class="classname">AddressService</code></a>. It assumes that a call of <code class="methodname">persistAddress()</code> is subject to method parameter validation.</p>
 </div>
 <div id="example-ognav-definitions-methodvalidation" class="exampleblock">
-<div class="title">Example 52. Examplary class <code class="classname">AddressService</code></div>
+<div class="title">Example 53. Examplary class <code class="classname">AddressService</code></div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -5379,7 +5468,7 @@ violations = validator.validate( driver, SequencedGroups.class );
 <p>Let&#8217;s see a couple of declarations and their respective <code class="classname">ConstraintValidator</code> resolution. Assuming the definitions shown in <a href="#example-constraintvalidator-resolution">ConstraintValidator and type resolution</a>:</p>
 </div>
 <div id="example-constraintvalidator-resolution" class="exampleblock">
-<div class="title">Example 53. ConstraintValidator and type resolution</div>
+<div class="title">Example 54. ConstraintValidator and type resolution</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -5476,7 +5565,7 @@ violations = validator.validate( driver, SequencedGroups.class );
 <p>The first example demonstrates how beans, fields and getters are annotated to express some constraints.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 54. Place constraint declarations on the element to validate</div>
+<div class="title">Example 55. Place constraint declarations on the element to validate</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -5552,7 +5641,7 @@ violations = validator.validate( driver, SequencedGroups.class );
 <p>The second example demonstrates object graph validation.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 55. Define object graph validation</div>
+<div class="title">Example 56. Define object graph validation</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -5692,7 +5781,7 @@ violations = validator.validate( driver, SequencedGroups.class );
 <p>The third example demonstrates superclass, inheritance and composite constraints.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 56. Use inheritance, constraints on superclasses and composite constraints</div>
+<div class="title">Example 57. Use inheritance, constraints on superclasses and composite constraints</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -5813,7 +5902,7 @@ violations = validator.validate( driver, SequencedGroups.class );
 <p>The fourth example demonstrates the influence of group sequence.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 57. Use groups and group sequence to define constraint ordering</div>
+<div class="title">Example 58. Use groups and group sequence to define constraint ordering</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -5960,7 +6049,7 @@ author.setCompany(<span class="string"><span class="delimiter">&quot;</span><spa
 <p>A <code class="classname">Validator</code> instance is able to validate instances of beans and their associated objects if any. It is recommended to leave the caching of <code class="classname">Validator</code> instances to the <code class="classname">ValidatorFactory</code>. <span class="tck-not-testable"><code class="classname">Validator</code> implementations must be thread-safe.</span></p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 58. Validator interface</div>
+<div class="title">Example 59. Validator interface</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -6089,7 +6178,7 @@ author.setCompany(<span class="string"><span class="delimiter">&quot;</span><spa
 <p><code class="methodname">unwrap()</code> is provided as a way to access objects of a given type specific to a Bean Validation provider typically as a complement to the <code class="classname">Validator</code> contract. Using this method makes your code non portable.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 59. Using unwrap to access a provider specific contract</div>
+<div class="title">Example 60. Using unwrap to access a provider specific contract</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -6239,7 +6328,7 @@ address.setCity(<span class="string"><span class="delimiter">&quot;</span><span 
 <p>The methods for the validation of parameters and return values of methods and constructors can be found on the interface <code class="classname">javax.validation.executable.ExecutableValidator</code>.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 60. ExecutableValidator interface</div>
+<div class="title">Example 61. ExecutableValidator interface</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -6826,7 +6915,7 @@ executableValidator.validateConstructorParameters(constructor, <span class="keyw
 <p><code class="methodname">unwrap()</code> is provided as a way to access objects of a given type specific to a Bean Validation provider typically as a complement to the <code class="classname">ConstraintViolation</code> contract. Using this method makes your code non portable.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 61. Path, Node and ElementKind interfaces</div>
+<div class="title">Example 62. Path, Node and ElementKind interfaces</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -7144,7 +7233,7 @@ executableValidator.validateConstructorParameters(constructor, <span class="keyw
 <p>It is possible to narrow a node instance to its precise type and extract node specific information by the use of <code class="methodname">Node.getKind()</code> and <code class="methodname">Node.as(Class&lt;? extends Node&gt;)</code>. <span class="tck-testable">In particular, <code class="classname">MethodNode</code> and <code class="classname">ConstructorNode</code> host <code class="methodname">getParameterTypes()</code> which return the method or constructor parameter list.</span> <span class="tck-testable">Likewise <code class="classname">ParameterNode</code> hosts <code class="methodname">getParameterIndex()</code> which returns the parameter index in the method or constructor parameter list.</span></p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 62. Narrow a node to its specific type</div>
+<div class="title">Example 63. Narrow a node to its specific type</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -7397,7 +7486,7 @@ executableValidator.validateConstructorParameters(constructor, <span class="keyw
 <p>Let there be the following object definitions:</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 63. Object model definition for examples</div>
+<div class="title">Example 64. Object model definition for examples</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -7756,7 +7845,7 @@ book.setAuthor(author);
 <p>The <code class="classname">ConstraintViolation</code> object for this failure passes the following assertions:</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 64. Test assertions on ContraintViolation</div>
+<div class="title">Example 65. Test assertions on ContraintViolation</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -8121,7 +8210,7 @@ node = nodeIter.next();
 <p>Below are two examples using message parameters and expressions. The second is evaluated using Expression Language as defined in <a href="#message-expressions">Message expressions using Expression Language (EL)</a>.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 65. Message using parameters</div>
+<div class="title">Example 66. Message using parameters</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -8131,7 +8220,7 @@ node = nodeIter.next();
 </div>
 </div>
 <div class="exampleblock">
-<div class="title">Example 66. Message using expressions</div>
+<div class="title">Example 67. Message using expressions</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -8389,7 +8478,7 @@ myapp.creditcard.error=credit card number not valid</code></pre>
 <p>Here is an approach to specify the <code class="classname">Locale</code> value to choose on a given <code class="classname">Validator</code> using a <code class="classname">Locale</code> aware <code class="classname">MessageInterpolator</code>. See <a href="#bootstrapping">Bootstrapping</a> for more details on the APIs.</p>
 </div>
 <div id="validationapi-message-examples-specificlocale" class="exampleblock">
-<div class="title">Example 67. Use MessageInterpolator to use a specific Locale value</div>
+<div class="title">Example 68. Use MessageInterpolator to use a specific Locale value</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -8440,7 +8529,7 @@ MessageInterpolator interpolator = <span class="keyword">new</span> LocaleSpecif
 <p>Most of the time, however, the relevant <code class="classname">Locale</code> will be provided by your application framework transparently. This framework will implement its own version of <code class="classname">MessageInterpolator</code> and pass it during the <code class="classname">ValidatorFactory</code> configuration. The application will not have to set the <code class="classname">Locale</code> itself. This example shows how a container framework would implement <code class="classname">MessageInterpolator</code> to provide a user specific default locale.</p>
 </div>
 <div id="validationapi-message-examples-jsflocale" class="exampleblock">
-<div class="title">Example 68. Contextual container possible <code class="classname">MessageInterpolator</code> implementation</div>
+<div class="title">Example 69. Contextual container possible <code class="classname">MessageInterpolator</code> implementation</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -8534,7 +8623,7 @@ ValidatorFactory factory = configuration
 <p>Here is an example of what such metadata usage would be:</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 69. Using metadata API to figure out if method interception is required</div>
+<div class="title">Example 70. Using metadata API to figure out if method interception is required</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -8584,7 +8673,7 @@ ValidatorFactory factory = configuration
 </div>
 </div>
 <div class="exampleblock">
-<div class="title">Example 70. Using metadata API to figure out if constructor interception is required</div>
+<div class="title">Example 71. Using metadata API to figure out if constructor interception is required</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -8762,7 +8851,7 @@ ValidatorFactory factory = configuration
 <p>The most simple approach is to initialize the default Bean Validation provider or the one defined in the XML configuration file. The <code class="classname">ValidatorFactory</code> is then ready to provide <code class="classname">Validator</code> instances.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 71. Simple Bean Validation bootstrap sequence</div>
+<div class="title">Example 72. Simple Bean Validation bootstrap sequence</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -8784,7 +8873,7 @@ factory.close();</code></pre>
 <p>The second example shows how a container can customize some Bean Validator resource handling to match its own behavior.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 72. Customize message resolution, traversable resolver, constraint Validator factory and parameter name provider implementation</div>
+<div class="title">Example 73. Customize message resolution, traversable resolver, constraint validator factory, parameter name provider and clock provider implementation</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -8795,6 +8884,7 @@ ValidatorFactory factory = Validation
           .constraintValidatorFactory( <span class="keyword">new</span> ContainerComponentConstraintValidatorFactory() )
           .traversableResolver( <span class="keyword">new</span> JPAAwareTraversableResolver() )
           .parameterNameProvider( <span class="keyword">new</span> AnnotationBasedParameterNameProvider() )
+          .clockProvider( <span class="keyword">new</span> BatchJobClockProvider() )
           .buildValidatorFactory();
 
 <span class="comment">//cache the factory somewhere</span>
@@ -8810,7 +8900,7 @@ factory.close();</code></pre>
 <p>The third example shows how to bootstrap Bean Validation in an environment not following the traditional Java classloader strategies (such as tools or alternative service containers like OSGi). They can provide some alternative provider resolution strategy to discover Bean Validation providers.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 73. Customize the Bean Validation provider resolution mechanism</div>
+<div class="title">Example 74. Customize the Bean Validation provider resolution mechanism</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -8834,7 +8924,7 @@ factory.close();</code></pre>
 <p>The next example shows how a client can choose a specific Bean Validation provider and configure provider specific properties programmatically in a type-safe way.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 74. Use a specific provider and add specific configuration</div>
+<div class="title">Example 75. Use a specific provider and add specific configuration</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -8882,7 +8972,7 @@ ValidatorFactory factory = acmeConfiguration
 <p>The last example shows how a <code class="classname">Validator</code> can use a specific <code class="classname">MessageInterpolator</code> implementation.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 75. Use a specific MessageInterpolator instance for a given Validator</div>
+<div class="title">Example 76. Use a specific MessageInterpolator instance for a given Validator</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -8916,26 +9006,27 @@ MessageInterpolator customInterpolator = <span class="keyword">new</span> Locale
 <p><span class="tck-not-testable"><code class="classname">ValidatorFactory</code> implementations must be thread-safe.</span> <code class="classname">ValidatorFactory</code> implementations can cache <code class="classname">Validator</code> instances if needed.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 76. ValidatorFactory interface</div>
+<div class="title">Example 77. ValidatorFactory interface</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="JAVA"><span class="comment">/**
  * Factory returning initialized {@code Validator} instances.
- * &lt;p/&gt;
+ * &lt;p&gt;
  * Implementations are thread-safe and instances are typically cached and reused.
  *
  * @author Emmanuel Bernard
  * @author Gunnar Morling
  * @author Hardy Ferentschik
+ * @author Guillaume Smet
  */</span>
-<span class="directive">public</span> <span class="type">interface</span> <span class="class">ValidatorFactory</span> {
+<span class="directive">public</span> <span class="type">interface</span> <span class="class">ValidatorFactory</span> <span class="directive">extends</span> AutoCloseable {
 
     <span class="comment">/**
      * Returns an initialized {@link Validator} instance using the
      * factory defaults for message interpolator, traversable resolver
      * and constraint validator factory.
-     * &lt;p/&gt;
+     * &lt;p&gt;
      * Validator instances can be pooled and shared by the implementation.
      *
      * @return an initialized {@code Validator} instance
@@ -8990,12 +9081,24 @@ MessageInterpolator customInterpolator = <span class="keyword">new</span> Locale
     ParameterNameProvider getParameterNameProvider();
 
     <span class="comment">/**
+     * Returns the {@link ClockProvider} instance configured at
+     * initialization time for the {@code ValidatorFactory}.
+     * This is the instance used by #getValidator().
+     *
+     * @return {@code ClockProvider} instance
+     *
+     * @since 2.0
+     */</span>
+    ClockProvider getClockProvider();
+
+    <span class="comment">/**
      * Returns an instance of the specified type allowing access to
      * provider-specific APIs. If the Bean Validation provider
      * implementation does not support the specified class, a
      * {@code ValidationException} is thrown.
      *
      * @param type the class of the object to be returned
+     * @param &lt;T&gt; the type of the object to be returned
      * @return an instance of the specified class
      * @throws ValidationException if the provider does not
      *         support the call.
@@ -9014,6 +9117,7 @@ MessageInterpolator customInterpolator = <span class="keyword">new</span> Locale
      *
      * @since 1.1
      */</span>
+    <span class="annotation">@Override</span>
     <span class="directive">public</span> <span class="type">void</span> close();
 }</code></pre>
 </div>
@@ -9027,7 +9131,7 @@ MessageInterpolator customInterpolator = <span class="keyword">new</span> Locale
 <p><code class="methodname">unwrap()</code> is provided as a way to access objects of a given type specific to a Bean Validation provider typically as a complement to the <code class="classname">ValidatorFactory</code> contract. Using this method makes your code non portable.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 77. Using unwrap to access a provider specific contract</div>
+<div class="title">Example 78. Using unwrap to access a provider specific contract</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -9054,10 +9158,13 @@ acmeFactory.setSpecificConfiguration( [...] );</code></pre>
 <p><span class="tck-testable"><code class="methodname">getParameterNameProvider()</code> returns the <code class="classname">ParameterNameProvider</code> instance configured during the initialization of the <code class="classname">ValidatorFactory</code>.</span> It is particularly useful to build a <code class="classname">Validator</code> specific <code class="classname">ParameterNameProvider</code> wrapping the one from the <code class="classname">ValidatorFactory</code>.</p>
 </div>
 <div class="paragraph">
-<p><code class="classname">ValidatorContext</code> returned by <code class="methodname">usingContext()</code> can be used to customize the state in which the <code class="classname">Validator</code> must be initialized. This is used to customize the <code class="classname">MessageInterpolator</code>, the <code class="classname">TraversableResolver</code>, <code class="classname">ParameterNameProvider</code> or the <code class="classname">ConstraintValidatorFactory</code>.</p>
+<p><span class="tck-testable"><code class="methodname">getClockProvider()</code> returns the <code class="classname">ClockProvider</code> instance configured during the initialization of the <code class="classname">ValidatorFactory</code>.</span> It is particularly useful to build a <code class="classname">Validator</code> specific <code class="classname">ClockProvider</code> wrapping the one from the <code class="classname">ValidatorFactory</code>.</p>
+</div>
+<div class="paragraph">
+<p><code class="classname">ValidatorContext</code> returned by <code class="methodname">usingContext()</code> can be used to customize the state in which the <code class="classname">Validator</code> must be initialized. This is used to customize the <code class="classname">MessageInterpolator</code>, the <code class="classname">TraversableResolver</code>, the <code class="classname">ParameterNameProvider</code>, the  <code class="classname">ClockProvider</code> or the <code class="classname">ConstraintValidatorFactory</code>.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 78. ValidatorContext interface</div>
+<div class="title">Example 79. ValidatorContext interface</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -9073,13 +9180,14 @@ acmeFactory.setSpecificConfiguration( [...] );</code></pre>
  *
  * @author Emmanuel Bernard
  * @author Gunnar Morling
+ * @author Guillaume Smet
  */</span>
 <span class="directive">public</span> <span class="type">interface</span> <span class="class">ValidatorContext</span> {
 
     <span class="comment">/**
      * Defines the message interpolator implementation used by the
      * {@link Validator}.
-     * &lt;p/&gt;
+     * &lt;p&gt;
      * If not set or if {@code null} is passed as a parameter,
      * the message interpolator of the {@link ValidatorFactory}
      * is used.
@@ -9093,7 +9201,7 @@ acmeFactory.setSpecificConfiguration( [...] );</code></pre>
     <span class="comment">/**
      * Defines the traversable resolver implementation used by the
      * {@link Validator}.
-     * &lt;p/&gt;
+     * &lt;p&gt;
      * If not set or if {@code null} is passed as a parameter,
      * the traversable resolver of the {@link ValidatorFactory} is used.
      *
@@ -9126,6 +9234,18 @@ acmeFactory.setSpecificConfiguration( [...] );</code></pre>
     ValidatorContext parameterNameProvider(ParameterNameProvider parameterNameProvider);
 
     <span class="comment">/**
+     * Defines the {@link ClockProvider} implementation used by the {@link Validator}.
+     * If not set or if {@code null} is passed as a parameter,
+     * the clock provider of the {@link ValidatorFactory} is used.
+     *
+     * @param clockProvider {@code ClockProvider} implementation
+     * @return self following the chaining method pattern
+     *
+     * @since 2.0
+     */</span>
+    ValidatorContext clockProvider(ClockProvider clockProvider);
+
+    <span class="comment">/**
      * Returns an initialized {@link Validator} instance respecting the defined state.
      * {@code Validator} instances can be pooled and shared by the implementation.
      *
@@ -9138,10 +9258,10 @@ acmeFactory.setSpecificConfiguration( [...] );</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><span class="tck-testable">The <code>MessageInterpolator</code>, the <code>TraversableResolver</code>, the <code>ConstraintValidatorFactory</code> or the <code>ParameterNameProvider</code> passed to the <code>ValidatorContext</code> are used instead of the <code>ValidatorFactory</code>'s <code>MessageInterpolator</code>, <code>TraversableResolver</code>, <code>ConstraintValidatorFactory</code> or <code>ParameterNameProvider</code> instances.</span></p>
+<p><span class="tck-testable">The <code>MessageInterpolator</code>, the <code>TraversableResolver</code>, the <code>ConstraintValidatorFactory</code>, the <code>ParameterNameProvider</code> or the <code>ClockProvider</code> passed to the <code>ValidatorContext</code> are used instead of the <code>ValidatorFactory</code>'s <code>MessageInterpolator</code>, <code>TraversableResolver</code>, <code>ConstraintValidatorFactory</code>, <code>ParameterNameProvider</code> or <code>ClockProvider</code> instances.</span></p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 79. Use of ValidatorFactory</div>
+<div class="title">Example 80. Use of ValidatorFactory</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -9179,6 +9299,9 @@ acmeFactory.setSpecificConfiguration( [...] );</code></pre>
 <p>the parameter name provider instance</p>
 </li>
 <li>
+<p>the clock provider instance</p>
+</li>
+<li>
 <p>XML constraint mappings</p>
 </li>
 <li>
@@ -9200,6 +9323,9 @@ acmeFactory.setSpecificConfiguration( [...] );</code></pre>
 </div>
 <div class="paragraph">
 <p><span class="tck-testable"><code class="classname">Configuration</code> does provide a <code class="classname">ParameterNameProvider</code> implementation following the default Bean Validation <code class="classname">ParameterNameProvider</code> rules as defined in <a href="#constraintdeclarationvalidationprocess-methodlevelconstraints-definingparameterconstraints-namingparameters">Naming parameters</a>. You can access it by calling <code class="methodname">getDefaultParameterNameProvider()</code>.</span> Such an implementation is useful to let a custom <code class="classname">ParameterNameProvider</code> delegate to the standard <code class="classname">ParameterNameProvider</code>.</p>
+</div>
+<div class="paragraph">
+<p><span class="tck-testable"><code class="classname">Configuration</code> does provide a <code class="classname">ClockProvider</code> implementation following the default Bean Validation <code class="classname">ClockProvider</code> rules as defined in <a href="#constraintsdefinitionimplementation-validationimplementation-temporal-validators">Implementation of temporal constraint validators</a>. You can access it by calling <code class="methodname">getDefaultClockProvider()</code>.</span></p>
 </div>
 <div class="paragraph">
 <p><span class="tck-testable">Via <code class="classname">getBootstrapConfiguration()</code>, <code class="classname">Configuration</code> also exposes data stored in <code class="classname">META-INF/validation.xml</code></span> (see <a href="#xml-config">XML configuration: META-INF/validation.xml</a>). This is particularly useful for containers wishing to control the instance creation and lifecycle (more information at <a href="#bootstrapping-usageandcontainerexpectation">Bootstrapping considerations</a>).</p>
@@ -9225,53 +9351,54 @@ acmeFactory.setSpecificConfiguration( [...] );</code></pre>
 <p>Clients call <code class="methodname">Configuration.buildValidatorFactory()</code> to retrieve the initialized <code class="classname">ValidatorFactory</code> instance. <span class="tck-testable">It is legal to invoke <code class="methodname">buildValidatorFactory()</code> several times, e.g. in order to retrieve several <code class="classname">ValidatorFactory</code> instances with a slightly different configuration (see <a href="#using-configuration-several-times">Using Configuration to create several validator factories</a>).</span></p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 80. Configuration and BootstrapConfiguration interfaces</div>
+<div class="title">Example 81. Configuration and BootstrapConfiguration interfaces</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="JAVA"><span class="comment">/**
  * Receives configuration information, selects the appropriate
  * Bean Validation provider and builds the appropriate {@link ValidatorFactory}.
- * &lt;p/&gt;
+ * &lt;p&gt;
  * Usage:
  * &lt;pre&gt;
- * Configuration&lt;?&gt; configuration = //provided by one of the Validation bootstrap methods
+ * Configuration&amp;lt;?&amp;gt; configuration = //provided by one of the Validation bootstrap methods
  *     ValidatorFactory = configuration
  *         .messageInterpolator( new CustomMessageInterpolator() )
  *         .buildValidatorFactory();
  * &lt;/pre&gt;
- * &lt;p/&gt;
+ * &lt;p&gt;
  * By default, the configuration information is retrieved from
  * {@code META-INF/validation.xml}.
  * It is possible to override the configuration retrieved from the XML file
  * by using one or more of the {@code Configuration} methods.
- * &lt;p/&gt;
+ * &lt;p&gt;
  * The {@link ValidationProviderResolver} is specified at configuration time
  * (see {@link ValidationProvider}).
  * If none is explicitly requested, the default {@code ValidationProviderResolver} is used.
- * &lt;p/&gt;
+ * &lt;p&gt;
  * The provider is selected in the following way:
  * &lt;ul&gt;
  *     &lt;li&gt;if a specific provider is requested programmatically using
  *     {@link Validation#byProvider(Class)}, find the first provider implementing
  *     the provider class requested and use it&lt;/li&gt;
- *     &lt;li&gt;if a specific provider is requested in {@code META-INF/validation.xml}&gt;,
+ *     &lt;li&gt;if a specific provider is requested in {@code META-INF/validation.xml},
  *     find the first provider implementing the provider class requested and use it&lt;/li&gt;
  *     &lt;li&gt;otherwise, use the first provider returned by the {@code ValidationProviderResolver}&lt;/li&gt;
  * &lt;/ul&gt;
- * &lt;p/&gt;
+ * &lt;p&gt;
  * Implementations are not meant to be thread-safe.
  *
  * @author Emmanuel Bernard
  * @author Gunnar Morling
  * @author Hardy Ferentschik
+ * @author Guillaume Smet
  */</span>
 <span class="directive">public</span> <span class="type">interface</span> <span class="class">Configuration</span>&lt;T <span class="directive">extends</span> <span class="predefined-type">Configuration</span>&lt;T&gt;&gt; {
 
     <span class="comment">/**
      * Ignores data from the {@code META-INF/validation.xml} file if this
      * method is called.
-     * &lt;p/&gt;
+     * &lt;p&gt;
      * This method is typically useful for containers that parse
      * {@code META-INF/validation.xml} themselves and pass the information
      * via the {@code Configuration} methods.
@@ -9283,7 +9410,7 @@ acmeFactory.setSpecificConfiguration( [...] );</code></pre>
     <span class="comment">/**
      * Defines the message interpolator used. Has priority over the configuration
      * based message interpolator.
-     * &lt;p/&gt;
+     * &lt;p&gt;
      * If {@code null} is passed, the default message interpolator is used
      * (defined in XML or the specification default).
      *
@@ -9295,7 +9422,7 @@ acmeFactory.setSpecificConfiguration( [...] );</code></pre>
     <span class="comment">/**
      * Defines the traversable resolver used. Has priority over the configuration
      * based traversable resolver.
-     * &lt;p/&gt;
+     * &lt;p&gt;
      * If {@code null} is passed, the default traversable resolver is used
      * (defined in XML or the specification default).
      *
@@ -9307,7 +9434,7 @@ acmeFactory.setSpecificConfiguration( [...] );</code></pre>
     <span class="comment">/**
      * Defines the constraint validator factory. Has priority over the configuration
      * based constraint factory.
-     * &lt;p/&gt;
+     * &lt;p&gt;
      * If {@code null} is passed, the default constraint validator factory is used
      * (defined in XML or the specification default).
      *
@@ -9319,7 +9446,7 @@ acmeFactory.setSpecificConfiguration( [...] );</code></pre>
     <span class="comment">/**
      * Defines the parameter name provider. Has priority over the configuration
      * based provider.
-     * &lt;p/&gt;
+     * &lt;p&gt;
      * If {@code null} is passed, the default parameter name provider is used
      * (defined in XML or the specification default).
      *
@@ -9331,9 +9458,23 @@ acmeFactory.setSpecificConfiguration( [...] );</code></pre>
     T parameterNameProvider(ParameterNameProvider parameterNameProvider);
 
     <span class="comment">/**
+     * Defines the clock provider. Has priority over the configuration
+     * based provider.
+     * &lt;p&gt;
+     * If {@code null} is passed, the default clock provider is used
+     * (defined in XML or the specification default).
+     *
+     * @param clockProvider clock provider implementation
+     * @return {@code this} following the chaining method pattern.
+     *
+     * @since 2.0
+     */</span>
+    T clockProvider(ClockProvider clockProvider);
+
+    <span class="comment">/**
      * Add a stream describing constraint mapping in the Bean Validation XML
      * format.
-     * &lt;p/&gt;
+     * &lt;p&gt;
      * The stream should be closed by the client API after the
      * {@link ValidatorFactory} has been built. The Bean Validation provider
      * must not close the stream.
@@ -9354,9 +9495,9 @@ acmeFactory.setSpecificConfiguration( [...] );</code></pre>
      * XML configuration properties.
      * If the underlying provider does not know how to handle the property,
      * it must silently ignore it.
-     * &lt;p/&gt;
+     * &lt;p&gt;
      * Note: Using this non type-safe method is generally not recommended.
-     * &lt;p/&gt;
+     * &lt;p&gt;
      * It is more appropriate to use, if available, the type-safe equivalent provided
      * by a specific provider via its {@link Configuration} subclass.
      * &lt;pre&gt;
@@ -9367,10 +9508,10 @@ acmeFactory.setSpecificConfiguration( [...] );</code></pre>
      * &lt;/pre&gt;
      * This method is typically used by containers parsing {@code META-INF/validation.xml}
      * themselves and injecting the state to the {@code Configuration} object.
-     * &lt;p/&gt;
+     * &lt;p&gt;
      * If a property with a given name is defined both via this method and in the
      * XML configuration, the value set programmatically has priority.
-     * &lt;p/&gt;
+     * &lt;p&gt;
      * If {@code null} is passed as a value, the value defined in XML is used. If no value
      * is defined in XML, the property is considered unset.
      *
@@ -9444,9 +9585,24 @@ acmeFactory.setSpecificConfiguration( [...] );</code></pre>
     ParameterNameProvider getDefaultParameterNameProvider();
 
     <span class="comment">/**
+     * Returns an implementation of the {@link ClockProvider}
+     * interface following the default {@code ClockProvider}
+     * defined in the specification:
+     *
+     * TODO BVAL-496 paste definition of the specification
+     *
+     * @return default {@code ClockProvider} implementation compliant with
+     *         the specification
+     *
+     * @since 2.0
+     */</span>
+    ClockProvider getDefaultClockProvider();
+
+    <span class="comment">/**
      * Returns configuration information stored in the {@code META-INF/validation.xml} file.
-     * &lt;p/&gt;
-     * &lt;b&gt;Note&lt;/b&gt;:&lt;br/&gt;
+     * &lt;p&gt;
+     * &lt;b&gt;Note&lt;/b&gt;:
+     * &lt;br&gt;
      * Implementations are encouraged to lazily build this object to delay parsing.
      *
      * @return returns an instance of {@link BootstrapConfiguration}; this method never
@@ -9473,7 +9629,7 @@ acmeFactory.setSpecificConfiguration( [...] );</code></pre>
 <pre class="CodeRay highlight"><code data-lang="JAVA"><span class="comment">/**
  * Represents the user specified default configuration in
  * {@code META-INF/validation.xml}.
- * &lt;p/&gt;
+ * &lt;p&gt;
  * Note that modifications to the returned objects do not have any effect.
  * Instead use the methods provided on {@link Configuration} in order to
  * apply modifications to the configuration.
@@ -9481,6 +9637,7 @@ acmeFactory.setSpecificConfiguration( [...] );</code></pre>
  * @author Emmanuel Bernard
  * @author Gunnar Morling
  * @author Hardy Ferentschik
+ * @author Guillaume Smet
  * @since 1.1
  */</span>
 <span class="directive">public</span> <span class="type">interface</span> <span class="class">BootstrapConfiguration</span> {
@@ -9526,6 +9683,16 @@ acmeFactory.setSpecificConfiguration( [...] );</code></pre>
     <span class="predefined-type">String</span> getParameterNameProviderClassName();
 
     <span class="comment">/**
+     * Class name of the {@link ClockProvider} implementation or
+     * {@code null} if none is specified.
+     *
+     * @return clock provider class name or {@code null}
+     *
+     * @since 2.0
+     */</span>
+    <span class="predefined-type">String</span> getClockProviderClassName();
+
+    <span class="comment">/**
      * Returns a set of resource paths pointing to XML constraint mapping files.
      * The set is empty if none are specified.
      *
@@ -9544,7 +9711,7 @@ acmeFactory.setSpecificConfiguration( [...] );</code></pre>
     <span class="comment">/**
      * Returns the set of executable types that should be considered
      * unless explicitly overridden via {@link ValidateOnExecution}
-     * &lt;p/&gt;
+     * &lt;p&gt;
      * Returns a set containing {@link ExecutableType#CONSTRUCTORS} and
      * {@link ExecutableType#NON_GETTER_METHODS} if unspecified in the configuration.
      *
@@ -9571,7 +9738,7 @@ acmeFactory.setSpecificConfiguration( [...] );</code></pre>
 <p>To facilitate the use of provider specific configuration methods, <code class="classname">Configuration</code> uses generics: <code class="classname">Configuration&lt;T extends Configuration&lt;T&gt;&gt;</code> ; the generic return type <code class="classname">T</code> is returned by chaining methods. The provider specific sub interface must resolve the generic T as itself as shown in <a href="#example-providerspecific-config">Example of provider specific Configuration sub interface</a>.</p>
 </div>
 <div id="example-providerspecific-config" class="exampleblock">
-<div class="title">Example 81. Example of provider specific Configuration sub interface</div>
+<div class="title">Example 82. Example of provider specific Configuration sub interface</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -9614,7 +9781,7 @@ acmeFactory.setSpecificConfiguration( [...] );</code></pre>
 <p><span class="tck-not-testable">Streams represented in the XML configuration and opened by the <code class="classname">Configuration</code> implementation must be closed by the <code class="classname">Configuration</code> implementation after the <code class="classname">ValidatorFactory</code> creation (or if an exception occurs).</span> Streams provided programmatically are the responsibility of the application.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 82. ConfigurationState interface</div>
+<div class="title">Example 83. ConfigurationState interface</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -9623,7 +9790,7 @@ acmeFactory.setSpecificConfiguration( [...] );</code></pre>
 <span class="comment">/**
  * Contract between a {@link Configuration} and a
  * {@link ValidationProvider} to create a {@link ValidatorFactory}.
- * &lt;p/&gt;
+ * &lt;p&gt;
  * The configuration artifacts defined in the XML configuration and provided to the
  * {@code Configuration} are merged and passed along via
  * {@code ConfigurationState}.
@@ -9631,12 +9798,13 @@ acmeFactory.setSpecificConfiguration( [...] );</code></pre>
  * @author Emmanuel Bernard
  * @author Hardy Ferentschik
  * @author Gunnar Morling
+ * @author Guillaume Smet
  */</span>
 <span class="directive">public</span> <span class="type">interface</span> <span class="class">ConfigurationState</span> {
 
     <span class="comment">/**
      * Returns {@code true} if {@link Configuration#ignoreXmlConfiguration()} has been called.
-     * &lt;p/&gt;
+     * &lt;p&gt;
      * In this case, the {@link ValidatorFactory} must ignore
      * {@code META-INF/validation.xml}.
      *
@@ -9646,7 +9814,7 @@ acmeFactory.setSpecificConfiguration( [...] );</code></pre>
 
     <span class="comment">/**
      * Returns the message interpolator of this configuration.
-     * &lt;p/&gt;
+     * &lt;p&gt;
      * Message interpolator is defined in the following decreasing priority:
      * &lt;ul&gt;
      *     &lt;li&gt;set via the {@link Configuration} programmatic API&lt;/li&gt;
@@ -9662,14 +9830,14 @@ acmeFactory.setSpecificConfiguration( [...] );</code></pre>
 
     <span class="comment">/**
      * Returns a set of configuration streams.
-     * &lt;p/&gt;
+     * &lt;p&gt;
      * The streams are defined by:
      * &lt;ul&gt;
      *     &lt;li&gt;mapping XML streams passed programmatically in {@link Configuration}&lt;/li&gt;
      *     &lt;li&gt;mapping XML streams located in the resources defined in
      *     {@code META-INF/validation.xml} (constraint-mapping element)&lt;/li&gt;
      * &lt;/ul&gt;
-     * &lt;p/&gt;
+     * &lt;p&gt;
      * Streams represented in the XML configuration and opened by the
      * {@code Configuration} implementation must be closed by the
      * {@code Configuration} implementation after the {@link ValidatorFactory}
@@ -9683,7 +9851,7 @@ acmeFactory.setSpecificConfiguration( [...] );</code></pre>
 
     <span class="comment">/**
      * Returns the constraint validator factory of this configuration.
-     * &lt;p/&gt;
+     * &lt;p&gt;
      * The {@link ConstraintValidatorFactory} implementation is defined in the following
      * decreasing priority:
      * &lt;ul&gt;
@@ -9700,7 +9868,7 @@ acmeFactory.setSpecificConfiguration( [...] );</code></pre>
 
     <span class="comment">/**
      * Returns the traversable resolver for this configuration.
-     * &lt;p/&gt;
+     * &lt;p&gt;
      * {@link TraversableResolver} is defined in the following decreasing priority:
      * &lt;ul&gt;
      *     &lt;li&gt;set via the {@link Configuration} programmatic API&lt;/li&gt;
@@ -9716,7 +9884,7 @@ acmeFactory.setSpecificConfiguration( [...] );</code></pre>
 
     <span class="comment">/**
      * Returns the parameter name provider for this configuration.
-     * &lt;p/&gt;
+     * &lt;p&gt;
      * {@link ParameterNameProvider} is defined in the following decreasing priority:
      * &lt;ul&gt;
      *     &lt;li&gt;set via the {@link Configuration} programmatic API&lt;/li&gt;
@@ -9733,15 +9901,33 @@ acmeFactory.setSpecificConfiguration( [...] );</code></pre>
     ParameterNameProvider getParameterNameProvider();
 
     <span class="comment">/**
+     * Returns the clock provider for this configuration.
+     * &lt;p&gt;
+     * {@link ClockProvider} is defined in the following decreasing priority:
+     * &lt;ul&gt;
+     *     &lt;li&gt;set via the {@link Configuration} programmatic API&lt;/li&gt;
+     *     &lt;li&gt;defined in {@code META-INF/validation.xml} provided that
+     *     {@code ignoreXmlConfiguration} is {@code false}. In this case the instance
+     *     is created via its no-arg constructor.&lt;/li&gt;
+     *     &lt;li&gt;{@code null} if undefined.&lt;/li&gt;
+     * &lt;/ul&gt;
+     *
+     * @return clock provider instance or {@code null} if not defined
+     *
+     * @since 2.0
+     */</span>
+    ClockProvider getClockProvider();
+
+    <span class="comment">/**
      * Returns a map of non type-safe custom properties.
-     * &lt;p/&gt;
+     * &lt;p&gt;
      * Properties defined via:
      * &lt;ul&gt;
      *     &lt;li&gt;{@link Configuration#addProperty(String, String)}&lt;/li&gt;
      *     &lt;li&gt;{@code META-INF/validation.xml} provided that
-     *     {@code ignoreXmlConfiguration}&lt;/li&gt; is {@code false}.
+     *     {@code ignoreXmlConfiguration} is {@code false}.&lt;/li&gt;
      * &lt;/ul&gt;
-     * &lt;p/&gt;
+     * &lt;p&gt;
      * If a property is defined both programmatically and in XML,
      * the value defined programmatically has priority.
      *
@@ -9810,7 +9996,7 @@ acmeFactory.setSpecificConfiguration( [...] );</code></pre>
 <p>Here is an example of <code class="classname">Configuration</code> use.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 83. Use Configuration</div>
+<div class="title">Example 84. Use Configuration</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -9827,7 +10013,7 @@ ValidatorFactory factory = configuration
 <p>The following shows an example of setting up a <code class="classname">Configuration</code>, retrieving a validator factory from it, subsequently altering the configuration and then retrieving another factory:</p>
 </div>
 <div id="using-configuration-several-times" class="exampleblock">
-<div class="title">Example 84. Using Configuration to create several validator factories</div>
+<div class="title">Example 85. Using Configuration to create several validator factories</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -9858,7 +10044,7 @@ ValidatorFactory factory2 = configuration
 <p><span class="tck-testable"><code class="classname">ValidationProviderResolver</code> returns the list of Bean Validation providers available at runtime and more specifically a <code class="classname">ValidationProvider</code> instance for each provider available in the context.</span> This service can be customized by implementing <code class="classname">ValidationProviderResolver</code>. <span class="tck-not-testable">Implementations must be thread-safe.</span></p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 85. ValidationProviderResolver</div>
+<div class="title">Example 86. ValidationProviderResolver</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -9922,7 +10108,7 @@ ValidatorFactory factory2 = configuration
 </ul>
 </div>
 <div class="exampleblock">
-<div class="title">Example 86. ValidationProvider</div>
+<div class="title">Example 87. ValidationProvider</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -9986,7 +10172,7 @@ ValidatorFactory factory2 = configuration
 </div>
 </div>
 <div class="exampleblock">
-<div class="title">Example 87. BootstrapState interface</div>
+<div class="title">Example 88. BootstrapState interface</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -10027,7 +10213,7 @@ ValidatorFactory factory2 = configuration
 <p>A <code class="classname">ValidationProvider</code> implementation is linked (via its generic parameter) to a specific sub interface of <code class="classname">Configuration</code>. The Bean Validation bootstrap API makes use of this link to return the specific <code class="classname">Configuration</code> subinterface implementation in a type-safe way when a specific provider is requested. The sub interface does not have to add any new methods but is the natural holder for provider specific configuration methods.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 88. Example of provider specific Configuration sub interface</div>
+<div class="title">Example 89. Example of provider specific Configuration sub interface</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -10123,7 +10309,7 @@ ValidatorFactory factory2 = configuration
 <p>The <code class="classname">Validation</code> class is the entry point used to bootstrap Bean Validation providers. <span class="tck-testable">The first entry point, <code class="methodname">buildDefaultValidatorFactory()</code>, is considered to be the default <code class="classname">ValidatorFactory</code> and is equivalent to the <code class="classname">ValidatorFactory</code> returned by <code class="code">Validation.byDefaultProvider().configure().buildValidatorFactory()</code>.</span></p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 89. Validation methods available</div>
+<div class="title">Example 90. Validation methods available</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -10266,7 +10452,7 @@ ValidatorFactory factory2 = configuration
 <p><span class="tck-testable">The second entry point lets the client provide a custom <code class="classname">ValidationProviderResolution</code> instance. This instance is passed to <code class="classname">GenericBootstrap</code>. <code class="classname">GenericBootstrap</code> builds a generic <code class="classname">Configuration</code> using the first <code class="classname">ValidationProvider</code> returned by <code class="classname">ValidationProviderResolution</code> and calling <code class="code">ValidationProvider.createGenericConfiguration(BootstrapState state)</code>.</span> <code class="classname">BootstrapState</code> holds the <code class="classname">ValidationProviderResolution</code> instance passed to <code class="classname">GenericBootstrap</code> and will be used by the <code class="classname">Configuration</code> instance when resolving the provider to use. Note that <code class="code">ValidationProvider.createGenericConfiguration</code> returns a <code class="classname">Configuration</code> object not bound to any particular provider.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 90. GenericBootstrap interface</div>
+<div class="title">Example 91. GenericBootstrap interface</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -10318,7 +10504,7 @@ ValidatorFactory factory2 = configuration
 <p>A <code class="classname">ProviderSpecificBootstrap</code> object can optionally receive a <code class="classname">ValidationProviderResolver</code> instance.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 91. ProviderSpecificBootstrap interface</div>
+<div class="title">Example 92. ProviderSpecificBootstrap interface</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -10399,9 +10585,6 @@ ValidatorFactory factory2 = configuration
 <p><span class="tck-testable">Unless explicitly ignored by calling <code class="classname">Configuration.ignoreXMLConfiguration()</code>, a <code class="classname">Configuration</code> takes into account the configuration available in <code class="filename">META-INF/validation.xml</code>.</span> <span class="tck-testable">This configuration file is optional</span> but can be used by applications to refine some of the Bean Validation behavior. <span class="tck-not-testable">If more than one <code class="filename">META-INF/validation.xml</code> file is found in the classpath, a <code class="classname">ValidationException</code> is raised.</span></p>
 </div>
 <div class="paragraph">
-<p><span class="tck-testable">Implementations supporting Bean Validation 1.1 must properly parse deployment descriptors of Bean Validation 1.0 and 1.1.</span></p>
-</div>
-<div class="paragraph">
 <p><span class="tck-testable">Unless stated otherwise, XML based configuration settings are overridden by values explicitly set via the <code class="classname">Configuration</code> API.</span> For example, the <code class="classname">MessageInterpolator</code> defined via <code class="methodname">Configuration.messageInterpolator(MessageInterpolator)</code> has priority over the <code>message-interpolator</code> definition.</p>
 </div>
 <div class="paragraph">
@@ -10418,6 +10601,9 @@ ValidatorFactory factory2 = configuration
 </div>
 <div class="paragraph">
 <p><span class="tck-testable"><code>parameter-name-provider</code>: represents the fully qualified class name of the <code class="classname">ParameterNameProvider</code> implementation. When defined in XML, the implementation must have a public no-arg constructor.</span></p>
+</div>
+<div class="paragraph">
+<p><span class="tck-testable"><code>clock-provider</code>: represents the fully qualified class name of the <code class="classname">ClockProvider</code> implementation. When defined in XML, the implementation must have a public no-arg constructor.</span></p>
 </div>
 <div class="paragraph">
 <p><span class="tck-testable"><code>executable-validation</code>: allows to disable executable validation entirely via its attribute <code class="code">enabled="false"</code> and optionally contains <code>default-validated-executable-types</code>. <code>enabled</code> defaults to <code>true</code>.</span></p>
@@ -10438,7 +10624,7 @@ ValidatorFactory factory2 = configuration
 <p><span class="tck-testable">If a public no-arg constructor is missing on any of the classes referenced by the relevant XML elements, a <code class="classname">ValidationException</code> is raised during the <code class="methodname">Configuration.buildValidatorFactory()</code> call.</span></p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 92. Example of META-INF/validation.xml file</div>
+<div class="title">Example 93. Example of META-INF/validation.xml file</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -10512,7 +10698,7 @@ ValidatorFactory factory2 = configuration
 <p>A <code class="classname">Validator</code> instance hosts the method to access to the metadata repository for a given class. It is recommended to leave the caching of <code class="classname">Validator</code> instances to the <code class="classname">ValidatorFactory</code>. <code class="classname">Validator</code> implementations are thread-safe.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 93. Validator interface (metadata request API)</div>
+<div class="title">Example 94. Validator interface (metadata request API)</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -10562,7 +10748,7 @@ ValidatorFactory factory2 = configuration
 <p><code class="classname">ElementDescriptor</code> is the root interface describing elements hosting constraints. It is used to describe the list of constraints for a given element (whether it be a class, property, method etc.).</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 94. ElementDescriptor interface</div>
+<div class="title">Example 95. ElementDescriptor interface</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -10743,7 +10929,7 @@ ValidatorFactory factory2 = configuration
 <p>Here is an example restricting the list of constraints on getters, matching the default group and declared physically on the <code>name</code> getter of <code class="classname">Customer</code> (and not any of the getters on the super classes).</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 95. Using the fluent API to restrict matching constraints</div>
+<div class="title">Example 96. Using the fluent API to restrict matching constraints</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -10787,7 +10973,7 @@ constraints = pd.getConstraintDescriptors();
 <p>The following example shows how the fluent API is used to retrieve parameter, cross-parameter and return value constraints, taking into account locally declared constraints as well as constraints declared in the inheritance hierarchy.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 96. Using the fluent API to select method and constructor constraints</div>
+<div class="title">Example 97. Using the fluent API to select method and constructor constraints</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -10867,7 +11053,7 @@ ConstructorDescriptor constructorDescriptor = validator
 <p>The <code class="classname">BeanDescriptor</code> interface describes a constrained Java Bean. This interface is returned by <code class="methodname">Validator.getConstraintsForClass(Class&lt;?&gt;)</code>.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 97. BeanDescriptor interface</div>
+<div class="title">Example 98. BeanDescriptor interface</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -10995,7 +11181,7 @@ ConstructorDescriptor constructorDescriptor = validator
 </div>
 </div>
 <div class="exampleblock">
-<div class="title">Example 98. MethodType</div>
+<div class="title">Example 99. MethodType</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -11935,7 +12121,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 <p>All built-in constraints are in the <code class="classname">javax.validation.constraints</code> package. Here is the list of constraints and their declaration.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 99. <span class="tck-testable">@Null constraint</span></div>
+<div class="title">Example 100. <span class="tck-testable">@Null constraint</span></div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -11978,7 +12164,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 </div>
 </div>
 <div class="exampleblock">
-<div class="title">Example 100. <span class="tck-testable">@NotNull constraint</span></div>
+<div class="title">Example 101. <span class="tck-testable">@NotNull constraint</span></div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -12021,7 +12207,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 </div>
 </div>
 <div class="exampleblock">
-<div class="title">Example 101. <span class="tck-testable">@AssertTrue constraint</span></div>
+<div class="title">Example 102. <span class="tck-testable">@AssertTrue constraint</span></div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -12066,7 +12252,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 </div>
 </div>
 <div class="exampleblock">
-<div class="title">Example 102. <span class="tck-testable">@AssertFalse constraint</span></div>
+<div class="title">Example 103. <span class="tck-testable">@AssertFalse constraint</span></div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -12111,7 +12297,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 </div>
 </div>
 <div class="exampleblock">
-<div class="title">Example 103. <span class="tck-testable">@Min constraint</span></div>
+<div class="title">Example 104. <span class="tck-testable">@Min constraint</span></div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -12171,7 +12357,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 </div>
 </div>
 <div class="exampleblock">
-<div class="title">Example 104. <span class="tck-testable">@Max constraint</span></div>
+<div class="title">Example 105. <span class="tck-testable">@Max constraint</span></div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -12231,7 +12417,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 </div>
 </div>
 <div class="exampleblock">
-<div class="title">Example 105. <span class="tck-testable">@DecimalMin constraint</span></div>
+<div class="title">Example 106. <span class="tck-testable">@DecimalMin constraint</span></div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -12306,7 +12492,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 </div>
 </div>
 <div class="exampleblock">
-<div class="title">Example 106. <span class="tck-testable">@DecimalMax constraint</span></div>
+<div class="title">Example 107. <span class="tck-testable">@DecimalMax constraint</span></div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -12381,7 +12567,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 </div>
 </div>
 <div class="exampleblock">
-<div class="title">Example 107. <span class="tck-testable">@Size constraint</span></div>
+<div class="title">Example 108. <span class="tck-testable">@Size constraint</span></div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -12443,7 +12629,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 </div>
 </div>
 <div class="exampleblock">
-<div class="title">Example 108. <span class="tck-testable">@Digits constraint</span></div>
+<div class="title">Example 109. <span class="tck-testable">@Digits constraint</span></div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -12505,19 +12691,21 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 </div>
 </div>
 <div class="exampleblock">
-<div class="title">Example 109. <span class="tck-testable">@Past constraint</span></div>
+<div class="title">Example 110. <span class="tck-testable">@Past constraint</span></div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="JAVA"><span class="keyword">package</span> <span class="namespace">javax.validation.constraints</span>;
 
+<span class="keyword">import</span> <span class="include">javax.validation.Payload</span>;
+<span class="keyword">import</span> <span class="include">javax.validation.constraints.Past.List</span>;
 
 <span class="comment">/**
- * The annotated element must be a date in the past.
- * Now is defined as the current time according to the virtual machine.
+The annotated element must be an instant, date or time in the past.
  * &lt;p&gt;
- * The calendar used if the compared type is of type {@code Calendar}
- * is the calendar based on the current time zone and the current locale.
+ * By default, &quot;now&quot; is defined as the current time according to the virtual machine, applying the current default time
+ * zone if needed. If required, an alternative {@link ClockProvider} can be specified when bootstrapping a validator
+ * factory or validator, allowing to customize the {@link Clock} representing the current instant, date and time.
  * &lt;p&gt;
  * Supported types are:
  * &lt;ul&gt;
@@ -12582,18 +12770,21 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 </div>
 </div>
 <div class="exampleblock">
-<div class="title">Example 110. <span class="tck-testable">@Future constraint</span></div>
+<div class="title">Example 111. <span class="tck-testable">@Future constraint</span></div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="JAVA"><span class="keyword">package</span> <span class="namespace">javax.validation.constraints</span>;
 
+<span class="keyword">import</span> <span class="include">javax.validation.Payload</span>;
+<span class="keyword">import</span> <span class="include">javax.validation.constraints.Future.List</span>;
 
 <span class="comment">/**
- * The annotated element must be a date in the future.
- * Now is defined as the current time according to the virtual machine
- * The calendar used if the compared type is of type {@code Calendar}
- * is the calendar based on the current time zone and the current locale.
+ * The annotated element must be an instant, date or time in the future.
+ * &lt;p&gt;
+ * By default, &quot;now&quot; is defined as the current time according to the virtual machine, applying the current default time
+ * zone if needed. If required, an alternative {@link ClockProvider} can be specified when bootstrapping a validator
+ * factory or validator, allowing to customize the {@link Clock} representing the current instant, date and time.
  * &lt;p&gt;
  * Supported types are:
  * &lt;ul&gt;
@@ -12658,7 +12849,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 </div>
 </div>
 <div class="exampleblock">
-<div class="title">Example 111. <span class="tck-testable">@Pattern constraint</span></div>
+<div class="title">Example 112. <span class="tck-testable">@Pattern constraint</span></div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -12843,7 +13034,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 <p><span class="tck-testable">If the name of the class does refer to a class not present in the classpath, a <code class="classname">ValidationException</code> is raised.</span></p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 112. Example of bean XML declaration</div>
+<div class="title">Example 113. Example of bean XML declaration</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -12887,7 +13078,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 </ul>
 </div>
 <div class="exampleblock">
-<div class="title">Example 113. Example of class-level declaration</div>
+<div class="title">Example 114. Example of class-level declaration</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -12940,7 +13131,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 <p><span class="tck-testable">If the name of the field does not correspond to a field in the given bean a <code class="classname">ValidationException</code> is raised.</span></p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 114. Field-level declaration</div>
+<div class="title">Example 115. Field-level declaration</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -12992,7 +13183,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 <p><span class="tck-testable">If the name of the property does not correspond to a property in the given bean a <code class="classname">ValidationException</code> is raised.</span></p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 115. Property-level declaration</div>
+<div class="title">Example 116. Property-level declaration</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -13098,7 +13289,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 </ul>
 </div>
 <div class="exampleblock">
-<div class="title">Example 116. Constructor-level declaration</div>
+<div class="title">Example 117. Constructor-level declaration</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -13230,7 +13421,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 </ul>
 </div>
 <div class="exampleblock">
-<div class="title">Example 117. Method-level declaration</div>
+<div class="title">Example 118. Method-level declaration</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -13307,7 +13498,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 <p><span class="tck-testable">Elements with default values in the annotation definition do not have to be represented in XML: the default value will be used in this case.</span> <span class="tck-testable">If an XML constraint declaration is missing mandatory elements, or if it contains elements not part of the constraint definition, a <code class="classname">ValidationException</code> is raised.</span></p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 118. Constraint declaration</div>
+<div class="title">Example 119. Constraint declaration</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -13442,7 +13633,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 <p><span class="tck-testable">Source and target group of a conversion rule are given by specifying their fully-qualified names within the <code>from</code> and <code>to</code> attribute respectively. If the <code>default-package</code> element is configured for the mapping file, any unqualified class names will be resolved using the given default package.</span></p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 119. Declaration of group conversions</div>
+<div class="title">Example 120. Declaration of group conversions</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -13508,7 +13699,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 <p><span class="tck-testable">If <code>include-existing-validator</code> is set to false, <code class="classname">ConstraintValidator</code> defined on the constraint annotation are ignored.</span> <span class="tck-testable">If set to true, the list of <code class="classname">ConstraintValidator</code>s described in XML are concatenated to the list of <code class="classname">ConstraintValidator</code> described on the annotation to form a new array of <code class="classname">ConstraintValidator</code> evaluated.</span> <span class="tck-testable">Annotation based <code class="classname">ConstraintValidator</code> come before XML based <code class="classname">ConstraintValidator</code>s in the array.</span> <span class="tck-testable">The new list is returned by <code class="methodname">ConstraintDescriptor.getConstraintValidatorClasses()</code>.</span></p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 120. Overriding constraint definitions</div>
+<div class="title">Example 121. Overriding constraint definitions</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -13601,7 +13792,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 <p><span class="tck-testable">In case an unknown version is given (e.g. if a mapping descriptor adhering to a future schema version is parsed by a Bean Validation 2.0 provider) a <code class="classname">ValidationException</code> is raised.</span></p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 121. XML schema for constraint mapping descriptors</div>
+<div class="title">Example 122. XML schema for constraint mapping descriptors</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -13632,7 +13823,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
                     http://xmlns.jcp.org/xml/ns/validation/mapping
                     validation-mapping-2.0.xsd&quot;
                 version=&quot;2.0&quot;&gt;
-                [...]
+                ...
             &lt;/constraint-mappings&gt;
         <span class="inline-delimiter">]]&gt;</span>
         <span class="tag">&lt;/xs:documentation&gt;</span>
@@ -13675,7 +13866,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
     <span class="tag">&lt;/xs:complexType&gt;</span>
     <span class="tag">&lt;xs:simpleType</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">versionType</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
         <span class="tag">&lt;xs:restriction</span> <span class="attribute-name">base</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">xs:token</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
-            <span class="tag">&lt;xs:pattern</span> <span class="attribute-name">value</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">[0-9]`(\.[0-9]`)*</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+            <span class="tag">&lt;xs:pattern</span> <span class="attribute-name">value</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">[0-9]+(\.[0-9]+)*</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
         <span class="tag">&lt;/xs:restriction&gt;</span>
     <span class="tag">&lt;/xs:simpleType&gt;</span>
     <span class="tag">&lt;xs:complexType</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">validated-byType</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
@@ -13879,7 +14070,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 <p>XML Configuration is set in <code class="filename">META-INF/validation.xml</code>. The file is optional. The XML schema followed by the configuration file is as followed.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 122. XML configuration XSD</div>
+<div class="title">Example 123. XML configuration XSD</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -13925,6 +14116,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
             <span class="tag">&lt;xs:element</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">xs:string</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">traversable-resolver</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">minOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">0</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
             <span class="tag">&lt;xs:element</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">xs:string</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">constraint-validator-factory</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">minOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">0</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
             <span class="tag">&lt;xs:element</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">xs:string</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">parameter-name-provider</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">minOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">0</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+            <span class="tag">&lt;xs:element</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">xs:string</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">clock-provider</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">minOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">0</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
             <span class="tag">&lt;xs:element</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">config:executable-validationType</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">executable-validation</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">minOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">0</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
             <span class="tag">&lt;xs:element</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">xs:string</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">constraint-mapping</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">maxOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">unbounded</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">minOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">0</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
             <span class="tag">&lt;xs:element</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">config:propertyType</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">property</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">maxOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">unbounded</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">minOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">0</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
@@ -13962,7 +14154,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
     <span class="tag">&lt;/xs:complexType&gt;</span>
     <span class="tag">&lt;xs:simpleType</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">versionType</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
         <span class="tag">&lt;xs:restriction</span> <span class="attribute-name">base</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">xs:token</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
-            <span class="tag">&lt;xs:pattern</span> <span class="attribute-name">value</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">[0-9]`(\.[0-9]`)*</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span>
+            <span class="tag">&lt;xs:pattern</span> <span class="attribute-name">value</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">[0-9]+(\.[0-9]+)*</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span>
         <span class="tag">&lt;/xs:restriction&gt;</span>
     <span class="tag">&lt;/xs:simpleType&gt;</span>
 <span class="tag">&lt;/xs:schema&gt;</span></code></pre>
@@ -14045,7 +14237,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 <p>Each of these error cases lead to a <code class="classname">ValidationException</code> or a subclass of <code class="classname">ValidationException</code> (see following subsections).</p>
 </div>
 <div class="paragraph">
-<p><span class="tck-testable">Every (runtime) exception raised either at initialization time or execution time by any of the extension interfaces (<code class="classname">ConstraintValidator</code>, <code class="classname">ConstraintValidatorFactory</code>, <code class="classname">MessageInterpolator</code>, <code class="classname">TraversableResolver</code>, <code class="classname">ValidationProviderResolver</code>, <code class="classname">ParameterNameProvider</code>) is wrapped in a <code class="classname">ValidationException</code>.</span></p>
+<p><span class="tck-testable">Every (runtime) exception raised either at initialization time or execution time by any of the extension interfaces (<code class="classname">ConstraintValidator</code>, <code class="classname">ConstraintValidatorFactory</code>, <code class="classname">MessageInterpolator</code>, <code class="classname">TraversableResolver</code>, <code class="classname">ValidationProviderResolver</code>, <code class="classname">ParameterNameProvider</code>, <code class="classname">ClockProvider</code>) is wrapped in a <code class="classname">ValidationException</code>.</span></p>
 </div>
 <div class="paragraph">
 <p>If a constraint definition or constraint declaration is invalid for a given class, the metadata API should raise the according exception.</p>
@@ -14059,7 +14251,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 <p>Bean Validation provides a reference exception for such cases. Frameworks and applications are encouraged to use <code class="classname">ConstraintViolationException</code> as opposed to a custom exception to increase consistency of the Java platform. The exception can be raised directly or wrapped into the framework or application specific parent exception.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 123. ConstraintViolationException</div>
+<div class="title">Example 124. ConstraintViolationException</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -14246,7 +14438,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 <p><span class="tck-testable">configure <code class="classname">ValidatorFactory</code> with a custom <code class="classname">ConstraintValidatorFactory</code> instance that returns managed <code class="classname">ConstraintValidator</code> instances, unless a custom <code class="classname">ConstraintValidatorFactory</code> is requested by the user. The scope of <code class="classname">ConstraintValidator</code> instances is still fully controlled by the Bean Validation provider as described in <a href="#constraintsdefinitionimplementation-constraintfactory">The ConstraintValidatorFactory</a>, but as managed beans they can receive expected services like injection of other objects.</span></p>
 </li>
 <li>
-<p><span class="tck-testable">configure <code class="classname">ValidatorFactory</code> with managed instances of <code class="classname">ConstraintValidatorFactory</code>, <code class="classname">MessageInterpolator</code>, <code class="classname">ParameterNameProvider</code> and <code class="classname">TraversableResolver</code>, if such instances are defined in the XML deployment descriptor. Services provided by the container (like dependency injection) should thus be available to these instances.</span></p>
+<p><span class="tck-testable">configure <code class="classname">ValidatorFactory</code> with managed instances of <code class="classname">ConstraintValidatorFactory</code>, <code class="classname">MessageInterpolator</code>, <code class="classname">ParameterNameProvider</code>, <code class="classname">ClockProvider</code> and <code class="classname">TraversableResolver</code>, if such instances are defined in the XML deployment descriptor. Services provided by the container (like dependency injection) should thus be available to these instances.</span></p>
 </li>
 <li>
 <p><span class="tck-not-testable">invoke <code class="methodname">ValidatorFactory.close()</code> when the <code class="classname">ValidatorFactory</code> instance is no longer needed.</span></p>
@@ -14376,7 +14568,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 <p><span class="tck-not-testable">Mixing <code>IMPLICIT</code> and other executable types is illegal.</span></p>
 </div>
 <div id="example-validateonexecution" class="exampleblock">
-<div class="title">Example 124. @ValidateOnExecution annotation</div>
+<div class="title">Example 125. @ValidateOnExecution annotation</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -14509,7 +14701,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 <p><span class="tck-testable">You can globally disable executable validation by using <code class="code">&lt;executable-validation enabled="false"/&gt;</code>, in this case, <code class="code">&lt;default-validated-executable-types/&gt;</code> and <code class="classname">@ValidateOnExecution</code> are ignored.</span></p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 125. validation.xml disabling executable validation</div>
+<div class="title">Example 126. validation.xml disabling executable validation</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -14560,7 +14752,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 <p>The following example shows some of the way you can refine executable validation with <code class="classname">@ValidateOnExecution</code>.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 126. Method validation configurations</div>
+<div class="title">Example 127. Method validation configurations</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -14683,9 +14875,9 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 </div>
 </div>
 <div class="sect3">
-<h4 id="__code_class_classname_constraintvalidatorfactory_code_code_class_classname_messageinterpolator_code_code_class_classname_parameternameprovider_code_and_code_class_classname_traversableresolver_code"><a class="anchor" href="#__code_class_classname_constraintvalidatorfactory_code_code_class_classname_messageinterpolator_code_code_class_classname_parameternameprovider_code_and_code_class_classname_traversableresolver_code"></a>10.3.2. <code class="classname">ConstraintValidatorFactory</code>, <code class="classname">MessageInterpolator</code>, <code class="classname">ParameterNameProvider</code> and <code class="classname">TraversableResolver</code></h4>
+<h4 id="__code_class_classname_constraintvalidatorfactory_code_code_class_classname_messageinterpolator_code_code_class_classname_parameternameprovider_code_code_class_classname_clockprovider_code_and_code_class_classname_traversableresolver_code"><a class="anchor" href="#__code_class_classname_constraintvalidatorfactory_code_code_class_classname_messageinterpolator_code_code_class_classname_parameternameprovider_code_code_class_classname_clockprovider_code_and_code_class_classname_traversableresolver_code"></a>10.3.2. <code class="classname">ConstraintValidatorFactory</code>, <code class="classname">MessageInterpolator</code>, <code class="classname">ParameterNameProvider</code>, <code class="classname">ClockProvider</code> and <code class="classname">TraversableResolver</code></h4>
 <div class="paragraph">
-<p><span class="tck-testable">If a custom <code class="classname">ConstraintValidatorFactory</code>, <code class="classname">MessageInterpolator</code>, <code class="classname">ParameterNameProvider</code> or <code class="classname">TraversableResolver</code> class is defined in the XML deployment descriptor (see <a href="#xml-config">XML configuration: META-INF/validation.xml</a>), the <code class="classname">ValidatorFactory</code> must be configured with CDI managed beans representing the requested classes. Services like dependency injection, interception and decoration must thus be made available to these instances by the container.</span></p>
+<p><span class="tck-testable">If a custom <code class="classname">ConstraintValidatorFactory</code>, <code class="classname">MessageInterpolator</code>, <code class="classname">ParameterNameProvider</code>, <code class="classname">ClockProvider</code> or <code class="classname">TraversableResolver</code> class is defined in the XML deployment descriptor (see <a href="#xml-config">XML configuration: META-INF/validation.xml</a>), the <code class="classname">ValidatorFactory</code> must be configured with CDI managed beans representing the requested classes. Services like dependency injection, interception and decoration must thus be made available to these instances by the container.</span></p>
 </div>
 <div class="paragraph tck-testable">
 <p><div class="paragraph">
@@ -16227,11 +16419,11 @@ Provide a way to disable BV metadata use by a persistence provider (property bas
 <h2 id="changelog"><a class="anchor" href="#changelog"></a>Appendix E: Changelog</h2>
 <div class="sectionbody">
 <div class="exampleblock">
-<div class="title">Example 127. Changelog</div>
+<div class="title">Example 128. Changelog</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>1.1.0.Final (2013-04-10)
+<pre class="CodeRay highlight"><code>1.1.0.Final (2013-04-10)
 ------------------------
 
 ** Improvement
@@ -16697,7 +16889,7 @@ Provide a way to disable BV metadata use by a persistence provider (property bas
     * [BVAL-5] - Change order of exmaple classes in Book/Author example
     * [BVAL-7] - Use of example in ConstraintFactory section (2.4)
     * [BVAL-8] - StandardConstraint description (2.5)
-    * [BVAL-23] - Make Validator&lt;T&gt; thread-safe</pre>
+    * [BVAL-23] - Make Validator&lt;T&gt; thread-safe</code></pre>
 </div>
 </div>
 </div>
@@ -16707,7 +16899,7 @@ Provide a way to disable BV metadata use by a persistence provider (property bas
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-01-06 15:08:11 +00:00
+Last updated 2017-01-11 12:13:36 +00:00
 </div>
 </div>
 </body>
