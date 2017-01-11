@@ -12697,15 +12697,13 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="JAVA"><span class="keyword">package</span> <span class="namespace">javax.validation.constraints</span>;
 
-<span class="keyword">import</span> <span class="include">javax.validation.Payload</span>;
-<span class="keyword">import</span> <span class="include">javax.validation.constraints.Past.List</span>;
 
 <span class="comment">/**
-The annotated element must be an instant, date or time in the past.
+ * The annotated element must be a date in the past.
+ * Now is defined as the current time according to the virtual machine.
  * &lt;p&gt;
- * By default, &quot;now&quot; is defined as the current time according to the virtual machine, applying the current default time
- * zone if needed. If required, an alternative {@link ClockProvider} can be specified when bootstrapping a validator
- * factory or validator, allowing to customize the {@link Clock} representing the current instant, date and time.
+ * The calendar used if the compared type is of type {@code Calendar}
+ * is the calendar based on the current time zone and the current locale.
  * &lt;p&gt;
  * Supported types are:
  * &lt;ul&gt;
@@ -12776,15 +12774,12 @@ The annotated element must be an instant, date or time in the past.
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="JAVA"><span class="keyword">package</span> <span class="namespace">javax.validation.constraints</span>;
 
-<span class="keyword">import</span> <span class="include">javax.validation.Payload</span>;
-<span class="keyword">import</span> <span class="include">javax.validation.constraints.Future.List</span>;
 
 <span class="comment">/**
- * The annotated element must be an instant, date or time in the future.
- * &lt;p&gt;
- * By default, &quot;now&quot; is defined as the current time according to the virtual machine, applying the current default time
- * zone if needed. If required, an alternative {@link ClockProvider} can be specified when bootstrapping a validator
- * factory or validator, allowing to customize the {@link Clock} representing the current instant, date and time.
+ * The annotated element must be a date in the future.
+ * Now is defined as the current time according to the virtual machine
+ * The calendar used if the compared type is of type {@code Calendar}
+ * is the calendar based on the current time zone and the current locale.
  * &lt;p&gt;
  * Supported types are:
  * &lt;ul&gt;
@@ -16899,7 +16894,7 @@ Provide a way to disable BV metadata use by a persistence provider (property bas
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-01-11 12:27:45 +00:00
+Last updated 2017-01-11 14:03:41 +00:00
 </div>
 </div>
 </body>
