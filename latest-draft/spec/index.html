@@ -1482,7 +1482,7 @@ limitations under the License.</p>
 <pre class="CodeRay highlight"><code data-lang="JAVA"><span class="keyword">package</span> <span class="namespace">com.acme.constraint</span>;
 
 <span class="comment">/**
- * Defines the list of values accepted Accepts int or Integer objects
+ * Defines the list of values accepted. Accepts int or Integer objects.
  */</span>
 <span class="annotation">@Documented</span>
 <span class="annotation">@Constraint</span>(validatedBy = DiscreteListOfIntegerValidator.class)
@@ -1765,7 +1765,7 @@ It is also possible to specify a constraint several times by explicitly using th
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="JAVA"><span class="annotation">@Pattern</span>(regexp = <span class="string"><span class="delimiter">&quot;</span><span class="content">[0-9]*</span><span class="delimiter">&quot;</span></span>)
-<span class="annotation">@Size</span>(min = <span class="integer">9</span>, max = <span class="integer">9</span>, message = <span class="string"><span class="delimiter">&quot;</span><span class="content">Zip code should be of size {max}</span><span class="delimiter">&quot;</span></span>)
+<span class="annotation">@Size</span>
 <span class="annotation">@Constraint</span>(validatedBy = FrenchZipCodeValidator.class)
 <span class="annotation">@Documented</span>
 <span class="annotation">@Target</span>({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
@@ -1777,6 +1777,17 @@ It is also possible to specify a constraint several times by explicitly using th
     <span class="predefined-type">Class</span>&lt;?&gt;<span class="type">[]</span> groups() <span class="keyword">default</span> {};
 
     <span class="predefined-type">Class</span>&lt;? <span class="directive">extends</span> Payload&gt;<span class="type">[]</span> payload() <span class="keyword">default</span> {};
+
+    <span class="annotation">@OverridesAttribute</span>.List({
+            <span class="annotation">@OverridesAttribute</span>(constraint = Size.class, name = <span class="string"><span class="delimiter">&quot;</span><span class="content">min</span><span class="delimiter">&quot;</span></span>),
+            <span class="annotation">@OverridesAttribute</span>(constraint = Size.class, name = <span class="string"><span class="delimiter">&quot;</span><span class="content">max</span><span class="delimiter">&quot;</span></span>) })
+    <span class="type">int</span> size() <span class="keyword">default</span> <span class="integer">5</span>;
+
+    <span class="annotation">@OverridesAttribute</span>(constraint = Size.class, name = <span class="string"><span class="delimiter">&quot;</span><span class="content">message</span><span class="delimiter">&quot;</span></span>)
+    <span class="predefined-type">String</span> sizeMessage() <span class="keyword">default</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">{com.acme.constraint.FrenchZipCode.zipCode.size}</span><span class="delimiter">&quot;</span></span>;
+
+    <span class="annotation">@OverridesAttribute</span>(constraint = <span class="predefined-type">Pattern</span>.class, name = <span class="string"><span class="delimiter">&quot;</span><span class="content">message</span><span class="delimiter">&quot;</span></span>)
+    <span class="predefined-type">String</span> numberMessage() <span class="keyword">default</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">{com.acme.constraint.FrenchZipCode.number.size}</span><span class="delimiter">&quot;</span></span>;
 
     <span class="annotation">@Target</span>({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
     <span class="annotation">@Retention</span>(RUNTIME)
@@ -1835,7 +1846,7 @@ It is also possible to specify a constraint several times by explicitly using th
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="JAVA"><span class="annotation">@Pattern</span>(regexp = <span class="string"><span class="delimiter">&quot;</span><span class="content">[0-9]*</span><span class="delimiter">&quot;</span></span>)
-<span class="annotation">@Size</span>
+<span class="annotation">@Size</span>(min = <span class="integer">9</span>, max = <span class="integer">9</span>, message = <span class="string"><span class="delimiter">&quot;</span><span class="content">Zip code should be of size {max}</span><span class="delimiter">&quot;</span></span>)
 <span class="annotation">@Constraint</span>(validatedBy = FrenchZipCodeValidator.class)
 <span class="annotation">@Documented</span>
 <span class="annotation">@Target</span>({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
@@ -1848,21 +1859,11 @@ It is also possible to specify a constraint several times by explicitly using th
 
     <span class="predefined-type">Class</span>&lt;? <span class="directive">extends</span> Payload&gt;<span class="type">[]</span> payload() <span class="keyword">default</span> {};
 
-    <span class="annotation">@OverridesAttribute</span>.List({
-            <span class="annotation">@OverridesAttribute</span>(constraint = Size.class, name = <span class="string"><span class="delimiter">&quot;</span><span class="content">min</span><span class="delimiter">&quot;</span></span>),
-            <span class="annotation">@OverridesAttribute</span>(constraint = Size.class, name = <span class="string"><span class="delimiter">&quot;</span><span class="content">max</span><span class="delimiter">&quot;</span></span>) })
-    <span class="type">int</span> size() <span class="keyword">default</span> <span class="integer">5</span>;
-
-    <span class="annotation">@OverridesAttribute</span>(constraint = Size.class, name = <span class="string"><span class="delimiter">&quot;</span><span class="content">message</span><span class="delimiter">&quot;</span></span>)
-    <span class="predefined-type">String</span> sizeMessage() <span class="keyword">default</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">{com.acme.constraint.FrenchZipCode.zipCode.size}</span><span class="delimiter">&quot;</span></span>;
-
-    <span class="annotation">@OverridesAttribute</span>(constraint = <span class="predefined-type">Pattern</span>.class, name = <span class="string"><span class="delimiter">&quot;</span><span class="content">message</span><span class="delimiter">&quot;</span></span>)
-    <span class="predefined-type">String</span> numberMessage() <span class="keyword">default</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">{com.acme.constraint.FrenchZipCode.number.size}</span><span class="delimiter">&quot;</span></span>;
-
     <span class="annotation">@Target</span>({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
     <span class="annotation">@Retention</span>(RUNTIME)
     <span class="annotation">@Documented</span>
     <span class="annotation">@interface</span> <span class="predefined-type">List</span> {
+
         FrenchZipCode<span class="type">[]</span> value();
     }
 }</code></pre>
@@ -12697,13 +12698,12 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="JAVA"><span class="keyword">package</span> <span class="namespace">javax.validation.constraints</span>;
 
-
 <span class="comment">/**
- * The annotated element must be a date in the past.
- * Now is defined as the current time according to the virtual machine.
+The annotated element must be an instant, date or time in the past.
  * &lt;p&gt;
- * The calendar used if the compared type is of type {@code Calendar}
- * is the calendar based on the current time zone and the current locale.
+ * By default, &quot;now&quot; is defined as the current time according to the virtual machine, applying the current default time
+ * zone if needed. If required, an alternative {@link ClockProvider} can be specified when bootstrapping a validator
+ * factory or validator, allowing to customize the {@link Clock} representing the current instant, date and time.
  * &lt;p&gt;
  * Supported types are:
  * &lt;ul&gt;
@@ -12774,12 +12774,12 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="JAVA"><span class="keyword">package</span> <span class="namespace">javax.validation.constraints</span>;
 
-
 <span class="comment">/**
- * The annotated element must be a date in the future.
- * Now is defined as the current time according to the virtual machine
- * The calendar used if the compared type is of type {@code Calendar}
- * is the calendar based on the current time zone and the current locale.
+ * The annotated element must be an instant, date or time in the future.
+ * &lt;p&gt;
+ * By default, &quot;now&quot; is defined as the current time according to the virtual machine, applying the current default time
+ * zone if needed. If required, an alternative {@link ClockProvider} can be specified when bootstrapping a validator
+ * factory or validator, allowing to customize the {@link Clock} representing the current instant, date and time.
  * &lt;p&gt;
  * Supported types are:
  * &lt;ul&gt;
@@ -16894,7 +16894,7 @@ Provide a way to disable BV metadata use by a persistence provider (property bas
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-01-11 14:03:41 +00:00
+Last updated 2017-01-11 12:27:45 +00:00
 </div>
 </div>
 </body>
