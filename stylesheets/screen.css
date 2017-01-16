@@ -16321,6 +16321,28 @@ table.datatable th:active {
   font-size: 24px;
 }
 
+.jumbotron .btn-spec-11 {
+  background-color: #64ba5b;
+  border-color: #63b55b;
+  color: #fff;
+}
+
+.jumbotron .btn-spec-11:hover {
+  background-color: #3f9c35;
+  border-color: #37892f;
+}
+
+.jumbotron .btn-spec-20 {
+  background-color: #ee9c4a;
+  border-color: #f6902a;
+  color: #fff;
+}
+
+.jumbotron .btn-spec-20:hover {
+  background-color: #ec7a08;
+  border-color: #d36d07;
+}
+
 @media (min-width: 480px) {
   .jumbotron h1 {
     font-size: 40px;
@@ -16498,4 +16520,14 @@ span.icon > .fa {
 .admonitionblock td.icon .icon-important:before {
   content: "\f06a";
   color: #bf0000;
+}
+
+.navbar-pf .navbar-nav > li > a {
+  padding-left: 13px;
+  padding-right: 13px;
+}
+
+.navbar-pf .navbar-primary > li > a.glow {
+  color: #c12110;
+  text-shadow: 0 0 15px #2f0804;
 }
