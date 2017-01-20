@@ -607,7 +607,8 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#_requirements">B.2. Requirements</a></li>
 <li><a href="#_non_requirements">B.3. Non-requirements</a></li>
 <li><a href="#_solution">B.4. Solution</a></li>
-<li><a href="#_open_questions">B.5. Open questions</a></li>
+<li><a href="#_extensions_to_the_exception_model">B.5. Extensions to the exception model</a></li>
+<li><a href="#_open_questions">B.6. Open questions</a></li>
 </ul>
 </li>
 <li><a href="#standard-resolver-messages">Appendix C: Standard ResourceBundle messages</a></li>
@@ -2051,10 +2052,13 @@ It is also possible to specify a constraint several times by explicitly using th
      * &lt;p&gt;
      * This method is guaranteed to be called before any use of this instance for
      * validation.
+     * &lt;p&gt;
+     * The default implementation is a no-op.
      *
      * @param constraintAnnotation annotation instance for a given constraint declaration
      */</span>
-    <span class="type">void</span> initialize(A constraintAnnotation);
+    <span class="keyword">default</span> <span class="type">void</span> initialize(A constraintAnnotation) {
+    }
 
     <span class="comment">/**
      * Implements the validation logic.
@@ -2260,7 +2264,9 @@ It is also possible to specify a constraint several times by explicitly using th
 <p>The lifecycle of a constraint validation implementation instance is undefined. Bean Validation providers are allowed to cache <code class="classname">ConstraintValidator</code> instances retrieved from the <code class="classname">ConstraintValidatorFactory</code>.</p>
 </div>
 <div class="paragraph">
-<p><span class="tck-testable">The <code class="methodname">initialize()</code> method is called by the Bean validation provider prior to any use of the constraint implementation.</span></p>
+<p><span class="tck-testable">The <code class="methodname">initialize()</code> method is called by the Bean validation provider prior to any use of the constraint implementation.</span>
+<span class="tck-testable">As of Bean Validation 2.0, <code>initialize()</code> has an empty default implementation,
+allowing to omit the implementation from validators that don&#8217;t need to access any constraint attributes.</span></p>
 </div>
 <div class="paragraph">
 <p><span class="tck-testable">The <code class="methodname">isValid()</code> method is evaluated by the Bean Validation provider each time a given value is validated.</span> <span class="tck-not-testable">It returns <code>false</code> if the value is not valid, <code>true</code> otherwise.</span> <span class="tck-not-testable"><code>isValid()</code> implementations must be thread-safe.</span></p>
@@ -15037,7 +15043,8 @@ The annotated element must be an instant, date or time in the past.
 <h2 id="appendix-value-extraction"><a class="anchor" href="#appendix-value-extraction"></a>Appendix B: Value extraction for cascaded validation and type argument constraints (BVAL-508)</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This appendix describes the current work-in-progress around the retrieval of values to be validated during cascaded validation and evaluation of type argument constraints.
+<p>This appendix describes the current work-in-progress around the retrieval of values to be validated during cascaded validation (e.g. <code>@Valid List&lt;Order&gt; orders</code>)
+and evaluation of type argument constraints (e.g. <code>Optional&lt;@Email String&gt; email</code>)
 It is based on the original <a href="http://beanvalidation.org/proposals/BVAL-508/">proposals for BVAL-508</a>.</p>
 </div>
 <div class="sect2">
@@ -15228,15 +15235,34 @@ I.e. there can be an extractor for <code>List&lt;?&gt;</code>, but not one for <
 </table>
 </div>
 <div class="paragraph">
-<p>In some cases, an extractor applies to the entire extracted type itself (e.g. for arrays).
-In this case the <code>@ExtractedValue</code> annotation is to be given on the extracted type itself:</p>
+<p>In case an illegal value extractor definition is detected, a <code>ValueExtractorDefinitionException</code> is raised.</p>
+</div>
+<div class="paragraph">
+<p>If a value extractor returns the entire extracted type itself
+(as it is the case for the built-in extractor for handling any non-collection object associations),
+the <code>@ExtractedValue</code> annotation is to be given on the extracted type itself:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java"><span class="type">class</span> <span class="class">ObjectArrayValueExtractor</span> <span class="directive">implements</span> ValueExtractor&lt;<span class="annotation">@ExtractedValue</span> <span class="predefined-type">Object</span><span class="type">[]</span>&gt; {
+<pre class="CodeRay highlight"><code data-lang="java"><span class="type">class</span> <span class="class">ObjectValueExtractor</span> <span class="directive">implements</span> ValueExtractor&lt;<span class="annotation">@ExtractedValue</span> <span class="predefined-type">Object</span>&gt; {
 
     <span class="annotation">@Override</span>
-    <span class="directive">public</span> <span class="type">void</span> extractValues(<span class="predefined-type">Object</span><span class="type">[]</span> originalValue, ValueReceiver receiver) {
+    <span class="directive">public</span> <span class="type">void</span> extractValues(<span class="predefined-type">Object</span> originalValue, ValueReceiver receiver) {
+        receiver.value( <span class="predefined-constant">null</span>, originalValue );
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If a value extractor returns the elements of an array type,
+the <code>@ExtractedValue</code> annotation is to be given for the array type as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="type">class</span> <span class="class">IntArrayValueExtractor</span> <span class="directive">implements</span> ValueExtractor&lt;<span class="type">int</span> <span class="annotation">@ExtractedValue</span><span class="type">[]</span>&gt; {
+
+    <span class="annotation">@Override</span>
+    <span class="directive">public</span> <span class="type">void</span> extractValues(<span class="type">int</span><span class="type">[]</span> originalValue, ValueReceiver receiver) {
         <span class="keyword">for</span> ( <span class="type">int</span> i = <span class="integer">0</span>; i &lt; originalValue.length; i++ ) {
             receiver.indexedValue( <span class="string"><span class="delimiter">&quot;</span><span class="content">&lt;iterable element&gt;</span><span class="delimiter">&quot;</span></span>, i, originalValue[i] );
         }
@@ -15490,59 +15516,111 @@ Both will cause the validation of all the array elements</p>
 <div class="paragraph">
 <p>Sometimes there is no type parameter to put a constraint to, but still constraints should be applied to the wrapped value instead of the annotated element
 (a field, property getter, method return value or executable parameter).
-JavaFX&#8217;s property hierarchy falls into that category, as it defines specific <code>Property</code> sub-types which are not generic:</p>
+JavaFX&#8217;s property hierarchy falls into that category, as it defines specific <code>Property</code> sub-types which are not generic.
+As an example, consider a generic type <code>Wrapper&lt;T&gt;</code> and a non-generic sub-type <code>StringWrapper</code> which binds the type parameter <code>&lt;T&gt;</code> to <code>String</code>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Email</span> StringProperty emailProperty;</code></pre>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Email</span> StringWrapper email;</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The <code>ConstraintAppliesTo</code> annotation can be used to control the target of validation in such cases:</p>
+<p>Two defined sub-types of <code>javax.validation.Payload</code> can be used to control the target of validation in such cases via the constraint&#8217;s <code>payload()</code> attribute:</p>
+</div>
+<div class="exampleblock">
+<div class="title">Example 128. <code>Payload</code> types for unwrapping control</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="JAVA"><span class="keyword">package</span> <span class="namespace">javax.validation.valueextraction</span>;
+
+<span class="comment">/**
+ * Set of interfaces used in the {@code payload()} of a constraint to indicate if a value should be unwrapped before
+ * validation.
+ * &lt;p&gt;
+ * This is used to overwrite the default configuration defined on the {@link ValueExtractor}.
+ *
+ * @author Guillaume Smet
+ * @since 2.0
+ */</span>
+<span class="directive">public</span> <span class="type">interface</span> <span class="class">Unwrapping</span> {
+
+    <span class="comment">/**
+     * Unwrap the value before validation.
+     *
+     * @since 2.0
+     */</span>
+    <span class="directive">public</span> <span class="type">interface</span> <span class="class">Unwrap</span> <span class="directive">extends</span> Payload {
+    }
+
+    <span class="comment">/**
+     * Skip the unwrapping if it has been enabled on the {@link ValueExtractor} by the {@link UnwrapByDefault}
+     * annotation.
+     *
+     * @since 2.0
+     */</span>
+    <span class="directive">public</span> <span class="type">interface</span> <span class="class">Skip</span> <span class="directive">extends</span> Payload {
+    }
+
+}</code></pre>
+</div>
+</div>
+</div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Target</span>({ METHOD, FIELD, CONSTRUCTOR, PARAMETER })
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Email</span>(payload = Unwrapping.Unwrap.class) StringWrapper email;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Value extractor definitions can be marked with the <code>@UnwrapByDefault</code> annotation so that constraints are automatically applied to the wrapped value if a constraint is found for an element handled by that extractor:</p>
+</div>
+<div class="exampleblock">
+<div class="title">Example 129. <code>@UnwrapByDefault</code> annotation</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="JAVA"><span class="keyword">package</span> <span class="namespace">javax.validation.valueextraction</span>;
+
+<span class="comment">/**
+ * Annotation used on a {@link ValueExtractor} to indicate that the value should be unwrapped by default.
+ * &lt;p&gt;
+ * This behavior can be changed per constraint using {@code &amp;#064;Constraint(validateWrappedValue = NO )}.
+ *
+ * @author Guillaume Smet
+ * @since 2.0
+ */</span>
+<span class="annotation">@Target</span>({ TYPE })
 <span class="annotation">@Retention</span>(RUNTIME)
-<span class="directive">public</span> <span class="annotation">@interface</span> ConstraintsApplyTo {
-    ValidationTarget value();
+<span class="directive">public</span> <span class="annotation">@interface</span> UnwrapByDefault {
+
 }</code></pre>
+</div>
+</div>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">enum</span> ValidationTarget {
-    ANNOTATED_ELEMENT,
-    WRAPPED_VALUE;
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Value extractor definitions can be marked with <code>ConstraintsApplyTo</code> so that constraints are automatically applied to the wrapped value if a constraint is found for an element handled by that extractor:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@ConstraintsApplyTo</span>(WRAPPED_VALUE)
-<span class="type">class</span> <span class="class">PropertyExtractor</span> <span class="directive">implements</span> ValueExtractor&lt;Property&lt;<span class="annotation">@ExtractedValue</span> ?&gt;&gt; {
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@UnwrapByDefault</span>
+<span class="type">class</span> <span class="class">WrapperExtractor</span> <span class="directive">implements</span> ValueExtractor&lt;Wrapper&lt;<span class="annotation">@ExtractedValue</span> ?&gt;&gt; {
 
     <span class="annotation">@Override</span>
-    <span class="directive">public</span> <span class="type">void</span> extractValues(Property originalValue, ValueReceiver receiver) {
+    <span class="directive">public</span> <span class="type">void</span> extractValues(Wrapper originalValue, ValueReceiver receiver) {
         <span class="comment">// ...</span>
     }
 }</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>If this extractor was identified as the single most-specific extractor for <code>StringProperty</code> (see <a href="#appendix-valueextraction-extractorretrieval">Retrieval of extractors</a>), the <code>@Email</code> constraint above would automatically be applied to the wrapped string value.</p>
+<p>If this extractor was identified as the single most-specific extractor for <code>StringWrapper</code> (see <a href="#appendix-valueextraction-extractorretrieval">Retrieval of extractors</a>), the <code>@Email</code> constraint above would automatically be applied to the wrapped string value.</p>
 </div>
 <div class="paragraph">
 <p>In rare cases it may happen that a constraint should be applied to the wrapped value although an extractor exists.
-In this case the <code>ConstraintsApplyTo</code> annotation can be given on the element itself to prevent the unwrapping:</p>
+In this case the <code>Unwrapping.Skip</code> payload type can be specified for that constraint to prevent the unwrapping:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@ConstraintsApplyTo</span>(ANNOTATED_ELEMENT)
-<span class="annotation">@NotNull</span> StringProperty emailProperty;</code></pre>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@NotNull</span>(payload = Unwrapping.Skip.class) StringWrapper email;</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -15554,7 +15632,7 @@ In this case the <code>ConstraintsApplyTo</code> annotation can be given on the 
 <td class="content">
 <div class="paragraph">
 <p>For the sake of readability, when applying constraints to the elements of a generic container type,
-it is strongly recommended to put the constraints to the type argument instead of the element itself in conjunction with <code>@ConstraintsApplyTo</code>.
+it is strongly recommended to put the constraints to the type argument instead of the element itself in conjunction with <code>Unwrapping.Unwrap</code>.
 I.e. you should prefer</p>
 </div>
 <div class="listingblock">
@@ -15567,8 +15645,7 @@ I.e. you should prefer</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Email</span>
-<span class="annotation">@ConstraintsApplyTo</span>(WRAPPED_VALUE)
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Email</span>(payload = Unwrapping.Unwrap.class)
 <span class="predefined-type">List</span>&lt;<span class="predefined-type">String</span>&gt; emails;</code></pre>
 </div>
 </div>
@@ -15646,7 +15723,7 @@ TODO: apply rules similar to "ConstraintValidator resolution algorithm" and furt
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>If <code>@ConstraintsApplyTo(ANNOTATED_ELEMENT)</code> is given, don&#8217;t apply any value extractor</p>
+<p>If the constraint carries the <code>Unwrapping.Skip</code> payload, don&#8217;t apply any value extractor</p>
 </li>
 <li>
 <p>Determine the set of uniquely mapping type parameters declared by the types in the element type&#8217;s type hierarchy; Examples:</p>
@@ -15671,33 +15748,45 @@ TODO: apply rules similar to "ConstraintValidator resolution algorithm" and furt
 </div>
 </li>
 <li>
-<p>If <code>@ConstraintsApplyTo(WRAPPED_VALUE)</code> is given:</p>
+<p>If the constraint carries the <code>Unwrapping.Unwrap</code> payload:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>If no type parameter or more than one type parameter was found in step 2, raise an exception</p>
+<p>If no type parameter or more than one type parameter was found in step 2, raise a <code>ConstraintDeclarationException</code></p>
 </li>
 <li>
 <p>Choose the most specific extractor matching the single type parameter found in step 2</p>
 </li>
 <li>
-<p>If there are several extractors which are equally specific, an <code>UnexpectedTypeException</code> is raised.</p>
+<p>If there are several extractors which are equally specific, a <code>ConstraintDeclarationException</code> is raised.</p>
+</li>
+<li>
+<p>If there is exactly one remaining extractor, apply this extractor</p>
+</li>
+<li>
+<p>Otherwise, a <code>ConstraintDeclarationException</code> is raised.</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p>If <code>@ConstraintsApplyTo</code> is not given:</p>
+<p>If the constraint neither carries the <code>Unwrapping.Unwrap</code> nor the <code>Unwrapping.Skip</code> payload:</p>
 <div class="ulist">
 <ul>
 <li>
 <p>If no type parameter or more than one type parameter was found in step 2, don&#8217;t apply any value extractor</p>
 </li>
 <li>
-<p>Choose the most specific extractor matching the single type parameter found in step 2 which is marked with <code>@ConstraintsApplyTo(WRAPPED_VALUE)</code></p>
+<p>Choose the most specific extractor matching the single type parameter found in step 2</p>
 </li>
 <li>
-<p>If there are multiple such extractors, an <code>UnexpectedTypeException</code> is raised.</p>
+<p>If there are multiple such extractors, a <code>ConstraintDeclarationException</code> is raised.</p>
+</li>
+<li>
+<p>If there is exactly one remaining extractor and it is marked with <code>UnwrapByDefault</code>, apply this extractor</p>
+</li>
+<li>
+<p>Otherwise, no extractor is applied</p>
 </li>
 </ul>
 </div>
@@ -15928,7 +16017,7 @@ Let there be these definitions:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@ConstraintsApplyTo</span>(WRAPPED_VALUE)
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@UnwrapByDefault</span>
 <span class="type">class</span> <span class="class">StringWrapperExtractor</span> <span class="directive">implements</span> ValueExtractor&lt;<span class="annotation">@ExtractedValue</span> StringWrapper&gt; { ... }
 };</code></pre>
 </div>
@@ -15942,15 +16031,14 @@ Let there be these definitions:</p>
 <p>The <code>@Email</code> constraint will be applied to the wrapped string and can be validated as the extractor defines that element-level constraints should be applied to the wrapped value.</p>
 </div>
 <div class="paragraph">
-<p>If the extractor were not decorated with <code>@ConstraintsApplyTo</code> an exception would be raised as there is no validator for <code>@Email</code> on <code>StringWrapper</code>.</p>
+<p>If the extractor were not decorated with <code>@UnwrapByDefault</code> an exception would be raised as there is no validator for <code>@Email</code> on <code>StringWrapper</code>.</p>
 </div>
 <div class="paragraph">
 <p>Unwrapping could be mandated explicitly in this case:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@ConstraintsApplyTo</span>(WRAPPED_VALUE)
-<span class="annotation">@Email</span>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Email</span>(payload = Unwrapping.Unwrap.class)
 <span class="directive">private</span> StringWrapper email;</code></pre>
 </div>
 </div>
@@ -16004,20 +16092,19 @@ An extractor for <code>CachableValue</code> must be added, resolving the ambigui
 </div>
 </li>
 <li>
-<p>Element-level constraints cannot be applied if there is no type parameter at all or multiple non-mapping type parameters in the annotated element&#8217;s type hierarchy. Thus an exception will be raised in the following cases:</p>
+<p>Element-level constraints cannot be applied if there is no type parameter at all or multiple non-mapping type parameters in the annotated element&#8217;s type hierarchy.
+Thus an exception will be raised in the following cases:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="java"><span class="comment">// no type parameter</span>
-<span class="annotation">@ConstraintsApplyTo</span>(WRAPPED_VALUE)
-<span class="annotation">@Email</span>
+<span class="annotation">@Email</span>(payload = Unwrapping.Unwrap.class)
 <span class="directive">private</span> <span class="predefined-type">String</span> email;</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="java"><span class="comment">// multiple type parameters</span>
-<span class="annotation">@ConstraintsApplyTo</span>(WRAPPED_VALUE)
-<span class="annotation">@Email</span>
+<span class="annotation">@Email</span>(payload = Unwrapping.Unwrap.class)
 <span class="directive">private</span> <span class="predefined-type">Map</span>&lt;<span class="predefined-type">String</span>, <span class="predefined-type">String</span>&gt; emails;</code></pre>
 </div>
 </div>
@@ -16059,7 +16146,59 @@ I.e. the following group conversion declaration is valid:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_open_questions"><a class="anchor" href="#_open_questions"></a>B.5. Open questions</h3>
+<h3 id="_extensions_to_the_exception_model"><a class="anchor" href="#_extensions_to_the_exception_model"></a>B.5. Extensions to the exception model</h3>
+<div class="paragraph">
+<p>A <code>ValueExtractorDefinitionException</code> will be raised when detecting an illegal value extractor definition:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="keyword">package</span> <span class="namespace">javax.validation.valueextraction</span>;
+
+<span class="comment">/**
+ * Raised if a {@link ValueExtractor} definition is illegal, e.g. because it doesn't declare its extracted value using
+ * {@link ExtractedValue}.
+ *
+ * @author Gunnar Morling
+ */</span>
+<span class="directive">public</span> <span class="type">class</span> <span class="class">ValueExtractorDefinitionException</span> <span class="directive">extends</span> ValidationException {
+
+    <span class="directive">public</span> ValueExtractorDefinitionException() {
+        <span class="local-variable">super</span>();
+    }
+
+    <span class="directive">public</span> ValueExtractorDefinitionException(<span class="predefined-type">String</span> message) {
+        <span class="local-variable">super</span>( message );
+    }
+
+    <span class="directive">public</span> ValueExtractorDefinitionException(<span class="predefined-type">Throwable</span> cause) {
+        <span class="local-variable">super</span>( cause );
+    }
+
+    <span class="directive">public</span> ValueExtractorDefinitionException(<span class="predefined-type">String</span> message, <span class="predefined-type">Throwable</span> cause) {
+        <span class="local-variable">super</span>( message, cause );
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Reasons for raising this exception include:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The extracted type is not marked with <code>@ExtractedValue</code></p>
+</li>
+<li>
+<p>The <code>@ExtractedValue</code> annotation is given more than once for one value extractor type</p>
+</li>
+<li>
+<p>A non-wildcard type parameter has been marked with <code>@ExtractedValue</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_open_questions"><a class="anchor" href="#_open_questions"></a>B.6. Open questions</h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -16068,11 +16207,20 @@ Or <code>Optional&lt;List&lt;@Email&gt;&gt; optionalEmails</code>;
 The latter seems very reasonable.</p>
 </li>
 <li>
-<p><code>ConstraintsApplyTo</code> only allows one behavior per annotated element. Should it be per constraint?
-E.g. for <code>@NotNull @Email StringProperty email</code> it may be desirable to apply <code>@NotNull</code> to the wrapper but <code>@Email</code> to the wrapped value. That&#8217;s not possible currently.</p>
+<p><span class="line-through"><code>ConstraintsApplyTo</code> only allows one behavior per annotated element. Should it be per constraint?</span>
+<span class="line-through">E.g. for <code>@NotNull @Email StringProperty email</code> it may be desirable to apply <code>@NotNull</code> to the wrapper but <code>@Email</code> to the wrapped value. That&#8217;s not possible currently.</span></p>
+<div class="paragraph">
+<p><em>For the first draft we settled for using dedicated <code>Payload</code> types to control the unwrapping behavior.</em>
+<em>While not ideal, this provides the required level of control.</em>
+<em>Discussed alternatives include a new constraint member <code>boolean validateWrappedValue()</code>, but this requires to update every existing constraint and adds a lot of "weight" for a rather small corner case.</em>
+<em>Any approach using a separate annotation fails as there is no way to clearly identify the targeted constraint annotation, as annotations cannot obtained from an element in a guaranteed order</em>.</p>
+</div>
 </li>
 <li>
-<p>Should <code>ConstraintsApplyTo</code> also be used for tagging extractors triggering "auto-extraction". Maybe a separate annotation would be less confusing, e.g. <code>@AutoExtract</code> or so?</p>
+<p><span class="line-through">Should <code>ConstraintsApplyTo</code> also be used for tagging extractors triggering "auto-extraction". Maybe a separate annotation would be less confusing, e.g. <code>@AutoExtract</code> or so?</span></p>
+<div class="paragraph">
+<p><em>This is done by <code>@UnwrapByDefault</code> now which solely exists for this purpose.</em></p>
+</div>
 </li>
 <li>
 <p>Should a path node be added for type argument constraints of <code>Optional</code> and similar types?</p>
@@ -16096,9 +16244,9 @@ So far, BV assumed the types of field and getter to be the same and exposed a si
 What to return here?</p>
 </li>
 <li>
-<p>Should the presence of type argument constraints alone trigger cascaded validation?</p>
+<p><span class="line-through">Should the presence of type argument constraints alone trigger cascaded validation?</span></p>
 <div class="paragraph">
-<p>E.g. consider the case of <code>Tuple</code> above:</p>
+<p><span class="line-through">E.g. consider the case of <code>Tuple</code> above:</span></p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -16106,19 +16254,22 @@ What to return here?</p>
 </div>
 </div>
 <div class="paragraph">
-<p><em>Here it may be nice to validate e.g. <code>@NotNull</code> constraints given within the <code>Tuple</code> class itself when validating the type argument constraints. With the current proposal their validation requires a separate <code>@Valid</code> on the element. Personally I think that&#8217;s better (more consistent)</em>.</p>
+<p><span class="line-through"><em>Here it may be nice to validate e.g. <code>@NotNull</code> constraints given within the <code>Tuple</code> class itself when validating the type argument constraints. With the current proposal their validation requires a separate <code>@Valid</code> on the element. Personally I think that&#8217;s better (more consistent)</em>.</span></p>
+</div>
+<div class="paragraph">
+<p><em>We agreed to require <code>@Valid</code> for the sake of consistency.</em></p>
 </div>
 </li>
 <li>
-<p>For an element with a type argument, should it be allowed to specify constraints on the element (and use <code>@ConstraintsApplyTo(WRAPPED_ELEMENT)</code>) or should it be disallowed?</p>
+<p>For an element with a type argument, should it be allowed to specify constraints on the element (and use the <code>Unwrapping.Unwrap</code> payload) or should it be disallowed?</p>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Email</span> <span class="annotation">@ConstraintsApplyTo</span>(WRAPPED_ELEMENT) Optional&lt;<span class="predefined-type">String</span>&gt; email;</code></pre>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Email</span>(payload = Unwrapping.Unwrap.class) Optional&lt;<span class="predefined-type">String</span>&gt; email;</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Should we allow extractors to be defined for specific parameterized types, e.g.:</p>
+<p><span class="line-through">Should we allow extractors to be defined for specific parameterized types, e.g.:</span></p>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">ListOfIntegerExtractor</span> <span class="directive">implements</span> ValueExtractor&lt;<span class="predefined-type">List</span>&lt;<span class="annotation">@ExtractedValue</span> <span class="predefined-type">Integer</span>&gt;&gt; { ... }
@@ -16127,10 +16278,14 @@ What to return here?</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Currently, only one extractor (for type <code>List&lt;?&gt;</code> is allowed).</p>
+<p><span class="line-through">Currently, only one extractor (for type <code>List&lt;?&gt;</code> is allowed).</span></p>
 </div>
 <div class="paragraph">
-<p><em>I can&#8217;t see a compelling use case for this (when would extractor behavior differ between different parameterizations of the same generic type) and am leaning towards only supporting the wildcard parameterization (<code>implements ValueExtractor&lt;List&lt;@ExtractedValue ?&gt;&gt;</code>)</em>.</p>
+<p><span class="line-through"><em>I can&#8217;t see a compelling use case for this (when would extractor behavior differ between different parameterizations of the same generic type) and am leaning towards only supporting the wildcard parameterization (<code>implements ValueExtractor&lt;List&lt;@ExtractedValue ?&gt;&gt;</code>)</em>.</span></p>
+</div>
+<div class="paragraph">
+<p><em>We agreed on only allowing one extractor per type, to be given using the wildcard parameterization, as we cannot see a use case for having multiple extractors right now.</em>
+<em>But if needed, this limitation can be lifted in a future revision.</em></p>
 </div>
 </li>
 <li>
@@ -16414,7 +16569,7 @@ Provide a way to disable BV metadata use by a persistence provider (property bas
 <h2 id="changelog"><a class="anchor" href="#changelog"></a>Appendix E: Changelog</h2>
 <div class="sectionbody">
 <div class="exampleblock">
-<div class="title">Example 128. Changelog</div>
+<div class="title">Example 130. Changelog</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -16894,7 +17049,7 @@ Provide a way to disable BV metadata use by a persistence provider (property bas
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-01-11 12:27:45 +00:00
+Last updated 2017-01-20 12:47:03 +00:00
 </div>
 </div>
 </body>
