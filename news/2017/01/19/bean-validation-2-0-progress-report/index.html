@@ -4,14 +4,14 @@
     <meta content="IE=Edge" http-equiv="X-UA-Compatible">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>
-      Bean Validation - News
+      Bean Validation - Bean Validation 2.0 Progress Report
     </title>
-    <link href="../stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-    <link href="../stylesheets/print.css" media="print" rel="stylesheet" type="text/css">
+    <link href="../../../../../stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="../../../../../stylesheets/print.css" media="print" rel="stylesheet" type="text/css">
     <!--[if lt IE 8]>
-      <link href="../stylesheets/ie.css" media="screen, projection" rel="stylesheet" type="text/css">
+      <link href="../../../../../stylesheets/ie.css" media="screen, projection" rel="stylesheet" type="text/css">
     <![endif]-->
-    <link href="news.atom" rel="alternate" type="application/atom+xml">
+    <link href="../../../../news.atom" rel="alternate" type="application/atom+xml">
     <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="/javascripts/patternfly.js"></script>
     <script src="/javascripts/bootstrap.js"></script>
@@ -26,32 +26,32 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href=".." id="logo" title="Bean Validation">
+          <a class="navbar-brand" href="../../../../.." id="logo" title="Bean Validation">
             Bean Validation
           </a>
         </div>
         <div class="collapse navbar-collapse navbar-collapse-1">
           <ul class="nav navbar-nav navbar-primary navbar-right" id="meny-primary">
             <li class="menu-item menu-item-type-post_type menu-item-object-page">
-              <a href=".">News</a>
+              <a href="../../../..">News</a>
             </li>
             <li class="menu-item menu-item-type-post_type menu-item-object-page">
-              <a href="../specification">Specification</a>
+              <a href="../../../../../specification">Specification</a>
             </li>
             <li class="menu-item menu-item-type-post_type menu-item-object-page">
-              <a href="../1.1/tck">TCK</a>
+              <a href="../../../../../1.1/tck">TCK</a>
             </li>
             <li class="menu-item menu-item-type-post_type menu-item-object-page">
-              <a href="../1.1/ri">RI</a>
+              <a href="../../../../../1.1/ri">RI</a>
             </li>
             <li class="menu-item menu-item-type-post_type menu-item-object-page">
-              <a href="../1.1/certified">Certified</a>
+              <a href="../../../../../1.1/certified">Certified</a>
             </li>
             <li class="menu-item menu-item-type-post_type menu-item-object-page">
-              <a href="../contribute">Contribute</a>
+              <a href="../../../../../contribute">Contribute</a>
             </li>
             <li class="menu-item menu-item-type-post_type menu-item-object-page">
-              <a href="../licensing">Licensing</a>
+              <a href="../../../../../licensing">Licensing</a>
             </li>
           </ul>
         </div>
@@ -63,7 +63,7 @@
           <article class="post">
             <header>
               <h1 class="title">
-                <a href="/news/2017/01/19/bean-validation-2-0-progress-report/">Bean Validation 2.0 Progress Report</a>
+                Bean Validation 2.0 Progress Report
               </h1>
               <span class="author">
                 by
@@ -362,254 +362,32 @@
               </div>
               </div>
               </div>
-               <a href="http://beanvalidation.org/news/2017/01/19/bean-validation-2-0-progress-report/#disqus_thread">Comments</a>
             </div>
+            <footer>
+              <div id="post-navigation">
+                <div class="previous">
+                  &laquo;
+                  <a href="../../../../2016/11/23/survey-constraints-and-parameterized-type">Survey - Where do you use constraints on parameterized type?</a>
+                </div>
+                <div class="next">
+                </div>
+              </div>
+              
+                          <div id="disqus_thread"></div>
+                          <script type="text/javascript">
+                          var disqus_shortname = 'beanvalidation';
+                          var disqus_url = "http://beanvalidation.org/news/2017/01/19/bean-validation-2-0-progress-report/";
+                          var disqus_developer = null;
+                          var disqus_identifier = null;
+                          (function() {
+                            var dsq = document.createElement("script"); dsq.type = "text/javascript"; dsq.async = true;
+                            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                            (document.getElementsByTagName("head")[0] || document.getElementsByTagName("body")[0]).appendChild(dsq);
+                          })();
+                          </script>
+                          <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript=beanvalidation">comments powered by Disqus.</a></noscript>
+            </footer>
           </article>
-          <article class="post">
-            <header>
-              <h1 class="title">
-                <a href="/news/2016/11/23/survey-constraints-and-parameterized-type/">Survey - Where do you use constraints on parameterized type?</a>
-              </h1>
-              <span class="author">
-                by
-                <b>Emmanuel Bernard</b>
-              </span>
-              <span class="date">
-                on 23 Nov 2016
-              </span>
-              <span class="tags">
-                <a class="label label-info" href="/news/tags/feedback/">feedback</a>
-              </span>
-            </header>
-            <div class="body">
-              <div id="preamble">
-              <div class="sectionbody">
-              <div class="paragraph">
-              <p>For Bean Validation 2, we are working on the support for <code>Collection&lt;@Email String&gt;</code>, <code>Optional&lt;@Min(3) Integer&gt;</code> etc.
-              This has been a very common request and with Java 8 type use support, we can how achieve this.
-              However, we need your feedback on how you would use such feature.</p>
-              </div>
-              </div>
-              </div>
-              <div class="sect1">
-              <h2 id="some-context"><a class="anchor" href="#some-context"></a>Some context</h2>
-              <div class="sectionbody">
-              <div class="paragraph">
-              <p>We have support not only for collections, <code>Optional</code>, Java FX properties but also for what we call custom parameterized containers.
-              We are wondering a few things about custom parameterized containers, namely how common they are.
-              This will affect the trade-offs we want to make on the design of that feature.</p>
-              </div>
-              <div class="sect2">
-              <h3 id="what-is-a-em-container-em"><a class="anchor" href="#what-is-a-em-container-em"></a>What is a <em>container</em>?</h3>
-              <div class="paragraph">
-              <p>A container is a type that wraps and exposes one or several values.
-              The values is what you want to apply your constraints on.
-              And the container is parameterized because at use site, you can declare what type it actually contains.
-              For a <code>Set&lt;@Email String&gt;</code>, we want to make sure every string in the set is an email.</p>
-              </div>
-              <div class="paragraph">
-              <p>Another less obvious example is a tuple class.</p>
-              </div>
-              <div class="listingblock">
-              <div class="content">
-              <pre class="CodeRay highlight"><code data-lang="java"><span style="color:#088;font-weight:bold">public</span> <span style="color:#339;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">Pair</span>&lt;V1,V2&gt; {&#x000A;    V1 getV1() { ... }&#x000A;    V2 getV2(); { ... }&#x000A;}&#x000A;&#x000A;<span style="color:#088;font-weight:bold">public</span> <span style="color:#339;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">Address</span> {&#x000A;    <span style="color:#777">// street1 is mandatory, street2 is optional</span>&#x000A;    <span style="color:#777">// represented via a Pair object</span>&#x000A;    Pair&lt;<span style="color:#007">@NotNull</span> <span style="color:#007">@Size</span>(max=<span style="color:#00D">250</span>) <span style="color:#0a8;font-weight:bold">String</span>, <span style="color:#007">@Size</span>(max=<span style="color:#00D">250</span>) <span style="color:#0a8;font-weight:bold">String</span>&gt; streetFields;&#x000A;}</code></pre>
-              </div>
-              </div>
-              <div class="paragraph">
-              <p>Other examples are:</p>
-              </div>
-              <div class="ulist">
-              <ul>
-              <li>
-              <p>a tree structure containing specific object types</p>
-              </li>
-              <li>
-              <p>Guava&#8217;s Multimap (or any multimap for that matter)</p>
-              </li>
-              </ul>
-              </div>
-              </div>
-              </div>
-              </div>
-              <div class="sect1">
-              <h2 id="questions"><a class="anchor" href="#questions"></a>Questions</h2>
-              <div class="sectionbody">
-              <div class="paragraph">
-              <p>We are wondering which type of parameterized containers you have in your code base
-              and how likely you are going to apply constrains on their contained value.
-              The form is a list of short questions that will help us get a better picture.</p>
-              </div>
-              <div class="paragraph">
-              <p>Here is the <a href="https://docs.google.com/forms/d/e/1FAIpQLSc-s7fSYXiPSuZ0NaT0_-0jBx9TaxrZ-QiLRg_eVRxgrISjrw/viewform">link to the form in a separate page</a>
-              or use it directly embedded below.</p>
-              </div>
-              <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSc-s7fSYXiPSuZ0NaT0_-0jBx9TaxrZ-QiLRg_eVRxgrISjrw/viewform?embedded=true" width="760" height="2800" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
-              <div class="paragraph">
-              <p>Many thanks!</p>
-              </div>
-              </div>
-              </div>
-               <a href="http://beanvalidation.org/news/2016/11/23/survey-constraints-and-parameterized-type/#disqus_thread">Comments</a>
-            </div>
-          </article>
-          <article class="post">
-            <header>
-              <h1 class="title">
-                <a href="/news/2016/09/15/which-constraints-to-add/">Feedback needed - Which constraints should be added?</a>
-              </h1>
-              <span class="author">
-                by
-                <b>Gunnar Morling</b>
-              </span>
-              <span class="date">
-                on 15 Sep 2016
-              </span>
-              <span class="tags">
-                <a class="label label-info" href="/news/tags/feedback/">feedback</a>
-              </span>
-            </header>
-            <div class="body">
-              <p>The work on Bean Validation 2.0 is in full swing and there is an issue where we could benefit from your help.</p>
-              
-              <p>Recently we have been discussing whether any new constraints <a href="http://lists.jboss.org/pipermail/beanvalidation-dev/2016-August/001000.html">should be added</a> to the specification or not.
-              Traditionally, Bean Validation stayed on the conservative side of things in this regard.
-              It defined only some generically applicable and widely useful constraints in the specification itself, e.g. <code>@NotNull</code>, <code>@Size</code> or <code>@Pattern</code>.</p>
-              
-              <p>Now Marco Molteni did a very interesting analysis on the constraints which are actually used in real world projects by <a href="http://lists.jboss.org/pipermail/beanvalidation-dev/2016-August/001000.html">running an analysis</a> of open source projects hosted on GitHub.
-              Only a specific type of project is hosted there usually (mostly libraries, as opposed to actual end user facing applications),
-              so the numbers should be taken with a grain of salt. But nevertheless they are very interesting.</p>
-              
-              <p>Marco's analysis shows that besides the BV-defined constraints <code>@NotEmpty</code> and <code>@NotBlank</code> - both defined by the reference implementation Hibernate validator - are very frequently used and thus are potential candidates for inclusion into Bean Validation 2.0.
-              The former asserts that the annotated string, collection, map or array is neither null nor empty, the latter validates that the annotated string is neither null nor empty, stripping leading/trailing whitespace.</p>
-              
-              <p>Another candidate may be <code>@Email</code>; but validation of e-mail addresses is a surprisingly complex business, with different people having different ideas and expectations of how a valid (or invalid) e-mail address should look like (take a look at the <a href="https://en.wikipedia.org/wiki/Email_address#Examples">examples on Wikipedia</a> to get an idea).
-              Hence I feel this is not something we should aim for in the specification.</p>
-              
-              <p>To add some further data points, we created the following survey on constraints to be added potentially.
-              Getting back many answers to this poll will help us to form a better understanding of what you, the users out there, really need.
-              If you would like to see support for other constraints not mentioned in the survey, you can add them via the free-text field in the last question.
-              These may be custom constraints defined by a Bean Validation provider, a third-party library or in your own projects which you see yourself using very frequently.</p>
-              
-              <p>Taking the survey will take you only a minute, so give it a go. Thanks a lot for your help!</p>
-              
-              <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScR9o9p2GlrmhrtSinp2D9PY8gN4C-AOA-bjm8bwXkX_4H1Sw/viewform?embedded=true" width="760" height="500" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
-               <a href="http://beanvalidation.org/news/2016/09/15/which-constraints-to-add/#disqus_thread">Comments</a>
-            </div>
-          </article>
-          <article class="post">
-            <header>
-              <h1 class="title">
-                <a href="/news/2016/07/15/bean-validation-2-0-is-coming/">Bean Validation 2.0 - A new JSR is born!</a>
-              </h1>
-              <span class="author">
-                by
-                <b>Gunnar Morling</b>
-              </span>
-              <span class="date">
-                on 15 Jul 2016
-              </span>
-              <span class="tags">
-                <a class="label label-info" href="/news/tags/news/">news</a>
-              </span>
-            </header>
-            <div class="body">
-              <p>Today I've got some great news to share with you: a new revision of the Bean Validation spec is about to be kicked off!</p>
-              
-              <p>Over the last weeks, we've been busy with preparing a proposal for this JSR and I've submitted it to the JCP (Java Community Process) last week.
-              You can find the proposal for "JSR 380: Bean Validation 2.0" on <a href="https://jcp.org/en/jsr/detail?id=380">jcp.org</a>.</p>
-              
-              <p>In the following, let's take a look at what we think should be part of Bean Validation 2.0 and what we've planned as the next steps.</p>
-              
-              <h2>Looking back...</h2>
-              
-              <p>Bean Validation 1.0 and 1.1 (JSRs 303/349) saw a huge adoption by the Java community and are integrated with a wide range of technologies, be it other Java standards (e.g. CDI, JPA, JAX-RS)
-              or 3rd party libraries and frameworks such as Spring, Vaadin and many, many more.</p>
-              
-              <p>The main contribution of Bean Validation 1.1 - the declarative validation of method-level constraints - has been integrated into techs such as CDI and Spring,
-              making it a breeze to write expressive API contracts with constraints which are automatically validated upon execution.</p>
-              
-              <p>Bean Validation 1.1 has been finalized <a href="http://beanvalidation.org/news/2013/05/02/bean-validation-1-1-is-a-spec/">three years ago</a> and Java continued to evolve since then.
-              Java 8 - released in 2014 - brings many very interesting language features to the table, but also adds a new time and date API and much more.</p>
-              
-              <h2>...and forward</h2>
-              
-              <p>So it's about time that Bean Validation supports new JDK types such as <code>LocalTime</code> or <code>Optional</code>, but also takes advantage of new (language) features such as type annotations, repeatable annotations, reflective parameter name retrieval, lambda expressions etc.</p>
-              
-              <p>To give just one example, let's consider the requirement of applying constraints to the elements of a specific collection.
-              This has been a <a href="https://hibernate.atlassian.net/browse/BVAL-202">long-standing feature request</a>, but we could never find a way to solve it generically in an acceptable manner.</p>
-              
-              <p>Java 8 finally provides the perfect tool to solve this issue: <a href="https://docs.oracle.com/javase/tutorial/java/annotations/type_annotations.html">type annotations</a>.
-              Annotating type parameters of collections is a very intuitive way to apply constraints to collection elements (and not the entire collection itself):</p>
-              
-              <pre><code>List&lt;@Email String&gt; emails;&#x000A;</code></pre>
-              
-              <p>Java 8 provides the required APIs to retrieve the constraint annotation from the type parameter and apply the validation accordingly.</p>
-              
-              <p>But it doesn't stop there.
-              Repeatable annotation types will make it less verbose to specify several constraints of the same type one and the same element.
-              Reflective parameter name retrieval will provide better validation messages out of the box when validating constraints on method parameters.
-              Lambda expressions might be a useful vehicle to express small ad-hoc validation routines.</p>
-              
-              <h2>What else?</h2>
-              
-              <p>While we envision supporting and leveraging Java 8 as the "main theme" of Bean Validation 2.0, we hope to address some other issues, too.
-              E.g. there may be support for more customized payloads of constraint violations.
-              Also a builder API for constraint violation exceptions might be useful.
-              As would an API for validating an object graph assuming a list of changes to be applied.
-              Check out the <a href="https://jcp.org/en/jsr/detail?id=380">JSR 380 proposal</a> for some more ideas we have.</p>
-              
-              <p>While the baseline for Bean Validation 2.0 will be Java 8, we'll also be tracking the ongoing work for Java 9 and work towards making Bean Validation ready for Java 9 and its module system as far as possible.</p>
-              
-              <p>As the time-line of Bean Validation 2.0 is quite compact, we are very eager to hear from you, the community of users, and learn what would be the things most useful to you.
-              For sure we won't be able to address all potential ideas out there. So if there are features close to your heart which you'd really love to see in the spec, be sure to speak up and let us know.</p>
-              
-              <h2>What's next?</h2>
-              
-              <p>As per <a href="https://jcp.org/en/procedures/jcp2#3.3">the rules</a> of the Java Community Process, the Bean Validation 2.0 JSR is currently up for review by the JCP executive committee.
-              After that, there will be an approval ballot and we will hopefully be ready to go and kick off the work on actual spec changes, prototyping new features in the reference implementation and so on.</p>
-              
-              <p>So if you ever wanted to contribute to a Java Specification Request - be it just by voting for issues, opening new feature requests or actually working on the specification, its reference implementation and the test compatability kit (TCK) - then this is the perfect time.
-              If you are a member of the JCP, you also can <a href="https://jcp.org/en/jsr/egnom?id=380">join the expert group</a>, we'd be very happy to have you aboard.</p>
-              
-              <p>Whether EG member or not, in order to get the discussion on this JSR proposal started, just drop a comment below, post to the <a href="https://forum.hibernate.org/viewforum.php?f=26">feedback forum</a>, shoot a message to the <a href="https://lists.jboss.org/mailman/listinfo/beanvalidation-dev">Bean Validation mailing list</a> or
-              comment on specific issues in <a href="https://hibernate.atlassian.net/projects/BVAL/summary">the tracker</a>.</p>
-              
-              <p>We are looking forward to hearing from you and get Bean Validation 2.0 rolling!</p>
-               <a href="http://beanvalidation.org/news/2016/07/15/bean-validation-2-0-is-coming/#disqus_thread">Comments</a>
-            </div>
-          </article>
-          <article class="post">
-            <header>
-              <h1 class="title">
-                <a href="/news/2015/06/18/bean-validation-tck-1-1-4-released/">Bean Validation TCK 1.1.4.Final released</a>
-              </h1>
-              <span class="author">
-                by
-                <b>Gunnar Morling</b>
-              </span>
-              <span class="date">
-                on 18 Jun 2015
-              </span>
-              <span class="tags">
-                <a class="label label-info" href="/news/tags/tck/">tck</a>
-              </span>
-            </header>
-            <div class="body">
-              <p>Exactly one year after the last maintenance release we've published version 1.1.4.Final of the Bean Validation TCK today.
-              It contains exactly one issue, <a href="https://hibernate.atlassian.net/browse/BVTCK-68">BVTCK-68</a>,
-              which is about the removal of two tests from the TCK which could not be tested in a portable manner across containers.
-              Check out the issue itself for the complete story.</p>
-              
-              <p>As always, the new TCK version is available for download as TAR.GZ and ZIP on <a href="http://sourceforge.net/projects/hibernate/files/beanvalidation-tck/1.1.4.Final/">SourceForge</a>.
-              Alternatively you can obtain the test suite via Maven, Gradle etc. using the coordinates <em>org.hibernate.beanvalidation.tck:beanvalidation-tck-tests:1.1.4.Final</em>.</p>
-              
-              <p>More information about the Bean Validation TCK can be found <a href="http://beanvalidation.org/1.1/tck/">here</a> and the <a href="https://docs.jboss.org/hibernate/beanvalidation/tck/1.1/reference/html_single/">TCK reference guide</a>.
-              In case you have any questions or ideas around the Bean Validation specification in general or the TCK
-              in particular, don't hesitate to contact us through <a href="https://lists.jboss.org/mailman/listinfo/beanvalidation-dev">our mailing list</a>.</p>
-               <a href="http://beanvalidation.org/news/2015/06/18/bean-validation-tck-1-1-4-released/#disqus_thread">Comments</a>
-            </div>
-          </article>
-          <div class="pagination-links"><span class="current-page">1</span> <a href="/news/page/2/" class="page-link">2</a> <span class="skip">...</span><a href="/news/page/6/" class="page-link">6</a> <a href="/news/page/7/" class="page-link">7</a> <a href="/news/page/2/" class="next-link">Next</a> </div>
         </div>
         <div class="sidebar sidebar-right col-sm-3 col-md-3 col-lg-3" id="sidebar" role="complementary">
           <div id="newsfeed">

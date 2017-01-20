@@ -2,13 +2,351 @@
 <feed xml:lang="en-US" xmlns="http://www.w3.org/2005/Atom">
   <id>http://beanvalidation.org/</id>
   <title>Bean Validation</title>
-  <updated>2017-01-16T13:32:57+00:00</updated>
+  <updated>2017-01-20T13:11:05+00:00</updated>
   <link href="http://beanvalidation.org/news/news.atom" rel="self" type="application/atom+xml" />
   <link href="http://beanvalidation.org/" rel="alternate" type="text/html" />
   <entry>
+    <id>http://beanvalidation.org/news/2017/01/19/bean-validation-2-0-progress-report/</id>
+    <title>Bean Validation 2.0 Progress Report</title>
+    <updated>2017-01-20T13:11:05+00:00</updated>
+    <published>2017-01-19T00:00:00+00:00</published>
+    <link href="http://beanvalidation.org/news/2017/01/19/bean-validation-2-0-progress-report/" rel="alternate" type="text/html" />
+    <author>
+      <name>Gunnar Morling</name>
+    </author>
+    <category term="news"></category>
+    <category term="progress-report"></category>
+    <summary>
+      It has been a few months since we&#8217;ve kicked off the work on Bean Validation 2.0 (JSR 380).
+      We have made some good progress, so I&#8217;d like to give you a quick update on what has been achieved so far and what the next steps will be.
+      This is planned to be the first post of a regular blog series with JSR 380 status updates.
+      
+      
+      
+      
+      Expert group formation
+      
+      
+      It all started with the review ballot of the JCP executive committee on the new JSR.
+      The ballot was approved with a huge majority, allowing the JSR to proceed and create its expert group.
+      
+      
+      In a short time,...
+    </summary>
+    <content type="html">
+      &lt;div id=&quot;preamble&quot;&gt;
+      &lt;div class=&quot;sectionbody&quot;&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;It has been a few months since we’ve kicked off the work on Bean Validation 2.0 (&lt;a href=&quot;https://www.jcp.org/en/jsr/detail?id=380&quot;&gt;JSR 380&lt;/a&gt;).
+      We have made some good progress, so I’d like to give you a quick update on what has been achieved so far and what the next steps will be.
+      This is planned to be the first post of a regular blog series with JSR 380 status updates.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;sect1&quot;&gt;
+      &lt;h2 id=&quot;expert-group-formation&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#expert-group-formation&quot;&gt;&lt;/a&gt;Expert group formation&lt;/h2&gt;
+      &lt;div class=&quot;sectionbody&quot;&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;It all started with the review ballot of the JCP executive committee on the new JSR.
+      The ballot was approved with a &lt;a href=&quot;https://www.jcp.org/en/jsr/results?id=5871&quot;&gt;huge majority&lt;/a&gt;, allowing the JSR to proceed and create its expert group.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;In a short time, &lt;a href=&quot;https://www.jcp.org/en/jsr/detail?id=380&quot;&gt;individuals and representatives&lt;/a&gt; from multiple companies joined the EG, providing input and experiences from different angles and perspectives.
+      This also gives us very good connections to the EGs of other specs such as JAX-RS or java.time (JSR 310) which will be beneficial for creating new (or improving existing) integrations with those.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;sect1&quot;&gt;
+      &lt;h2 id=&quot;first-changes&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#first-changes&quot;&gt;&lt;/a&gt;First changes&lt;/h2&gt;
+      &lt;div class=&quot;sectionbody&quot;&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;With the first EG members on board, we didn’t lose time and began with the work on the new spec revision.
+      One of the initial actions was to convert the spec document from DocBook into the fabulous &lt;a href=&quot;http://asciidoc.org/&quot;&gt;AsciiDoc&lt;/a&gt; format.
+      Using AsciiDoc comes with many advantages which make working on the spec a much more enjoyable experience:&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;ulist&quot;&gt;
+      &lt;ul&gt;
+      &lt;li&gt;
+      &lt;p&gt;It can be written using any text editor&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+      &lt;p&gt;Changes are easier to track, e.g. when reviewing pull requests on GitHub&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+      &lt;p&gt;We can include actual source files from the API instead of copying them&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;/ul&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;While that’s primarily a technicality interesting to those working on the spec, it also is beneficial for Bean Validation users,
+      as you for instance can easily track all the changes done so far by examining a &lt;a href=&quot;https://github.com/beanvalidation/beanvalidation-spec/compare/2a9d0ce21856386a8bf9a1d9e963ebffc049604a…​spec-full&quot;&gt;simple diff&lt;/a&gt; on GitHub.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;sect1&quot;&gt;
+      &lt;h2 id=&quot;support-for-new-date-and-time-api&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#support-for-new-date-and-time-api&quot;&gt;&lt;/a&gt;Support for new date and time API&lt;/h2&gt;
+      &lt;div class=&quot;sectionbody&quot;&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;The primary theme in Bean Validation is the embrace of Java 8.
+      Java 8 comes with a variety of improvements to the language (e.g. Lambda expressions and default methods)
+      but also many useful additions to the class library.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;One prominent example of the latter is the new date and time API (&lt;a href=&quot;https://www.jcp.org/en/jsr/detail?id=310&quot;&gt;JSR 310&lt;/a&gt;).
+      Types such as &lt;code&gt;Instant&lt;/code&gt;, &lt;code&gt;LocalDate&lt;/code&gt; or &lt;code&gt;ZonedDateTime&lt;/code&gt; are now supported by the &lt;code&gt;@Past&lt;/code&gt; and &lt;code&gt;@Future&lt;/code&gt; constraints (&lt;a href=&quot;https://hibernate.atlassian.net/browse/BVAL-496&quot;&gt;BVAL-496&lt;/a&gt;):&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;listingblock&quot;&gt;
+      &lt;div class=&quot;content&quot;&gt;
+      &lt;pre class=&quot;CodeRay highlight&quot;&gt;&lt;code data-lang=&quot;java&quot;&gt;&lt;span style=&quot;color:#007&quot;&gt;@Future&lt;/span&gt;
+      &lt;span style=&quot;color:#088;font-weight:bold&quot;&gt;private&lt;/span&gt; LocalDate deliveryDate;&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;&lt;code&gt;@Past&lt;/code&gt; and &lt;code&gt;@Future&lt;/code&gt; now also have a new attribute &lt;code&gt;orPresent()&lt;/code&gt;:&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;listingblock&quot;&gt;
+      &lt;div class=&quot;content&quot;&gt;
+      &lt;pre class=&quot;CodeRay highlight&quot;&gt;&lt;code data-lang=&quot;java&quot;&gt;&lt;span style=&quot;color:#007&quot;&gt;@Past&lt;/span&gt;(orPresent=&lt;span style=&quot;color:#069&quot;&gt;true&lt;/span&gt;)
+      &lt;span style=&quot;color:#088;font-weight:bold&quot;&gt;private&lt;/span&gt; &lt;span style=&quot;color:#088;font-weight:bold&quot;&gt;final&lt;/span&gt; Year inceptionYear = Year.of( &lt;span style=&quot;color:#00D&quot;&gt;2017&lt;/span&gt; );&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;That’s useful for types such as &lt;code&gt;Year&lt;/code&gt; or &lt;code&gt;LocalDate&lt;/code&gt; which don’t represent a specific instant but rather an interval of time
+      and you want to consider the entire current year, day etc. as valid.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Another improvement related to the validation of dates and times is the new &lt;code&gt;ClockProvider&lt;/code&gt; extension point.
+      It allows you to specify what is &quot;now&quot; when validating &lt;code&gt;@Past&lt;/code&gt; and &lt;code&gt;@Future&lt;/code&gt;.
+      That comes in handy for instance if you want to work with the time and time zone of the currently logged in user in a multi-user, multi-timezone application.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;But it’s also useful for (re-)running batch jobs with a different logical date than the current one or for testing with a fixed point in time considered as &quot;now&quot;:&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;listingblock&quot;&gt;
+      &lt;div class=&quot;content&quot;&gt;
+      &lt;pre class=&quot;CodeRay highlight&quot;&gt;&lt;code data-lang=&quot;java&quot;&gt;&lt;span style=&quot;color:#0a8;font-weight:bold&quot;&gt;Validator&lt;/span&gt; validator = Validation.byDefaultProvider()
+          .configure()
+          .clockProvider( () -&amp;gt; Clock.fixed(
+              Instant.parse(&lt;span style=&quot;background-color:hsla(0,100%,50%,0.05)&quot;&gt;&lt;span style=&quot;color:#710&quot;&gt;&quot;&lt;/span&gt;&lt;span style=&quot;color:#D20&quot;&gt;2017-01-19T11:00:00.00Z&lt;/span&gt;&lt;span style=&quot;color:#710&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt; ),  ZoneId.systemDefault() )
+          )
+          .buildValidatorFactory()
+          .getValidator();&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;sect1&quot;&gt;
+      &lt;h2 id=&quot;validation-of-code-collection-code-code-optional-code-and-other-containers&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#validation-of-code-collection-code-code-optional-code-and-other-containers&quot;&gt;&lt;/a&gt;Validation of &lt;code&gt;Collection&lt;/code&gt;, &lt;code&gt;Optional&lt;/code&gt; and other containers&lt;/h2&gt;
+      &lt;div class=&quot;sectionbody&quot;&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Looking at language changes in Java 8, the newly allowed locations for annotations (&lt;a href=&quot;https://docs.oracle.com/javase/tutorial/java/annotations/type_annotations.html&quot;&gt;type annotations&lt;/a&gt;) prove themselves a very useful feature for Bean Validation.
+      By putting constraints to type arguments of parameterized types, it finally gets possible to apply constraints to the elements of collections in a concise and intuitive way (&lt;a href=&quot;https://hibernate.atlassian.net/browse/BVAL-508&quot;&gt;BVAL-508&lt;/a&gt;):&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;listingblock&quot;&gt;
+      &lt;div class=&quot;content&quot;&gt;
+      &lt;pre class=&quot;CodeRay highlight&quot;&gt;&lt;code data-lang=&quot;java&quot;&gt;&lt;span style=&quot;color:#0a8;font-weight:bold&quot;&gt;List&lt;/span&gt;&amp;lt;&lt;span style=&quot;color:#007&quot;&gt;@NotNull&lt;/span&gt; &lt;span style=&quot;color:#007&quot;&gt;@Email&lt;/span&gt; &lt;span style=&quot;color:#0a8;font-weight:bold&quot;&gt;String&lt;/span&gt;&amp;gt; emails;&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Putting the constraints to the &lt;code&gt;String&lt;/code&gt; type argument makes it apparent that they should not be applied to the list object itself, but rather to each contained element.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Similarly, it’s possible to apply constraints to the elements of an array:&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;listingblock&quot;&gt;
+      &lt;div class=&quot;content&quot;&gt;
+      &lt;pre class=&quot;CodeRay highlight&quot;&gt;&lt;code data-lang=&quot;java&quot;&gt;&lt;span style=&quot;color:#0a8;font-weight:bold&quot;&gt;String&lt;/span&gt; &lt;span style=&quot;color:#007&quot;&gt;@NotNull&lt;/span&gt; &lt;span style=&quot;color:#007&quot;&gt;@Email&lt;/span&gt;&lt;span style=&quot;color:#339;font-weight:bold&quot;&gt;[]&lt;/span&gt; emails;&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Also cascaded validation gets more flexible with that.
+      It’s now possible to mandate that the keys &lt;em&gt;and&lt;/em&gt; values of maps should be validated
+      (so far, only values were validated) by using &lt;code&gt;@Valid&lt;/code&gt; like this:&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;listingblock&quot;&gt;
+      &lt;div class=&quot;content&quot;&gt;
+      &lt;pre class=&quot;CodeRay highlight&quot;&gt;&lt;code data-lang=&quot;java&quot;&gt;&lt;span style=&quot;color:#0a8;font-weight:bold&quot;&gt;Map&lt;/span&gt;&amp;lt;&lt;span style=&quot;color:#007&quot;&gt;@Valid&lt;/span&gt; Customer, &lt;span style=&quot;color:#007&quot;&gt;@Valid&lt;/span&gt; Address&amp;gt; primaryAddressByCustomer;&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;But it doesn’t end there.
+      The spec also defines support for &lt;code&gt;java.util.Optional&lt;/code&gt;:&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;listingblock&quot;&gt;
+      &lt;div class=&quot;content&quot;&gt;
+      &lt;pre class=&quot;CodeRay highlight&quot;&gt;&lt;code data-lang=&quot;java&quot;&gt;Optional&amp;lt;&lt;span style=&quot;color:#007&quot;&gt;@Past&lt;/span&gt; LocalDate&amp;gt; getRegistrationDate();&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;As well as for the hierarchy of property types in JavaFX:&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;listingblock&quot;&gt;
+      &lt;div class=&quot;content&quot;&gt;
+      &lt;pre class=&quot;CodeRay highlight&quot;&gt;&lt;code data-lang=&quot;java&quot;&gt;Property&amp;lt;&lt;span style=&quot;color:#007&quot;&gt;@Min&lt;/span&gt;(&lt;span style=&quot;color:#00D&quot;&gt;1&lt;/span&gt;) &lt;span style=&quot;color:#0a8;font-weight:bold&quot;&gt;Integer&lt;/span&gt;&amp;gt; revenue;&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Acknowledging that JavaFX provides dedicated non-generic sub-types of &lt;code&gt;Property&lt;/code&gt; for specific data types (e.g. &lt;code&gt;StringProperty&lt;/code&gt; or &lt;code&gt;IntegerProperty&lt;/code&gt;),
+      it is also supported to put constraints on the element itself in this case:&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;listingblock&quot;&gt;
+      &lt;div class=&quot;content&quot;&gt;
+      &lt;pre class=&quot;CodeRay highlight&quot;&gt;&lt;code data-lang=&quot;java&quot;&gt;&lt;span style=&quot;color:#007&quot;&gt;@Min&lt;/span&gt;(&lt;span style=&quot;color:#00D&quot;&gt;1&lt;/span&gt;)
+      IntegerProperty revenue;&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;This becomes possible by defining means of &quot;automatic value unwrapping&quot; for specific types such as the JavaFX ones.
+      Check out the &lt;a href=&quot;http://beanvalidation.org/latest-draft/spec/#appendix-valueextraction-wrappedelements&quot;&gt;latest spec draft&lt;/a&gt; to learn more about how this is handled.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;While the spec mandates support for type argument constraints on types such as &lt;code&gt;Iterable&lt;/code&gt;, &lt;code&gt;Map&lt;/code&gt;, &lt;code&gt;Optional&lt;/code&gt; and some more,
+      this can be easily extended via the &lt;code&gt;ValueExtractor&lt;/code&gt; contract.
+      This interface is used when the Bean Validation engine needs to obtain the elements of a constrained container.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Custom extractor implementations can be plugged in when bootstrapping a validator,
+      allowing to use type argument constraints with custom collection types such as the ones defined by &lt;a href=&quot;https://github.com/google/guava/wiki/NewCollectionTypesExplained&quot;&gt;Google’s Guava library&lt;/a&gt; (e.g. &lt;code&gt;Multimap&lt;/code&gt; or &lt;code&gt;Table&lt;/code&gt;):&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;listingblock&quot;&gt;
+      &lt;div class=&quot;content&quot;&gt;
+      &lt;pre class=&quot;CodeRay highlight&quot;&gt;&lt;code data-lang=&quot;java&quot;&gt;ListMultimap&amp;lt;&lt;span style=&quot;color:#007&quot;&gt;@Valid&lt;/span&gt; Customer, &lt;span style=&quot;color:#007&quot;&gt;@Email&lt;/span&gt; &lt;span style=&quot;color:#0a8;font-weight:bold&quot;&gt;String&lt;/span&gt;&amp;gt; emailsByCustomer;&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;We are considering to detect custom extractors using the &lt;a href=&quot;http://docs.oracle.com/javase/8/docs/api/index.html?java/util/ServiceLoader.html&quot;&gt;service loader mechanism&lt;/a&gt;,
+      allowing providers of container types to bundle corresponding extractors with their library and making them automatically available to you.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Validation of container elements is by far the most complex feature and we’d like to gather some more feedback on it before committing to it.
+      Hence its current proposal is added as &lt;a href=&quot;http://beanvalidation.org/latest-draft/spec/#appendix-value-extraction&quot;&gt;an appendix&lt;/a&gt; to the spec draft.
+      We are eager to learn about your thoughts and feedback in general, but it’s especially important for this issue due to its complexity.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;We’ve compiled a list of &lt;a href=&quot;http://beanvalidation.org/latest-draft/spec/#_open_questions&quot;&gt;open questions&lt;/a&gt; around this proposal.
+      If you have thoughts on any of those, please make sure to let us know, e.g. by commenting below.
+      The snapshot builds of the reference implementation (Maven GAV &lt;code&gt;org.hibernate:hibernate-validator:6.0.0-SNAPSHOT&lt;/code&gt;) already implement the current proposal, so you can get it from the &lt;a href=&quot;https://repository.jboss.org/nexus/content/repositories/public/&quot;&gt;JBoss Maven repo&lt;/a&gt; in order to play with that feature.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;sect1&quot;&gt;
+      &lt;h2 id=&quot;other-improvements&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#other-improvements&quot;&gt;&lt;/a&gt;Other improvements&lt;/h2&gt;
+      &lt;div class=&quot;sectionbody&quot;&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;While support for JSR 310 and validation of container elements have been the largest features we’ve been working on so far,
+      there are some more smaller, yet very useful improvements.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;E.g. all the built-in constraints are &lt;a href=&quot;http://docs.oracle.com/javase/tutorial/java/annotations/repeating.htmlhttps://hibernate.atlassian.net/browse/BVAL-497&quot;&gt;repeatable annotations&lt;/a&gt; now, allowing to define them several times without requiring the explicit &lt;code&gt;@List&lt;/code&gt; annotation ([BVAL-497]):&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;listingblock&quot;&gt;
+      &lt;div class=&quot;content&quot;&gt;
+      &lt;pre class=&quot;CodeRay highlight&quot;&gt;&lt;code data-lang=&quot;java&quot;&gt;&lt;span style=&quot;color:#007&quot;&gt;@ZipCode&lt;/span&gt;(countryCode = &lt;span style=&quot;background-color:hsla(0,100%,50%,0.05)&quot;&gt;&lt;span style=&quot;color:#710&quot;&gt;&quot;&lt;/span&gt;&lt;span style=&quot;color:#D20&quot;&gt;fr&lt;/span&gt;&lt;span style=&quot;color:#710&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;, groups = Default.class, message = &lt;span style=&quot;background-color:hsla(0,100%,50%,0.05)&quot;&gt;&lt;span style=&quot;color:#710&quot;&gt;&quot;&lt;/span&gt;&lt;span style=&quot;color:#D20&quot;&gt;zip code is not valid&lt;/span&gt;&lt;span style=&quot;color:#710&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;)
+      &lt;span style=&quot;color:#007&quot;&gt;@ZipCode&lt;/span&gt;(
+          countryCode = &lt;span style=&quot;background-color:hsla(0,100%,50%,0.05)&quot;&gt;&lt;span style=&quot;color:#710&quot;&gt;&quot;&lt;/span&gt;&lt;span style=&quot;color:#D20&quot;&gt;fr&lt;/span&gt;&lt;span style=&quot;color:#710&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;,
+          groups = SuperUser.class,
+          message = &lt;span style=&quot;background-color:hsla(0,100%,50%,0.05)&quot;&gt;&lt;span style=&quot;color:#710&quot;&gt;&quot;&lt;/span&gt;&lt;span style=&quot;color:#D20&quot;&gt;zip code invalid. Requires overriding before saving.&lt;/span&gt;&lt;span style=&quot;color:#710&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;
+      )
+      &lt;span style=&quot;color:#088;font-weight:bold&quot;&gt;private&lt;/span&gt; &lt;span style=&quot;color:#0a8;font-weight:bold&quot;&gt;String&lt;/span&gt; zipCode;&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;&lt;code&gt;ConstraintValidator#initialize()&lt;/code&gt; has an empty default implementation now (&lt;a href=&quot;https://hibernate.atlassian.net/browse/BVAL-555&quot;&gt;BVAL-555&lt;/a&gt;),
+      simplifying the implementation of constraint validators that don’t need to access any constraint attributes.
+      You can simply omit the &lt;code&gt;initialize()&lt;/code&gt; method:&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;listingblock&quot;&gt;
+      &lt;div class=&quot;content&quot;&gt;
+      &lt;pre class=&quot;CodeRay highlight&quot;&gt;&lt;code data-lang=&quot;java&quot;&gt;&lt;span style=&quot;color:#088;font-weight:bold&quot;&gt;public&lt;/span&gt; &lt;span style=&quot;color:#339;font-weight:bold&quot;&gt;class&lt;/span&gt; &lt;span style=&quot;color:#B06;font-weight:bold&quot;&gt;AssertTrueValidator&lt;/span&gt; &lt;span style=&quot;color:#088;font-weight:bold&quot;&gt;implements&lt;/span&gt; ConstraintValidator&amp;lt;AssertTrue, &lt;span style=&quot;color:#0a8;font-weight:bold&quot;&gt;Boolean&lt;/span&gt;&amp;gt; {
+      
+          &lt;span style=&quot;color:#007&quot;&gt;@Override&lt;/span&gt;
+          &lt;span style=&quot;color:#088;font-weight:bold&quot;&gt;public&lt;/span&gt; &lt;span style=&quot;color:#339;font-weight:bold&quot;&gt;boolean&lt;/span&gt; isValid(&lt;span style=&quot;color:#0a8;font-weight:bold&quot;&gt;Boolean&lt;/span&gt; bool, ConstraintValidatorContext constraintValidatorContext) {
+              &lt;span style=&quot;color:#080;font-weight:bold&quot;&gt;return&lt;/span&gt; bool == &lt;span style=&quot;color:#069&quot;&gt;null&lt;/span&gt; || bool;
+          }
+      }&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Another nice improvement is the usage of actual parameter names when reporting constraint violations for constraints on method or constructor parameters (&lt;a href=&quot;https://hibernate.atlassian.net/browse/BVAL-498&quot;&gt;BVAL-498&lt;/a&gt;).
+      Provided you have enabled reflective parameter name access during compilation (using &lt;code&gt;-parameters&lt;/code&gt; javac option),
+      &lt;code&gt;Path.Node#getName()&lt;/code&gt; will return the actual parameter name instead of &quot;arg0&quot;, &quot;arg1&quot; for parameter nodes.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;sect1&quot;&gt;
+      &lt;h2 id=&quot;next-steps&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#next-steps&quot;&gt;&lt;/a&gt;Next steps&lt;/h2&gt;
+      &lt;div class=&quot;sectionbody&quot;&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;With all these things in place, we feel it is the right time to put out an Alpha1 release of Bean Validation 2.0 and will post it for Early Draft Review to the JCP within the next days.
+      This should get the discussed changes into the hands of more people out there and will let us improve and hone the features added so far.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;In parallel we’ll continue with some other features from the backlog.
+      Issues high on our priority list are:&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;ulist&quot;&gt;
+      &lt;ul&gt;
+      &lt;li&gt;
+      &lt;p&gt;Adding some new constraints as per our &lt;a href=&quot;http://beanvalidation.org/news/2016/09/15/which-constraints-to-add/&quot;&gt;recent survey&lt;/a&gt;, e.g. &lt;code&gt;@NotEmpty&lt;/code&gt;, &lt;code&gt;@NotBlank&lt;/code&gt;&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+      &lt;p&gt;Separating the notions of message resolver and message interpolator (&lt;a href=&quot;https://hibernate.atlassian.net/browse/BVAL-217&quot;&gt;BVAL-217&lt;/a&gt;)&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+      &lt;p&gt;Ability to validate an object and a list of changes (&lt;a href=&quot;https://hibernate.atlassian.net/browse/BVAL-214&quot;&gt;BVAL-214&lt;/a&gt;)&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;/ul&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;We also contemplate the idea of using Java 8 Lambda expressions and method references for defining constraints without an explicit &lt;code&gt;ConstraintValidator&lt;/code&gt; implementation class.
+      This is already supported in the reference implementation:&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;listingblock&quot;&gt;
+      &lt;div class=&quot;content&quot;&gt;
+      &lt;pre class=&quot;CodeRay highlight&quot;&gt;&lt;code data-lang=&quot;java&quot;&gt;ConstraintMapping mapping = ...
+      mapping.constraintDefinition( Directory.class ) &lt;span style=&quot;color:#777&quot;&gt;// @Directory is a constraint annotation&lt;/span&gt;
+          .validateType( &lt;span style=&quot;color:#0a8;font-weight:bold&quot;&gt;File&lt;/span&gt;.class ).with( &lt;span style=&quot;color:#0a8;font-weight:bold&quot;&gt;File&lt;/span&gt;::exists );&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;We haven’t decided yet whether to put this into the spec or not.
+      So we recommend you give it a try in the reference implementation and let us know about your thoughts.
+      The feedback when &lt;a href=&quot;https://twitter.com/gunnarmorling/status/819631488358563840&quot;&gt;sharing the idea&lt;/a&gt; on Twitter was &lt;a href=&quot;https://twitter.com/dblevins/status/819633752888475648&quot;&gt;very encouraging&lt;/a&gt;.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;We are also &lt;a href=&quot;https://java.net/projects/jax-rs-spec/lists/users/archive/2017-01/message/4&quot;&gt;working&lt;/a&gt; with the expert group for JAX-RS 2.1 (&lt;a href=&quot;https://www.jcp.org/en/jsr/detail?id=370&quot;&gt;JSR 370&lt;/a&gt;) to further improve integration of the two specs, e.g. in the &lt;a href=&quot;https://java.net/jira/browse/JAX_RS_SPEC-539&quot;&gt;field of I18N&lt;/a&gt;.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;This list of issues is not cast in stone, so if there is anything close to your heart, please speak up and let us know about your ideas.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;sect1&quot;&gt;
+      &lt;h2 id=&quot;outreach&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#outreach&quot;&gt;&lt;/a&gt;Outreach&lt;/h2&gt;
+      &lt;div class=&quot;sectionbody&quot;&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;To get more closely in touch with the Bean Validation users out there, we’ve also submitted talks on Bean Validation 2.0 to several conferences.
+      I will be presenting on it at &lt;a href=&quot;https://www.javaland.eu/konferenz/konferenzplaner/konferenzplaner_details.php?id=522447&amp;amp;locS=0&amp;amp;vid=529258&quot;&gt;JavaLand 2017&lt;/a&gt; and have plans for some JUGs.
+      You also can expect a new edition of the &lt;a href=&quot;http://asylum.libsyn.com/&quot;&gt;Asylum Podcast&lt;/a&gt; discussing Bean Validation 2.0 and working on a JSR in general in the next weeks.
+      And you can find an &lt;a href=&quot;https://www.heise.de/developer/artikel/Bean-Validation-ist-sehr-nuetzlich-fuer-Microservice-Architekturen-3321829.html&quot;&gt;interview with me&lt;/a&gt; on Bean Validation 2.0 on heise Developer (in German).&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;sect1&quot;&gt;
+      &lt;h2 id=&quot;raise-your-feedback&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#raise-your-feedback&quot;&gt;&lt;/a&gt;Raise your feedback&lt;/h2&gt;
+      &lt;div class=&quot;sectionbody&quot;&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Bean Validation is a true community effort, so we are eager to learn about your suggestions and proposals.
+      Don’t be shy, get a discussion started by dropping a comment below, posting to the &lt;a href=&quot;https://forum.hibernate.org/viewforum.php?f=26&quot;&gt;feedback forum&lt;/a&gt; or sending a message to the &lt;a href=&quot;https://lists.jboss.org/mailman/listinfo/beanvalidation-dev&quot;&gt;Bean Validation mailing list&lt;/a&gt;.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+    </content>
+  </entry>
+  <entry>
     <id>http://beanvalidation.org/news/2016/11/23/survey-constraints-and-parameterized-type/</id>
     <title>Survey - Where do you use constraints on parameterized type?</title>
-    <updated>2017-01-16T13:32:57+00:00</updated>
+    <updated>2017-01-20T13:11:05+00:00</updated>
     <published>2016-11-23T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2016/11/23/survey-constraints-and-parameterized-type/" rel="alternate" type="text/html" />
     <author>
@@ -117,7 +455,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2016/09/15/which-constraints-to-add/</id>
     <title>Feedback needed - Which constraints should be added?</title>
-    <updated>2017-01-16T13:32:57+00:00</updated>
+    <updated>2017-01-20T13:11:05+00:00</updated>
     <published>2016-09-15T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2016/09/15/which-constraints-to-add/" rel="alternate" type="text/html" />
     <author>
@@ -164,7 +502,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2016/07/15/bean-validation-2-0-is-coming/</id>
     <title>Bean Validation 2.0 - A new JSR is born!</title>
-    <updated>2017-01-16T13:32:57+00:00</updated>
+    <updated>2017-01-20T13:11:05+00:00</updated>
     <published>2016-07-15T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2016/07/15/bean-validation-2-0-is-coming/" rel="alternate" type="text/html" />
     <author>
@@ -252,7 +590,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2015/06/18/bean-validation-tck-1-1-4-released/</id>
     <title>Bean Validation TCK 1.1.4.Final released</title>
-    <updated>2017-01-16T13:32:57+00:00</updated>
+    <updated>2017-01-20T13:11:05+00:00</updated>
     <published>2015-06-18T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2015/06/18/bean-validation-tck-1-1-4-released/" rel="alternate" type="text/html" />
     <author>
@@ -288,7 +626,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2014/06/18/bean-validation-tcks-now-with-support-for-java-se-8/</id>
     <title>Bean Validation TCKs now with signature files for Java SE 8</title>
-    <updated>2017-01-16T13:32:57+00:00</updated>
+    <updated>2017-01-20T13:11:05+00:00</updated>
     <published>2014-06-18T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2014/06/18/bean-validation-tcks-now-with-support-for-java-se-8/" rel="alternate" type="text/html" />
     <author>
@@ -335,7 +673,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2014/05/28/training-materials/</id>
     <title>Training materials on Bean Validation 1.1</title>
-    <updated>2017-01-16T13:32:57+00:00</updated>
+    <updated>2017-01-20T13:11:05+00:00</updated>
     <published>2014-05-28T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2014/05/28/training-materials/" rel="alternate" type="text/html" />
     <author>
@@ -388,7 +726,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2013/06/04/xml-namespace-and-jcp/</id>
     <title>XML namespace and JCP</title>
-    <updated>2017-01-16T13:32:57+00:00</updated>
+    <updated>2017-01-20T13:11:05+00:00</updated>
     <published>2013-06-04T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2013/06/04/xml-namespace-and-jcp/" rel="alternate" type="text/html" />
     <author>
@@ -450,7 +788,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2013/05/02/bean-validation-1-1-is-a-spec/</id>
     <title>Bean Validation 1.1 is a spec</title>
-    <updated>2017-01-16T13:32:57+00:00</updated>
+    <updated>2017-01-20T13:11:05+00:00</updated>
     <published>2013-05-02T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2013/05/02/bean-validation-1-1-is-a-spec/" rel="alternate" type="text/html" />
     <author>
@@ -515,7 +853,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2013/03/21/bean-validation-1-1-final-approval-ballot/</id>
     <title>Bean Validation 1.1 CR3 - Final Approval Ballot</title>
-    <updated>2017-01-16T13:32:57+00:00</updated>
+    <updated>2017-01-20T13:11:05+00:00</updated>
     <published>2013-03-21T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2013/03/21/bean-validation-1-1-final-approval-ballot/" rel="alternate" type="text/html" />
     <author>
@@ -567,7 +905,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2013/02/20/bean-validation-1-1-proposed-final-draft/</id>
     <title>Bean Validation 1.1 CR1 - Proposed Final Draft</title>
-    <updated>2017-01-16T13:32:57+00:00</updated>
+    <updated>2017-01-20T13:11:05+00:00</updated>
     <published>2013-02-20T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2013/02/20/bean-validation-1-1-proposed-final-draft/" rel="alternate" type="text/html" />
     <author>
@@ -678,7 +1016,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2013/02/15/bean-validation-1-1-beta4/</id>
     <title>Bean Validation 1.1 Beta 4 - issue smashing edition</title>
-    <updated>2017-01-16T13:32:57+00:00</updated>
+    <updated>2017-01-20T13:11:05+00:00</updated>
     <published>2013-02-15T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2013/02/15/bean-validation-1-1-beta4/" rel="alternate" type="text/html" />
     <author>
@@ -788,7 +1126,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2013/02/05/javaspotlight-podcast-on-bean-validation-1-1/</id>
     <title>Java Spotlight Podcast on Bean Validation 1.1</title>
-    <updated>2017-01-16T13:32:57+00:00</updated>
+    <updated>2017-01-20T13:11:05+00:00</updated>
     <published>2013-02-05T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2013/02/05/javaspotlight-podcast-on-bean-validation-1-1/" rel="alternate" type="text/html" />
     <author>
@@ -819,7 +1157,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2013/02/01/bean-validation-1-1-beta3-last-line/</id>
     <title>Bean Validation 1.1 Beta 3 - the last line</title>
-    <updated>2017-01-16T13:32:57+00:00</updated>
+    <updated>2017-01-20T13:11:05+00:00</updated>
     <published>2013-02-01T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2013/02/01/bean-validation-1-1-beta3-last-line/" rel="alternate" type="text/html" />
     <author>
@@ -923,7 +1261,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2012/12/18/bean-validation-in-the-press/</id>
     <title>Bean Validation in the press</title>
-    <updated>2017-01-16T13:32:57+00:00</updated>
+    <updated>2017-01-20T13:11:05+00:00</updated>
     <published>2012-12-18T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2012/12/18/bean-validation-in-the-press/" rel="alternate" type="text/html" />
     <author>
@@ -956,7 +1294,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2012/12/11/should-getters-be-considered-methods/</id>
     <title>Should getters be validated when they are called?</title>
-    <updated>2017-01-16T13:32:57+00:00</updated>
+    <updated>2017-01-20T13:11:05+00:00</updated>
     <published>2012-12-11T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2012/12/11/should-getters-be-considered-methods/" rel="alternate" type="text/html" />
     <author>
@@ -1143,7 +1481,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2012/11/29/public-review-ballot/</id>
     <title>Public review ballot favorable to Bean Validation 1.1</title>
-    <updated>2017-01-16T13:32:57+00:00</updated>
+    <updated>2017-01-20T13:11:05+00:00</updated>
     <published>2012-11-29T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2012/11/29/public-review-ballot/" rel="alternate" type="text/html" />
     <author>
@@ -1172,7 +1510,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2012/11/27/1-1-beta2-is-out/</id>
     <title>Bean Validation 1.1 Beta 2 is out</title>
-    <updated>2017-01-16T13:32:57+00:00</updated>
+    <updated>2017-01-20T13:11:05+00:00</updated>
     <published>2012-11-27T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2012/11/27/1-1-beta2-is-out/" rel="alternate" type="text/html" />
     <author>
@@ -1201,7 +1539,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2012/10/22/release-1-1-public-review/</id>
     <title>Public Review Draft for Bean Validation 1.1</title>
-    <updated>2017-01-16T13:32:57+00:00</updated>
+    <updated>2017-01-20T13:11:05+00:00</updated>
     <published>2012-10-22T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2012/10/22/release-1-1-public-review/" rel="alternate" type="text/html" />
     <author>
@@ -1294,7 +1632,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2012/09/12/fine-control-over-method-validation/</id>
     <title>Fine control over method validation in Bean Validation... or not!</title>
-    <updated>2017-01-16T13:32:57+00:00</updated>
+    <updated>2017-01-20T13:11:05+00:00</updated>
     <published>2012-09-12T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2012/09/12/fine-control-over-method-validation/" rel="alternate" type="text/html" />
     <author>
@@ -1500,7 +1838,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2012/08/31/big-push-on-bean-validation/</id>
     <title>Big push on Bean Validation 1.1</title>
-    <updated>2017-01-16T13:32:57+00:00</updated>
+    <updated>2017-01-20T13:11:05+00:00</updated>
     <published>2012-08-31T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2012/08/31/big-push-on-bean-validation/" rel="alternate" type="text/html" />
     <author>
@@ -1563,7 +1901,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2012/08/29/methodvalidation-inheritance/</id>
     <title>Method validation and inheritance - feedback needed!</title>
-    <updated>2017-01-16T13:32:57+00:00</updated>
+    <updated>2017-01-20T13:11:05+00:00</updated>
     <published>2012-08-29T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2012/08/29/methodvalidation-inheritance/" rel="alternate" type="text/html" />
     <author>
@@ -1693,7 +2031,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2012/06/28/hibernate-validator-5-alpha/</id>
     <title>Hibernate Validator 5 alpha for Bean Validation 1.1 is out</title>
-    <updated>2017-01-16T13:32:57+00:00</updated>
+    <updated>2017-01-20T13:11:05+00:00</updated>
     <published>2012-06-28T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2012/06/28/hibernate-validator-5-alpha/" rel="alternate" type="text/html" />
     <author>
@@ -1726,7 +2064,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2012/06/06/continuous-publication-specification-snapshot/</id>
     <title>Continuous publication of the specification snapshot</title>
-    <updated>2017-01-16T13:32:57+00:00</updated>
+    <updated>2017-01-20T13:11:05+00:00</updated>
     <published>2012-06-06T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2012/06/06/continuous-publication-specification-snapshot/" rel="alternate" type="text/html" />
     <author>
@@ -1746,7 +2084,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2012/03/28/jcp-release-1-1-edr1/</id>
     <title>Bean Validation 1.1 officially reaches the JCP</title>
-    <updated>2017-01-16T13:32:57+00:00</updated>
+    <updated>2017-01-20T13:11:05+00:00</updated>
     <published>2012-03-28T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2012/03/28/jcp-release-1-1-edr1/" rel="alternate" type="text/html" />
     <author>
@@ -1783,7 +2121,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2012/03/16/artifacts-1-1-edr1/</id>
     <title>Code artifacts published for Bean Validation 1.1 early draft 1</title>
-    <updated>2017-01-16T13:32:57+00:00</updated>
+    <updated>2017-01-20T13:11:05+00:00</updated>
     <published>2012-03-16T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2012/03/16/artifacts-1-1-edr1/" rel="alternate" type="text/html" />
     <author>
@@ -1840,7 +2178,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2012/03/13/release-1-1-edr1/</id>
     <title>Bean Validation 1.1 early draft 1 is out - time for feedback</title>
-    <updated>2017-01-16T13:32:57+00:00</updated>
+    <updated>2017-01-20T13:11:05+00:00</updated>
     <published>2012-03-13T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2012/03/13/release-1-1-edr1/" rel="alternate" type="text/html" />
     <author>
@@ -1965,7 +2303,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2012/02/01/method-level-proposal/</id>
     <title>Proposal for method validation added</title>
-    <updated>2017-01-16T13:32:57+00:00</updated>
+    <updated>2017-01-20T13:11:05+00:00</updated>
     <published>2012-02-01T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2012/02/01/method-level-proposal/" rel="alternate" type="text/html" />
     <author>
@@ -1990,7 +2328,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2011/10/21/dependency-injection-proposal/</id>
     <title>Adding proposal section and first proposal</title>
-    <updated>2017-01-16T13:32:57+00:00</updated>
+    <updated>2017-01-20T13:11:05+00:00</updated>
     <published>2011-10-21T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2011/10/21/dependency-injection-proposal/" rel="alternate" type="text/html" />
     <author>
@@ -2016,7 +2354,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2011/09/16/method-level-validation/</id>
     <title>Work on method level validation</title>
-    <updated>2017-01-16T13:32:57+00:00</updated>
+    <updated>2017-01-20T13:11:05+00:00</updated>
     <published>2011-09-16T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2011/09/16/method-level-validation/" rel="alternate" type="text/html" />
     <author>
@@ -2060,7 +2398,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2011/09/01/spec-repository-out/</id>
     <title>The specification repository is released</title>
-    <updated>2017-01-16T13:32:57+00:00</updated>
+    <updated>2017-01-20T13:11:05+00:00</updated>
     <published>2011-09-01T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2011/09/01/spec-repository-out/" rel="alternate" type="text/html" />
     <author>
@@ -2103,7 +2441,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2011/07/23/voted-yes/</id>
     <title>Bean Validation has been voted yes!</title>
-    <updated>2017-01-16T13:32:57+00:00</updated>
+    <updated>2017-01-20T13:11:05+00:00</updated>
     <published>2011-07-23T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2011/07/23/voted-yes/" rel="alternate" type="text/html" />
     <author>
@@ -2126,7 +2464,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2011/07/22/review-ballot/</id>
     <title>Bean Validation in review ballot</title>
-    <updated>2017-01-16T13:32:57+00:00</updated>
+    <updated>2017-01-20T13:11:05+00:00</updated>
     <published>2011-07-22T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2011/07/22/review-ballot/" rel="alternate" type="text/html" />
     <author>
@@ -2143,7 +2481,7 @@
   <entry>
     <id>http://beanvalidation.org/news/2011/07/21/Site-is-live/</id>
     <title>The website is live!</title>
-    <updated>2017-01-16T13:32:57+00:00</updated>
+    <updated>2017-01-20T13:11:05+00:00</updated>
     <published>2011-07-21T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2011/07/21/Site-is-live/" rel="alternate" type="text/html" />
     <author>
