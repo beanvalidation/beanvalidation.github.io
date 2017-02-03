@@ -5,7 +5,8 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.3">
-<title>Bean Validation 2.0 specification - WORK IN PROGRESS</title>
+<meta name="author" content="Gunnar Morling">
+<title>Bean Validation specification</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -508,133 +509,115 @@ table.CodeRay td.code>pre{padding:0}
 .CodeRay .head .head{color:#f4f}
 </style>
 </head>
-<body class="article toc2 toc-left">
+<body class="article">
 <div id="header">
-<h1>Bean Validation 2.0 specification - WORK IN PROGRESS</h1>
-<div id="toc" class="toc2">
-<div id="toctitle">Table of Contents</div>
-<ul class="sectlevel1">
-<li><a href="#_license">License</a></li>
-<li><a href="#introduction">1. Introduction</a>
-<ul class="sectlevel2">
-<li><a href="#_expert_group">1.1. Expert group</a></li>
-<li><a href="#_specification_goals">1.2. Specification goals</a></li>
-<li><a href="#_required_java_version">1.3. Required Java version</a></li>
-<li><a href="#_how_this_document_is_organized">1.4. How this document is organized</a></li>
-<li><a href="#_how_to_comment">1.5. How to comment</a></li>
-</ul>
-</li>
-<li><a href="#whatsnew">2. What&#8217;s new</a>
-<ul class="sectlevel2">
-<li><a href="#_what_s_new_in_2_0">2.1. What&#8217;s new in 2.0</a></li>
-<li><a href="#_what_s_new_in_1_1">2.2. What&#8217;s new in 1.1</a></li>
-</ul>
-</li>
-<li><a href="#constraintsdefinitionimplementation">3. Constraint Definition</a>
-<ul class="sectlevel2">
-<li><a href="#constraintsdefinitionimplementation-constraintdefinition">3.1. Constraint annotation</a></li>
-<li><a href="#constraintsdefinitionimplementation-multipleconstraints">3.2. Applying multiple constraints of the same type</a></li>
-<li><a href="#constraintsdefinitionimplementation-constraintcomposition">3.3. Constraint composition</a></li>
-<li><a href="#constraintsdefinitionimplementation-validationimplementation">3.4. Constraint validation implementation</a></li>
-<li><a href="#constraintsdefinitionimplementation-constraintfactory">3.5. The ConstraintValidatorFactory</a></li>
-</ul>
-</li>
-<li><a href="#constraintdeclarationvalidationprocess">4. Constraint declaration and validation process</a>
-<ul class="sectlevel2">
-<li><a href="#constraintdeclarationvalidationprocess-requirements">4.1. Requirements on classes to be validated</a></li>
-<li><a href="#_constraint_declaration">4.2. Constraint declaration</a></li>
-<li><a href="#constraintdeclarationvalidationprocess-inheritance">4.3. Inheritance (interface and superclass)</a></li>
-<li><a href="#constraintdeclarationvalidationprocess-groupsequence">4.4. Group and group sequence</a></li>
-<li><a href="#constraintdeclarationvalidationprocess-methodlevelconstraints">4.5. Method and constructor constraints</a></li>
-<li><a href="#constraintdeclarationvalidationprocess-validationroutine">4.6. Validation routine</a></li>
-<li><a href="#_examples_3">4.7. Examples</a></li>
-</ul>
-</li>
-<li><a href="#validationapi">5. Validation APIs</a>
-<ul class="sectlevel2">
-<li><a href="#validationapi-validatorapi">5.1. Validator API</a></li>
-<li><a href="#validationapi-constraintviolation">5.2. ConstraintViolation</a></li>
-<li><a href="#validationapi-message">5.3. Message interpolation</a></li>
-<li><a href="#validationapi-triggeringmethodvalidation">5.4. Triggering method validation</a></li>
-<li><a href="#bootstrapping">5.5. Bootstrapping</a></li>
-</ul>
-</li>
-<li><a href="#constraintmetadata">6. Constraint metadata request APIs</a>
-<ul class="sectlevel2">
-<li><a href="#_validator">6.1. Validator</a></li>
-<li><a href="#constraintmetadata-elementdescriptor">6.2. ElementDescriptor</a></li>
-<li><a href="#_beandescriptor">6.3. BeanDescriptor</a></li>
-<li><a href="#_cascadabledescriptor">6.4. CascadableDescriptor</a></li>
-<li><a href="#_groupconversiondescriptor">6.5. GroupConversionDescriptor</a></li>
-<li><a href="#_propertydescriptor">6.6. PropertyDescriptor</a></li>
-<li><a href="#_executabledescriptor_methoddescriptor_and_constructordescriptor">6.7. ExecutableDescriptor, MethodDescriptor and ConstructorDescriptor</a></li>
-<li><a href="#_parameterdescriptor">6.8. ParameterDescriptor</a></li>
-<li><a href="#_crossparameterdescriptor">6.9. CrossParameterDescriptor</a></li>
-<li><a href="#_returnvaluedescriptor">6.10. ReturnValueDescriptor</a></li>
-<li><a href="#constraintmetadata-constraintdescriptor">6.11. ConstraintDescriptor</a></li>
-<li><a href="#_example">6.12. Example</a></li>
-</ul>
-</li>
-<li><a href="#builtinconstraints">7. Built-in Constraint definitions</a></li>
-<li><a href="#xml">8. XML deployment descriptor</a>
-<ul class="sectlevel2">
-<li><a href="#xml-mapping">8.1. Constraint definition and declaration</a></li>
-<li><a href="#xml-config-xsd">8.2. Configuration schema</a></li>
-</ul>
-</li>
-<li><a href="#exception">9. Exception model</a>
-<ul class="sectlevel2">
-<li><a href="#_error_report_code_class_classname_constraintviolationexception_code">9.1. Error report: <code class="classname">ConstraintViolationException</code></a></li>
-<li><a href="#_constraint_definition_code_class_classname_constraintdefinitionexception_code">9.2. Constraint definition: <code class="classname">ConstraintDefinitionException</code></a></li>
-<li><a href="#_constraint_declaration_code_class_classname_constraintdeclarationexception_code_and_code_class_classname_unexpectedtypeexception_code">9.3. Constraint declaration: <code class="classname">ConstraintDeclarationException</code> and <code class="classname">UnexpectedTypeException</code></a></li>
-<li><a href="#_group_definition_code_class_classname_groupdefinitionexception_code">9.4. Group definition: <code class="classname">GroupDefinitionException</code></a></li>
-</ul>
-</li>
-<li><a href="#integration">10. Integration</a>
-<ul class="sectlevel2">
-<li><a href="#integration-general">10.1. General requirements</a></li>
-<li><a href="#integration-javaee">10.2. Java EE</a></li>
-<li><a href="#integration-cdi">10.3. Context and Dependency Injection (CDI) integration</a></li>
-<li><a href="#_java_persistence_2_0_integration">10.4. Java Persistence 2.0 integration</a></li>
-<li><a href="#_java_server_faces_2_0_integration">10.5. Java Server Faces 2.0 integration</a></li>
-<li><a href="#_jax_rs_2_integration">10.6. JAX-RS 2 integration</a></li>
-</ul>
-</li>
-<li><a href="#terminology">Appendix A: Terminology</a></li>
-<li><a href="#appendix-value-extraction">Appendix B: Value extraction for cascaded validation and type argument constraints (BVAL-508)</a>
-<ul class="sectlevel2">
-<li><a href="#_motivation">B.1. Motivation</a></li>
-<li><a href="#_requirements">B.2. Requirements</a></li>
-<li><a href="#_non_requirements">B.3. Non-requirements</a></li>
-<li><a href="#_solution">B.4. Solution</a></li>
-<li><a href="#_extensions_to_the_exception_model">B.5. Extensions to the exception model</a></li>
-<li><a href="#_open_questions">B.6. Open questions</a></li>
-</ul>
-</li>
-<li><a href="#standard-resolver-messages">Appendix C: Standard ResourceBundle messages</a></li>
-<li><a href="#appendix-jpa">Appendix D: Java Persistence 2.0 and schema generation</a></li>
-<li><a href="#changelog">Appendix E: Changelog</a></li>
-</ul>
+<h1>Bean Validation specification</h1>
+<div class="details">
+<span id="author" class="author">Gunnar Morling</span><br>
+<span id="revnumber">version 2.0.0.Alpha1 (Early Draft 1),</span>
+<span id="revdate">2017-02-02</span>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_license"><a class="anchor" href="#_license"></a>License</h2>
+<h2 id="_evaluation_license"><a class="anchor" href="#_evaluation_license"></a>Evaluation license</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Copyright Red Hat, Inc.</p>
+<p>Copyright 2007-2017 Red Hat, Inc.</p>
 </div>
 <div class="paragraph">
-<p>Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at <a href="http://www.apache.org/licenses/LICENSE-2.0" class="bare">http://www.apache.org/licenses/LICENSE-2.0</a>.</p>
+<p>All rights reserved.</p>
 </div>
 <div class="paragraph">
-<p>Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.</p>
+<p>NOTICE</p>
+</div>
+<div class="paragraph">
+<p>The Specification is protected by copyright and the information described therein may be protected by one or more U.S. patents, foreign patents, or pending applications. Except as provided under the following license, no part of the Specification may be reproduced in any form by any means without the prior written authorization of Red Hat Inc. and its licensors, if any. Any use of the Specification and the information described therein will be governed by the terms and conditions of this Agreement.</p>
+</div>
+<div class="paragraph">
+<p>Subject to the terms and conditions of this license, including your compliance with Paragraphs 1 and 2 below, Red Hat Inc. hereby grants you a fully-paid, non-exclusive, non-transferable, limited license (without the right to sublicense) under Red Hat Inc.'s intellectual property rights to:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Review the Specification for the purposes of evaluation. This includes: (i) developing implementations of the Specification for your internal, non-commercial use; (ii) discussing the Specification with any third party; and (iii) excerpting brief portions of the Specification in oral or written communications which discuss the Specification provided that such excerpts do not in the aggregate constitute a significant portion of the Specification.</p>
+</li>
+<li>
+<p>Distribute implementations of the Specification to third parties for their testing and evaluation use, provided that any such implementation:</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>(i) does not modify, subset, superset or otherwise extend the Licensor Name Space, or include any public or protected packages, classes, Java interfaces, fields or methods within the Licensor Name Space other than those required/authorized by the Specification or Specifications being implemented;</p>
+</div>
+<div class="paragraph">
+<p>(ii) is clearly and prominently marked with the word "UNTESTED" or "EARLY ACCESS" or "INCOMPATIBLE" or "UNSTABLE" or "BETA" in any list of available builds and in proximity to every link initiating its download, where the list or link is under Licensee&#8217;s control; and</p>
+</div>
+<div class="paragraph">
+<p>(iii) includes the following notice:</p>
+</div>
+<div class="paragraph">
+<p>"This is an implementation of an early-draft specification developed under the Java Community Process (JCP). The code is not compatible with any specification of the JCP."</p>
+</div>
+<div class="paragraph">
+<p>The grant set forth above concerning your distribution of implementations of the Specification is contingent upon your agreement to terminate development and distribution of your implementation of early draft upon final completion of the Specification. If you fail to do so, the foregoing grant shall be considered null and void.</p>
+</div>
+<div class="paragraph">
+<p>No provision of this Agreement shall be understood to restrict your ability to make and distribute to third parties applications written to the Specification.</p>
+</div>
+<div class="paragraph">
+<p>Other than this limited license, you acquire no right, para or interest in or to the Specification or any other Red Hat Inc. intellectual property, and the Specification may only be used in accordance with the license terms set forth herein. This license will expire on the earlier of: (a) two (2) years from the date of Release listed above; (b) the date on which the final version of the Specification is publicly released; or (c) the date on which the Java Specification Request (JSR) to which the Specification corresponds is withdrawn. In addition, this license will terminate immediately without notice from Red Hat Inc. if you fail to comply with any provision of this license. Upon termination, you must cease use of or destroy the Specification.</p>
+</div>
+<div class="paragraph">
+<p>"Licensor Name Space" means the public class or interface declarations whose names begin with "java", "javax", "com.redhat", "com.jboss", "org.jboss", "org.hibernate" or their equivalents in any subsequent naming convention adopted through the Java Community Process, or any recognized successors or replacements thereof.</p>
+</div>
+<div class="paragraph">
+<p>TRADEMARKS</p>
+</div>
+<div class="paragraph">
+<p>No right, para, or interest in or to any trademarks, service marks, or trade names of Red Hat Inc. or Red Hat&#8217;s licensors is granted hereunder. Java and Java-related logos, marks and names are trademarks or registered trademarks of Sun Microsystems, Inc. in the U.S. and other countries.</p>
+</div>
+<div class="paragraph">
+<p>DISCLAIMER OF WARRANTIES</p>
+</div>
+<div class="paragraph">
+<p>THE SPECIFICATION IS PROVIDED "AS IS" AND IS EXPERIMENTAL AND MAY CONTAIN DEFECTS OR DEFICIENCIES WHICH CANNOT OR WILL NOT BE CORRECTED BY RED HAT Inc. RED HAT Inc. MAKES NO REPRESENTATIONS OR WARRANTIES, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO, WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT THAT THE CONTENTS OF THE SPECIFICATION ARE SUITABLE FOR ANY PURPOSE OR THAT ANY PRACTICE OR IMPLEMENTATION OF SUCH CONTENTS WILL NOT INFRINGE ANY THIRD PARTY PATENTS, COPYRIGHTS, TRADE SECRETS OR OTHER RIGHTS. This document does not represent any commitment to release or implement any portion of the Specification in any product.</p>
+</div>
+<div class="paragraph">
+<p>THE SPECIFICATION COULD INCLUDE TECHNICAL INACCURACIES OR TYPOGRAPHICAL ERRORS. CHANGES ARE PERIODICALLY ADDED TO THE INFORMATION THEREIN; THESE CHANGES WILL BE INCORPORATED INTO NEW VERSIONS OF THE SPECIFICATION, IF ANY. RED HAT Inc. MAY MAKE IMPROVEMENTS AND/OR CHANGES TO THE PRODUCT(S) AND/OR THE PROGRAM(S) DESCRIBED IN THE SPECIFICATION AT ANY TIME. Any use of such changes in the Specification will be governed by the then-current license for the applicable version of the Specification.</p>
+</div>
+<div class="paragraph">
+<p>LIMITATION OF LIABILITY</p>
+</div>
+<div class="paragraph">
+<p>TO THE EXTENT NOT PROHIBITED BY LAW, IN NO EVENT WILL RED HAT Inc. OR ITS LICENSORS BE LIABLE FOR ANY DAMAGES, INCLUDING WITHOUT LIMITATION, LOST REVENUE, PROFITS OR DATA, OR FOR SPECIAL, INDIRECT, CONSEQUENTIAL, INCIDENTAL OR PUNITIVE DAMAGES, HOWEVER CAUSED AND REGARDLESS OF THE THEORY OF LIABILITY, ARISING OUT OF OR RELATED TO ANY FURNISHING, PRACTICING, MODIFYING OR ANY USE OF THE SPECIFICATION, EVEN IF RED HAT Inc. AND/OR ITS LICENSORS HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.</p>
+</div>
+<div class="paragraph">
+<p>You will hold Red Hat Inc. (and its licensors) harmless from any claims based on your use of the Specification for any purposes other than the limited right of evaluation as described above, and from any claims that later versions or releases of any Specification furnished to you are incompatible with the Specification provided to you under this license.</p>
+</div>
+<div class="paragraph">
+<p>RESTRICTED RIGHTS LEGEND</p>
+</div>
+<div class="paragraph">
+<p>If this Software is being acquired by or on behalf of the U.S. Government or by a U.S. Government prime contractor or subcontractor (at any tier), then the Government&#8217;s rights in the Software and accompanying documentation shall be only as set forth in this license; this is in accordance with 48 C.F.R. 227.7201 through 227.7202-4 (for Department of Defense (DoD) acquisitions) and with 48 C.F.R. 2.101 and 12.212 (for non-DoD acquisitions).</p>
+</div>
+<div class="paragraph">
+<p>REPORT</p>
+</div>
+<div class="paragraph">
+<p>You may wish to report any ambiguities, inconsistencies or inaccuracies you may find in connection with your evaluation of the Specification ("Feedback"). To the extent that you provide Red Hat Inc. with any Feedback, you hereby: (i) agree that such Feedback is provided on a non-proprietary and non-confidential basis, and (ii) grant Red Hat Inc. a perpetual, non-exclusive, worldwide, fully paid-up, irrevocable license, with the right to sublicense through multiple levels of sublicensees, to incorporate, disclose, and use without limitation the Feedback for any purpose related to the Specification and future versions, implementations, and test suites thereof.</p>
+</div>
+<div class="paragraph">
+<p>GENERAL TERMS</p>
+</div>
+<div class="paragraph">
+<p>Any action related to this Agreement will be governed by California law and controlling U.S. federal law. The U.N. Convention for the International Sale of Goods and the choice of law rules of any jurisdiction will not apply.</p>
+</div>
+<div class="paragraph">
+<p>The Specification is subject to U.S. export control laws and may be subject to export or import regulations in other countries. Licensee agrees to comply strictly with all such laws and regulations and acknowledges that it has the responsibility to obtain such licenses to export, re-export or import as may be required after delivery to Licensee.</p>
+</div>
+<div class="paragraph">
+<p>This Agreement is the parties' entire agreement relating to its subject matter. It supersedes all prior or contemporaneous oral or written communications, proposals, conditions, representations and warranties and prevails over any conflicting or additional terms of any quote, order, acknowledgment, or other communication between the parties relating to its subject matter during the term of this Agreement. No modification to this Agreement will be binding, unless in writing and signed by an authorized representative of each party.</p>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -651,12 +634,52 @@ limitations under the License.</p>
 <div class="sect2">
 <h3 id="_expert_group"><a class="anchor" href="#_expert_group"></a>1.1. Expert group</h3>
 <div class="paragraph">
-<p>This work has been conducted as part of JSR 380 and formerly JSRs 349 and 303 under the Java Community Process Program. This specification is the result of the collaborative work of the members of the JSR 380 Expert Group and the community at large. The following persons have actively contributed to Bean Validation 2.0 in alphabetical order:</p>
+<p>This work has been conducted as part of JSR 380 and formerly JSRs 349 and 303 under the Java Community Process Program.
+This specification is the result of the collaborative work of the members of the JSR 380 Expert Group and the community at large.</p>
+</div>
+<div class="paragraph">
+<p>The following persons have actively contributed to Bean Validation 2.0 as members of the JSR 380 expert group and the community at large in alphabetical order:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>TODO</p>
+<p>Matt Benson</p>
+</li>
+<li>
+<p>Emmanuel Bernard (Red Hat, Inc.)</p>
+</li>
+<li>
+<p>Linda DeMichiel (Oracle)</p>
+</li>
+<li>
+<p>Hendrik Ebbers (Canoo AG)</p>
+</li>
+<li>
+<p>Hardy Ferentschik (Red Hat, Inc.)</p>
+</li>
+<li>
+<p>Christian Kaltepoth (ingenit GmbH &amp; Co. KG)</p>
+</li>
+<li>
+<p>Werner Keil</p>
+</li>
+<li>
+<p>Marco Molteni (Genidea Sagl)</p>
+</li>
+<li>
+<p>Gunnar Morling (Red Hat, Inc.) - Specification Lead</p>
+</li>
+<li>
+<p>Michael Nascimento Santos</p>
+</li>
+<li>
+<p>Otavio Santana</p>
+</li>
+<li>
+<p>Guillaume Smet (Red Hat, Inc.)</p>
+</li>
+<li>
+<p>Tsuyoshi Yoshitomi (Fujitsu Limited)</p>
 </li>
 </ul>
 </div>
@@ -870,10 +893,45 @@ limitations under the License.</p>
 <div class="sect2">
 <h3 id="_what_s_new_in_2_0"><a class="anchor" href="#_what_s_new_in_2_0"></a>2.1. What&#8217;s new in 2.0</h3>
 <div class="paragraph">
-<p>The main contribution of Bean Validation 2.0 is leveraging the new language features of Java 8 for the purposes of validation.</p>
+<p>The main contribution of Bean Validation 2.0 is leveraging the new language features and API additions of Java 8 for the purposes of validation.
+The changes include:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Support for the new date/time data types for <code>@Past</code> and <code>@Future</code> (see <a href="#builtinconstraints">Built-in Constraint definitions</a>);
+fine-grained control over the current time and time zone used for validation (see <a href="#constraintsdefinitionimplementation-validationimplementation-temporal-validators">Implementation of temporal constraint validators</a>)</p>
+</li>
+<li>
+<p>Advanced support for validating container elements by annotating type arguments of generic type, e.g. <code>List&lt;@Min(1) Integer&gt; positiveNumbers</code> (see <a href="#appendix-value-extraction">Value extraction for cascaded validation and type argument constraints (BVAL-508)</a>);
+this also includes:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>More flexible cascaded validation of collection types, e.g. <code>Map&lt;@Valid CustomerType, @Valid Customer&gt; customersByType</code></p>
+</li>
+<li>
+<p>Support for <code>java.util.Optional</code></p>
+</li>
+<li>
+<p>Support for the property types declared by JavaFX</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>All built-in constraints are marked as repeatable (see <a href="#builtinconstraints">Built-in Constraint definitions</a>)</p>
+</li>
+<li>
+<p>Parameter names are retrieved using reflection (see <a href="#constraintdeclarationvalidationprocess-methodlevelconstraints-definingparameterconstraints-namingparameters">Naming parameters</a>)</p>
+</li>
+<li>
+<p><code>ConstraintValidator#initialize()</code> is a default method (see <a href="#constraintsdefinitionimplementation-validationimplementation">Constraint validation implementation</a>)</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>TODO</p>
+<p>Further changes will be incorporated in the course of future Early Draft(s) and/or Public Draft(s) of Bean Validation 2.0.</p>
 </div>
 </div>
 <div class="sect2">
@@ -2958,8 +3016,7 @@ context.buildConstraintViolationWithTemplate(
 <div class="sect3">
 <h4 id="constraintsdefinitionimplementation-validationimplementation-temporal-validators"><a class="anchor" href="#constraintsdefinitionimplementation-validationimplementation-temporal-validators"></a>3.4.1. Implementation of temporal constraint validators</h4>
 <div class="paragraph">
-<p>[tck-testable]#
-Constraint validators for temporal constraints (either the built-in constraints <code>@Past</code> and <code>@Future</code> or custom temporal constraints) can obtain the current instant from the <code>ClockProvider</code> object exposed by <code>ConstraintValidatorContext#getClockProvider()</code>.#</p>
+<p><span class="tck-testable">Constraint validators for temporal constraints (either the built-in constraints <code>@Past</code> and <code>@Future</code> or custom temporal constraints) can obtain the current instant from the <code>ClockProvider</code> object exposed by <code>ConstraintValidatorContext#getClockProvider()</code>.</span></p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -13025,7 +13082,7 @@ The annotated element must be an instant, date or time in the past.
 </td>
 <td class="content">
 <div class="paragraph">
-<p>The <code>ignore-annotations</code> setting is not inherited from nor by the class hierarchy. In other words, it only applies to the current bean only.</p>
+<p>The <code>ignore-annotations</code> setting is not inherited from nor by the class hierarchy. In other words, it applies to the current bean only.</p>
 </div>
 </td>
 </tr>
@@ -13938,7 +13995,7 @@ The annotated element must be an instant, date or time in the past.
                         <span class="attribute-name">maxOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">unbounded</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
         <span class="tag">&lt;/xs:sequence&gt;</span>
         <span class="tag">&lt;xs:attribute</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">xs:string</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">class</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">use</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">required</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
-        <span class="tag">&lt;xs:attribute</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">xs:boolean</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">ignore-annotations</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">use</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">optional</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+        <span class="tag">&lt;xs:attribute</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">xs:boolean</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">ignore-annotations</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">use</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">optional</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">default</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
     <span class="tag">&lt;/xs:complexType&gt;</span>
     <span class="tag">&lt;xs:complexType</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">annotationType</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
         <span class="tag">&lt;xs:sequence&gt;</span>
@@ -16573,7 +16630,50 @@ Provide a way to disable BV metadata use by a persistence provider (property bas
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code>1.1.0.Final (2013-04-10)
+<pre class="CodeRay highlight"><code>2.0.0.Alpha1 (Early Draft 1, 2017-02-02)
+
+** Bug
+    * [BVAL-558] - Ensure correct concurrent access to cacheValidationProviders in Validation#GetValidationProviderListAction
+
+** New Feature
+    * [BVAL-467] - Support JDK8's Optional class
+    * [BVAL-496] - @Future/@Past validators for JSR 310 data types
+    * [BVAL-497] - Mark BV-defined constraint types with @Repeatable
+    * [BVAL-498] - Retrieve method parameter names via new API in Java 8
+    * [BVAL-508] - Offer validation of values contained in containers
+    * [BVAL-544] - Promote TYPE_USE usage for constraint annotations
+    * [BVAL-550] - Make @ConvertGroup repeatable and usable on type arguments
+
+** Task
+    * [BVAL-509] - Make BVAL compilable with Java 9
+    * [BVAL-512] - Provide a way to reference validation-api source code in the spec
+    * [BVAL-513] - Add Google Analytics to HTML version of the specification
+    * [BVAL-538] - Rename createTckAuditFile ant task to create-tck-audit-file for consistency
+    * [BVAL-540] - Use Maven to download the snapshot of the API sources
+    * [BVAL-541] - Change CI links in README.md
+    * [BVAL-547] - Use simplified license header for API files
+    * [BVAL-554] - Add the ability to generate an asciidoc document containing all the spec in a single file
+
+** Improvement
+    * [BVAL-455] - Move XML namespace to jcp.org from jboss.org
+    * [BVAL-460] - Set ignore-annotation default value for beans to true in XSD to document the spec behavior
+    * [BVAL-486] - Do not use validation provider resolver when provider is explicitly given
+    * [BVAL-527] - Raise Java baseline to version 8
+    * [BVAL-529] - Mention JSR 380 and BV 2.0 in the spec
+    * [BVAL-530] - Rename master.asciidoc to index.asciidoc
+    * [BVAL-532] - Fix javadoc warnings
+    * [BVAL-533] - Update Maven dependencies
+    * [BVAL-534] - Update all outdated links to java.sun.com
+    * [BVAL-535] - Reduce the number of compilation warnings in the API
+    * [BVAL-536] - Update tck-audit.xsl to the current version of BV
+    * [BVAL-537] - Make section numbers stable from 1.1 to 2.0
+    * [BVAL-539] - Set the version of the maven-deploy-plugin
+    * [BVAL-545] - Fix description of validateValue() method
+    * [BVAL-546] - Make ValidatorFactory extend AutoClosable
+    * [BVAL-555] - Provide default implementation for ConstraintValidator#initialize()
+
+
+1.1.0.Final (2013-04-10)
 ------------------------
 
 ** Improvement
@@ -16627,8 +16727,8 @@ Provide a way to disable BV metadata use by a persistence provider (property bas
     * [BVAL-439] - Clarify that EE validator factory supports CDI services
 
 
-1.1.0.CR1 (proposed final draft) (2013-02-20)
----------------------------------------------
+1.1.0.CR1 (proposed final draft, 2013-02-20)
+--------------------------------------------
 
 ** Bug
     * [BVAL-322] - Formatting and style improvements
@@ -16764,19 +16864,16 @@ Provide a way to disable BV metadata use by a persistence provider (property bas
 ** Sub-task
     * [BVAL-331] - Establish common super-interface for MethodDescriptor and ConstructorDescriptor
 
-
 ** Bug
     * [BVAL-335] - @ConvertGroup.List is missing target types and retention policy
-
-
 
 ** Improvement
     * [BVAL-198] - Simplify creation of ConstraintViolationExceptions
     * [BVAL-334] - Refer to CDI provided beans as "built-in" beans
 
 
-1.1.0.Beta1 (public review draft 1) (2012-10-19)
-------------------------------------------------
+1.1.0.Beta1 (public review draft, 2012-10-19)
+---------------------------------------------
 
 ** Sub-task
     * [BVAL-232] - Support cross-parameter constraints
@@ -16788,14 +16885,11 @@ Provide a way to disable BV metadata use by a persistence provider (property bas
     * [BVAL-310] - Move methods related to method validation to delegate interface
     * [BVAL-317] - Rename 'method-level validation' with 'method validation'
 
-
 ** Bug
     * [BVAL-296] - Example using ConstraintValidatorContext is incorrect
     * [BVAL-298] - DefaultValidationProviderResolver should check context and current class loader for service file
     * [BVAL-304] - Add OSGi headers in the reference implementation
     * [BVAL-306] - Clarify interceptor order in method validation triggering
-
-
 
 ** Improvement
     * [BVAL-208] - Support groups translation during cascaded validations
@@ -16810,14 +16904,13 @@ Provide a way to disable BV metadata use by a persistence provider (property bas
     * [BVAL-272] - Method validation support (II)
     * [BVAL-295] - Should validation-configuration and validation-mapping xsds define a version attribute
 
-
 ** Task
     * [BVAL-280] - Decide whether DefaultValidationProviderResolver should not throw an exception when a specified provider cannot be loaded
     * [BVAL-307] - Decide how CDI and Bean Validation is integrated
 
 
-1.1.0.Alpha1 (early draft 1) (2012-03-13)
------------------------------------------
+1.1.0.Alpha1 (early draft 1, 2012-03-13)
+----------------------------------------
 
 ** Sub-task
     * [BVAL-242] - Extend the meta-data API to represent method-level constraints
@@ -16825,13 +16918,11 @@ Provide a way to disable BV metadata use by a persistence provider (property bas
     * [BVAL-244] - Extend Validator API with methods for method validation
     * [BVAL-245] - Define how method constraints are declared at parameters and return values
 
-
 ** Bug
     * [BVAL-194] - Invalid license info
     * [BVAL-196] - Missing &lt;/code&gt; element in Javadocs for ConstraintValidatorContext.ConstraintViolationBuilder.NodeContextBuilder
     * [BVAL-212] - Wrong closing &lt;/code&gt; element in javadocs of BeanDescriptor
     * [BVAL-236] - Fails to load META-INF/services provider configuration files on non-ASCII platforms
-
 
 ** Improvement
     * [BVAL-201] - Fix typo in spec, chapter 4.4.3
@@ -16843,7 +16934,6 @@ Provide a way to disable BV metadata use by a persistence provider (property bas
     * [BVAL-258] - Clean introduction section to reflect Bean Validation 1.1
     * [BVAL-263] - Add a close() method to ValidatorFactory
     * [BVAL-265] - Expose settings defined in XML in the Configuration API (for ConstraintValidatorFactory, MessageInterpolator etc)
-
 
 ** Task
     * [BVAL-206] - Update pom to use the new distributationManagement information
@@ -16857,7 +16947,6 @@ Provide a way to disable BV metadata use by a persistence provider (property bas
 ** Bug
     * [BVAL-181] - Fix some namespace issues in validation-configuration-1.0.xsd
 
-
 ** Improvement
     * [BVAL-182] - Add getDefaultTraversableResolver and getDefaultConstraintValidatorFactory to Configuration
     * [BVAL-183] - Add getTraversableResolver and getConstraintValidatorFactory to ValidatorFactory
@@ -16869,10 +16958,8 @@ Provide a way to disable BV metadata use by a persistence provider (property bas
     * [BVAL-185] - Allow overriding of ConstraintValidatorFactory when creating a Validator
     * [BVAL-190] - Add methods to filter ConstraintDescriptor per groups, target and scope
 
-
 ** Task
     * [BVAL-132] - Define behaviour for BeanDescriptor.getConstraintsForProperty(null)
-
 
 
 1.0.CR5 (2009-08-27)
@@ -16884,25 +16971,21 @@ Provide a way to disable BV metadata use by a persistence provider (property bas
     * [BVAL-178] - Add payload to the XML schema
     * [BVAL-180] - ConstraintDescriptor.getPayload() should return Set&lt;Class&lt;? extends Payload&gt;&gt; not Set&lt;Class&lt;Payload&gt;&gt;
 
-
 ** Improvement
     * [BVAL-174] - clearer default message for assertTrue and assertFalse
     * [BVAL-179] - Rename ConstraintPayload to Payload
-
 
 
 1.0.CR4 Unpublished release
 ---------------------------
 
 
-
-1.0.CR3 Proposed Final Draft 2 (2009-07-08)
--------------------------------------------
+1.0.CR3 (Proposed Final Draft 2, 2009-07-08)
+--------------------------------------------
 
 ** Bug
     * [BVAL-144] - validation-configuration.xsd property element does not extend basic string type preventing Oxygen to be happy
     * [BVAL-159] - Fix example 3.8 on object graph validation
-
 
 ** Improvement
     * [BVAL-143] - Describe path with an object model
@@ -16933,20 +17016,16 @@ Provide a way to disable BV metadata use by a persistence provider (property bas
     * [BVAL-172] - Provide ConstraintDescriptor#getPayload
 
 
-
 1.0.CR2 Unpublished release
 ---------------------------
 
 
-
-1.0.CR1 Proposed Final Draft (2009-03-16)
------------------------------------------
-
+1.0.CR1 (Proposed Final Draft, 2009-03-16)
+------------------------------------------
 
 ** Bug
     * [BVAL-118] - ConstraintDescriptor.getGroups() returns Default if no group is declared on the constraint
     * [BVAL-125] - @Size.min default value should be 0
-
 
 ** Improvement
     * [BVAL-32] - Describe what is happening when a composition is not consistent
@@ -16988,7 +17067,6 @@ Provide a way to disable BV metadata use by a persistence provider (property bas
     * [BVAL-124] - Introduce backslash as escaping character
     * [BVAL-142] - @Min/@max no longer accept float/double and introduce @DecimalMin/@DecimalMax
 
-
 ** Task
     * [BVAL-24] - What should be done when multiple META-INF/validation.xml are found?
     * [BVAL-117] - Specify behaviour of ConstraintValidator.initalize in the case of inconsistent values in constraint parameters
@@ -16997,18 +17075,14 @@ Provide a way to disable BV metadata use by a persistence provider (property bas
     * [BVAL-133] - Remove JPA and JSF integration proposals
 
 
-
-
-1.0.Beta2 Public Draft (2008-12-15)
------------------------------------
-
+1.0.Beta2 (Public Draft, 2008-12-15)
+------------------------------------
 
 ** Bug
     * [BVAL-6] - Wrong example in validation methods section
     * [BVAL-17] - Validator&lt;A&gt;.validate(b) where b:B and B extends A should validate B. Metadata APIs are specific to A
     * [BVAL-42] - Names of message keys in spec inconsistent
     * [BVAL-45] - Typo at ConstraintDescriptor.getContstraintClass()
-
 
 ** Improvement
     * [BVAL-29] - Types should be determined at runtime
@@ -17031,7 +17105,6 @@ Provide a way to disable BV metadata use by a persistence provider (property bas
     * [BVAL-79] - Groups are now Type based rather than String based
     * [BVAL-81] - Provide a TraversableResolver contract
 
-
 ** Task
     * [BVAL-1] - Remove references to 'beancheck' in the spec
     * [BVAL-3] - Replace array return types with Sets
@@ -17049,7 +17122,8 @@ Provide a way to disable BV metadata use by a persistence provider (property bas
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-01-20 12:51:39 +00:00
+Version 2.0.0.Alpha1 (Early Draft 1)<br>
+Last updated 2017-02-03 08:58:47 +00:00
 </div>
 </div>
 <script>
