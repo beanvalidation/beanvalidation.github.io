@@ -63,6 +63,37 @@
           <article class="post">
             <header>
               <h1 class="title">
+                <a href="/news/2012/03/28/jcp-release-1-1-edr1/">Bean Validation 1.1 officially reaches the JCP</a>
+              </h1>
+              <span class="author">
+                by
+                <b>Emmanuel Bernard</b>
+              </span>
+              <span class="date">
+                on 28 Mar 2012
+              </span>
+              <span class="tags">
+                <a class="label label-info" href="/news/tags/release/">release</a>
+              </span>
+            </header>
+            <div class="body">
+              <p>Bean Validation 1.1 early draft 1 officially reaches the JCP and is available
+              <a href="http://jcp.org/aboutJava/communityprocess/edr/jsr349/index.html">on their website</a>. You already knew about it from the <a href="http://beanvalidation.org/news/2012/03/13/release-1-1-edr1/?utm_source=blog&amp;utm_medium=web&amp;utm_content=blogedr1&amp;utm_campaign=1_1_edr1">release</a>
+              and <a href="http://beanvalidation.org/news/2012/03/16/artifacts-1-1-edr1/?utm_source=blog&amp;utm_medium=web&amp;utm_content=blogedr1&amp;utm_campaign=1_1_edr1">artifacts</a> announcements.</p>
+              
+              <p>That's still a significant milestone that has to be reached by the JCP rules.
+              A specification needs to produce a certain amount of output which is regulated
+              by the JCP itself. If you are curious, I encourage you to read the <a href="http://jcp.org/en/procedures/jcp2">process document</a>.</p>
+              
+              <p>Note that JSR-349 (Bean Validation 1.1) does run under the previous version of
+              this process but in practice we obey the rules of the current version
+              (especially in openness).</p>
+               <a href="http://beanvalidation.org/news/2012/03/28/jcp-release-1-1-edr1/#disqus_thread">Comments</a>
+            </div>
+          </article>
+          <article class="post">
+            <header>
+              <h1 class="title">
                 <a href="/news/2012/03/16/artifacts-1-1-edr1/">Code artifacts published for Bean Validation 1.1 early draft 1</a>
               </h1>
               <span class="author">
@@ -239,38 +270,6 @@
                <a href="http://beanvalidation.org/news/2011/10/21/dependency-injection-proposal/#disqus_thread">Comments</a>
             </div>
           </article>
-          <article class="post">
-            <header>
-              <h1 class="title">
-                <a href="/news/2011/09/16/method-level-validation/">Work on method level validation</a>
-              </h1>
-              <span class="author">
-                by
-                <b>Emmanuel Bernard</b>
-              </span>
-              <span class="date">
-                on 16 Sep 2011
-              </span>
-              <span class="tags">
-                <a class="label label-info" href="/news/tags/proposal/">proposal</a>
-              </span>
-            </header>
-            <div class="body">
-              <p>The expert groups has begun its work on method-level validation. A feature that was drafted in the
-              latest spec (appendix) but that we could nto finish in time.</p>
-              
-              <p>You will be able to define constraints on parameters and your favorite interception technology
-              (CDI, @Inject, AspectJ, Spring etc) will call Bean Validation.</p>
-              
-              <p>The final approach is not fixed yet but it will look like this.</p>
-              
-              <pre>public class BidManager {&#x000A;    public void placeBid(&#64;Min(0) BigDecimal upTo) { ... }&#x000A;}</pre>
-              
-              
-              <p>Want to know more? Join the expert group mailing list. <a href="/contribute">Learn how</a>.</p>
-               <a href="http://beanvalidation.org/news/2011/09/16/method-level-validation/#disqus_thread">Comments</a>
-            </div>
-          </article>
           <div class="pagination-links"><a href="/news/page/5/" class="previous-link">Previous</a> <a href="/news/" class="page-link">1</a> <a href="/news/page/2/" class="page-link">2</a> <span class="skip">...</span><a href="/news/page/5/" class="page-link">5</a> <span class="current-page">6</span> <a href="/news/page/7/" class="page-link">7</a> <a href="/news/page/7/" class="next-link">Next</a> </div>
         </div>
         <div class="sidebar sidebar-right col-sm-3 col-md-3 col-lg-3" id="sidebar" role="complementary">
@@ -285,6 +284,7 @@
               Stay up to date, subscribe to the&nbsp;<a href="/news/news.atom">news feed</a>.
             </div>
           </div>
+          <a class="news-link" href="/news/2017/02/07/apache-bval-is-compatible-with-bean-validation-1-1/">Apache BVal certified as Bean Validation 1.1 implementation</a>
           <a class="news-link" href="/news/2017/01/19/bean-validation-2-0-progress-report/">Bean Validation 2.0 Progress Report</a>
           <a class="news-link" href="/news/2016/11/23/survey-constraints-and-parameterized-type/">Survey - Where do you use constraints on parameterized type?</a>
           <a class="news-link" href="/news/2016/09/15/which-constraints-to-add/">Feedback needed - Which constraints should be added?</a>

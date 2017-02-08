@@ -2,9 +2,57 @@
 <feed xml:lang="en-US" xmlns="http://www.w3.org/2005/Atom">
   <id>http://beanvalidation.org/</id>
   <title>Bean Validation</title>
-  <updated>2017-02-07T16:35:15+00:00</updated>
+  <updated>2017-02-08T08:28:11+00:00</updated>
   <link href="http://beanvalidation.org/news/news.atom" rel="self" type="application/atom+xml" />
   <link href="http://beanvalidation.org/" rel="alternate" type="text/html" />
+  <entry>
+    <id>http://beanvalidation.org/news/2017/02/07/apache-bval-is-compatible-with-bean-validation-1-1/</id>
+    <title>Apache BVal certified as Bean Validation 1.1 implementation</title>
+    <updated>2017-02-08T08:28:11+00:00</updated>
+    <published>2017-02-07T00:00:00+00:00</published>
+    <link href="http://beanvalidation.org/news/2017/02/07/apache-bval-is-compatible-with-bean-validation-1-1/" rel="alternate" type="text/html" />
+    <author>
+      <name>Gunnar Morling</name>
+    </author>
+    <category term="news"></category>
+    <category term="certification"></category>
+    <summary>
+      While the work on Bean Validation 2.0 is well underway,
+      I&#8217;ve some good news to share on Bean Validation 1.1 today:
+      Apache BVal has been certified as a compliant implementation of the Bean Validation 1.1 spec!
+      
+      
+      Thanks to the great work of the friendly folks working on Apache BVal and TomEE, it has passed the TCK quite a while ago, so this announcement is long overdue.
+      The tested version is Apache BVal 1.1.2,
+      using the Bean Validation API signatures from org.apache.tomee:javaee-api:7.0-1 and
+      version 1.1.4.Final of the Bean Validation TCK.
+      
+      
+      The list of certified implementations has been updated accordingly.
+      
+      
+      Congrats to the BVal team!...
+    </summary>
+    <content type="html">
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;While the work on Bean Validation 2.0 is &lt;a href=&quot;http://beanvalidation.org/news/2017/01/19/bean-validation-2-0-progress-report/&quot;&gt;well underway&lt;/a&gt;,
+      I’ve some good news to share on Bean Validation 1.1 today:
+      &lt;a href=&quot;http://bval.apache.org/&quot;&gt;Apache BVal&lt;/a&gt; has been certified as a compliant implementation of the &lt;a href=&quot;http://beanvalidation.org/1.1/&quot;&gt;Bean Validation 1.1&lt;/a&gt; spec!&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Thanks to the great work of the friendly folks working on Apache BVal and TomEE, it has passed the TCK quite a while ago, so this announcement is long overdue.
+      The tested version is &lt;a href=&quot;http://bval.apache.org/downloads.html#apache-bval-112-released-nov-3-2016&quot;&gt;Apache BVal 1.1.2&lt;/a&gt;,
+      using the Bean Validation API signatures from &lt;a href=&quot;http://mvnrepository.com/artifact/org.apache.tomee/javaee-api/7.0-1&quot;&gt;org.apache.tomee:javaee-api:7.0-1&lt;/a&gt; and
+      version 1.1.4.Final of the &lt;a href=&quot;http://docs.jboss.org/hibernate/beanvalidation/tck/1.1/reference/html_single/&quot;&gt;Bean Validation TCK&lt;/a&gt;.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;The list of &lt;a href=&quot;http://beanvalidation.org/1.1/certified/&quot;&gt;certified implementations&lt;/a&gt; has been updated accordingly.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Congrats to the BVal team!&lt;/p&gt;
+      &lt;/div&gt;
+    </content>
+  </entry>
   <entry>
     <id>http://beanvalidation.org/news/2017/01/19/bean-validation-2-0-progress-report/</id>
     <title>Bean Validation 2.0 Progress Report</title>
