@@ -63,6 +63,190 @@
           <article class="post">
             <header>
               <h1 class="title">
+                <a href="/news/2017/02/14/bean-validation-2-0-early-draft-released/">Bean Validation 2.0 Early Draft 1 is Out</a>
+              </h1>
+              <span class="author">
+                by
+                <b>Gunnar Morling</b>
+              </span>
+              <span class="date">
+                on 14 Feb 2017
+              </span>
+              <span class="tags">
+                <a class="label label-info" href="/news/tags/release/">release</a>
+              </span>
+            </header>
+            <div class="body">
+              <div id="preamble">
+              <div class="sectionbody">
+              <div class="paragraph">
+              <p>I&#8217;m very happy to announce the first Early Draft Review of <a href="https://www.jcp.org/en/jsr/detail?id=380">JSR 380</a>, Bean Validation 2.0!</p>
+              </div>
+              <div class="paragraph">
+              <p>This Early Draft comprises all the spec changes done so far and it&#8217;s a great opportunity for us to get feedback from the community at large.
+              You can read the spec draft either directly <a href="/2.0/spec/2.0.0.alpha1/">on this website</a> or download it <a href="https://jcp.org/aboutJava/communityprocess/edr/jsr380/index.html">from jcp.org</a>.
+              A GitHub diff showing all the changes to the spec&#8217;s AsciiDoc document done so far (sans some typo and style fixes) is available <a href="https://github.com/beanvalidation/beanvalidation-spec/compare/2a9d0ce21856386a8bf9a1d9e963ebffc049604a&#8230;&#8203;9bfd5a34ca6c10d2a8a7b512b174aae7362259f0">here</a>.</p>
+              </div>
+              <div class="paragraph">
+              <p>The updated API can be downloaded from <a href="https://jcp.org/aboutJava/communityprocess/edr/jsr380/index.html">from jcp.org</a> or fetched from Maven Central using the coordinates <em>javax.validation:validation-api:2.0.0.Alpha1</em>.</p>
+              </div>
+              </div>
+              </div>
+              <div class="sect1">
+              <h2 id="what-s-new"><a class="anchor" href="#what-s-new"></a>What&#8217;s New?</h2>
+              <div class="sectionbody">
+              <div class="paragraph">
+              <p>The main theme of Bean Validation 2.0 is support for and taking advantage of Java 8.
+              This concerns new language features such as type use annotations as well as library additions.</p>
+              </div>
+              <div class="paragraph">
+              <p>An example of the latter is the support for new Java 8 date and time API (JSR 310).
+              You can now use <code>@Past</code> and <code>@Future</code> on <code>javax.time</code> types such as <code>Instant</code>, <code>LocalDate</code> etc.:</p>
+              </div>
+              <div class="listingblock">
+              <div class="content">
+              <pre class="CodeRay highlight"><code data-lang="java"><span style="color:#007">@Future</span>&#x000A;<span style="color:#088;font-weight:bold">private</span> LocalDate deliveryDate;</code></pre>
+              </div>
+              </div>
+              <div class="paragraph">
+              <p>For types that don&#8217;t represent a specific instant but rather an interval of time,
+              you can configure that the current month, year etc. should be considered valid, too,
+              using the new attribute <code>orPresent()</code>:</p>
+              </div>
+              <div class="listingblock">
+              <div class="content">
+              <pre class="CodeRay highlight"><code data-lang="java"><span style="color:#007">@Past</span>(orPresent=<span style="color:#069">true</span>)&#x000A;<span style="color:#088;font-weight:bold">private</span> <span style="color:#088;font-weight:bold">final</span> Year inceptionYear = Year.of( <span style="color:#00D">2017</span> );</code></pre>
+              </div>
+              </div>
+              <div class="paragraph">
+              <p>An example where Bean Validation benefits from new language features in Java 8
+              is the new mechanism for validating the elements of <code>Collection</code>, <code>Optional</code> and other container types.
+              By annotating type arguments of generic types you can now put constraints to the container elements
+              (as opposed to the container itself):</p>
+              </div>
+              <div class="listingblock">
+              <div class="content">
+              <pre class="CodeRay highlight"><code data-lang="java"><span style="color:#0a8;font-weight:bold">List</span>&lt;<span style="color:#007">@NotNull</span> <span style="color:#007">@Email</span> <span style="color:#0a8;font-weight:bold">String</span>&gt; emails;</code></pre>
+              </div>
+              </div>
+              <div class="paragraph">
+              <p>Also cascaded validation (<code>@Valid</code>) gets more powerful with that.
+              E.g. you can now perform a cascaded validation of map keys <em>and</em> map values (only values were supported before):</p>
+              </div>
+              <div class="listingblock">
+              <div class="content">
+              <pre class="CodeRay highlight"><code data-lang="java"><span style="color:#0a8;font-weight:bold">Map</span>&lt;<span style="color:#007">@Valid</span> Customer, <span style="color:#007">@Valid</span> Address&gt; primaryAddressByCustomer;</code></pre>
+              </div>
+              </div>
+              <div class="paragraph">
+              <p>Another use case for this is validation of values wrapped in a <code>java.util.Optional</code>:</p>
+              </div>
+              <div class="listingblock">
+              <div class="content">
+              <pre class="CodeRay highlight"><code data-lang="java">Optional&lt;<span style="color:#007">@Past</span> LocalDate&gt; getRegistrationDate();</code></pre>
+              </div>
+              </div>
+              <div class="paragraph">
+              <p>We&#8217;ve baked in support for type argument constraints on types such as <code>Iterable</code>, <code>Map</code>, <code>Optional</code> and some more,
+              but this isn&#8217;t a fixed list.
+              You can plug in custom implementations of the <code>ValueExtractor</code> contract
+              which will allow you to put type argument constraints to other collection types (e.g. Google Guava&#8217;s <code>Multimap</code>)
+              or even collection classes from other JVM languages such as Ceylon.</p>
+              </div>
+              </div>
+              </div>
+              <div class="sect1">
+              <h2 id="what-else"><a class="anchor" href="#what-else"></a>What else?</h2>
+              <div class="sectionbody">
+              <div class="paragraph">
+              <p>Support for JSR 310 and type argument constraints are just two of the new features.
+              Some other changes are:</p>
+              </div>
+              <div class="ulist">
+              <ul>
+              <li>
+              <p>All constraints and a few other Bean Validation annotations are repeatable</p>
+              </li>
+              <li>
+              <p>Method parameter names to be shown in error messages are obtained using reflection (if enabled)</p>
+              </li>
+              <li>
+              <p><code>ConstraintValidator#initialize()</code> is a default method,
+              simplifying the implementation of constraint validators which don&#8217;t need to access the annotation state</p>
+              </li>
+              <li>
+              <p><code>ValidatorFactory</code> extends <code>AutoCloseable</code>, allowing to use it in <code>try-with-resources</code> blocks</p>
+              </li>
+              </ul>
+              </div>
+              <div class="paragraph">
+              <p>To learn more about the changes we&#8217;ve done so far, either check out our <a href="/news/2017/01/19/bean-validation-2-0-progress-report/">progress report</a> from a few weeks ago
+              or the <a href="/2.0/spec/2.0.0.alpha1/#_what_s_new_in_2_0">specification document</a> itself.</p>
+              </div>
+              </div>
+              </div>
+              <div class="sect1">
+              <h2 id="what-s-next"><a class="anchor" href="#what-s-next"></a>What&#8217;s next?</h2>
+              <div class="sectionbody">
+              <div class="paragraph">
+              <p>The next step will be to bring the Bean Validation reference implementation, <a href="http://hibernate.org/validator/">Hibernate Validator</a>, on par with the Early Draft 1.
+              Most of the work for this has been done, so you can expect the first Alpha release of Hibernate Validator later this week.</p>
+              </div>
+              <div class="paragraph">
+              <p>This release will add some features on top of what has been added to the spec so far, e.g. support for defining constraints using Lambda expressions.
+              We felt it&#8217;d be good to gain some experience with this and some other features by putting an implementation into the hands of users before adding them to the spec.
+              More details on that once the reference implementation is out.</p>
+              </div>
+              <div class="paragraph">
+              <p>In terms of spec changes, some of the next features we are planning to work on are:</p>
+              </div>
+              <div class="ulist">
+              <ul>
+              <li>
+              <p>Adding some new constraints as per our <a href="/news/2016/09/15/which-constraints-to-add/">recent survey</a>, e.g. <code>@Email</code>, <code>@NotEmpty</code>, <code>@NotBlank</code></p>
+              </li>
+              <li>
+              <p>Ability to validate an object and a list of changes (<a href="https://hibernate.atlassian.net/projects/BVAL/issues/BVAL-214">BVAL-214</a>) which would be useful for validating class-level constraints in UI use cases</p>
+              </li>
+              <li>
+              <p>Separating the message interpolation algorithm from the retrieval of messages from resource bundles (<a href="https://hibernate.atlassian.net/projects/BVAL/issues/BVAL-217">BVAL-217</a>)</p>
+              </li>
+              </ul>
+              </div>
+              </div>
+              </div>
+              <div class="sect1">
+              <h2 id="what-can-you-do-to-help"><a class="anchor" href="#what-can-you-do-to-help"></a>What can you do to help?</h2>
+              <div class="sectionbody">
+              <div class="paragraph">
+              <p>Glad you asked :)</p>
+              </div>
+              <div class="paragraph">
+              <p>As in its previous versions, Bean Validation 2.0 is developed fully in the open.
+              So we count on your feedback on the Early Draft as well as any other ideas or suggestions you may have around Bean Validation.
+              One area where we are looking for feedback specifically is the proposal for <a href="/2.0/spec/2.0.0.alpha1/#appendix-value-extraction">container value validation</a>.
+              There is a <a href="/2.0/spec/2.0.0.alpha1/#_open_questions">list of open questions</a> towards the end of that section.
+              If you have thoughts on any of those, please let us know.</p>
+              </div>
+              <div class="paragraph">
+              <p>To get a discussion started, just post a comment below, send a message to our <a href="http://lists.jboss.org/pipermail/beanvalidation-dev/">mailing list</a> or post in the <a href="https://forum.hibernate.org/viewforum.php?f=26">Bean Validation forum</a>.
+              If you find a bug or have a specific feature request, please raise them in the <a href="https://hibernate.atlassian.net/projects/BVAL/summary">issue tracker</a>.</p>
+              </div>
+              <div class="paragraph">
+              <p>And as Bean Validation is a true open source project, contributing e.g. in form of patches is easy, too.
+              Check out the <a href="/contribute">contribution guide</a> to learn more.</p>
+              </div>
+              <div class="paragraph">
+              <p>Finally, let me say a big thank you to everyone involved with making the Early Draft happen; your work is much appreciated!</p>
+              </div>
+              </div>
+              </div>
+               <a href="http://beanvalidation.org/news/2017/02/14/bean-validation-2-0-early-draft-released/#disqus_thread">Comments</a>
+            </div>
+          </article>
+          <article class="post">
+            <header>
+              <h1 class="title">
                 <a href="/news/2013/05/02/bean-validation-1-1-is-a-spec/">Bean Validation 1.1 is a spec</a>
               </h1>
               <span class="author">
@@ -325,97 +509,7 @@
                <a href="http://beanvalidation.org/news/2013/02/15/bean-validation-1-1-beta4/#disqus_thread">Comments</a>
             </div>
           </article>
-          <article class="post">
-            <header>
-              <h1 class="title">
-                <a href="/news/2013/02/01/bean-validation-1-1-beta3-last-line/">Bean Validation 1.1 Beta 3 - the last line</a>
-              </h1>
-              <span class="author">
-                by
-                <b>Emmanuel Bernard</b>
-              </span>
-              <span class="date">
-                on 01 Feb 2013
-              </span>
-              <span class="tags">
-                <a class="label label-info" href="/news/tags/release/">release</a>
-              </span>
-            </header>
-            <div class="body">
-              <p>With two months since the last release and more than 38 (non trivial)
-              issues behind us, we felt that it was a good time to release a new version.
-              We are less than 20 days from the proposed final draft so feedback time and
-              polishing are going into overdrive.</p>
-              
-              <p>Expect a reference implementation and a much improved TCK aligned with this
-              version in the next few days.</p>
-              
-              <h2>What's new</h2>
-              
-              <p>There are too many improvements so let's pick three.</p>
-              
-              <h3>Enable / disable method validation</h3>
-              
-              <p>We worked a lot on method validation and in particular how you can control
-              whether or not a method or constructor is being validated. You can use
-              <code>@ValidateExecutable</code> and the XML <code>validated-executables</code> element in
-              <code>validation.xml</code> to do that.</p>
-              
-              <h3>Message interpolation with UEL</h3>
-              
-              <p>We have also greatly enhanced message interpolation. You can now use the unified
-              expression language inside your messages. This elegantly solves a lot of feature
-              requests we had in this area like:</p>
-              
-              <ul>
-              <li>the ability to put the validated value in the message</li>
-              <li>the ability to format numbers, dates etc according to the locale</li>
-              </ul>
-              
-              
-              <p>Here is an example from <code>@DecimalMin</code>. It uses the min boundary <code>value</code>, the
-              <code>inclusive</code> parameter in an EL and use a formaatter to display the erroneous
-              value:</p>
-              
-              <pre><code>${formatter.format("%1$2f", validatedValue} is incorrect ; must be greater than ${inclusive == true ? 'or equal to ' : ''}{value}&#x000A;</code></pre>
-              
-              <p>Which will be interpolated into</p>
-              
-              <pre><code>324.32 is incorrect ; must be greater than or equal to 500&#x000A;</code></pre>
-              
-              <h3>Generic and cross-parameter constraints</h3>
-              
-              <p>Finally we have introduce the ability to make constraints both generic and
-              cross-parameter aware. This is useful for constraints like <code>@ScriptAssert</code> that
-              are very flexible.</p>
-              
-              <h2>Review</h2>
-              
-              <p>Please, please, please go and review the specification and tell us if something
-              needs to be fixed.</p>
-              
-              <p>You can <a href="/1.1/spec/1.1.0.beta3/?utm_source=blog&amp;utm_medium=web&amp;utm_content=spec&amp;utm_campaign=1_1_beta3">access the specification here</a>.
-              All changes are marked with a different
-              color. <span style="background-color:#DDFFDD;">Green for additions</span>,
-              <span style="background-color:#FFFFDD;">yellow for changes</span> and
-              <span style="text-decoration: line-through;background-color: #FFDDDD;">struck through red for removals</span>
-              . This will help you see what has changed precisely.</p>
-              
-              <p>Please send us your remarks and comments:</p>
-              
-              <ul>
-              <li>on our <a href="https://lists.jboss.org/mailman/listinfo/beanvalidation-dev">mailing list</a></li>
-              <li>in our <a href="/issues">issue tracker</a></li>
-              <li>or on the Bean Validation <a href="https://forum.hibernate.org/viewforum.php?f=26">forum</a></li>
-              </ul>
-              
-              
-              <p>If you want to go to the next step and contribute, send us an email to
-              the mailing list and read <a href="/contribute/">how to contribute</a>.</p>
-               <a href="http://beanvalidation.org/news/2013/02/01/bean-validation-1-1-beta3-last-line/#disqus_thread">Comments</a>
-            </div>
-          </article>
-          <div class="pagination-links"><span class="current-page">1</span> <a href="/news/tags/release/page/2/" class="page-link">2</a> <a href="/news/tags/release/page/2/" class="next-link">Next</a> </div>
+          <div class="pagination-links"><span class="current-page">1</span> <a href="/news/tags/release/page/2/" class="page-link">2</a> <a href="/news/tags/release/page/3/" class="page-link">3</a> <a href="/news/tags/release/page/2/" class="next-link">Next</a> </div>
         </div>
         <div class="sidebar sidebar-right col-sm-3 col-md-3 col-lg-3" id="sidebar" role="complementary">
           <div id="newsfeed">
@@ -429,6 +523,7 @@
               Stay up to date, subscribe to the&nbsp;<a href="/news/news.atom">news feed</a>.
             </div>
           </div>
+          <a class="news-link" href="/news/2017/02/14/bean-validation-2-0-early-draft-released/">Bean Validation 2.0 Early Draft 1 is Out</a>
           <a class="news-link" href="/news/2017/02/07/apache-bval-is-compatible-with-bean-validation-1-1/">Apache BVal certified as Bean Validation 1.1 implementation</a>
           <a class="news-link" href="/news/2017/01/19/bean-validation-2-0-progress-report/">Bean Validation 2.0 Progress Report</a>
           <a class="news-link" href="/news/2016/11/23/survey-constraints-and-parameterized-type/">Survey - Where do you use constraints on parameterized type?</a>

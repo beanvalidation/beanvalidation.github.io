@@ -63,6 +63,55 @@
           <article class="post">
             <header>
               <h1 class="title">
+                <a href="/news/2013/05/02/bean-validation-1-1-is-a-spec/">Bean Validation 1.1 is a spec</a>
+              </h1>
+              <span class="author">
+                by
+                <b>Emmanuel Bernard</b>
+              </span>
+              <span class="date">
+                on 02 May 2013
+              </span>
+              <span class="tags">
+                <a class="label label-info" href="/news/tags/release/">release</a>
+              </span>
+            </header>
+            <div class="body">
+              <p>It's now official, these couple of years of work have made it into <a href="http://jcp.org/en/jsr/results?id=5488">an
+              official JCP specification</a>.
+              Bean Validation is also part of Java EE 7 which has
+              <a href="https://blogs.oracle.com/theaquarium/entry/java_ee_7_platform_completes">been approved too</a>
+              a few of days ago.</p>
+              
+              <p>We have already discussed the features at great length here but to do a short
+              summary:</p>
+              
+              <ul>
+              <li>support for method and constructor validation (via CDI, JAX-RS etc)</li>
+              <li>integration with CDI (<code>Validator</code> and <code>ValidatorFactory</code> injectable,
+              <code>ConstraintValidator</code> instances being CDI beans and thus accept <code>@Inject</code>,
+              etc)</li>
+              <li>EL expressions based error messages</li>
+              <li>group conversion in object graphs</li>
+              </ul>
+              
+              
+              <p>I would like to thank the <strong>expert group</strong> and the <strong>community</strong> at large (without your
+              input there would be no 1.1), <strong>Hardy</strong> and <strong>Gunnar</strong> that worked round to clock on the
+              spec, the RI and the TCK and deliver everything on time, <strong>Pete</strong> for being my
+              springboard when all hell broke lose and the <strong>folks at Oracle</strong> who worked with us
+              to integrate Bean Validation with the rest of the Java EE ecosystem whether it
+              be spec, implementation or TCK.</p>
+              
+              <p>Go grab <a href="http://validator.hibernate.org">Hibernate Validator</a>, the RI. The team
+              has even spent an extra couple of weeks to deliver a nice documentation. And if you
+              can't sleep, go read the <a href="/1.1/">specification itself</a>.</p>
+               <a href="http://beanvalidation.org/news/2013/05/02/bean-validation-1-1-is-a-spec/#disqus_thread">Comments</a>
+            </div>
+          </article>
+          <article class="post">
+            <header>
+              <h1 class="title">
                 <a href="/news/2013/03/21/bean-validation-1-1-final-approval-ballot/">Bean Validation 1.1 CR3 - Final Approval Ballot</a>
               </h1>
               <span class="author">
@@ -304,97 +353,7 @@
                <a href="http://beanvalidation.org/news/2013/02/05/javaspotlight-podcast-on-bean-validation-1-1/#disqus_thread">Comments</a>
             </div>
           </article>
-          <article class="post">
-            <header>
-              <h1 class="title">
-                <a href="/news/2013/02/01/bean-validation-1-1-beta3-last-line/">Bean Validation 1.1 Beta 3 - the last line</a>
-              </h1>
-              <span class="author">
-                by
-                <b>Emmanuel Bernard</b>
-              </span>
-              <span class="date">
-                on 01 Feb 2013
-              </span>
-              <span class="tags">
-                <a class="label label-info" href="/news/tags/release/">release</a>
-              </span>
-            </header>
-            <div class="body">
-              <p>With two months since the last release and more than 38 (non trivial)
-              issues behind us, we felt that it was a good time to release a new version.
-              We are less than 20 days from the proposed final draft so feedback time and
-              polishing are going into overdrive.</p>
-              
-              <p>Expect a reference implementation and a much improved TCK aligned with this
-              version in the next few days.</p>
-              
-              <h2>What's new</h2>
-              
-              <p>There are too many improvements so let's pick three.</p>
-              
-              <h3>Enable / disable method validation</h3>
-              
-              <p>We worked a lot on method validation and in particular how you can control
-              whether or not a method or constructor is being validated. You can use
-              <code>@ValidateExecutable</code> and the XML <code>validated-executables</code> element in
-              <code>validation.xml</code> to do that.</p>
-              
-              <h3>Message interpolation with UEL</h3>
-              
-              <p>We have also greatly enhanced message interpolation. You can now use the unified
-              expression language inside your messages. This elegantly solves a lot of feature
-              requests we had in this area like:</p>
-              
-              <ul>
-              <li>the ability to put the validated value in the message</li>
-              <li>the ability to format numbers, dates etc according to the locale</li>
-              </ul>
-              
-              
-              <p>Here is an example from <code>@DecimalMin</code>. It uses the min boundary <code>value</code>, the
-              <code>inclusive</code> parameter in an EL and use a formaatter to display the erroneous
-              value:</p>
-              
-              <pre><code>${formatter.format("%1$2f", validatedValue} is incorrect ; must be greater than ${inclusive == true ? 'or equal to ' : ''}{value}&#x000A;</code></pre>
-              
-              <p>Which will be interpolated into</p>
-              
-              <pre><code>324.32 is incorrect ; must be greater than or equal to 500&#x000A;</code></pre>
-              
-              <h3>Generic and cross-parameter constraints</h3>
-              
-              <p>Finally we have introduce the ability to make constraints both generic and
-              cross-parameter aware. This is useful for constraints like <code>@ScriptAssert</code> that
-              are very flexible.</p>
-              
-              <h2>Review</h2>
-              
-              <p>Please, please, please go and review the specification and tell us if something
-              needs to be fixed.</p>
-              
-              <p>You can <a href="/1.1/spec/1.1.0.beta3/?utm_source=blog&amp;utm_medium=web&amp;utm_content=spec&amp;utm_campaign=1_1_beta3">access the specification here</a>.
-              All changes are marked with a different
-              color. <span style="background-color:#DDFFDD;">Green for additions</span>,
-              <span style="background-color:#FFFFDD;">yellow for changes</span> and
-              <span style="text-decoration: line-through;background-color: #FFDDDD;">struck through red for removals</span>
-              . This will help you see what has changed precisely.</p>
-              
-              <p>Please send us your remarks and comments:</p>
-              
-              <ul>
-              <li>on our <a href="https://lists.jboss.org/mailman/listinfo/beanvalidation-dev">mailing list</a></li>
-              <li>in our <a href="/issues">issue tracker</a></li>
-              <li>or on the Bean Validation <a href="https://forum.hibernate.org/viewforum.php?f=26">forum</a></li>
-              </ul>
-              
-              
-              <p>If you want to go to the next step and contribute, send us an email to
-              the mailing list and read <a href="/contribute/">how to contribute</a>.</p>
-               <a href="http://beanvalidation.org/news/2013/02/01/bean-validation-1-1-beta3-last-line/#disqus_thread">Comments</a>
-            </div>
-          </article>
-          <div class="pagination-links"><a href="/news/page/2/" class="previous-link">Previous</a> <a href="/news/" class="page-link">1</a> <a href="/news/page/2/" class="page-link">2</a> <span class="current-page">3</span> <a href="/news/page/4/" class="page-link">4</a> <span class="skip">...</span><a href="/news/page/6/" class="page-link">6</a> <a href="/news/page/7/" class="page-link">7</a> <a href="/news/page/4/" class="next-link">Next</a> </div>
+          <div class="pagination-links"><a href="/news/page/2/" class="previous-link">Previous</a> <a href="/news/" class="page-link">1</a> <a href="/news/page/2/" class="page-link">2</a> <span class="current-page">3</span> <a href="/news/page/4/" class="page-link">4</a> <span class="skip">...</span><a href="/news/page/7/" class="page-link">7</a> <a href="/news/page/8/" class="page-link">8</a> <a href="/news/page/4/" class="next-link">Next</a> </div>
         </div>
         <div class="sidebar sidebar-right col-sm-3 col-md-3 col-lg-3" id="sidebar" role="complementary">
           <div id="newsfeed">
@@ -408,6 +367,7 @@
               Stay up to date, subscribe to the&nbsp;<a href="/news/news.atom">news feed</a>.
             </div>
           </div>
+          <a class="news-link" href="/news/2017/02/14/bean-validation-2-0-early-draft-released/">Bean Validation 2.0 Early Draft 1 is Out</a>
           <a class="news-link" href="/news/2017/02/07/apache-bval-is-compatible-with-bean-validation-1-1/">Apache BVal certified as Bean Validation 1.1 implementation</a>
           <a class="news-link" href="/news/2017/01/19/bean-validation-2-0-progress-report/">Bean Validation 2.0 Progress Report</a>
           <a class="news-link" href="/news/2016/11/23/survey-constraints-and-parameterized-type/">Survey - Where do you use constraints on parameterized type?</a>
