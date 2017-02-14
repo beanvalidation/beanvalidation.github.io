@@ -2,13 +2,13 @@
 <feed xml:lang="en-US" xmlns="http://www.w3.org/2005/Atom">
   <id>http://beanvalidation.org/</id>
   <title>Bean Validation</title>
-  <updated>2017-02-14T20:54:36+00:00</updated>
+  <updated>2017-02-14T21:01:26+00:00</updated>
   <link href="http://beanvalidation.org/news/news.atom" rel="self" type="application/atom+xml" />
   <link href="http://beanvalidation.org/" rel="alternate" type="text/html" />
   <entry>
     <id>http://beanvalidation.org/news/2017/02/14/bean-validation-2-0-early-draft-released/</id>
     <title>Bean Validation 2.0 Early Draft 1 is Out</title>
-    <updated>2017-02-14T20:54:36+00:00</updated>
+    <updated>2017-02-14T21:01:26+00:00</updated>
     <published>2017-02-14T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2017/02/14/bean-validation-2-0-early-draft-released/" rel="alternate" type="text/html" />
     <author>
@@ -149,11 +149,12 @@
       &lt;h2 id=&quot;what-s-next&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#what-s-next&quot;&gt;&lt;/a&gt;What’s next?&lt;/h2&gt;
       &lt;div class=&quot;sectionbody&quot;&gt;
       &lt;div class=&quot;paragraph&quot;&gt;
-      &lt;p&gt;The next step will be to bring the Bean Validation reference implementation, &lt;a href=&quot;http://hibernate.org/validator/&quot;&gt;Hibernate Validator&lt;/a&gt;, on par with the Early Draft 1.
-      Most of the work for this has been done, so you can expect the first Alpha release of Hibernate Validator later this week.&lt;/p&gt;
+      &lt;p&gt;The next step will be to bring the Bean Validation reference implementation, &lt;a href=&quot;http://hibernate.org/validator/&quot;&gt;Hibernate Validator&lt;/a&gt;, up to par with the Early Draft 1.
+      Most of the work for this has been done already, so you can expect the first Alpha release of Hibernate Validator 6 later this week.
+      This will allow you to play around with all the new features and explore them in more depth.&lt;/p&gt;
       &lt;/div&gt;
       &lt;div class=&quot;paragraph&quot;&gt;
-      &lt;p&gt;This release will add some features on top of what has been added to the spec so far, e.g. support for defining constraints using Lambda expressions.
+      &lt;p&gt;This release will add some features on top of what is in spec so far, e.g. support for defining constraints using Lambda expressions.
       We felt it’d be good to gain some experience with this and some other features by putting an implementation into the hands of users before adding them to the spec.
       More details on that once the reference implementation is out.&lt;/p&gt;
       &lt;/div&gt;
