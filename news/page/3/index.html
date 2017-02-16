@@ -63,6 +63,55 @@
           <article class="post">
             <header>
               <h1 class="title">
+                <a href="/news/2013/06/04/xml-namespace-and-jcp/">XML namespace and JCP</a>
+              </h1>
+              <span class="author">
+                by
+                <b>Emmanuel Bernard</b>
+              </span>
+              <span class="date">
+                on 04 Jun 2013
+              </span>
+              <span class="tags">
+                <a class="label label-info" href="/news/tags/feedback/">feedback</a>
+              </span>
+            </header>
+            <div class="body">
+              <p>Antonio Goncalves, fellow JCP member and friend <a href="http://antoniogoncalves.org/2013/06/04/java-ee-7-deployment-descriptors/">has asked
+              me</a>
+              why Bean Validation XML's namespace has not moved from its original location to
+              the jcp.org location like other Java EE 7 specifications.</p>
+              
+              <p>I don't remember being aware that such a move was orchestrated so there are two
+              possible reasons:</p>
+              
+              <ol>
+              <li>I was never been made aware of the move,</li>
+              <li>I was aware of it but considered that it was low priority compared to the <a href="https://hibernate.atlassian.net/issues/?jql=project%20%3D%20BVAL%20AND%20fixVersion%20in%20(%221.1.0.Alpha1%20(early%20draft%201)%22%2C%20%221.1.0.Beta1%20(public%20draft%201)%22%2C%20%221.1.0.Beta2%22%2C%20%221.1.0.Beta3%22%2C%20%221.1.0.Beta4%22%2C%20%221.1.0.CR1%22%2C%20%221.1.0.CR2%22%2C%20%221.1.0.CR3%22%2C%20%221.1.0.Final%22)%20AND%20status%20in%20(Resolved%2C%20Closed)">other
+              issues</a> we were working on.</li>
+              </ol>
+              
+              
+              <p>Provided we had to work hard till the last minute, and that the community never
+              was keen on the XML support we put in Bean Validation, #2 is not impossible but
+              I suspect it's #1 or I would have opened an issue to track the task.</p>
+              
+              <p>Anyways, that's not a problem. Anyone can open an issue (I've just <a href="https://hibernate.atlassian.net/browse/BVAL-455">created
+              one</a> for this task), write a
+              couple of pull requests to fix the spec, TCK and RI as explained in <a href="/contribute/">our
+              contribute section</a>. Scratch your own itch: so who's jumping? :)</p>
+              
+              <p>We will have to wait for the next version of the spec to avoid breaking older
+              applications but if it's committed, it won't be forgotten.</p>
+              
+              <p>PS: no, I'm not bitter, but since I haven't blogged in a while that was a good
+              occasion to remind everyone of the power of contributions ;)</p>
+               <a href="http://beanvalidation.org/news/2013/06/04/xml-namespace-and-jcp/#disqus_thread">Comments</a>
+            </div>
+          </article>
+          <article class="post">
+            <header>
+              <h1 class="title">
                 <a href="/news/2013/05/02/bean-validation-1-1-is-a-spec/">Bean Validation 1.1 is a spec</a>
               </h1>
               <span class="author">
@@ -325,34 +374,6 @@
                <a href="http://beanvalidation.org/news/2013/02/15/bean-validation-1-1-beta4/#disqus_thread">Comments</a>
             </div>
           </article>
-          <article class="post">
-            <header>
-              <h1 class="title">
-                <a href="/news/2013/02/05/javaspotlight-podcast-on-bean-validation-1-1/">Java Spotlight Podcast on Bean Validation 1.1</a>
-              </h1>
-              <span class="author">
-                by
-                <b>Emmanuel Bernard</b>
-              </span>
-              <span class="date">
-                on 05 Feb 2013
-              </span>
-              <span class="tags">
-                <a class="label label-info" href="/news/tags/press/">press</a>
-              </span>
-            </header>
-            <div class="body">
-              <p>Roger Brinkle from <a href="https://blogs.oracle.com/javaspotlight/">Java Spotlight Podcast</a>
-              has interviewed me on the status of Bean Validation 1.1. It's 20 mins long so you
-              won't suffer too much :)</p>
-              
-              <p>The podcast is available <a href="http://goo.gl/UphGL">here</a>.
-              Unfortunately the audio of the interview is not great, so if you find it hard
-              to follow, I have put an alternative recording with better quality of the
-              interview itself. <a href="/downloads/javaspotlight-119-interview.mp3">Get the mp3</a>.</p>
-               <a href="http://beanvalidation.org/news/2013/02/05/javaspotlight-podcast-on-bean-validation-1-1/#disqus_thread">Comments</a>
-            </div>
-          </article>
           <div class="pagination-links"><a href="/news/page/2/" class="previous-link">Previous</a> <a href="/news/" class="page-link">1</a> <a href="/news/page/2/" class="page-link">2</a> <span class="current-page">3</span> <a href="/news/page/4/" class="page-link">4</a> <span class="skip">...</span><a href="/news/page/7/" class="page-link">7</a> <a href="/news/page/8/" class="page-link">8</a> <a href="/news/page/4/" class="next-link">Next</a> </div>
         </div>
         <div class="sidebar sidebar-right col-sm-3 col-md-3 col-lg-3" id="sidebar" role="complementary">
@@ -367,6 +388,7 @@
               Stay up to date, subscribe to the&nbsp;<a href="/news/news.atom">news feed</a>.
             </div>
           </div>
+          <a class="news-link" href="/news/2017/02/16/first-alpha-of-bean-validation-2-0-reference-implementation/">First Alpha of Bean Validation 2.0 Reference Implementation Available</a>
           <a class="news-link" href="/news/2017/02/14/bean-validation-2-0-early-draft-released/">Bean Validation 2.0 Early Draft 1 is Out</a>
           <a class="news-link" href="/news/2017/02/07/apache-bval-is-compatible-with-bean-validation-1-1/">Apache BVal certified as Bean Validation 1.1 implementation</a>
           <a class="news-link" href="/news/2017/01/19/bean-validation-2-0-progress-report/">Bean Validation 2.0 Progress Report</a>

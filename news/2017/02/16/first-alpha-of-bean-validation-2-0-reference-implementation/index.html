@@ -4,14 +4,14 @@
     <meta content="IE=Edge" http-equiv="X-UA-Compatible">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>
-      Bean Validation - News
+      Bean Validation - First Alpha of Bean Validation 2.0 Reference Implementation Available
     </title>
-    <link href="../../../stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-    <link href="../../../stylesheets/print.css" media="print" rel="stylesheet" type="text/css">
+    <link href="../../../../../stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="../../../../../stylesheets/print.css" media="print" rel="stylesheet" type="text/css">
     <!--[if lt IE 8]>
-      <link href="../../../stylesheets/ie.css" media="screen, projection" rel="stylesheet" type="text/css">
+      <link href="../../../../../stylesheets/ie.css" media="screen, projection" rel="stylesheet" type="text/css">
     <![endif]-->
-    <link href="../../news.atom" rel="alternate" type="application/atom+xml">
+    <link href="../../../../news.atom" rel="alternate" type="application/atom+xml">
     <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="/javascripts/patternfly.js"></script>
     <script src="/javascripts/bootstrap.js"></script>
@@ -26,32 +26,32 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="../../.." id="logo" title="Bean Validation">
+          <a class="navbar-brand" href="../../../../.." id="logo" title="Bean Validation">
             Bean Validation
           </a>
         </div>
         <div class="collapse navbar-collapse navbar-collapse-1">
           <ul class="nav navbar-nav navbar-primary navbar-right" id="meny-primary">
             <li class="menu-item menu-item-type-post_type menu-item-object-page">
-              <a href="../..">News</a>
+              <a href="../../../..">News</a>
             </li>
             <li class="menu-item menu-item-type-post_type menu-item-object-page">
-              <a href="../../../specification">Specification</a>
+              <a href="../../../../../specification">Specification</a>
             </li>
             <li class="menu-item menu-item-type-post_type menu-item-object-page">
-              <a href="../../../tck">TCK</a>
+              <a href="../../../../../tck">TCK</a>
             </li>
             <li class="menu-item menu-item-type-post_type menu-item-object-page">
-              <a href="../../../1.1/ri">RI</a>
+              <a href="../../../../../1.1/ri">RI</a>
             </li>
             <li class="menu-item menu-item-type-post_type menu-item-object-page">
-              <a href="../../../1.1/certified">Certified</a>
+              <a href="../../../../../1.1/certified">Certified</a>
             </li>
             <li class="menu-item menu-item-type-post_type menu-item-object-page">
-              <a href="../../../contribute">Contribute</a>
+              <a href="../../../../../contribute">Contribute</a>
             </li>
             <li class="menu-item menu-item-type-post_type menu-item-object-page">
-              <a href="../../../licensing">Licensing</a>
+              <a href="../../../../../licensing">Licensing</a>
             </li>
           </ul>
         </div>
@@ -63,76 +63,83 @@
           <article class="post">
             <header>
               <h1 class="title">
-                <a href="/news/2012/11/29/public-review-ballot/">Public review ballot favorable to Bean Validation 1.1</a>
+                First Alpha of Bean Validation 2.0 Reference Implementation Available
               </h1>
               <span class="author">
                 by
-                <b>Emmanuel Bernard</b>
+                <b>Gunnar Morling</b>
               </span>
               <span class="date">
-                on 29 Nov 2012
+                on 16 Feb 2017
               </span>
               <span class="tags">
-                <a class="label label-info" href="/news/tags/jcp/">jcp</a>
+                <a class="label label-info" href="/news/tags/release/">release</a>
               </span>
             </header>
             <div class="body">
-              <p>The Java expert comity has <a href="http://jcp.org/en/jsr/results?id=5386">just approved</a>
-              the public review version of Bean Validation 1.1.</p>
-              
-              <p>What does that mean for the spec? We keep going and carry on our work
-              to finalize the specification.</p>
-              
-              <p>Onwards.</p>
-               <a href="http://beanvalidation.org/news/2012/11/29/public-review-ballot/#disqus_thread">Comments</a>
+              <div class="paragraph">
+              <p>A few days after the release of the <a href="/news/2017/02/14/bean-validation-2-0-early-draft-released/">Bean Validation 2.0 Early Draft 1</a>
+              there is now also a <a href="http://in.relation.to/2017/02/16/hibernate-validator-600-alpha1-out/">first version of the reference implementation</a> available.</p>
+              </div>
+              <div class="paragraph">
+              <p>If you are using Apache Maven, add the following dependency to your <em>pom.xml</em> to give it a test ride:</p>
+              </div>
+              <div class="listingblock">
+              <div class="content">
+              <pre class="CodeRay highlight"><code data-lang="java">&lt;dependency&gt;&#x000A;    &lt;groupId&gt;org.hibernate.validator&lt;/groupId&gt;&#x000A;    &lt;artifactId&gt;hibernate-validator&lt;/artifactId&gt;&#x000A;    &lt;version&gt;<span style="color:#60E">6.0</span><span style="color:#60E">.0</span>.Alpha1&lt;/version&gt;&#x000A;&lt;/dependency&gt;</code></pre>
+              </div>
+              </div>
+              <div class="paragraph">
+              <p>The 6.0.0.Alpha1 release provides all the functionality of the <a href="http://beanvalidation.org/2.0/spec/2.0.0.alpha1/">Early Draft 1</a>.
+              In addition there is support for</p>
+              </div>
+              <div class="ulist">
+              <ul>
+              <li>
+              <p>nested type argument constraints, e.g. <code>Map&lt;String, Size(min=1) List&lt;@NotNull Item&gt;&gt; itemsByCategory</code>;
+              this addresses <a href="/2.0/spec/2.0.0.alpha1/#_open_questions">open question #1</a> from the proposal for the validation of container elements</p>
+              </li>
+              <li>
+              <p>definition of constraints using Lambda expressions and method references</p>
+              </li>
+              <li>
+              <p>validation of <code>java.time.Duration</code> via two new constraints, <code>@DurationMin</code> and <code>@DurationMax</code></p>
+              </li>
+              </ul>
+              </div>
+              <div class="paragraph">
+              <p>If you think those things should be added to the spec, please let us know.
+              Your feedback on these features as well as all the other Early Draft 1 additions will be much appreciated!</p>
+              </div>
+              <div class="paragraph">
+              <p>Check out the original <a href="http://in.relation.to/2017/02/16/hibernate-validator-600-alpha1-out/">Hibernate Validator release announcement</a> for all the details.</p>
+              </div>
             </div>
-          </article>
-          <article class="post">
-            <header>
-              <h1 class="title">
-                <a href="/news/2011/07/23/voted-yes/">Bean Validation has been voted yes!</a>
-              </h1>
-              <span class="author">
-                by
-                <b>Emmanuel Bernard</b>
-              </span>
-              <span class="date">
-                on 23 Jul 2011
-              </span>
-              <span class="tags">
-                <a class="label label-info" href="/news/tags/jcp/">jcp</a>
-              </span>
-            </header>
-            <div class="body">
-              <p>The expert committee has <a href="http://jcp.org/en/jsr/results?id=5227">voted yes</a> on JSR-349. That means
-              the work for Bean Validation 1.1 can start. Read some more on <a href="http://in.relation.to/Bloggers/BeanValidation11HasStartedJoinUs">Emmanuel's blog</a>.</p>
+            <footer>
+              <div id="post-navigation">
+                <div class="previous">
+                  &laquo;
+                  <a href="../../14/bean-validation-2-0-early-draft-released">Bean Validation 2.0 Early Draft 1 is Out</a>
+                </div>
+                <div class="next">
+                </div>
+              </div>
               
-              <p>The next few days will be dedicated getting an expert group up and running.</p>
-               <a href="http://beanvalidation.org/news/2011/07/23/voted-yes/#disqus_thread">Comments</a>
-            </div>
+                          <div id="disqus_thread"></div>
+                          <script type="text/javascript">
+                          var disqus_shortname = 'beanvalidation';
+                          var disqus_url = "http://beanvalidation.org/news/2017/02/16/first-alpha-of-bean-validation-2-0-reference-implementation/";
+                          var disqus_developer = null;
+                          var disqus_identifier = null;
+                          (function() {
+                            var dsq = document.createElement("script"); dsq.type = "text/javascript"; dsq.async = true;
+                            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                            (document.getElementsByTagName("head")[0] || document.getElementsByTagName("body")[0]).appendChild(dsq);
+                          })();
+                          </script>
+                          <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript=beanvalidation">comments powered by Disqus.</a></noscript>
+            </footer>
           </article>
-          <article class="post">
-            <header>
-              <h1 class="title">
-                <a href="/news/2011/07/22/review-ballot/">Bean Validation in review ballot</a>
-              </h1>
-              <span class="author">
-                by
-                <b>Emmanuel Bernard</b>
-              </span>
-              <span class="date">
-                on 22 Jul 2011
-              </span>
-              <span class="tags">
-                <a class="label label-info" href="/news/tags/jcp/">jcp</a>
-              </span>
-            </header>
-            <div class="body">
-              <p>The specification has been proposed to the JCP expert committee and is in review ballot. Stay tuned for the real work to begin.</p>
-               <a href="http://beanvalidation.org/news/2011/07/22/review-ballot/#disqus_thread">Comments</a>
-            </div>
-          </article>
-          <div class="pagination-links"><span class="current-page">1</span> </div>
         </div>
         <div class="sidebar sidebar-right col-sm-3 col-md-3 col-lg-3" id="sidebar" role="complementary">
           <div id="newsfeed">

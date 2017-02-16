@@ -63,6 +63,63 @@
           <article class="post">
             <header>
               <h1 class="title">
+                <a href="/news/2017/02/16/first-alpha-of-bean-validation-2-0-reference-implementation/">First Alpha of Bean Validation 2.0 Reference Implementation Available</a>
+              </h1>
+              <span class="author">
+                by
+                <b>Gunnar Morling</b>
+              </span>
+              <span class="date">
+                on 16 Feb 2017
+              </span>
+              <span class="tags">
+                <a class="label label-info" href="/news/tags/release/">release</a>
+              </span>
+            </header>
+            <div class="body">
+              <div class="paragraph">
+              <p>A few days after the release of the <a href="/news/2017/02/14/bean-validation-2-0-early-draft-released/">Bean Validation 2.0 Early Draft 1</a>
+              there is now also a <a href="http://in.relation.to/2017/02/16/hibernate-validator-600-alpha1-out/">first version of the reference implementation</a> available.</p>
+              </div>
+              <div class="paragraph">
+              <p>If you are using Apache Maven, add the following dependency to your <em>pom.xml</em> to give it a test ride:</p>
+              </div>
+              <div class="listingblock">
+              <div class="content">
+              <pre class="CodeRay highlight"><code data-lang="java">&lt;dependency&gt;&#x000A;    &lt;groupId&gt;org.hibernate.validator&lt;/groupId&gt;&#x000A;    &lt;artifactId&gt;hibernate-validator&lt;/artifactId&gt;&#x000A;    &lt;version&gt;<span style="color:#60E">6.0</span><span style="color:#60E">.0</span>.Alpha1&lt;/version&gt;&#x000A;&lt;/dependency&gt;</code></pre>
+              </div>
+              </div>
+              <div class="paragraph">
+              <p>The 6.0.0.Alpha1 release provides all the functionality of the <a href="http://beanvalidation.org/2.0/spec/2.0.0.alpha1/">Early Draft 1</a>.
+              In addition there is support for</p>
+              </div>
+              <div class="ulist">
+              <ul>
+              <li>
+              <p>nested type argument constraints, e.g. <code>Map&lt;String, Size(min=1) List&lt;@NotNull Item&gt;&gt; itemsByCategory</code>;
+              this addresses <a href="/2.0/spec/2.0.0.alpha1/#_open_questions">open question #1</a> from the proposal for the validation of container elements</p>
+              </li>
+              <li>
+              <p>definition of constraints using Lambda expressions and method references</p>
+              </li>
+              <li>
+              <p>validation of <code>java.time.Duration</code> via two new constraints, <code>@DurationMin</code> and <code>@DurationMax</code></p>
+              </li>
+              </ul>
+              </div>
+              <div class="paragraph">
+              <p>If you think those things should be added to the spec, please let us know.
+              Your feedback on these features as well as all the other Early Draft 1 additions will be much appreciated!</p>
+              </div>
+              <div class="paragraph">
+              <p>Check out the original <a href="http://in.relation.to/2017/02/16/hibernate-validator-600-alpha1-out/">Hibernate Validator release announcement</a> for all the details.</p>
+              </div>
+               <a href="http://beanvalidation.org/news/2017/02/16/first-alpha-of-bean-validation-2-0-reference-implementation/#disqus_thread">Comments</a>
+            </div>
+          </article>
+          <article class="post">
+            <header>
+              <h1 class="title">
                 <a href="/news/2017/02/14/bean-validation-2-0-early-draft-released/">Bean Validation 2.0 Early Draft 1 is Out</a>
               </h1>
               <span class="author">
@@ -675,50 +732,6 @@
                <a href="http://beanvalidation.org/news/2016/11/23/survey-constraints-and-parameterized-type/#disqus_thread">Comments</a>
             </div>
           </article>
-          <article class="post">
-            <header>
-              <h1 class="title">
-                <a href="/news/2016/09/15/which-constraints-to-add/">Feedback needed - Which constraints should be added?</a>
-              </h1>
-              <span class="author">
-                by
-                <b>Gunnar Morling</b>
-              </span>
-              <span class="date">
-                on 15 Sep 2016
-              </span>
-              <span class="tags">
-                <a class="label label-info" href="/news/tags/feedback/">feedback</a>
-              </span>
-            </header>
-            <div class="body">
-              <p>The work on Bean Validation 2.0 is in full swing and there is an issue where we could benefit from your help.</p>
-              
-              <p>Recently we have been discussing whether any new constraints <a href="http://lists.jboss.org/pipermail/beanvalidation-dev/2016-August/001000.html">should be added</a> to the specification or not.
-              Traditionally, Bean Validation stayed on the conservative side of things in this regard.
-              It defined only some generically applicable and widely useful constraints in the specification itself, e.g. <code>@NotNull</code>, <code>@Size</code> or <code>@Pattern</code>.</p>
-              
-              <p>Now Marco Molteni did a very interesting analysis on the constraints which are actually used in real world projects by <a href="http://lists.jboss.org/pipermail/beanvalidation-dev/2016-August/001000.html">running an analysis</a> of open source projects hosted on GitHub.
-              Only a specific type of project is hosted there usually (mostly libraries, as opposed to actual end user facing applications),
-              so the numbers should be taken with a grain of salt. But nevertheless they are very interesting.</p>
-              
-              <p>Marco's analysis shows that besides the BV-defined constraints <code>@NotEmpty</code> and <code>@NotBlank</code> - both defined by the reference implementation Hibernate validator - are very frequently used and thus are potential candidates for inclusion into Bean Validation 2.0.
-              The former asserts that the annotated string, collection, map or array is neither null nor empty, the latter validates that the annotated string is neither null nor empty, stripping leading/trailing whitespace.</p>
-              
-              <p>Another candidate may be <code>@Email</code>; but validation of e-mail addresses is a surprisingly complex business, with different people having different ideas and expectations of how a valid (or invalid) e-mail address should look like (take a look at the <a href="https://en.wikipedia.org/wiki/Email_address#Examples">examples on Wikipedia</a> to get an idea).
-              Hence I feel this is not something we should aim for in the specification.</p>
-              
-              <p>To add some further data points, we created the following survey on constraints to be added potentially.
-              Getting back many answers to this poll will help us to form a better understanding of what you, the users out there, really need.
-              If you would like to see support for other constraints not mentioned in the survey, you can add them via the free-text field in the last question.
-              These may be custom constraints defined by a Bean Validation provider, a third-party library or in your own projects which you see yourself using very frequently.</p>
-              
-              <p>Taking the survey will take you only a minute, so give it a go. Thanks a lot for your help!</p>
-              
-              <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScR9o9p2GlrmhrtSinp2D9PY8gN4C-AOA-bjm8bwXkX_4H1Sw/viewform?embedded=true" width="760" height="500" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
-               <a href="http://beanvalidation.org/news/2016/09/15/which-constraints-to-add/#disqus_thread">Comments</a>
-            </div>
-          </article>
           <div class="pagination-links"><span class="current-page">1</span> <a href="/news/page/2/" class="page-link">2</a> <span class="skip">...</span><a href="/news/page/7/" class="page-link">7</a> <a href="/news/page/8/" class="page-link">8</a> <a href="/news/page/2/" class="next-link">Next</a> </div>
         </div>
         <div class="sidebar sidebar-right col-sm-3 col-md-3 col-lg-3" id="sidebar" role="complementary">
@@ -733,6 +746,7 @@
               Stay up to date, subscribe to the&nbsp;<a href="/news/news.atom">news feed</a>.
             </div>
           </div>
+          <a class="news-link" href="/news/2017/02/16/first-alpha-of-bean-validation-2-0-reference-implementation/">First Alpha of Bean Validation 2.0 Reference Implementation Available</a>
           <a class="news-link" href="/news/2017/02/14/bean-validation-2-0-early-draft-released/">Bean Validation 2.0 Early Draft 1 is Out</a>
           <a class="news-link" href="/news/2017/02/07/apache-bval-is-compatible-with-bean-validation-1-1/">Apache BVal certified as Bean Validation 1.1 implementation</a>
           <a class="news-link" href="/news/2017/01/19/bean-validation-2-0-progress-report/">Bean Validation 2.0 Progress Report</a>
