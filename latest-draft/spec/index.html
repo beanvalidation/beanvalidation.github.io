@@ -514,8 +514,8 @@ table.CodeRay td.code>pre{padding:0}
 <h1>Bean Validation specification</h1>
 <div class="details">
 <span id="author" class="author">Gunnar Morling</span><br>
-<span id="revnumber">version 2.0.0.Alpha1 (Early Draft 1),</span>
-<span id="revdate">2017-02-02</span>
+<span id="revnumber">version 2.0.0-SNAPSHOT,</span>
+<span id="revdate">2017-03-03</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -533,36 +533,113 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#whatsnew">2. What&#8217;s new</a>
 <ul class="sectlevel2">
 <li><a href="#_what_s_new_in_2_0">2.1. What&#8217;s new in 2.0</a></li>
-<li><a href="#_what_s_new_in_1_1">2.2. What&#8217;s new in 1.1</a></li>
+<li><a href="#_what_s_new_in_1_1">2.2. What&#8217;s new in 1.1</a>
+<ul class="sectlevel3">
+<li><a href="#_openness">2.2.1. Openness</a></li>
+<li><a href="#_dependency_injection">2.2.2. Dependency injection</a></li>
+<li><a href="#_method_validation">2.2.3. Method validation</a></li>
+<li><a href="#_integration_with_context_and_dependency_injection">2.2.4. Integration with Context and Dependency Injection</a></li>
+<li><a href="#_group_conversion">2.2.5. Group conversion</a></li>
+<li><a href="#_message_interpolation_via_the_unified_expression_language">2.2.6. Message interpolation via the unified expression language</a></li>
+<li><a href="#_others">2.2.7. Others</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#constraintsdefinitionimplementation">3. Constraint Definition</a>
 <ul class="sectlevel2">
-<li><a href="#constraintsdefinitionimplementation-constraintdefinition">3.1. Constraint annotation</a></li>
+<li><a href="#constraintsdefinitionimplementation-constraintdefinition">3.1. Constraint annotation</a>
+<ul class="sectlevel3">
+<li><a href="#constraintsdefinitionimplementation-constraintdefinition-properties">3.1.1. Constraint definition properties</a></li>
+<li><a href="#_examples">3.1.2. Examples</a></li>
+</ul>
+</li>
 <li><a href="#constraintsdefinitionimplementation-multipleconstraints">3.2. Applying multiple constraints of the same type</a></li>
 <li><a href="#constraintsdefinitionimplementation-constraintcomposition">3.3. Constraint composition</a></li>
-<li><a href="#constraintsdefinitionimplementation-validationimplementation">3.4. Constraint validation implementation</a></li>
+<li><a href="#constraintsdefinitionimplementation-validationimplementation">3.4. Constraint validation implementation</a>
+<ul class="sectlevel3">
+<li><a href="#constraintsdefinitionimplementation-validationimplementation-temporal-validators">3.4.1. Implementation of temporal constraint validators</a></li>
+<li><a href="#constraintsdefinitionimplementation-validationimplementation-example">3.4.2. Examples</a></li>
+</ul>
+</li>
 <li><a href="#constraintsdefinitionimplementation-constraintfactory">3.5. The ConstraintValidatorFactory</a></li>
 </ul>
 </li>
 <li><a href="#constraintdeclarationvalidationprocess">4. Constraint declaration and validation process</a>
 <ul class="sectlevel2">
-<li><a href="#constraintdeclarationvalidationprocess-requirements">4.1. Requirements on classes to be validated</a></li>
+<li><a href="#constraintdeclarationvalidationprocess-requirements">4.1. Requirements on classes to be validated</a>
+<ul class="sectlevel3">
+<li><a href="#constraintdeclarationvalidationprocess-requirements-object">4.1.1. Object validation</a></li>
+<li><a href="#constraintdeclarationvalidationprocess-requirements-property">4.1.2. Field and property validation</a></li>
+<li><a href="#constraintdeclarationvalidationprocess-requirements-graphvalidation">4.1.3. Graph validation</a></li>
+</ul>
+</li>
 <li><a href="#_constraint_declaration">4.2. Constraint declaration</a></li>
 <li><a href="#constraintdeclarationvalidationprocess-inheritance">4.3. Inheritance (interface and superclass)</a></li>
-<li><a href="#constraintdeclarationvalidationprocess-groupsequence">4.4. Group and group sequence</a></li>
-<li><a href="#constraintdeclarationvalidationprocess-methodlevelconstraints">4.5. Method and constructor constraints</a></li>
-<li><a href="#constraintdeclarationvalidationprocess-validationroutine">4.6. Validation routine</a></li>
+<li><a href="#constraintdeclarationvalidationprocess-groupsequence">4.4. Group and group sequence</a>
+<ul class="sectlevel3">
+<li><a href="#constraintdeclarationvalidationprocess-groupsequence-groupinheritance">4.4.1. Group inheritance</a></li>
+<li><a href="#constraintdeclarationvalidationprocess-groupsequence-groupsequence">4.4.2. Group sequence</a></li>
+<li><a href="#constraintdeclarationvalidationprocess-groupsequence-redefiningdefaultgroup">4.4.3. Redefining the Default group for a class</a></li>
+<li><a href="#constraintdeclarationvalidationprocess-groupsequence-implicitgrouping">4.4.4. Implicit grouping</a></li>
+<li><a href="#constraintdeclarationvalidationprocess-groupsequence-groupconversion">4.4.5. Group conversion</a></li>
+<li><a href="#constraintdeclarationvalidationprocess-groupsequence-formaldefinition">4.4.6. Formal group definitions</a></li>
+</ul>
+</li>
+<li><a href="#constraintdeclarationvalidationprocess-methodlevelconstraints">4.5. Method and constructor constraints</a>
+<ul class="sectlevel3">
+<li><a href="#_requirements_on_methods_to_be_validated">4.5.1. Requirements on methods to be validated</a></li>
+<li><a href="#_declaring_parameter_constraints">4.5.2. Declaring parameter constraints</a></li>
+<li><a href="#_declaring_return_value_constraints">4.5.3. Declaring return value constraints</a></li>
+<li><a href="#_marking_parameters_and_return_values_for_cascaded_validation">4.5.4. Marking parameters and return values for cascaded validation</a></li>
+<li><a href="#constraintdeclarationvalidationprocess-methodlevelconstraints-inheritance">4.5.5. Method constraints in inheritance hierarchies</a></li>
+</ul>
+</li>
+<li><a href="#constraintdeclarationvalidationprocess-validationroutine">4.6. Validation routine</a>
+<ul class="sectlevel3">
+<li><a href="#constraintdeclarationvalidationprocess-validationroutine-graphvalidation">4.6.1. Object graph validation</a></li>
+<li><a href="#_method_and_constructor_validation">4.6.2. Method and constructor validation</a></li>
+<li><a href="#constraintdeclarationvalidationprocess-validationroutine-traversable">4.6.3. Traversable property</a></li>
+<li><a href="#typevalidatorresolution">4.6.4. ConstraintValidator resolution algorithm</a></li>
+</ul>
+</li>
 <li><a href="#_examples_3">4.7. Examples</a></li>
 </ul>
 </li>
 <li><a href="#validationapi">5. Validation APIs</a>
 <ul class="sectlevel2">
-<li><a href="#validationapi-validatorapi">5.1. Validator API</a></li>
-<li><a href="#validationapi-constraintviolation">5.2. ConstraintViolation</a></li>
-<li><a href="#validationapi-message">5.3. Message interpolation</a></li>
+<li><a href="#validationapi-validatorapi">5.1. Validator API</a>
+<ul class="sectlevel3">
+<li><a href="#validationapi-validatorapi-validationmethods">5.1.1. Validation methods</a></li>
+<li><a href="#validationapi-validatorapi-methodlevelvalidationmethods">5.1.2. Methods for validating method and constructor constraints</a></li>
+<li><a href="#validationapi-validatorapi-groups">5.1.3. groups</a></li>
+</ul>
+</li>
+<li><a href="#validationapi-constraintviolation">5.2. ConstraintViolation</a>
+<ul class="sectlevel3">
+<li><a href="#_examples_7">5.2.1. Examples</a></li>
+<li><a href="#_examples_for_method_and_constructor_constraint_violations">5.2.2. Examples for method and constructor constraint violations</a></li>
+</ul>
+</li>
+<li><a href="#validationapi-message">5.3. Message interpolation</a>
+<ul class="sectlevel3">
+<li><a href="#default-messageresolver">5.3.1. Default message interpolation</a></li>
+<li><a href="#custom-message-resolution">5.3.2. Custom message interpolation</a></li>
+<li><a href="#validationapi-message-examples">5.3.3. Examples</a></li>
+</ul>
+</li>
 <li><a href="#validationapi-triggeringmethodvalidation">5.4. Triggering method validation</a></li>
-<li><a href="#bootstrapping">5.5. Bootstrapping</a></li>
+<li><a href="#bootstrapping">5.5. Bootstrapping</a>
+<ul class="sectlevel3">
+<li><a href="#_examples_8">5.5.1. Examples</a></li>
+<li><a href="#_validatorfactory">5.5.2. ValidatorFactory</a></li>
+<li><a href="#_configuration">5.5.3. Configuration</a></li>
+<li><a href="#_validationprovider_and_validationproviderresolver">5.5.4. ValidationProvider and ValidationProviderResolver</a></li>
+<li><a href="#boostrapping-validation">5.5.5. Validation</a></li>
+<li><a href="#xml-config">5.5.6. XML configuration: META-INF/validation.xml</a></li>
+<li><a href="#bootstrapping-usageandcontainerexpectation">5.5.7. Bootstrapping considerations</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#constraintmetadata">6. Constraint metadata request APIs</a>
@@ -584,7 +661,14 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#builtinconstraints">7. Built-in Constraint definitions</a></li>
 <li><a href="#xml">8. XML deployment descriptor</a>
 <ul class="sectlevel2">
-<li><a href="#xml-mapping">8.1. Constraint definition and declaration</a></li>
+<li><a href="#xml-mapping">8.1. Constraint definition and declaration</a>
+<ul class="sectlevel3">
+<li><a href="#_constraint_declaration_in_xml">8.1.1. Constraint declaration in XML</a></li>
+<li><a href="#xml-mapping-constraintdefinition">8.1.2. Overriding constraint definitions in XML</a></li>
+<li><a href="#xml-mapping-typeconversion">8.1.3. Converting the string representation of a value</a></li>
+<li><a href="#xml-mapping-xsd">8.1.4. XML Schema</a></li>
+</ul>
+</li>
 <li><a href="#xml-config-xsd">8.2. Configuration schema</a></li>
 </ul>
 </li>
@@ -594,13 +678,25 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#_constraint_definition_code_class_classname_constraintdefinitionexception_code">9.2. Constraint definition: <code class="classname">ConstraintDefinitionException</code></a></li>
 <li><a href="#_constraint_declaration_code_class_classname_constraintdeclarationexception_code_and_code_class_classname_unexpectedtypeexception_code">9.3. Constraint declaration: <code class="classname">ConstraintDeclarationException</code> and <code class="classname">UnexpectedTypeException</code></a></li>
 <li><a href="#_group_definition_code_class_classname_groupdefinitionexception_code">9.4. Group definition: <code class="classname">GroupDefinitionException</code></a></li>
+<li><a href="#_no_bean_validation_provider_detected_code_noproviderfoundexception_code">9.5. No Bean Validation Provider detected: <code>NoProviderFoundException</code></a></li>
 </ul>
 </li>
 <li><a href="#integration">10. Integration</a>
 <ul class="sectlevel2">
-<li><a href="#integration-general">10.1. General requirements</a></li>
+<li><a href="#integration-general">10.1. General requirements</a>
+<ul class="sectlevel3">
+<li><a href="#_objects_lifecycle">10.1.1. Objects lifecycle</a></li>
+<li><a href="#integration-general-executable">10.1.2. Method and constructor validation</a></li>
+</ul>
+</li>
 <li><a href="#integration-javaee">10.2. Java EE</a></li>
-<li><a href="#integration-cdi">10.3. Context and Dependency Injection (CDI) integration</a></li>
+<li><a href="#integration-cdi">10.3. Context and Dependency Injection (CDI) integration</a>
+<ul class="sectlevel3">
+<li><a href="#__code_class_classname_validatorfactory_code_and_code_class_classname_validator_code">10.3.1. <code class="classname">ValidatorFactory</code> and <code class="classname">Validator</code></a></li>
+<li><a href="#__code_class_classname_constraintvalidatorfactory_code_code_class_classname_messageinterpolator_code_code_class_classname_parameternameprovider_code_code_class_classname_clockprovider_code_and_code_class_classname_traversableresolver_code">10.3.2. <code class="classname">ConstraintValidatorFactory</code>, <code class="classname">MessageInterpolator</code>, <code class="classname">ParameterNameProvider</code>, <code class="classname">ClockProvider</code> and <code class="classname">TraversableResolver</code></a></li>
+<li><a href="#_method_and_constructor_validation_2">10.3.3. Method and constructor validation</a></li>
+</ul>
+</li>
 <li><a href="#_java_persistence_2_0_integration">10.4. Java Persistence 2.0 integration</a></li>
 <li><a href="#_java_server_faces_2_0_integration">10.5. Java Server Faces 2.0 integration</a></li>
 <li><a href="#_jax_rs_2_integration">10.6. JAX-RS 2 integration</a></li>
@@ -612,7 +708,20 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#_motivation">B.1. Motivation</a></li>
 <li><a href="#_requirements">B.2. Requirements</a></li>
 <li><a href="#_non_requirements">B.3. Non-requirements</a></li>
-<li><a href="#_solution">B.4. Solution</a></li>
+<li><a href="#_solution">B.4. Solution</a>
+<ul class="sectlevel3">
+<li><a href="#__extractedvalue">B.4.1. @ExtractedValue</a></li>
+<li><a href="#_extensions_to_code_node_code">B.4.2. Extensions to <code>Node</code></a></li>
+<li><a href="#_default_extractors">B.4.3. Default extractors</a></li>
+<li><a href="#_plugging_in_custom_extractors">B.4.4. Plugging in custom extractors</a></li>
+<li><a href="#appendix-valueextraction-wrappedelements">B.4.5. Applying element-level constraints to wrapped elements</a></li>
+<li><a href="#appendix-valueextraction-extractorretrieval">B.4.6. Retrieval of extractors</a></li>
+<li><a href="#_examples_11">B.4.7. Examples</a></li>
+<li><a href="#_xml_based_configuration">B.4.8. XML based configuration</a></li>
+<li><a href="#_metadata_retrieval">B.4.9. Metadata retrieval</a></li>
+<li><a href="#_misc">B.4.10. Misc.</a></li>
+</ul>
+</li>
 <li><a href="#_extensions_to_the_exception_model">B.5. Extensions to the exception model</a></li>
 <li><a href="#_open_questions">B.6. Open questions</a></li>
 </ul>
@@ -1294,7 +1403,7 @@ this also includes:</p>
 <p><span class="tck-testable">A constraint definition may have attributes that are specified at the time the constraint is applied to a JavaBean.</span> The properties are mapped as annotation elements. The annotation element names <code>message</code>, <code>groups</code>, <code>validationAppliesTo</code> and <code>payload</code> are considered reserved names; <span class="tck-testable">annotation elements starting with <code>valid</code> are not allowed</span> ; a constraint may use any other element name for its attributes.</p>
 </div>
 <div class="sect4">
-<h5 id="constraintsdefinitionimplementation-constraintdefinition-parameters-message"><a class="anchor" href="#constraintsdefinitionimplementation-constraintdefinition-parameters-message"></a>message</h5>
+<h5 id="constraintsdefinitionimplementation-constraintdefinition-parameters-message"><a class="anchor" href="#constraintsdefinitionimplementation-constraintdefinition-parameters-message"></a>3.1.1.1. message</h5>
 <div class="paragraph">
 <p><span class="tck-testable">Every constraint annotation must define a <code>message</code> element of type <code>String</code>.</span></p>
 </div>
@@ -1311,7 +1420,7 @@ this also includes:</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="constraintsdefinitionimplementation-constraintdefinition-groups"><a class="anchor" href="#constraintsdefinitionimplementation-constraintdefinition-groups"></a>groups</h5>
+<h5 id="constraintsdefinitionimplementation-constraintdefinition-groups"><a class="anchor" href="#constraintsdefinitionimplementation-constraintdefinition-groups"></a>3.1.1.2. groups</h5>
 <div class="paragraph">
 <p><span class="tck-testable">Every constraint annotation must define a <code>groups</code> element that specifies the processing groups with which the constraint declaration is associated.</span> <span class="tck-testable">The type of the <code>groups</code> parameter is <code class="classname">Class&lt;?&gt;[]</code>.</span></p>
 </div>
@@ -1334,7 +1443,7 @@ this also includes:</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="constraintsdefinitionimplementation-constraintdefinition-payload"><a class="anchor" href="#constraintsdefinitionimplementation-constraintdefinition-payload"></a>payload</h5>
+<h5 id="constraintsdefinitionimplementation-constraintdefinition-payload"><a class="anchor" href="#constraintsdefinitionimplementation-constraintdefinition-payload"></a>3.1.1.3. payload</h5>
 <div class="paragraph">
 <p><span class="tck-testable">Constraint annotations must define a <code>payload</code> element that specifies the payload with which the constraint declaration is associated. The type of the <code>payload</code> parameter is <code class="classname">Payload[]</code>.</span></p>
 </div>
@@ -1401,7 +1510,7 @@ this also includes:</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="constraintsdefinitionimplementation-constraintdefinition-validationappliesto"><a class="anchor" href="#constraintsdefinitionimplementation-constraintdefinition-validationappliesto"></a>validationAppliesTo</h5>
+<h5 id="constraintsdefinitionimplementation-constraintdefinition-validationappliesto"><a class="anchor" href="#constraintsdefinitionimplementation-constraintdefinition-validationappliesto"></a>3.1.1.4. validationAppliesTo</h5>
 <div class="paragraph">
 <p><code>validationAppliesTo</code> is used at constraint declaration time to clarify what the constraint targets (i.e. the annotated element, the method return value or the method parameters).</p>
 </div>
@@ -1483,7 +1592,7 @@ this also includes:</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_constraint_specific_parameter"><a class="anchor" href="#_constraint_specific_parameter"></a>Constraint specific parameter</h5>
+<h5 id="_constraint_specific_parameter"><a class="anchor" href="#_constraint_specific_parameter"></a>3.1.1.5. Constraint specific parameter</h5>
 <div class="paragraph">
 <p>The constraint annotation definitions may define additional elements to parameterize the constraint. For example, a constraint that validates the length of a string can use an annotation element named <code>length</code> to specify the maximum length at the time the constraint is declared.</p>
 </div>
@@ -1880,6 +1989,7 @@ It is also possible to specify a constraint several times by explicitly using th
  */</span>
 <span class="annotation">@Target</span>({ ANNOTATION_TYPE })
 <span class="annotation">@Retention</span>(RUNTIME)
+<span class="annotation">@Documented</span>
 <span class="directive">public</span> <span class="annotation">@interface</span> ReportAsSingleViolation {
 }</code></pre>
 </div>
@@ -1920,8 +2030,12 @@ It is also possible to specify a constraint several times by explicitly using th
 </div>
 </div>
 </div>
-<div class="paragraph">
-<p><span class="tck-testable">It is possible to override attributes and messages defined on a composing annotation. An attribute from the main annotation is used to override one or more attributes of the composing annotations. Such an attribute is annotated with the <code class="classname">@OverridesAttribute</code> annotation or its multivalued equivalent <code class="classname">@OverridesAttribute.List</code>.</span></p>
+<div class="paragraph tck-testable">
+<p><div class="paragraph">
+<p>It is possible to override attributes and messages defined on a composing annotation.
+An attribute from the main annotation is used to override one or more attributes of the composing annotations.
+Such an attribute is annotated with one or more <code>@OverridesAttribute</code> annotations.</p>
+</div></p>
 </div>
 <div id="example-composing-overridden" class="exampleblock">
 <div class="title">Example 14. Attributes from composing annotations can be overridden by attributes from the composed annotation</div>
@@ -1942,9 +2056,8 @@ It is also possible to specify a constraint several times by explicitly using th
 
     <span class="predefined-type">Class</span>&lt;? <span class="directive">extends</span> Payload&gt;<span class="type">[]</span> payload() <span class="keyword">default</span> {};
 
-    <span class="annotation">@OverridesAttribute</span>.List({
-            <span class="annotation">@OverridesAttribute</span>(constraint = Size.class, name = <span class="string"><span class="delimiter">&quot;</span><span class="content">min</span><span class="delimiter">&quot;</span></span>),
-            <span class="annotation">@OverridesAttribute</span>(constraint = Size.class, name = <span class="string"><span class="delimiter">&quot;</span><span class="content">max</span><span class="delimiter">&quot;</span></span>) })
+    <span class="annotation">@OverridesAttribute</span>(constraint = Size.class, name = <span class="string"><span class="delimiter">&quot;</span><span class="content">min</span><span class="delimiter">&quot;</span></span>)
+    <span class="annotation">@OverridesAttribute</span>(constraint = Size.class, name = <span class="string"><span class="delimiter">&quot;</span><span class="content">max</span><span class="delimiter">&quot;</span></span>)
     <span class="type">int</span> size() <span class="keyword">default</span> <span class="integer">5</span>;
 
     <span class="annotation">@OverridesAttribute</span>(constraint = Size.class, name = <span class="string"><span class="delimiter">&quot;</span><span class="content">message</span><span class="delimiter">&quot;</span></span>)
@@ -2034,19 +2147,31 @@ It is also possible to specify a constraint several times by explicitly using th
 </div>
 </div>
 <div class="paragraph">
-<p><span class="tck-testable">If a constraint is used more than once as a composing constraint, the multi value constraints model as described in <a href="#constraintsdefinitionimplementation-multipleconstraints">Applying multiple constraints of the same type</a> is used.</span> <span class="tck-testable">To select a specific composing constraint, <code class="methodname">OverridesAttribute.constraintIndex</code> is used. It represents the constraint index in the <code class="methodname">value</code> array.</span> <span class="tck-testable">If <code>index</code> is undefined, the single constraint declaration is targeted.</span></p>
+<p><span class="tck-testable">If a constraint is used more than once as a composing constraint, the multi value constraints model as described in <a href="#constraintsdefinitionimplementation-multipleconstraints">Applying multiple constraints of the same type</a> is used.</span></p>
+</div>
+<div class="paragraph">
+<p>To select a specific composing constraint, <code class="methodname">OverridesAttribute.constraintIndex</code> is used.
+<span class="tck-testable">If the composing constraints are directly given on the composing constraint, <code>constraintIndex</code> refers to the left-to-right order of the constraints of this type in which they are given on the composing constraint.</span>
+<span class="tck-testable">If the composing constraints are specified using their corresponding <code>List</code> annotation, <code>constraintIndex</code> refers to the index within the <code>value</code> array.</span></p>
+</div>
+<div class="paragraph tck-testable">
+<p><div class="paragraph">
+<p>A composing constraint must not be given directly on the composing constraint and using the corresponding <code>List</code> annotation at the same time.
+A <code>ConstraintDeclarationException</code> will be raised in this case.</p>
+</div></p>
+</div>
+<div class="paragraph">
+<p><span class="tck-testable">If <code>index</code> is undefined, the single constraint declaration is targeted.</span></p>
 </div>
 <div class="exampleblock">
 <div class="title">Example 15. Use of constraintIndex in @OverridesAttribute</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="JAVA"><span class="annotation">@Pattern</span>.List({
-        <span class="annotation">@Pattern</span>(regexp = <span class="string"><span class="delimiter">&quot;</span><span class="content">[A-Z0-9._%+-]+@[A-Z0-9.-]+</span><span class="char">\\</span><span class="content">.[A-Z]{2,4}</span><span class="delimiter">&quot;</span></span>), <span class="comment">// email</span>
-        <span class="annotation">@Pattern</span>(regexp = <span class="string"><span class="delimiter">&quot;</span><span class="content">.*?emmanuel.*?</span><span class="delimiter">&quot;</span></span>) <span class="comment">// emmanuel</span>
-})
+<pre class="CodeRay highlight"><code data-lang="JAVA"><span class="annotation">@Documented</span>
 <span class="annotation">@Constraint</span>(validatedBy = {})
-<span class="annotation">@Documented</span>
+<span class="annotation">@Pattern</span>(regexp = <span class="string"><span class="delimiter">&quot;</span><span class="content">[A-Z0-9._%+-]+@[A-Z0-9.-]+</span><span class="char">\\</span><span class="content">.[A-Z]{2,4}</span><span class="delimiter">&quot;</span></span>) <span class="comment">// email</span>
+<span class="annotation">@Pattern</span>(regexp = <span class="string"><span class="delimiter">&quot;</span><span class="content">.*?emmanuel.*?</span><span class="delimiter">&quot;</span></span>) <span class="comment">// emmanuel</span>
 <span class="annotation">@Target</span>({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
 <span class="annotation">@Retention</span>(RUNTIME)
 <span class="directive">public</span> <span class="annotation">@interface</span> EmmanuelsEmail {
@@ -2086,8 +2211,10 @@ It is also possible to specify a constraint several times by explicitly using th
  *
  * @author Emmanuel Bernard
  */</span>
+<span class="annotation">@Documented</span>
 <span class="annotation">@Retention</span>(RUNTIME)
 <span class="annotation">@Target</span>({ METHOD })
+<span class="annotation">@Repeatable</span>(<span class="predefined-type">List</span>.class)
 <span class="directive">public</span> <span class="annotation">@interface</span> OverridesAttribute {
 
     <span class="comment">/**
@@ -3823,7 +3950,7 @@ This can be useful for testing, for applying the time zone of the currently logg
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="JAVA"><span class="comment">/**
  * Defines group sequence.
- * &lt;p/&gt;
+ * &lt;p&gt;
  * The interface hosting {@code @GroupSequence} is representing
  * the group sequence.
  * When hosted on a class, represents the {@link Default} group
@@ -3834,6 +3961,7 @@ This can be useful for testing, for applying the time zone of the currently logg
  */</span>
 <span class="annotation">@Target</span>({ TYPE })
 <span class="annotation">@Retention</span>(RUNTIME)
+<span class="annotation">@Documented</span>
 <span class="directive">public</span> <span class="annotation">@interface</span> GroupSequence {
 
     <span class="predefined-type">Class</span>&lt;?&gt;<span class="type">[]</span> value();
@@ -4135,7 +4263,7 @@ This can be useful for testing, for applying the time zone of the currently logg
 <p>Group conversion is quite useful to facilitate object graph reuse without spreading the validation group definitions across several layers. Let&#8217;s look at an example.</p>
 </div>
 <div class="sect4">
-<h5 id="_group_conversion_examples"><a class="anchor" href="#_group_conversion_examples"></a>Group conversion examples</h5>
+<h5 id="_group_conversion_examples"><a class="anchor" href="#_group_conversion_examples"></a>4.4.5.1. Group conversion examples</h5>
 <div class="paragraph">
 <p>In this example we will reuse the <code class="classname">Address</code> group split and match it to the <code class="classname">User</code> group split.</p>
 </div>
@@ -4504,7 +4632,7 @@ This can be useful for testing, for applying the time zone of the currently logg
 </table>
 </div>
 <div class="sect4">
-<h5 id="constraintdeclarationvalidationprocess-crossparameterconstraints"><a class="anchor" href="#constraintdeclarationvalidationprocess-crossparameterconstraints"></a>Cross-parameter constraints</h5>
+<h5 id="constraintdeclarationvalidationprocess-crossparameterconstraints"><a class="anchor" href="#constraintdeclarationvalidationprocess-crossparameterconstraints"></a>4.5.2.1. Cross-parameter constraints</h5>
 <div class="paragraph">
 <p>Cross-parameter constraints allow to express constraints based on the value of several method parameters, similar to class-level constraints which are based on several properties of a given class. <span class="tck-testable">Cross-parameter constraints are declared by putting cross-parameter constraint annotations on methods or constructors</span> as shown in the following example.</p>
 </div>
@@ -4552,7 +4680,7 @@ This can be useful for testing, for applying the time zone of the currently logg
 </div>
 </div>
 <div class="sect4">
-<h5 id="constraintdeclarationvalidationprocess-methodlevelconstraints-definingparameterconstraints-namingparameters"><a class="anchor" href="#constraintdeclarationvalidationprocess-methodlevelconstraints-definingparameterconstraints-namingparameters"></a>Naming parameters</h5>
+<h5 id="constraintdeclarationvalidationprocess-methodlevelconstraints-definingparameterconstraints-namingparameters"><a class="anchor" href="#constraintdeclarationvalidationprocess-methodlevelconstraints-definingparameterconstraints-namingparameters"></a>4.5.2.2. Naming parameters</h5>
 <div class="paragraph">
 <p>In case the validation of a parameter constraint fails, the concerned parameter needs to be identified in the resulting <code class="classname">ConstraintViolation</code> (see section <a href="#validationapi-constraintviolation">ConstraintViolation</a>). Bean Validation defines the <code class="classname">javax.validation.ParameterNameProvider</code> API to which the retrieval of parameter names is delegated:</p>
 </div>
@@ -4802,7 +4930,7 @@ This can be useful for testing, for applying the time zone of the currently logg
 <p><span class="tck-testable">The above rules do not apply when validating constructor constraints as constructors do not override one another. Parameter and return value constraints can be applied to any constructor in the type hierarchy, but only the constraints defined directly on the validated constructor are evaluated.</span></p>
 </div>
 <div class="sect4">
-<h5 id="_examples_2"><a class="anchor" href="#_examples_2"></a>Examples</h5>
+<h5 id="_examples_2"><a class="anchor" href="#_examples_2"></a>4.5.5.1. Examples</h5>
 <div class="paragraph">
 <p>This sections provides some examples of illegal constraint definitions which violate the rules stated above in one way or another.</p>
 </div>
@@ -5371,7 +5499,7 @@ violations = validator.validate( driver, SequencedGroups.class );
 <p>See <a href="#bootstrapping">Bootstrapping</a> to learn how to pass a custom <code class="classname">TraversableResolver</code>.</p>
 </div>
 <div class="sect4">
-<h5 id="constraintdeclarationvalidationprocess-validationroutine-traversable-examples"><a class="anchor" href="#constraintdeclarationvalidationprocess-validationroutine-traversable-examples"></a>Examples</h5>
+<h5 id="constraintdeclarationvalidationprocess-validationroutine-traversable-examples"><a class="anchor" href="#constraintdeclarationvalidationprocess-validationroutine-traversable-examples"></a>4.6.3.1. Examples</h5>
 <div class="paragraph">
 <p>The following example assumes the object graph defined in <a href="#example-ognav-definitions">Definitions used in the example</a> and assumes the validation operation is applied on an address object.</p>
 </div>
@@ -6407,7 +6535,7 @@ acmeValidator.setSpecificConfiguration( [...] );</code></pre>
 <p><span class="tck-testable">If some unrecoverable failure happens during validation, a <code class="classname">ValidationException</code> is raised.</span> This exception can be specialized in some situations (invalid group definition, invalid constraint definition, invalid constraint declaration). See <a href="#exception">Exception model</a> or the relative sections for more information.</p>
 </div>
 <div class="sect4">
-<h5 id="_examples_4"><a class="anchor" href="#_examples_4"></a>Examples</h5>
+<h5 id="_examples_4"><a class="anchor" href="#_examples_4"></a>5.1.1.1. Examples</h5>
 <div class="paragraph">
 <p>All the examples will be based on the following class definition, constraint declarations and address instance.</p>
 </div>
@@ -6614,7 +6742,7 @@ address.setCity(<span class="string"><span class="delimiter">&quot;</span><span 
 <p><span class="tck-testable">None of those methods honor the XML configuration around executable validation nor the presence of <code class="classname">@ValidateOnExecution</code>. In other words, elements will be validated regardless of these settings when explicitly calling the validation methods.</span></p>
 </div>
 <div class="sect4">
-<h5 id="_examples_5"><a class="anchor" href="#_examples_5"></a>Examples</h5>
+<h5 id="_examples_5"><a class="anchor" href="#_examples_5"></a>5.1.2.1. Examples</h5>
 <div class="paragraph">
 <p>All the examples will be based on the following class definitions, constraint declarations and instances.</p>
 </div>
@@ -6773,7 +6901,7 @@ executableValidator.validateConstructorParameters(constructor, <span class="keyw
 <p><span class="tck-not-testable">When more than one group is evaluated and passed to the various validate methods, order is not constrained.</span> It is equivalent to the validation of a group <code>G</code> inheriting all groups (i.e. implementing all interfaces) passed to the validation method.</p>
 </div>
 <div class="sect4">
-<h5 id="_examples_6"><a class="anchor" href="#_examples_6"></a>Examples</h5>
+<h5 id="_examples_6"><a class="anchor" href="#_examples_6"></a>5.1.3.1. Examples</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="JAVA"><span class="comment">/** Validates a minimal set of constraints */</span>
@@ -7092,7 +7220,7 @@ executableValidator.validateConstructorParameters(constructor, <span class="keyw
  * Represents the navigation path from an object to another
  * in an object graph.
  * Each path element is represented by a {@code Node}.
- * &lt;p/&gt;
+ * &lt;p&gt;
  * The path corresponds to the succession of nodes
  * in the order they are returned by the {@code Iterator}.
  *
@@ -7100,6 +7228,18 @@ executableValidator.validateConstructorParameters(constructor, <span class="keyw
  * @author Gunnar Morling
  */</span>
 <span class="directive">public</span> <span class="type">interface</span> <span class="class">Path</span> <span class="directive">extends</span> <span class="predefined-type">Iterable</span>&lt;Path.Node&gt; {
+
+    <span class="comment">/**
+     * Returns a human-readable representation of this path.
+     * &lt;p&gt;
+     * Clients should not rely on any specific structure of the returned value. Instead they should iterate through the
+     * path nodes and obtain any required information by calling the methods on {@link Node} and its sub-types.
+     *
+     * @return a human-readable representation of this path
+     * @since 2.0
+     */</span>
+    <span class="annotation">@Override</span>
+    <span class="predefined-type">String</span> toString();
 
     <span class="comment">/**
      * Represents an element of a navigation path.
@@ -7157,7 +7297,7 @@ executableValidator.validateConstructorParameters(constructor, <span class="keyw
          *     &lt;li&gt;{@link ElementKind#CROSS_PARAMETER}: {@link CrossParameterNode}&lt;/li&gt;
          *     &lt;li&gt;{@link ElementKind#RETURN_VALUE}: {@link ReturnValueNode}&lt;/li&gt;
          * &lt;/ul&gt;
-         * &lt;p/&gt;
+         * &lt;p&gt;
          * This is useful to narrow down the {@code Node} type and access node specific
          * information:
          * &lt;pre&gt;
@@ -7190,6 +7330,18 @@ executableValidator.validateConstructorParameters(constructor, <span class="keyw
          * @since 1.1
          */</span>
         &lt;T <span class="directive">extends</span> Node&gt; T as(<span class="predefined-type">Class</span>&lt;T&gt; nodeType);
+
+        <span class="comment">/**
+         * Returns a human-readable representation of this node.
+         * &lt;p&gt;
+         * Clients should not rely on any specific structure of the returned value. Instead they should obtain any
+         * required information by calling the methods on this interface and its sub-types.
+         *
+         * @return a human-readable representation of this node
+         * @since 2.0
+         */</span>
+        <span class="annotation">@Override</span>
+        <span class="predefined-type">String</span> toString();
     }
 
     <span class="comment">/**
@@ -8399,7 +8551,7 @@ node = nodeIter.next();
 </div>
 </div>
 <div class="sect4">
-<h5 id="default-resolution-algorithm"><a class="anchor" href="#default-resolution-algorithm"></a>Default message interpolation algorithm</h5>
+<h5 id="default-resolution-algorithm"><a class="anchor" href="#default-resolution-algorithm"></a>5.3.1.1. Default message interpolation algorithm</h5>
 <div class="paragraph">
 <p>The default message interpolator uses the following steps:</p>
 </div>
@@ -8452,7 +8604,7 @@ node = nodeIter.next();
 </div>
 </div>
 <div class="sect4">
-<h5 id="message-interpolation-default-locale"><a class="anchor" href="#message-interpolation-default-locale"></a>Locale for default message interpolation</h5>
+<h5 id="message-interpolation-default-locale"><a class="anchor" href="#message-interpolation-default-locale"></a>5.3.1.2. Locale for default message interpolation</h5>
 <div class="paragraph">
 <p>The locale to be used for message interpolation is defined as following:</p>
 </div>
@@ -8468,7 +8620,7 @@ node = nodeIter.next();
 </div>
 </div>
 <div class="sect4">
-<h5 id="message-expressions"><a class="anchor" href="#message-expressions"></a>Message expressions using Expression Language (EL)</h5>
+<h5 id="message-expressions"><a class="anchor" href="#message-expressions"></a>5.3.1.3. Message expressions using Expression Language (EL)</h5>
 <div class="paragraph">
 <p><span class="tck-testable">The default message interpolation allows the use of Expression Language (EL) as defined in JSR 341.</span> <span class="tck-testable">Expressions to be evaluated by EL need to be enclosed in <code>${}</code> within the message descriptor</span> . The following properties and beans have to be made available in the EL context:</p>
 </div>
@@ -9337,7 +9489,10 @@ acmeFactory.setSpecificConfiguration( [...] );</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="JAVA"><span class="comment">/**
+<pre class="CodeRay highlight"><code data-lang="JAVA"><span class="keyword">import</span> <span class="include">javax.validation.valueextraction.ValueExtractor</span>;
+<span class="keyword">import</span> <span class="include">javax.validation.valueextraction.ValueExtractorDeclarationException</span>;
+
+<span class="comment">/**
  * Represents the context that is used to create {@link Validator}
  * instances.
  *
@@ -9413,6 +9568,20 @@ acmeFactory.setSpecificConfiguration( [...] );</code></pre>
      * @since 2.0
      */</span>
     ValidatorContext clockProvider(ClockProvider clockProvider);
+
+    <span class="comment">/**
+     * Adds a value extractor to be used by the {@link Validator}. Has
+     * priority over any extractor for the same type and type parameter
+     * detected through the service loader, given in the XML configuration or
+     * configured for the validator factory.
+     *
+     * @param extractor value extractor implementation
+     * @return self following the chaining method pattern
+     * @throws ValueExtractorDeclarationException If more than one extractor for
+     *         the same type and type use is added
+     * @since 2.0
+     */</span>
+    ValidatorContext addValueExtractor(ValueExtractor&lt;?&gt; extractor);
 
     <span class="comment">/**
      * Returns an initialized {@link Validator} instance respecting the defined state.
@@ -9524,7 +9693,9 @@ acmeFactory.setSpecificConfiguration( [...] );</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="JAVA"><span class="comment">/**
+<pre class="CodeRay highlight"><code data-lang="JAVA"><span class="keyword">import</span> <span class="include">javax.validation.valueextraction.ValueExtractorDeclarationException</span>;
+
+<span class="comment">/**
  * Receives configuration information, selects the appropriate
  * Bean Validation provider and builds the appropriate {@link ValidatorFactory}.
  * &lt;p&gt;
@@ -9639,6 +9810,19 @@ acmeFactory.setSpecificConfiguration( [...] );</code></pre>
      * @since 2.0
      */</span>
     T clockProvider(ClockProvider clockProvider);
+
+    <span class="comment">/**
+     * Adds a value extractor. Has priority over any extractor for the same
+     * type and type parameter detected through the service loader or given in
+     * the XML configuration.
+     *
+     * @param extractor value extractor implementation
+     * @return {@code this} following the chaining method pattern.
+     * @throws ValueExtractorDeclarationException If more than one extractor for
+     *         the same type and type use is added
+     * @since 2.0
+     */</span>
+    T addValueExtractor(ValueExtractor&lt;?&gt; extractor);
 
     <span class="comment">/**
      * Add a stream describing constraint mapping in the Bean Validation XML
@@ -9795,7 +9979,9 @@ acmeFactory.setSpecificConfiguration( [...] );</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="JAVA"><span class="comment">/**
+<pre class="CodeRay highlight"><code data-lang="JAVA"><span class="keyword">import</span> <span class="include">javax.validation.valueextraction.ValueExtractor</span>;
+
+<span class="comment">/**
  * Represents the user specified default configuration in
  * {@code META-INF/validation.xml}.
  * &lt;p&gt;
@@ -9860,6 +10046,14 @@ acmeFactory.setSpecificConfiguration( [...] );</code></pre>
      * @since 2.0
      */</span>
     <span class="predefined-type">String</span> getClockProviderClassName();
+
+    <span class="comment">/**
+     * Returns the class names of {@link ValueExtractor}s.
+     *
+     * @return the value extractor class names or an empty set if none are specified
+     * @since 2.0
+     */</span>
+    <span class="predefined-type">Set</span>&lt;<span class="predefined-type">String</span>&gt; getValueExtractorClassNames();
 
     <span class="comment">/**
      * Returns a set of resource paths pointing to XML constraint mapping files.
@@ -9956,6 +10150,7 @@ acmeFactory.setSpecificConfiguration( [...] );</code></pre>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="JAVA"><span class="keyword">package</span> <span class="namespace">javax.validation.spi</span>;
 
+
 <span class="comment">/**
  * Contract between a {@link Configuration} and a
  * {@link ValidationProvider} to create a {@link ValidatorFactory}.
@@ -10017,6 +10212,31 @@ acmeFactory.setSpecificConfiguration( [...] );</code></pre>
      * @return set of input stream
      */</span>
     <span class="predefined-type">Set</span>&lt;<span class="predefined-type">InputStream</span>&gt; getMappingStreams();
+
+    <span class="comment">/**
+     * Returns a set of value extractors.
+     * &lt;p&gt;
+     * The extractors are retrieved from the following sources in decreasing
+     * order:
+     * &lt;ul&gt;
+     *     &lt;li&gt;extractors passed programmatically to {@link Configuration}&lt;/li&gt;
+     *     &lt;li&gt;extractors defined in {@code META-INF/validation.xml} provided
+     *     that {@code ignoredXmlConfiguration} is {@code false}&lt;/li&gt;
+     *     &lt;li&gt;extractors loaded through the Java service loader&lt;/li&gt;
+     * &lt;/ul&gt;
+     * An extractor for a given type and type parameter passed in
+     * programmatically takes precedence over any extractor for the same type
+     * and type parameter defined in {@code META-INF/validation.xml} or loaded
+     * through the service loader. Extractors defined in
+     * {@code META-INF/validation.xml} take precedence over any extractor for
+     * the same type and type parameter loaded through the service loader.
+     * &lt;p&gt;
+     * Extractors defined in {@code META-INF/validation.xml} or loaded through
+     * the service loader are instantiated using their no-arg constructor.
+     *
+     * @return set of value extractors; may be empty but never {@code null}
+     */</span>
+    <span class="predefined-type">Set</span>&lt;ValueExtractor&lt;?&gt;&gt; getValueExtractors();
 
     <span class="comment">/**
      * Returns the constraint validator factory of this configuration.
@@ -10208,7 +10428,7 @@ ValidatorFactory factory2 = configuration
 <p><code class="classname">ValidationProvider</code> is the contract between the bootstrap process and a specific Bean Validation provider. <code class="classname">ValidationProviderResolver</code> implements the discovery mechanism for Bean Validation provider implementations. Any Bean Validation client can implement such a discovery mechanism but it is typically implemented by containers having specific classloader structures and restrictions.</p>
 </div>
 <div class="sect4">
-<h5 id="_validationproviderresolver"><a class="anchor" href="#_validationproviderresolver"></a>ValidationProviderResolver</h5>
+<h5 id="_validationproviderresolver"><a class="anchor" href="#_validationproviderresolver"></a>5.5.4.1. ValidationProviderResolver</h5>
 <div class="paragraph">
 <p><span class="tck-testable"><code class="classname">ValidationProviderResolver</code> returns the list of Bean Validation providers available at runtime and more specifically a <code class="classname">ValidationProvider</code> instance for each provider available in the context.</span> This service can be customized by implementing <code class="classname">ValidationProviderResolver</code>. <span class="tck-not-testable">Implementations must be thread-safe.</span></p>
 </div>
@@ -10259,7 +10479,7 @@ ValidatorFactory factory2 = configuration
 </div>
 </div>
 <div class="sect4">
-<h5 id="id-bootstrap-validationprovider"><a class="anchor" href="#id-bootstrap-validationprovider"></a>ValidationProvider</h5>
+<h5 id="id-bootstrap-validationprovider"><a class="anchor" href="#id-bootstrap-validationprovider"></a>5.5.4.2. ValidationProvider</h5>
 <div class="paragraph">
 <p><code class="classname">ValidationProvider</code> represents the SPI (Service Provider Interface) defining the contract between the provider discovery and initialization mechanism, and the provider. A <code class="classname">ValidationProvider</code> does:</p>
 </div>
@@ -10484,7 +10704,7 @@ ValidatorFactory factory2 = configuration
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="JAVA"><span class="comment">/**
  * This class is the entry point for Bean Validation.
- * &lt;p/&gt;
+ * &lt;p&gt;
  * There are three ways to bootstrap it:
  * &lt;ul&gt;
  *     &lt;li&gt;The easiest approach is to build the default {@link ValidatorFactory}.
@@ -10493,7 +10713,7 @@ ValidatorFactory factory2 = configuration
  * &lt;/pre&gt;
  *     In this case, the default validation provider resolver
  *     will be used to locate available providers.
- *     &lt;p/&gt;
+ *     &lt;p&gt;
  *     The chosen provider is defined as followed:
  *     &lt;ul&gt;
  *         &lt;li&gt;if the XML configuration defines a provider, this provider is used&lt;/li&gt;
@@ -10508,7 +10728,7 @@ ValidatorFactory factory2 = configuration
  *     {@link ValidationProvider} is then determined in the same way
  *     as in the default bootstrapping case (see above).
  *     &lt;pre&gt;
- * Configuration&lt;?&gt; configuration = Validation
+ * Configuration&amp;lt;?&amp;gt; configuration = Validation
  *    .byDefaultProvider()
  *    .providerResolver( new MyResolverStrategy() )
  *    .configure();
@@ -10518,7 +10738,7 @@ ValidatorFactory factory2 = configuration
  *     &lt;li&gt;
  *     The third approach allows you to specify explicitly and in
  *     a type safe fashion the expected provider.
- *     &lt;p/&gt;
+ *     &lt;p&gt;
  *     Optionally you can choose a custom {@code ValidationProviderResolver}.
  *     &lt;pre&gt;
  * ACMEConfiguration configuration = Validation
@@ -10529,7 +10749,7 @@ ValidatorFactory factory2 = configuration
  * &lt;/pre&gt;
  *     &lt;/li&gt;
  * &lt;/ul&gt;
- * &lt;p/&gt;
+ * &lt;p&gt;
  * Note:
  * &lt;ul&gt;
  *     &lt;li&gt;
@@ -10547,16 +10767,18 @@ ValidatorFactory factory2 = configuration
     <span class="comment">/**
      * Builds and returns a {@link ValidatorFactory} instance based on the
      * default Bean Validation provider and following the XML configuration.
-     * &lt;p/&gt;
+     * &lt;p&gt;
      * The provider list is resolved using the default validation provider resolver
      * logic.
-     * &lt;p/&gt;
+     * &lt;p&gt;
      * The code is semantically equivalent to
      * {@code Validation.byDefaultProvider().configure().buildValidatorFactory()}.
      *
      * @return {@code ValidatorFactory} instance
      *
-     * @throws ValidationException if the {@code ValidatorFactory} cannot be built
+     * @throws NoProviderFoundException if no Bean Validation provider was found
+     * @throws ValidationException if a Bean Validation provider was found but the
+     * {@code ValidatorFactory} cannot be built
      */</span>
     <span class="directive">public</span> <span class="directive">static</span> ValidatorFactory buildDefaultValidatorFactory() {
         [...]
@@ -10566,7 +10788,7 @@ ValidatorFactory factory2 = configuration
      * Builds a {@link Configuration}. The provider list is resolved
      * using the strategy provided to the bootstrap state.
      * &lt;pre&gt;
-     * Configuration&amp;lt?&amp;gt; configuration = Validation
+     * Configuration&amp;lt;?&amp;gt; configuration = Validation
      *    .byDefaultProvider()
      *    .providerResolver( new MyResolverStrategy() )
      *    .configure();
@@ -10585,11 +10807,10 @@ ValidatorFactory factory2 = configuration
 
     <span class="comment">/**
      * Builds a {@link Configuration} for a particular provider implementation.
-     * &lt;p/&gt;
+     * &lt;p&gt;
      * Optionally overrides the provider resolution strategy used to determine the provider.
-     * &lt;p/&gt;
+     * &lt;p&gt;
      * Used by applications targeting a specific provider programmatically.
-     * &lt;p/&gt;
      * &lt;pre&gt;
      * ACMEConfiguration configuration =
      *     Validation.byProvider(ACMEProvider.class)
@@ -10602,6 +10823,8 @@ ValidatorFactory factory2 = configuration
      * {@link ValidationProvider} implementation of the ACME provider.
      *
      * @param providerType the {@code ValidationProvider} implementation type
+     * @param &lt;T&gt; the type of the {@code Configuration} corresponding to this {@code ValidationProvider}
+     * @param &lt;U&gt; the type of the {@code ValidationProvider} implementation
      *
      * @return instance building a provider specific {@code Configuration}
      *         sub interface implementation
@@ -10618,7 +10841,7 @@ ValidatorFactory factory2 = configuration
 </div>
 </div>
 <div class="paragraph">
-<p><span class="tck-testable">The second entry point lets the client provide a custom <code class="classname">ValidationProviderResolution</code> instance. This instance is passed to <code class="classname">GenericBootstrap</code>. <code class="classname">GenericBootstrap</code> builds a generic <code class="classname">Configuration</code> using the first <code class="classname">ValidationProvider</code> returned by <code class="classname">ValidationProviderResolution</code> and calling <code class="code">ValidationProvider.createGenericConfiguration(BootstrapState state)</code>.</span> <code class="classname">BootstrapState</code> holds the <code class="classname">ValidationProviderResolution</code> instance passed to <code class="classname">GenericBootstrap</code> and will be used by the <code class="classname">Configuration</code> instance when resolving the provider to use. Note that <code class="code">ValidationProvider.createGenericConfiguration</code> returns a <code class="classname">Configuration</code> object not bound to any particular provider.</p>
+<p><span class="tck-testable">The second entry point lets the client provide a custom <code class="classname">ValidationProviderResolver</code> instance. This instance is passed to <code class="classname">GenericBootstrap</code>. <code class="classname">GenericBootstrap</code> builds a generic <code class="classname">Configuration</code> using the first <code class="classname">ValidationProvider</code> returned by <code class="classname">ValidationProviderResolution</code> and calling <code class="code">ValidationProvider.createGenericConfiguration(BootstrapState state)</code>.</span> <code class="classname">BootstrapState</code> holds the <code class="classname">ValidationProviderResolution</code> instance passed to <code class="classname">GenericBootstrap</code> and will be used by the <code class="classname">Configuration</code> instance when resolving the provider to use. Note that <code class="code">ValidationProvider.createGenericConfiguration</code> returns a <code class="classname">Configuration</code> object not bound to any particular provider.</p>
 </div>
 <div class="exampleblock">
 <div class="title">Example 91. GenericBootstrap interface</div>
@@ -10639,7 +10862,7 @@ ValidatorFactory factory2 = configuration
      * Defines the provider resolution strategy.
      * This resolver returns the list of providers evaluated
      * to build the {@link Configuration}.
-     * &lt;p/&gt;
+     * &lt;p&gt;
      * If no resolver is defined, the default {@link ValidationProviderResolver}
      * implementation is used.
      *
@@ -10652,13 +10875,15 @@ ValidatorFactory factory2 = configuration
      * Returns a generic {@link Configuration} implementation.
      * At this stage the provider used to build the {@link ValidatorFactory}
      * is not defined.
-     * &lt;p/&gt;
+     * &lt;p&gt;
      * The {@code Configuration} implementation is provided by the first provider
      * returned by the {@link ValidationProviderResolver} strategy.
      *
      * @return a {@code Configuration} implementation compliant with the bootstrap state
-     * @throws ValidationException if the {@code Configuration} object cannot be built;
-     *         this is generally due to an issue with the {@code ValidationProviderResolver}
+     * @throws NoProviderFoundException if no Bean Validation provider was found
+     * @throws ValidationException if a Bean Validation provider was found but the
+     *         {@code Configuration} object cannot be built; this is generally due to an
+     *         issue with the {@code ValidationProviderResolver}
      */</span>
     <span class="predefined-type">Configuration</span>&lt;?&gt; configure();
 }</code></pre>
@@ -10723,7 +10948,7 @@ ValidatorFactory factory2 = configuration
 </div>
 </div>
 <div class="paragraph">
-<p><code class="methodname">ProviderSpecificBootstrap.configure()</code> must return the result of <code class="methodname">ValidationProvider.createSpecializedConfiguration(BootstrapState state)</code>. The state parameter holds the <code class="classname">ValidationProviderResolver</code> passed to <code class="classname">ProviderSpecificBootstrap</code>. The validation provider instance used is the one assignable to the type passed as a parameter in <code class="methodname">Validation.byProvider(Class)</code>. The validation provider is selected according to the algorithm described in (<a href="#id-bootstrap-validationprovider">ValidationProvider</a>).</p>
+<p><code class="methodname">ProviderSpecificBootstrap.configure()</code> must return the result of <code class="methodname">ValidationProvider.createSpecializedConfiguration(BootstrapState state)</code>. The state parameter holds the <code class="classname">ValidationProviderResolver</code> passed to <code class="classname">ProviderSpecificBootstrap</code>. The validation provider instance used is the one assignable to the type passed as a parameter in <code class="methodname">Validation.byProvider(Class)</code>. The validation provider is selected according to the algorithm described in <a href="#id-bootstrap-validationprovider">ValidationProvider</a>.</p>
 </div>
 <div class="paragraph">
 <p><span class="tck-testable">The <code class="classname">Validation</code> implementation must not contain any non private attribute or method aside from the three public static bootstrap methods:</span></p>
@@ -12867,11 +13092,12 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 <pre class="CodeRay highlight"><code data-lang="JAVA"><span class="keyword">package</span> <span class="namespace">javax.validation.constraints</span>;
 
 <span class="comment">/**
-The annotated element must be an instant, date or time in the past.
+ * The annotated element must be an instant, date or time in the past.
  * &lt;p&gt;
- * By default, &quot;now&quot; is defined as the current time according to the virtual machine, applying the current default time
- * zone if needed. If required, an alternative {@link ClockProvider} can be specified when bootstrapping a validator
- * factory or validator, allowing to customize the {@link Clock} representing the current instant, date and time.
+ * &lt;i&gt;Now&lt;/i&gt; is defined by the {@link ClockProvider} attached to the {@link javax.validation.Validator}
+ * or {@link javax.validation.ValidatorFactory}.
+ * The default {@code clockProvider} defines the current time according to the virtual machine,
+ * applying the current default time zone if needed.
  * &lt;p&gt;
  * Supported types are:
  * &lt;ul&gt;
@@ -12945,9 +13171,10 @@ The annotated element must be an instant, date or time in the past.
 <span class="comment">/**
  * The annotated element must be an instant, date or time in the future.
  * &lt;p&gt;
- * By default, &quot;now&quot; is defined as the current time according to the virtual machine, applying the current default time
- * zone if needed. If required, an alternative {@link ClockProvider} can be specified when bootstrapping a validator
- * factory or validator, allowing to customize the {@link Clock} representing the current instant, date and time.
+ * &lt;i&gt;Now&lt;/i&gt; is defined by the {@link ClockProvider} attached to the {@link javax.validation.Validator}
+ * or {@link javax.validation.ValidatorFactory}.
+ * The default {@code clockProvider} defines the current time according to the virtual machine,
+ * applying the current default time zone if needed.
  * &lt;p&gt;
  * Supported types are:
  * &lt;ul&gt;
@@ -13223,7 +13450,7 @@ The annotated element must be an instant, date or time in the past.
 </div>
 </div>
 <div class="sect4">
-<h5 id="_class_level_overriding"><a class="anchor" href="#_class_level_overriding"></a>Class-level overriding</h5>
+<h5 id="_class_level_overriding"><a class="anchor" href="#_class_level_overriding"></a>8.1.1.1. Class-level overriding</h5>
 <div class="paragraph">
 <p>Class level annotations are described via the <code>class</code> element. <span class="tck-testable">If <code>ignore-annotations</code> is declared, Bean Validation must honor the explicit value for this element.</span> <span class="tck-testable">If not declared, the default value defined in the encapsulating <code class="classname">bean</code> element is considered.</span></p>
 </div>
@@ -13270,7 +13497,7 @@ The annotated element must be an instant, date or time in the past.
 </div>
 </div>
 <div class="sect4">
-<h5 id="_field_level_overriding"><a class="anchor" href="#_field_level_overriding"></a>Field-level overriding</h5>
+<h5 id="_field_level_overriding"><a class="anchor" href="#_field_level_overriding"></a>8.1.1.2. Field-level overriding</h5>
 <div class="paragraph">
 <p>Field level annotations are described via the <code>field</code> element. The <code>name</code> attribute corresponds to the name of the field considered. <span class="tck-testable">If <code>ignore-annotations</code> is declared, Bean Validation must honor the explicit value for this element.</span> <span class="tck-testable">If not declared, the default value defined in the encapsulating <code class="classname">bean</code> element is considered.</span></p>
 </div>
@@ -13322,7 +13549,7 @@ The annotated element must be an instant, date or time in the past.
 </div>
 </div>
 <div class="sect4">
-<h5 id="_property_level_overriding"><a class="anchor" href="#_property_level_overriding"></a>Property-level overriding</h5>
+<h5 id="_property_level_overriding"><a class="anchor" href="#_property_level_overriding"></a>8.1.1.3. Property-level overriding</h5>
 <div class="paragraph">
 <p>Property-level annotations are described via the <code>getter</code> element. <span class="tck-testable">The <code>name</code> attribute corresponds to the name of the property considered as defined in <a href="#constraintdeclarationvalidationprocess-requirements-property">Field and property validation</a> (for example a getter <code>String getAge()</code> would have <code>&lt;getter name="age"/&gt;</code> as a corresponding descriptor). If <code>ignore-annotations</code> is declared, Bean Validation must honor the explicit value for this element.</span> <span class="tck-testable">If not declared, the default value defined in the encapsulating <code class="classname">bean</code> element is considered.</span></p>
 </div>
@@ -13374,7 +13601,7 @@ The annotated element must be an instant, date or time in the past.
 </div>
 </div>
 <div class="sect4">
-<h5 id="xml-mapping-constraintdeclarationinxml-constructorleveloverriding"><a class="anchor" href="#xml-mapping-constraintdeclarationinxml-constructorleveloverriding"></a>Constructor-level overriding</h5>
+<h5 id="xml-mapping-constraintdeclarationinxml-constructorleveloverriding"><a class="anchor" href="#xml-mapping-constraintdeclarationinxml-constructorleveloverriding"></a>8.1.1.4. Constructor-level overriding</h5>
 <div class="paragraph">
 <p>Constructor-level annotations are described via the <code>constructor</code> element.</p>
 </div>
@@ -13492,7 +13719,7 @@ The annotated element must be an instant, date or time in the past.
 </div>
 </div>
 <div class="sect4">
-<h5 id="xml-mapping-constraintdeclarationinxml-methodleveloverriding"><a class="anchor" href="#xml-mapping-constraintdeclarationinxml-methodleveloverriding"></a>Method-level overriding</h5>
+<h5 id="xml-mapping-constraintdeclarationinxml-methodleveloverriding"><a class="anchor" href="#xml-mapping-constraintdeclarationinxml-methodleveloverriding"></a>8.1.1.5. Method-level overriding</h5>
 <div class="paragraph">
 <p>Method-level annotations are described via the <code>method</code> element.</p>
 </div>
@@ -13624,7 +13851,7 @@ The annotated element must be an instant, date or time in the past.
 </div>
 </div>
 <div class="sect4">
-<h5 id="_constraint_declaration_2"><a class="anchor" href="#_constraint_declaration_2"></a>Constraint declaration</h5>
+<h5 id="_constraint_declaration_2"><a class="anchor" href="#_constraint_declaration_2"></a>8.1.1.6. Constraint declaration</h5>
 <div class="paragraph">
 <p>New constraint declarations are represented by the <code>constraint</code> element. <span class="tck-testable">The <code>annotation</code> attribute is the class name of the annotation representing the constraint. Message, groups and payload are defined respectively by the <code>message</code>, <code>groups</code> and <code>payload</code> elements.</span></p>
 </div>
@@ -13788,7 +14015,7 @@ The annotated element must be an instant, date or time in the past.
 </div>
 </div>
 <div class="sect4">
-<h5 id="_declaration_of_group_conversions"><a class="anchor" href="#_declaration_of_group_conversions"></a>Declaration of group conversions</h5>
+<h5 id="_declaration_of_group_conversions"><a class="anchor" href="#_declaration_of_group_conversions"></a>8.1.1.7. Declaration of group conversions</h5>
 <div class="paragraph">
 <p><span class="tck-testable">Group conversion rules are declared by specifying one or more <code>convert-group</code> elements within the <code>field</code>, <code>getter</code>, <code>parameter</code> and <code>return-value</code> elements.</span></p>
 </div>
@@ -14485,7 +14712,7 @@ The annotated element must be an instant, date or time in the past.
 </td>
 <td class="content">
 <div class="paragraph">
-<p>If this exception is meant to be send remotely, <code class="classname">ConstraintViolation</code> objects should be <code class="classname">Serializable</code> as defined and explained in <a href="#validationapi-constraintviolation">ConstraintViolation</a>.</p>
+<p>If this exception is meant to be sent remotely, <code class="classname">ConstraintViolation</code> objects should be <code class="classname">Serializable</code> as defined and explained in <a href="#validationapi-constraintviolation">ConstraintViolation</a>.</p>
 </div>
 </td>
 </tr>
@@ -14568,6 +14795,15 @@ The annotated element must be an instant, date or time in the past.
 </td>
 </tr>
 </table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_no_bean_validation_provider_detected_code_noproviderfoundexception_code"><a class="anchor" href="#_no_bean_validation_provider_detected_code_noproviderfoundexception_code"></a>9.5. No Bean Validation Provider detected: <code>NoProviderFoundException</code></h3>
+<div class="paragraph">
+<p><span class="tck-testable">When trying to bootstrap Bean Validation via <code>Validation.buildDefaultValidatorFactory()</code> or <code>Validation.byDefaultProvider().configure()</code> and no Bean Validation provider could be found, a <code>NoProviderFoundException</code> is raised.</span></p>
+</div>
+<div class="paragraph">
+<p><code>NoProviderFoundException</code> is a subclass of <code>ValidationException</code>.</p>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -14741,12 +14977,12 @@ The annotated element must be an instant, date or time in the past.
  * Expresses which executables (methods or constructors) should have their parameters
  * and return value validated upon execution. Can be on executable (method, constructor)
  * or type level (with the former taking precedence).
- * &lt;p/&gt;
+ * &lt;p&gt;
  * If not present for a given executable, the default configuration from
  * {@code META-INF/validation.xml} and finally the implicit default
  * validated executable types (constructors and non-getters) are taken into account to determine
  * whether a given executable is validated upon execution or not.
- * &lt;p/&gt;
+ * &lt;p&gt;
  * The following describes the formal rules for deciding whether an executable is validated.
  * They are applied in decreasing order:
  * &lt;ul&gt;
@@ -14770,7 +15006,7 @@ The annotated element must be an instant, date or time in the past.
  *     raises a {@link ValidationException} if the overriding / implementing method hosts
  *     the {@code ValidateOnExecution} annotation.&lt;/li&gt;
  * &lt;/ul&gt;
- * &lt;p/&gt;
+ * &lt;p&gt;
  * Note that you can exclude an executable from validation by making sure the rules above do not match
  * or by annotating the executable with {@code @ValidateOnExecution(NONE)}.
  *
@@ -14779,11 +15015,14 @@ The annotated element must be an instant, date or time in the past.
  */</span>
 <span class="annotation">@Target</span>({ CONSTRUCTOR, METHOD, TYPE, PACKAGE })
 <span class="annotation">@Retention</span>(RUNTIME)
+<span class="annotation">@Documented</span>
 <span class="directive">public</span> <span class="annotation">@interface</span> ValidateOnExecution {
 
     <span class="comment">/**
      * List of executable types to be validated when called.
      * Defaults to the types discovered implicitly (see {@link ExecutableType#IMPLICIT}).
+     *
+     * @return array of {@code ExecutableType}s to be validated
      */</span>
     ExecutableType<span class="type">[]</span> type() <span class="keyword">default</span> {ExecutableType.IMPLICIT};
 }</code></pre>
@@ -14804,18 +15043,18 @@ The annotated element must be an instant, date or time in the past.
     <span class="comment">/**
      * If the annotation using {@code ExecutableType} is on a type (class or interface),
      * the behavior is equivalent to the annotation not being present.
-     * &lt;p/&gt;
+     * &lt;p&gt;
      * If on a constructor, it is equivalent to {@link #CONSTRUCTORS}.
-     * &lt;p/&gt;
+     * &lt;p&gt;
      * If on a non-getter method, it is equivalent to {@link #NON_GETTER_METHODS}.
-     * &lt;p/&gt;
+     * &lt;p&gt;
      * If on a getter method, it is equivalent to {@link #GETTER_METHODS}.
      */</span>
     IMPLICIT,
 
     <span class="comment">/**
      * None of the executables.
-     * &lt;p/&gt;
+     * &lt;p&gt;
      * Note that this option is equivalent to an empty list of executable types
      * and is present to improve readability. If {@code NONE} and other types of executables
      * are present in a list, {@code NONE} is ignored.
@@ -14910,7 +15149,7 @@ The annotated element must be an instant, date or time in the past.
 </table>
 </div>
 <div class="sect4">
-<h5 id="_examples_9"><a class="anchor" href="#_examples_9"></a>Examples</h5>
+<h5 id="_examples_9"><a class="anchor" href="#_examples_9"></a>10.1.2.1. Examples</h5>
 <div class="paragraph">
 <p>The following example shows some of the way you can refine executable validation with <code class="classname">@ValidateOnExecution</code>.</p>
 </div>
@@ -15205,7 +15444,7 @@ The annotated element must be an instant, date or time in the past.
 <h2 id="appendix-value-extraction"><a class="anchor" href="#appendix-value-extraction"></a>Appendix B: Value extraction for cascaded validation and type argument constraints (BVAL-508)</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This appendix describes the current work-in-progress around the retrieval of values to be validated during cascaded validation (e.g. <code>@Valid List&lt;Order&gt; orders</code>)
+<p>This appendix describes the current work-in-progress around the retrieval of values to be validated during cascaded validation (e.g. <code>List&lt;@Valid Order&gt; orders</code>)
 and evaluation of type argument constraints (e.g. <code>Optional&lt;@Email String&gt; email</code>)
 It is based on the original <a href="http://beanvalidation.org/proposals/BVAL-508/">proposals for BVAL-508</a>.</p>
 </div>
@@ -15641,7 +15880,7 @@ Both will cause the validation of all the array elements</p>
 </ul>
 </div>
 <div class="sect4">
-<h5 id="_examples_10"><a class="anchor" href="#_examples_10"></a>Examples</h5>
+<h5 id="_examples_10"><a class="anchor" href="#_examples_10"></a>B.4.3.1. Examples</h5>
 <div class="paragraph">
 <p>TODO</p>
 </div>
@@ -15650,27 +15889,38 @@ Both will cause the validation of all the array elements</p>
 <div class="sect3">
 <h4 id="_plugging_in_custom_extractors"><a class="anchor" href="#_plugging_in_custom_extractors"></a>B.4.4. Plugging in custom extractors</h4>
 <div class="paragraph">
-<p>Additional value extractors can be registered with the Bean Validation provider in the following ways:</p>
+<p>Additional value extractors can be plugged in when bootstrapping a <code>Validator</code> or <code>ValidatorFactory</code>, amending and/or overriding the set of built-in value extractors.
+The following ways to do so exist, in descending order of precedence:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Invoke the new method <code>Configuration#addValueExtractor(ValueExtractor&lt;?&gt;)</code> (to apply it at the validation factory level)</p>
+<p>Invoking the method <code>ValidatorContext#addValueExtractor(ValueExtractor&lt;?&gt;)</code> (to apply it for a single <code>Validator</code>)</p>
 </li>
 <li>
-<p>Invoke the new method <code>ValidatorContext#addValueExtractor(ValueExtractor&lt;?&gt;)</code> (to apply it for a single <code>Validator</code>)</p>
+<p>Invoking the method <code>Configuration#addValueExtractor(ValueExtractor&lt;?&gt;)</code> (to apply it at the validation factory level)</p>
 </li>
 <li>
-<p>Specify the fully qualified class name of one or several extractors in <code>META-INF/validation.xml</code>:</p>
-</li>
-</ul>
-</div>
+<p>Specifying the fully-qualified class name of one or several extractors in <code>META-INF/validation.xml</code>:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;value-extractors&gt;</span>
     <span class="tag">&lt;value-extractor&gt;</span>com.example.MyExtractor<span class="tag">&lt;/value-extractor&gt;</span>
 <span class="tag">&lt;/value-extractors&gt;</span></code></pre>
 </div>
+</div>
+</li>
+<li>
+<p>Placing a file named <em>META-INF/services/javax.validation.valueextraction.ValueExtractor</em> on the classpath,
+with the fully-qualified name(s) of one or more extractor implementations as its contents (i.e. employing the Java service loader mechanism)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>A value extractor for a given type and extracted type parameter specified at a higher level overrides any other extractors for the same type and extracted type given at lower levels.
+If e.g. a value extractor defined as <code>class MyListValueExtractor implements ValueExtractor&lt;List&lt;@ExtractedValue ?&gt;&gt; { &#8230;&#8203; }</code> is given via <code>ValidatorContext#addValueExtractor(ValueExtractor&lt;?&gt;)</code>,
+it will take precedence over any other value extractor implementing <code>List&lt;@ExtractedValue ?&gt;</code> given via <code>Configuration#addValueExtractor(ValueExtractor&lt;?&gt;)</code>,
+<em>META-INF/validation.xml</em> or the service loader mechanism as well as the built-in extractor for <code>List</code> elements.</p>
 </div>
 </div>
 <div class="sect3">
@@ -15754,6 +16004,7 @@ As an example, consider a generic type <code>Wrapper&lt;T&gt;</code> and a non-g
  */</span>
 <span class="annotation">@Target</span>({ TYPE })
 <span class="annotation">@Retention</span>(RUNTIME)
+<span class="annotation">@Documented</span>
 <span class="directive">public</span> <span class="annotation">@interface</span> UnwrapByDefault {
 
 }</code></pre>
@@ -16153,7 +16404,7 @@ the map as obtained directly from the field will be passed to the map value extr
 </ul>
 </div>
 <div class="sect4">
-<h5 id="_examples_for_extractor_retrieval"><a class="anchor" href="#_examples_for_extractor_retrieval"></a>Examples for extractor retrieval</h5>
+<h5 id="_examples_for_extractor_retrieval"><a class="anchor" href="#_examples_for_extractor_retrieval"></a>B.4.7.1. Examples for extractor retrieval</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -16209,7 +16460,7 @@ Let there be these definitions:</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_invalid_examples"><a class="anchor" href="#_invalid_examples"></a>Invalid examples</h5>
+<h5 id="_invalid_examples"><a class="anchor" href="#_invalid_examples"></a>B.4.7.2. Invalid examples</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -16391,12 +16642,15 @@ The latter seems very reasonable.</p>
 </div>
 </li>
 <li>
-<p>Should value extractors be discoverable via the service loader mechanism (i.e. by means of <code>META-INF/services/javax.validation.valueextraction.ValueExtractor</code> files)</p>
+<p><span class="line-through">Should value extractors be discoverable via the service loader mechanism (i.e. by means of <code>META-INF/services/javax.validation.valueextraction.ValueExtractor</code> files)</span></p>
 <div class="paragraph">
-<p><em>Pro: It&#8217;d allow 3rd party libs such as Google Guava to provide custom extractors for their container types and have them automatically be applied without any effort for the user</em>.</p>
+<p><span class="line-through">Pro: It&#8217;d allow 3rd party libs such as Google Guava to provide custom extractors for their container types and have them automatically be applied without any effort for the user.</span></p>
 </div>
 <div class="paragraph">
-<p><em>Cons: Need a way to disable or override some extractors with others. Which might make it a nogo</em>.</p>
+<p><span class="line-through">Cons: Need a way to disable or override some extractors with others. Which might make it a nogo.</span></p>
+</div>
+<div class="paragraph">
+<p><em>Added service loader mechanism as source of value extractors. Specified order of precedence.</em></p>
 </div>
 </li>
 <li>
@@ -17227,8 +17481,8 @@ Provide a way to disable BV metadata use by a persistence provider (property bas
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 2.0.0.Alpha1 (Early Draft 1)<br>
-Last updated 2017-02-06 10:16:13 +00:00
+Version 2.0.0-SNAPSHOT<br>
+Last updated 2017-03-03 09:10:21 +00:00
 </div>
 </div>
 <script>
