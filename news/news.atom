@@ -2,9 +2,142 @@
 <feed xml:lang="en-US" xmlns="http://www.w3.org/2005/Atom">
   <id>http://beanvalidation.org/</id>
   <title>Bean Validation</title>
-  <updated>2017-03-28T11:24:52+00:00</updated>
+  <updated>2017-03-31T13:13:44+00:00</updated>
   <link href="http://beanvalidation.org/news/news.atom" rel="self" type="application/atom+xml" />
   <link href="http://beanvalidation.org/" rel="alternate" type="text/html" />
+  <entry>
+    <id>http://beanvalidation.org/news/2017/03/31/bean-validation-2-0-alpha2-is-out/</id>
+    <title>Bean Validation 2.0 Alpha2 is out</title>
+    <updated>2017-03-31T13:13:44+00:00</updated>
+    <published>2017-03-31T00:00:00+00:00</published>
+    <link href="http://beanvalidation.org/news/2017/03/31/bean-validation-2-0-alpha2-is-out/" rel="alternate" type="text/html" />
+    <author>
+      <name>Gunnar Morling</name>
+    </author>
+    <category term="release"></category>
+    <summary>
+      I&#8217;m happy to announce the release of the Alpha2 release of the Bean Validation 2 API and specification.
+      
+      
+      This release contains several improvements and clarifications around the validation of container elements (think List&lt;@Email String&gt;):
+      
+      
+      
+      
+      Custom value extractors can now be passed in when bootstrapping a validator factory or validator (via API or XML)
+      
+      
+      Value extractors are detected via the Java service loader mechanism
+      (e.g. allowing libraries to ship their own extractors for custom collection types)
+      
+      
+      Property paths for constraint violations on container elements will now contain a node of the new type CONTAINER_ELEMENT
+      
+      
+      Container element constraints can be specified in XML mapping descriptors
+      
+      
+      
+      
+      There are also some...
+    </summary>
+    <content type="html">
+      &lt;div id=&quot;preamble&quot;&gt;
+      &lt;div class=&quot;sectionbody&quot;&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;I’m happy to announce the release of the Alpha2 release of the Bean Validation 2 API and specification.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;This release contains several improvements and clarifications around the &lt;a href=&quot;http://beanvalidation.org/2.0/spec/2.0.0.alpha2/#appendix-value-extraction&quot;&gt;validation of container elements&lt;/a&gt; (think &lt;code&gt;List&amp;lt;@Email String&amp;gt;&lt;/code&gt;):&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;ulist&quot;&gt;
+      &lt;ul&gt;
+      &lt;li&gt;
+      &lt;p&gt;Custom value extractors can now be passed in when bootstrapping a validator factory or validator (via API or XML)&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+      &lt;p&gt;Value extractors are detected via the Java service loader mechanism
+      (e.g. allowing libraries to ship their own extractors for custom collection types)&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+      &lt;p&gt;Property paths for constraint violations on container elements will now contain a node of the new type &lt;code&gt;CONTAINER_ELEMENT&lt;/code&gt;&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+      &lt;p&gt;Container element constraints can be specified in XML mapping descriptors&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;/ul&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;There are also some new constraints, as per the community feedback on the &lt;a href=&quot;http://beanvalidation.org/news/2016/09/15/which-constraints-to-add/&quot;&gt;survey we did last year&lt;/a&gt;:&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;ulist&quot;&gt;
+      &lt;ul&gt;
+      &lt;li&gt;
+      &lt;p&gt;&lt;code&gt;@NotEmpty&lt;/code&gt;, &lt;code&gt;@NotBlank&lt;/code&gt;&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+      &lt;p&gt;&lt;code&gt;@Email&lt;/code&gt;&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+      &lt;p&gt;&lt;code&gt;@Positive&lt;/code&gt;, &lt;code&gt;@Negative&lt;/code&gt;&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;/ul&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;The first three have been part of the reference implementation for a long time
+      and have been promoted to the spec due to their frequent usage.
+      The latter two are new constraints which address the very common use case of
+      mandating that a numeric value should be positive or negative.
+      It’s configurable via the &lt;code&gt;strict()&lt;/code&gt; attribute whether 0 should be considered as valid or not.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;You can find the complete list of addressed issues &lt;a href=&quot;https://hibernate.atlassian.net/issues/?jql=project%20%3D%20BVAL%20AND%20fixVersion%20%3D%202.0.0.Alpha2&quot;&gt;in JIRA&lt;/a&gt;.
+      The spec text of the Alpha2 release is published &lt;a href=&quot;http://beanvalidation.org/2.0/spec/2.0.0.alpha2/&quot;&gt;here&lt;/a&gt;.
+      The GAV coordinates of the API JAR are &lt;a href=&quot;http://search.maven.org/#artifactdetails%7Cjavax.validation%7Cvalidation-api%7C2.0.0.Alpha2%7Cjar&quot;&gt;javax.validation:validation-api:2.0.0.Alpha2&lt;/a&gt;.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;sect1&quot;&gt;
+      &lt;h2 id=&quot;tck-update&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#tck-update&quot;&gt;&lt;/a&gt;TCK update&lt;/h2&gt;
+      &lt;div class=&quot;sectionbody&quot;&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Together with the spec we also released a new version of the Bean Validation TCK for testing the new features.
+      Its coordinates are &lt;code&gt;org.hibernate.beanvalidation.tck:beanvalidation-tck-tests:2.0.0.Alpha3&lt;/code&gt; (it should be synced to Maven Central soon).&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;If you are wondering why the TCK is at Alpha3 already, that’s because of a glitch with the Alpha2 release which wouldn’t allow to run the TCK in a container.
+      Hence we released the Alpha3 version right after that.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;sect1&quot;&gt;
+      &lt;h2 id=&quot;trying-it-out-yourself&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#trying-it-out-yourself&quot;&gt;&lt;/a&gt;Trying it out yourself&lt;/h2&gt;
+      &lt;div class=&quot;sectionbody&quot;&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;In order to try out the latest Bean Validation features, grab this week’s release of
+      the reference implementation, Hibernate Validator 6 Alpha2.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;It supports the Alpha2 version of the spec and some things more.
+      Refer to the &lt;a href=&quot;http://in.relation.to/2017/03/30/hibernate-validator-600-alpha2-out/&quot;&gt;announcement post&lt;/a&gt; for all the details.
+      Please give it a try and let us know about your thoughts on these changes as well as any other things related to Bean Validation.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;We are now working towards the Public Draft of the spec (to be expected in April).
+      The Public Draft will mostly polish the work done so far.
+      Most prominently, the container element validation feature,
+      which currently is &lt;a href=&quot;http://beanvalidation.org/2.0/spec/2.0.0.alpha2/#appendix-value-extraction&quot;&gt;an appendix&lt;/a&gt; to the spec,
+      will be incorporated in the actual specification sections.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;We’ve also planned to address some other feature requests, like &lt;a href=&quot;http://beanvalidation.org/2.0/spec/2.0.0.alpha2/#appendix-value-extraction&quot;&gt;splitting up&lt;/a&gt; the notion of message interpolation and retrieving message bundles.
+      If there are other things you’d like to see addressed in Bean Validation 2.0,
+      please &lt;a href=&quot;http://lists.jboss.org/pipermail/beanvalidation-dev/&quot;&gt;get in touch&lt;/a&gt; quickly, the clock is ticking :)&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+    </content>
+  </entry>
   <entry>
     <id>http://beanvalidation.org/news/2017/02/16/first-alpha-of-bean-validation-2-0-reference-implementation/</id>
     <title>First Alpha of Bean Validation 2.0 Reference Implementation Available</title>

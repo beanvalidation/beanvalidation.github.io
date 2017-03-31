@@ -63,6 +63,112 @@
           <article class="post">
             <header>
               <h1 class="title">
+                <a href="/news/2012/08/29/methodvalidation-inheritance/">Method validation and inheritance - feedback needed!</a>
+              </h1>
+              <span class="author">
+                by
+                <b>Gunnar Morling</b>
+              </span>
+              <span class="date">
+                on 29 Aug 2012
+              </span>
+              <span class="tags">
+                <a class="label label-info" href="/news/tags/feedback-needed/">feedback-needed</a>
+              </span>
+            </header>
+            <div class="body">
+              <p>Now that everybody is returning from their summer holidays, also the Bean Validation team
+              is getting back to their desks in order to work with full steam towards revision 1.1.</p>
+              
+              <p>As you know, the largest new feature will be
+              <a href="http://beanvalidation.org/1.1/spec/#d0e2147">method validation</a>, that is the validation
+              of method parameters and return values using constraint annotations. Bean Validation 1.1
+              <a href="http://beanvalidation.org/news/2012/03/13/release-1-1-edr1/">early draft 1</a> lays the
+              ground for this, and right now we're tackling some
+              <a href="https://hibernate.atlassian.net/browse/BVAL-272">advanced questions</a> still open in that area
+              (btw. if you haven't yet tried out the
+              <a href="http://in.relation.to/Bloggers/FirstAlphaReleaseOfHibernateValidator5">reference implementation</a>
+              of ED1, this is the perfect time to do so and give us your feedback).</p>
+              
+              <h2>The problem</h2>
+              
+              <p>One question the EG currently is <a href="http://lists.jboss.org/pipermail/beanvalidation-dev/2012-August/000504.html">discussing</a>
+              is whether and, if so, how a refinement of method constraints should be allowed in
+              sub-types. That is, if a class implements a method of an interface or overrides a method
+              from a super class, should the sub-type be allowed to place any additional constraints?</p>
+              
+              <p>The current draft defines the following rules for such cases (see the
+              <a href="http://beanvalidation.org/1.1/spec/#d0e2429">draft document</a> for all the gory details):</p>
+              
+              <ul>
+              <li>No parameter constraints may be specified in addition to those constraints defined on
+              the method in the interface or super class.</li>
+              <li>Return value constraints may be added in sub-types.</li>
+              </ul>
+              
+              
+              <h2>The rationale</h2>
+              
+              <p>The rationale behind this is the principle of
+              <a href="http://en.wikipedia.org/wiki/Liskov_substitution_principle">behavioral sub-typing</a>, which
+              demands that wherever a given type <code>T</code> is used, it should be possible to replace <code>T</code> with
+              a sub-type <code>S</code> of <code>T</code>. This means that a sub-type must not strengthen a method's
+              preconditions (by adding parameter constraints), as this might cause client code working
+              correctly against <code>T</code> to fail when working against <code>S</code>. A sub-type may also not weaken a
+              method's postconditions. However, a sub-type may strengthen the method's postconditions
+              (by adding return value constraints), as client code working against <code>T</code> still will work
+              against <code>S</code>.</p>
+              
+              <h2>Can you show me some code, please?</h2>
+              
+              <p>To give you an example, the following shows a constraint declaration considered illegal as
+              of the current draft, as parameter constraints are added to the <code>placeOrder()</code> method in a
+              sub-class of <code>OrderService</code>:</p>
+              
+              <pre><code>public class OrderService {&#x000A;    void placeOrder(@NotNull String customerCode, @NotNull Item item, int quantity) { ... }&#x000A;}&#x000A;&#x000A;public class SimpleOrderService extends OrderService {&#x000A;&#x000A;    @Override&#x000A;    public void placeOrder(&#x000A;        @Size(min=3, max=20) String customerCode,&#x000A;        Item item,&#x000A;        @Min(1) int quantity) { ... }&#x000A;}&#x000A;</code></pre>
+              
+              <h2>Alternatives</h2>
+              
+              <p>While this approach works, follows principles of clean OO design and also
+              <a href="http://research.microsoft.com/en-us/projects/contracts/">is employed</a> by other
+              <em>Programming by Contract</em> solutions, some voices in the EG expressed doubts whether the
+              handling of parameter constraints isn't too restrictive and thus may limit innovation in
+              that area. In particular with respect to legacy code, the question was raised whether it
+              shouldn't be allowed to add parameter constraints in sub-types.</p>
+              
+              <p>One example may be a legacy interface, which <em>technically</em> has no constraints (that is, no
+              parameter constraints are placed on its methods), but comes with a verbal description of
+              preconditions in its documentation. In this case an implementor of that interface might
+              wish to implement this contract by placing corresponding constraint annotations on the
+              implementation.</p>
+              
+              <p>An open question in this situation is what should the behavior be if the
+              interface is being constrained afterwards?</p>
+              
+              <h2>Give use your feedback!</h2>
+              
+              <p>So what do you think, should such a refinement of parameter constraints be allowed or not?
+              Possible alternatives:</p>
+              
+              <ul>
+              <li>allow such a refinement by default</li>
+              <li>have some sort of switch controlling the behavior (either standardized or provider-specific)</li>
+              </ul>
+              
+              
+              <p>As there are pro's and con's of either approach, we'd very interested in user feedback on this.</p>
+              
+              <p>Let us know what you think by posting a comment directly to this blog, shooting a message
+              to the <a href="https://lists.jboss.org/mailman/listinfo/beanvalidation-dev">mailing list</a> or
+              participating in this <a href="http://www.doodle.com/qp78u6mqzetuas7p">Doodle vote</a>. Which use cases
+              you have encountered come to mind where the possibility to refine parameter constraints
+              may help you?</p>
+               <a href="http://beanvalidation.org/news/2012/08/29/methodvalidation-inheritance/#disqus_thread">Comments</a>
+            </div>
+          </article>
+          <article class="post">
+            <header>
+              <h1 class="title">
                 <a href="/news/2012/06/28/hibernate-validator-5-alpha/">Hibernate Validator 5 alpha for Bean Validation 1.1 is out</a>
               </h1>
               <span class="author">
@@ -178,98 +284,6 @@
                <a href="http://beanvalidation.org/news/2012/03/16/artifacts-1-1-edr1/#disqus_thread">Comments</a>
             </div>
           </article>
-          <article class="post">
-            <header>
-              <h1 class="title">
-                <a href="/news/2012/03/13/release-1-1-edr1/">Bean Validation 1.1 early draft 1 is out - time for feedback</a>
-              </h1>
-              <span class="author">
-                by
-                <b>Emmanuel Bernard</b>
-              </span>
-              <span class="date">
-                on 13 Mar 2012
-              </span>
-              <span class="tags">
-                <a class="label label-info" href="/news/tags/release/">release</a>
-              </span>
-            </header>
-            <div class="body">
-              <p>After a long time in the shadows of open work... Ahem, take two. After a long time at work,
-              I am very pleased to announce Bean Validation 1.1 early draft 1.
-              This is our first big milestone since the release of 1.0.</p>
-              
-              <p>The draft is making its way through the official channels of the JCP but
-              we also wanted to release it in full openned. For people in a hurry,
-              <a href="/1.1/spec/1.0.0.alpha1/?utm_source=blog&amp;utm_medium=web&amp;utm_content=spec&amp;utm_campaign=1_1_edr1">the spec draft is here</a>.</p>
-              
-              <h2>What's new</h2>
-              
-              <p>We worked on three major areas:</p>
-              
-              <ul>
-              <li>openess</li>
-              <li>method level validation</li>
-              <li>dependency injection</li>
-              </ul>
-              
-              
-              <h3>Openess</h3>
-              
-              <p>The specification, the reference implementation, the TCK, this website... everything is open sourced.
-              All work done on Bean Validation 1.1 is done in the open either on the mailing list, the issue tracker
-              or via GitHub pull requests. Check out more in the <a href="/contribute">how to contribute section</a>.</p>
-              
-              <h3>Method-level validation</h3>
-              
-              <p>You can now put constraints declarations on parameters and return values of methods and constructors.</p>
-              
-              <pre><code>@MethodValidated &#x000A;public class OrderService {&#x000A;&#x000A;    public OrderService(@NotNull CreditCardProcessor creditCardProcessor) {&#x000A;        //...&#x000A;    }&#x000A;&#x000A;    public void placeOrder(&#x000A;        @NotNull @Size(min=3, max=20) String customerCode,&#x000A;        @NotNull @Valid Item item,&#x000A;        @Min(1) int quantity) {&#x000A;&#x000A;        //...&#x000A;    }&#x000A;}&#x000A;</code></pre>
-              
-              <p>Interception frameworks like CDI will check these constraints upon method calls thanks to the
-              <code>@MethodValidated</code> annotation. Read more in the spec.</p>
-              
-              <h3>Dependency injection</h3>
-              
-              <p>Bean Validation uses a few components <code>MessageInterpolator</code>, <code>TraversableResolver</code>, <code>ConstraintValidatorFactory</code>
-              and most importantly <code>ConstraintValidator</code>. We have standardized how these objects are managed by a container
-              and how these objects can benefit from container services.</p>
-              
-              <p>That means that your constraint validator implementation will be able to get resources injected automatically.</p>
-              
-              <p>While we go into details on how it will fit in CDI and Java EE, we have worked hard to make it container
-              agnostic. If you write or use other containers (Guice, Spring Framework, Avalon :) ), check out
-              if it fits properly.</p>
-              
-              <h2>Contributions</h2>
-              
-              <p>We have had tremendous help from the Bean Validation community at large but I would
-              like to give a massive thank you to <a href="http://musingsofaprogrammingaddict.blogspot.com/">Gunnar Morling</a> who stepped
-              up and lead the work on method-level validation. This is by far the biggest new
-              feature of Bean Validation 1.1.</p>
-              
-              <h2>How to read the spec and provide feedback</h2>
-              
-              <p>The draft has been published <a href="/1.1/spec/1.0.0.alpha1/?utm_source=blog&amp;utm_medium=web&amp;utm_content=spec&amp;utm_campaign=1_1_edr1">here</a> and all changes are marked with a different
-              color. <span style="background-color:#DDFFDD;">Green for additions</span>,
-              <span style="background-color:#FFFFDD;">yellow for changes</span> and
-              <span style="text-decoration: line-through;background-color: #FFDDDD;">struck through red for removals</span>
-              . This will help you see what has changed precisely.</p>
-              
-              <p>Have feedback? Please talk to us either:</p>
-              
-              <ul>
-              <li>on our <a href="https://lists.jboss.org/mailman/listinfo/beanvalidation-dev">mailing list</a></li>
-              <li>in our <a href="/issues">issue tracker</a></li>
-              <li>or on the Bean Validation <a href="https://forum.hibernate.org/viewforum.php?f=26">forum</a></li>
-              </ul>
-              
-              
-              <p>If you want to go to the next step and contribute, send us an email to the mailing list and read
-              <a href="/contribute">how to contribute</a>.</p>
-               <a href="http://beanvalidation.org/news/2012/03/13/release-1-1-edr1/#disqus_thread">Comments</a>
-            </div>
-          </article>
           <div class="pagination-links"><a href="/news/page/5/" class="previous-link">Previous</a> <a href="/news/" class="page-link">1</a> <a href="/news/page/2/" class="page-link">2</a> <span class="skip">...</span><a href="/news/page/5/" class="page-link">5</a> <span class="current-page">6</span> <a href="/news/page/7/" class="page-link">7</a> <a href="/news/page/8/" class="page-link">8</a> <a href="/news/page/7/" class="next-link">Next</a> </div>
         </div>
         <div class="sidebar sidebar-right col-sm-3 col-md-3 col-lg-3" id="sidebar" role="complementary">
@@ -284,6 +298,7 @@
               Stay up to date, subscribe to the&nbsp;<a href="/news/news.atom">news feed</a>.
             </div>
           </div>
+          <a class="news-link" href="/news/2017/03/31/bean-validation-2-0-alpha2-is-out/">Bean Validation 2.0 Alpha2 is out</a>
           <a class="news-link" href="/news/2017/02/16/first-alpha-of-bean-validation-2-0-reference-implementation/">First Alpha of Bean Validation 2.0 Reference Implementation Available</a>
           <a class="news-link" href="/news/2017/02/14/bean-validation-2-0-early-draft-released/">Bean Validation 2.0 Early Draft 1 is Out</a>
           <a class="news-link" href="/news/2017/02/07/apache-bval-is-compatible-with-bean-validation-1-1/">Apache BVal certified as Bean Validation 1.1 implementation</a>
