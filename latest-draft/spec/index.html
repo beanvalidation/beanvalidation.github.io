@@ -714,6 +714,9 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#integration-cdi-methodconstructorvalidation">11.3.3. Method and constructor validation</a></li>
 </ul>
 </li>
+<li><a href="#integration-jpa">11.4. Java Persistence 2.0 integration</a></li>
+<li><a href="#integration-jsf">11.5. Java Server Faces 2.0 integration</a></li>
+<li><a href="#integration-jaxrs">11.6. JAX-RS 2 integration</a></li>
 </ul>
 </li>
 <li><a href="#terminology">Appendix A: Terminology</a></li>
@@ -1054,6 +1057,9 @@ This specification is the result of the collaborative work of the members of the
 </div>
 <div class="paragraph">
 <p><a href="#constraintsdefinitionimplementation">Constraint definition</a> describes how constraints are defined.</p>
+</div>
+<div class="paragraph">
+<p><a href="#valueextractordefinition">Value extractor definition</a> describes how extractors for the values of container types are defined.</p>
 </div>
 <div class="paragraph">
 <p><a href="#constraintdeclarationvalidationprocess">Constraint declaration and validation process</a> describes how a JavaBean class is decorated with annotations to describe constraints.</p>
@@ -3470,10 +3476,6 @@ This can be useful for testing, for applying the time zone of the currently logg
 <span class="directive">public</span> <span class="type">class</span> <span class="class">PastValidatorForZonedDateTime</span> <span class="directive">implements</span> ConstraintValidator&lt;Past, ZonedDateTime&gt; {
 
     <span class="annotation">@Override</span>
-    <span class="directive">public</span> <span class="type">void</span> initialize(Past constraintAnnotation) {
-    }
-
-    <span class="annotation">@Override</span>
     <span class="directive">public</span> <span class="type">boolean</span> isValid(ZonedDateTime value, ConstraintValidatorContext context) {
         <span class="keyword">if</span> ( value == <span class="predefined-constant">null</span> ) {
             <span class="keyword">return</span> <span class="predefined-constant">true</span>;
@@ -3517,9 +3519,7 @@ This can be useful for testing, for applying the time zone of the currently logg
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="JAVA"><span class="keyword">package</span> <span class="namespace">javax.validation</span>;
-
-<span class="comment">/**
+<pre class="CodeRay highlight"><code data-lang="JAVA"><span class="comment">/**
  * Instantiates a {@link ConstraintValidator} instance based off its class.
  * The {@code ConstraintValidatorFactory} is &lt;b&gt;not&lt;/b&gt; responsible
  * for calling {@link ConstraintValidator#initialize(java.lang.annotation.Annotation)}.
@@ -3854,7 +3854,7 @@ This causes constraints to be automatically applied to the wrapped value if a co
     <span class="annotation">@Override</span>
     <span class="directive">public</span> <span class="type">void</span> extractValues(<span class="predefined-type">List</span>&lt;?&gt; originalValue, ValueReceiver receiver) {
         <span class="keyword">for</span> ( <span class="type">int</span> i = <span class="integer">0</span>; i &lt; originalValue.size(); i++ ) {
-            receiver.indexedValue( <span class="string"><span class="delimiter">&quot;</span><span class="content">&lt;iterable element&gt;</span><span class="delimiter">&quot;</span></span>, i, originalValue.get( i ) );
+            receiver.indexedValue( <span class="string"><span class="delimiter">&quot;</span><span class="content">&lt;list element&gt;</span><span class="delimiter">&quot;</span></span>, i, originalValue.get( i ) );
         }
     }
 }</code></pre>
@@ -5374,9 +5374,7 @@ I.e. you should prefer</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="JAVA"><span class="keyword">package</span> <span class="namespace">javax.validation</span>;
-
-<span class="comment">/**
+<pre class="CodeRay highlight"><code data-lang="JAVA"><span class="comment">/**
  * Provides names for method and constructor parameters.
  * &lt;p&gt;
  * Used by the Bean Validation runtime when creating constraint violation
@@ -6014,9 +6012,7 @@ violations = validator.validate( driver, SequencedGroups.class );
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="JAVA"><span class="keyword">package</span> <span class="namespace">javax.validation</span>;
-
-<span class="comment">/**
+<pre class="CodeRay highlight"><code data-lang="JAVA"><span class="comment">/**
  * Contract determining if a property can be accessed by the Bean Validation provider.
  * This contract is called for each property that is being either validated or cascaded.
  * &lt;p&gt;
@@ -8017,9 +8013,7 @@ executableValidator.validateConstructorParameters(constructor, <span class="keyw
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="JAVA"><span class="keyword">package</span> <span class="namespace">javax.validation</span>;
-
-<span class="comment">/**
+<pre class="CodeRay highlight"><code data-lang="JAVA"><span class="comment">/**
  * Describes a constraint violation. This object exposes the constraint
  * violation context as well as the message describing the violation.
  *
@@ -8213,9 +8207,7 @@ executableValidator.validateConstructorParameters(constructor, <span class="keyw
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="JAVA"><span class="keyword">package</span> <span class="namespace">javax.validation</span>;
-
-<span class="comment">/**
+<pre class="CodeRay highlight"><code data-lang="JAVA"><span class="comment">/**
  * Represents the navigation path from an object to another
  * in an object graph.
  * Each path element is represented by a {@code Node}.
@@ -8471,9 +8463,7 @@ executableValidator.validateConstructorParameters(constructor, <span class="keyw
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="JAVA"><span class="keyword">package</span> <span class="namespace">javax.validation</span>;
-
-<span class="comment">/**
+<pre class="CodeRay highlight"><code data-lang="JAVA"><span class="comment">/**
  * Enum of possible kinds of elements encountered in Bean Validation.
  * &lt;p&gt;
  * Mostly elements that can be constrained and described in the metadata
@@ -8703,7 +8693,7 @@ the former returns the class of the container and the latter returns the index o
 <p><span class="tck-testable">for all <code class="classname">Iterable</code> or <code class="classname">Map</code>, the following <code class="classname">Node</code> object added is marked as <code>inIterable</code> (<code class="methodname">isInIterable()</code>)</span></p>
 </li>
 <li>
-<p><span class="tck-testable">if the traversed object is of a container type (e.g. a <code>List</code>, <code>Map</code> or <code>Optional</code>), the following <code>Node</code> object added returns the type of the traversed container via <code>getContainerClass()</code> and the index of the type argument to which the constraint applies via `getTypeArgumentIndex()</span></p>
+<p><span class="tck-testable">if the traversed object is of a container type (e.g. a <code>List</code> or <code>Map</code>), the following <code>Node</code> object added returns the type of the traversed container via <code>getContainerClass()</code> and the index of the type argument to which the constraint applies via `getTypeArgumentIndex()</span></p>
 </li>
 </ul>
 </div>
@@ -9749,9 +9739,7 @@ node = nodeIter.next();
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="JAVA"><span class="keyword">package</span> <span class="namespace">javax.validation</span>;
-
-<span class="comment">/**
+<pre class="CodeRay highlight"><code data-lang="JAVA"><span class="comment">/**
  * Interpolates a given constraint violation message.
  * &lt;p&gt;
  * Implementations should be as tolerant as possible on syntax errors.
@@ -10594,10 +10582,7 @@ acmeFactory.setSpecificConfiguration( [...] );</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="JAVA"><span class="keyword">import</span> <span class="include">javax.validation.valueextraction.ValueExtractor</span>;
-<span class="keyword">import</span> <span class="include">javax.validation.valueextraction.ValueExtractorDeclarationException</span>;
-
-<span class="comment">/**
+<pre class="CodeRay highlight"><code data-lang="JAVA"><span class="comment">/**
  * Represents the context that is used to create {@link Validator}
  * instances.
  *
@@ -10806,9 +10791,7 @@ detected through the service loader or given in the XML configuration.</p>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="JAVA"><span class="keyword">import</span> <span class="include">javax.validation.valueextraction.ValueExtractorDeclarationException</span>;
-
-<span class="comment">/**
+<pre class="CodeRay highlight"><code data-lang="JAVA"><span class="comment">/**
  * Receives configuration information, selects the appropriate
  * Bean Validation provider and builds the appropriate {@link ValidatorFactory}.
  * &lt;p&gt;
@@ -11098,9 +11081,7 @@ detected through the service loader or given in the XML configuration.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="JAVA"><span class="keyword">import</span> <span class="include">javax.validation.valueextraction.ValueExtractor</span>;
-
-<span class="comment">/**
+<pre class="CodeRay highlight"><code data-lang="JAVA"><span class="comment">/**
  * Represents the user specified default configuration in
  * {@code META-INF/validation.xml}.
  * &lt;p&gt;
@@ -11556,9 +11537,7 @@ ValidatorFactory factory2 = configuration
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="JAVA"><span class="keyword">package</span> <span class="namespace">javax.validation</span>;
-
-<span class="comment">/**
+<pre class="CodeRay highlight"><code data-lang="JAVA"><span class="comment">/**
  * Determines the list of Bean Validation providers available in the runtime environment
  * &lt;p&gt;
  * Bean Validation providers are identified by the presence of
@@ -15817,12 +15796,7 @@ Group conversion rules for cascaded validation are specified using the <code>con
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="XML"><span class="preprocessor">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
-<span class="comment">&lt;!--
-  ~ Bean Validation API
-  ~
-  ~ License: Apache License, Version 2.0
-  ~ See the license.txt file in the root directory or &lt;http://www.apache.org/licenses/LICENSE-2.0&gt;.
-  --&gt;</span>
+
 <span class="tag">&lt;xs:schema</span> <span class="attribute-name">attributeFormDefault</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">unqualified</span><span class="delimiter">&quot;</span></span>
            <span class="attribute-name">elementFormDefault</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">qualified</span><span class="delimiter">&quot;</span></span>
            <span class="attribute-name">targetNamespace</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://xmlns.jcp.org/xml/ns/validation/mapping</span><span class="delimiter">&quot;</span></span>
@@ -15927,14 +15901,18 @@ Group conversion rules for cascaded validation are specified using the <code>con
         <span class="tag">&lt;/xs:sequence&gt;</span>
         <span class="tag">&lt;xs:attribute</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">xs:string</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">name</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">use</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">required</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
     <span class="tag">&lt;/xs:complexType&gt;</span>
-    <span class="tag">&lt;xs:complexType</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">container-element-typeType</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+    <span class="tag">&lt;xs:complexType</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">containerElementTypeType</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
         <span class="tag">&lt;xs:sequence&gt;</span>
             <span class="tag">&lt;xs:element</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">xs:string</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">valid</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">minOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">0</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">fixed</span>=<span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+            <span class="tag">&lt;xs:element</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">map:groupConversionType</span><span class="delimiter">&quot;</span></span>
+                        <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">convert-group</span><span class="delimiter">&quot;</span></span>
+                        <span class="attribute-name">minOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">0</span><span class="delimiter">&quot;</span></span>
+                        <span class="attribute-name">maxOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">unbounded</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
             <span class="tag">&lt;xs:element</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">map:constraintType</span><span class="delimiter">&quot;</span></span>
                         <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">constraint</span><span class="delimiter">&quot;</span></span>
                         <span class="attribute-name">maxOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">unbounded</span><span class="delimiter">&quot;</span></span>
                         <span class="attribute-name">minOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">0</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
-            <span class="tag">&lt;xs:element</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">map:container-element-typeType</span><span class="delimiter">&quot;</span></span>
+            <span class="tag">&lt;xs:element</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">map:containerElementTypeType</span><span class="delimiter">&quot;</span></span>
                         <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">container-element-type</span><span class="delimiter">&quot;</span></span>
                         <span class="attribute-name">maxOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">unbounded</span><span class="delimiter">&quot;</span></span>
                         <span class="attribute-name">minOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">0</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
@@ -16000,7 +15978,7 @@ Group conversion rules for cascaded validation are specified using the <code>con
                         <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">convert-group</span><span class="delimiter">&quot;</span></span>
                         <span class="attribute-name">minOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">0</span><span class="delimiter">&quot;</span></span>
                         <span class="attribute-name">maxOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">unbounded</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
-            <span class="tag">&lt;xs:element</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">map:container-element-typeType</span><span class="delimiter">&quot;</span></span>
+            <span class="tag">&lt;xs:element</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">map:containerElementTypeType</span><span class="delimiter">&quot;</span></span>
                         <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">container-element-type</span><span class="delimiter">&quot;</span></span>
                         <span class="attribute-name">minOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">0</span><span class="delimiter">&quot;</span></span>
                         <span class="attribute-name">maxOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">unbounded</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
@@ -16054,7 +16032,7 @@ Group conversion rules for cascaded validation are specified using the <code>con
                         <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">convert-group</span><span class="delimiter">&quot;</span></span>
                         <span class="attribute-name">minOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">0</span><span class="delimiter">&quot;</span></span>
                         <span class="attribute-name">maxOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">unbounded</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
-            <span class="tag">&lt;xs:element</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">map:container-element-typeType</span><span class="delimiter">&quot;</span></span>
+            <span class="tag">&lt;xs:element</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">map:containerElementTypeType</span><span class="delimiter">&quot;</span></span>
                         <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">container-element-type</span><span class="delimiter">&quot;</span></span>
                         <span class="attribute-name">minOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">0</span><span class="delimiter">&quot;</span></span>
                         <span class="attribute-name">maxOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">unbounded</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
@@ -16073,7 +16051,7 @@ Group conversion rules for cascaded validation are specified using the <code>con
                         <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">convert-group</span><span class="delimiter">&quot;</span></span>
                         <span class="attribute-name">minOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">0</span><span class="delimiter">&quot;</span></span>
                         <span class="attribute-name">maxOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">unbounded</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
-            <span class="tag">&lt;xs:element</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">map:container-element-typeType</span><span class="delimiter">&quot;</span></span>
+            <span class="tag">&lt;xs:element</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">map:containerElementTypeType</span><span class="delimiter">&quot;</span></span>
                         <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">container-element-type</span><span class="delimiter">&quot;</span></span>
                         <span class="attribute-name">minOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">0</span><span class="delimiter">&quot;</span></span>
                         <span class="attribute-name">maxOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">unbounded</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
@@ -16107,7 +16085,7 @@ Group conversion rules for cascaded validation are specified using the <code>con
                         <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">convert-group</span><span class="delimiter">&quot;</span></span>
                         <span class="attribute-name">minOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">0</span><span class="delimiter">&quot;</span></span>
                         <span class="attribute-name">maxOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">unbounded</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
-            <span class="tag">&lt;xs:element</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">map:container-element-typeType</span><span class="delimiter">&quot;</span></span>
+            <span class="tag">&lt;xs:element</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">map:containerElementTypeType</span><span class="delimiter">&quot;</span></span>
                         <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">container-element-type</span><span class="delimiter">&quot;</span></span>
                         <span class="attribute-name">minOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">0</span><span class="delimiter">&quot;</span></span>
                         <span class="attribute-name">maxOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">unbounded</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
@@ -16137,12 +16115,7 @@ Group conversion rules for cascaded validation are specified using the <code>con
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="XML"><span class="preprocessor">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
-<span class="comment">&lt;!--
-  ~ Bean Validation API
-  ~
-  ~ License: Apache License, Version 2.0
-  ~ See the license.txt file in the root directory or &lt;http://www.apache.org/licenses/LICENSE-2.0&gt;.
-  --&gt;</span>
+
 <span class="tag">&lt;xs:schema</span> <span class="attribute-name">attributeFormDefault</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">unqualified</span><span class="delimiter">&quot;</span></span>
            <span class="attribute-name">elementFormDefault</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">qualified</span><span class="delimiter">&quot;</span></span>
            <span class="attribute-name">targetNamespace</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://xmlns.jcp.org/xml/ns/validation/configuration</span><span class="delimiter">&quot;</span></span>
@@ -17110,29 +17083,26 @@ One example is the configuration of multiple extractors for the same container e
 </tr>
 </table>
 </div>
-<div class="paragraph">
-<p>[[integration-jpa]
-=== Java Persistence 2.0 integration</p>
 </div>
+</div>
+<div class="sect2">
+<h3 id="integration-jpa"><a class="anchor" href="#integration-jpa"></a>11.4. Java Persistence 2.0 integration</h3>
 <div class="paragraph">
 <p>Integration with Java Persistence is described in the Java Persistence 2 specification (<a href="http://jcp.org/en/jsr/detail?id=317">JSR-317</a> and later <a href="http://jcp.org/en/jsr/detail?id=338">JSR-338</a>). Persistence frameworks are encouraged to mimic the integration work done with Java Persistence.</p>
 </div>
-<div class="paragraph">
-<p>[[integration-jsf]
-=== Java Server Faces 2.0 integration</p>
 </div>
+<div class="sect2">
+<h3 id="integration-jsf"><a class="anchor" href="#integration-jsf"></a>11.5. Java Server Faces 2.0 integration</h3>
 <div class="paragraph">
 <p>Integration with Java Server Faces is described in the Java Server Faces 2 specification (<a href="http://jcp.org/en/jsr/detail?id=314">JSR-314</a> and later <a href="http://jcp.org/en/jsr/detail?id=338">JSR-344</a>). Presentation frameworks are encouraged to study the integration work done with JSF 2.</p>
 </div>
-<div class="paragraph">
-<p>[[integration-jaxrs]
-=== JAX-RS 2 integration</p>
 </div>
+<div class="sect2">
+<h3 id="integration-jaxrs"><a class="anchor" href="#integration-jaxrs"></a>11.6. JAX-RS 2 integration</h3>
 <div class="paragraph">
 <p>Integration with JAX-RS is described in the JAX-RS 2 specification (<a href="http://jcp.org/en/jsr/detail?id=339">JSR-339</a>).</p>
 </div>
 <div style="page-break-after: always;"></div>
-</div>
 </div>
 </div>
 </div>
