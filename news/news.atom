@@ -2,9 +2,55 @@
 <feed xml:lang="en-US" xmlns="http://www.w3.org/2005/Atom">
   <id>http://beanvalidation.org/</id>
   <title>Bean Validation</title>
-  <updated>2017-04-27T20:48:32+00:00</updated>
+  <updated>2017-05-12T11:48:49+00:00</updated>
   <link href="http://beanvalidation.org/news/news.atom" rel="self" type="application/atom+xml" />
   <link href="http://beanvalidation.org/" rel="alternate" type="text/html" />
+  <entry>
+    <id>http://beanvalidation.org/news/2017/05/12/feedback-on-positive-and-negative-constraints/</id>
+    <title>Survey - Behavior of @Positive and @Negative constraints</title>
+    <updated>2017-05-12T11:48:49+00:00</updated>
+    <published>2017-05-12T00:00:00+00:00</published>
+    <link href="http://beanvalidation.org/news/2017/05/12/feedback-on-positive-and-negative-constraints/" rel="alternate" type="text/html" />
+    <author>
+      <name>Gunnar Morling</name>
+    </author>
+    <category term="feedback"></category>
+    <summary>
+      Based on our previous survey we&#8217;ve recently added the new constraints @Positive and @Negative to the Bean Validation spec.
+      Now we&#8217;ve had an interesting discussion on some details of those constraints,
+      e.g. should 0 (zero) be considered as a valid value by default?
+      I.e. what&#8217;s the more common use case, to consider 0 as valid or not?
+      
+      
+      So we thought let&#8217;s make another survey to gauge the community feedback on those issues.
+      You&#8217;d help us very much by answering the two questions below, you won&#8217;t need more than a minute.
+      
+      
+      If you have any other thoughts you&#8217;d like to share, either add an answer to the...
+    </summary>
+    <content type="html">
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Based on our &lt;a href=&quot;http://beanvalidation.org/news/2016/09/15/which-constraints-to-add/&quot;&gt;previous survey&lt;/a&gt; we’ve recently added the new constraints &lt;code&gt;@Positive&lt;/code&gt; and &lt;code&gt;@Negative&lt;/code&gt; to the Bean Validation spec.
+      Now we’ve had an &lt;a href=&quot;http://lists.jboss.org/pipermail/beanvalidation-dev/2017-May/001309.html&quot;&gt;interesting discussion&lt;/a&gt; on some details of those constraints,
+      e.g. should 0 (zero) be considered as a valid value by default?
+      I.e. what’s the more common use case, to consider 0 as valid or not?&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;So we thought let’s make another survey to gauge the community feedback on those issues.
+      You’d help us very much by answering the two questions below, you won’t need more than a minute.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;If you have any other thoughts you’d like to share, either add an answer to the free-text question or post a comment below.
+      The survey will be open until the end of next week.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Thanks a lot for your help!&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div style=&quot;text-align: center&quot;&gt;
+      &lt;iframe src=&quot;https://docs.google.com/forms/d/e/1FAIpQLScJR1k6NdMjjV3xj8dPA4AMIqP5LZBdq_FKmqmKWLU_KX2few/viewform?embedded=true&quot; width=&quot;760&quot; height=&quot;1300&quot; frameborder=&quot;0&quot; marginheight=&quot;0&quot; marginwidth=&quot;0&quot;&gt;Loading...&lt;/iframe&gt;
+      &lt;/div&gt;
+    </content>
+  </entry>
   <entry>
     <id>http://beanvalidation.org/news/2017/04/26/bean-validation-2-0-up-for-public-review/</id>
     <title>Bean Validation 2.0 is up for Public Review</title>

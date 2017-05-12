@@ -63,6 +63,35 @@
           <article class="post">
             <header>
               <h1 class="title">
+                <a href="/news/2012/12/18/bean-validation-in-the-press/">Bean Validation in the press</a>
+              </h1>
+              <span class="author">
+                by
+                <b>Gunnar Morling</b>
+              </span>
+              <span class="date">
+                on 18 Dec 2012
+              </span>
+              <span class="tags">
+                <a class="label label-info" href="/news/tags/press/">press</a>
+              </span>
+            </header>
+            <div class="body">
+              <p>The German journal <a href="http://www.javamagazin.de/">Javamagazin</a> recently
+              published an article about the works on Bean Validation 1.1. The article
+              is full of praise for the new version in general and our open,
+              community-centered way of creating the spec in particular.</p>
+              
+              <p>The publisher and authors generously provided us with a PDF of the article
+              which you can download <a href="/downloads/javamagazin_2012_10_Einer_fuer_alle_alle_fuer_einen_Bean_Validation_1_1.pdf">here</a>.
+              Alternatively you can also read the article
+              <a href="http://it-republik.de/jaxenter/artikel/Einer-fuer-alle-%96-alle-fuer-einen-Bean-Validation-1.1-5372.html">online</a>.</p>
+               <a href="http://beanvalidation.org/news/2012/12/18/bean-validation-in-the-press/#disqus_thread">Comments</a>
+            </div>
+          </article>
+          <article class="post">
+            <header>
+              <h1 class="title">
                 <a href="/news/2012/12/11/should-getters-be-considered-methods/">Should getters be validated when they are called?</a>
               </h1>
               <span class="author">
@@ -355,158 +384,6 @@
                <a href="http://beanvalidation.org/news/2012/10/22/release-1-1-public-review/#disqus_thread">Comments</a>
             </div>
           </article>
-          <article class="post">
-            <header>
-              <h1 class="title">
-                <a href="/news/2012/09/12/fine-control-over-method-validation/">Fine control over method validation in Bean Validation... or not!</a>
-              </h1>
-              <span class="author">
-                by
-                <b>Emmanuel Bernard</b>
-              </span>
-              <span class="date">
-                on 12 Sep 2012
-              </span>
-              <span class="tags">
-                <a class="label label-info" href="/news/tags/feedback-needed/">feedback-needed</a>
-              </span>
-            </header>
-            <div class="body">
-              <p>I need your feedback on whether or not you need fine controls on method
-              validation.</p>
-              
-              <h2>Some context</h2>
-              
-              <p>Bean Validation 1.1 introduces the idea of method validation. When
-              the method is called, parameters and return value can be validated.
-              The constraints are of course defined as Bean Validation constraint
-              annotations.</p>
-              
-              <p>I am working on the chapter describing how interceptor technologies like
-              CDI, EJB, Spring, Guice, AspectJ should integrate it.</p>
-              
-              <p>We have decided to convert most of the
-              recommendations into mandatory rules. In particular, methods annotated
-              with constraints should be validated by the integration technology
-              by default.</p>
-              
-              <p>Early in the design we have introduced an annotation <code>@MethodValidated</code>
-              that lets you control a few things:</p>
-              
-              <ul>
-              <li>which group should be used for validation (defaulting to <code>Default</code>)</li>
-              <li>what part should be validated: parameters, return value, both or none</li>
-              </ul>
-              
-              
-              <p>This annotation made sense when validation was not on by default but I am
-              now questioning its usefulness.</p>
-              
-              <p><strong>I have a bunch of questions for you</strong>. I tried to keep them short and to
-              the point so feel free to answer them one by one. They also go from easy
-              to more convoluted. Are you up for the challenge?</p>
-              
-              <p>Note that I have added a bonus question in the end.</p>
-              
-              <h2>What's your use case for disabling method validation?</h2>
-              
-              <p>Why would you want to disable method validation on a given method or a
-              given class?</p>
-              
-              <pre><code>public class UserService {&#x000A;    @MethodValidated(validationMode=NONE)&#x000A;    public void createUser(&#x000A;        @NotEmpty @Email String email,&#x000A;        @Valid Address address ) {&#x000A;        ...&#x000A;    }&#x000A;}&#x000A;</code></pre>
-              
-              <p>If you have a use case, would it be fulfilled with the <code>@MethodValidated</code>
-              annotation as described?</p>
-              
-              <h2>What's your use case for changing the default group?</h2>
-              
-              <p><code>@MethodValidated(groups=Heavy.class)</code> let's you change validation from
-              the <code>Default</code> group to the group of your choice - in this case <code>Heavy</code>.</p>
-              
-              <p>Provided that we will offer support for group translation when cascading
-              <a href="http://beanvalidation.org/proposals/BVAL-208/">http://beanvalidation.org/proposals/BVAL-208/</a></p>
-              
-              <pre><code>public class UserService {&#x000A;    public void createUser(&#x000A;        @NotEmpty @Email String email,&#x000A;        @Valid @ConvertGroup(from=Default.class, to=BasicPostal.class)&#x000A;        Address address ) {&#x000A;        ...&#x000A;    }&#x000A;}&#x000A;</code></pre>
-              
-              <p>do we really need the ability do decide which group to use to validate a
-              given method? What would be the use case?</p>
-              
-              <p>To me it seems that it could makes sense to validate one group over
-              another based on:</p>
-              
-              <ul>
-              <li>some environmental consideration
-              say a newbie user has more constraints on how it enters data
-              than an advanced user hence different groups</li>
-              <li>the caller
-              say a branch of the code wants to apply different rules than
-              an other</li>
-              </ul>
-              
-              
-              <p>In both case, it does not make sense to define the group via an
-              annotation on the method to be validated.
-              This would need to be a rather container specific behavior to let people
-              inject the right group for the right context.</p>
-              
-              <h2>When would you want to only validate parameters or return values?</h2>
-              
-              <p><code>@MethodValidated.validationMode</code> let's you validate both method
-              parameters as well as return value, or either one of them or none at all.</p>
-              
-              <pre><code>@MethodValidated(validationMode=PARAMETERS)&#x000A;public class UserService {&#x000A;    @Valid&#x000A;    public User createUser(&#x000A;        @NotEmpty @Email String email,&#x000A;        @Valid Address address ) {&#x000A;        ...&#x000A;    }&#x000A;}&#x000A;</code></pre>
-              
-              <p>Do you have a use case in mind for such need?</p>
-              
-              <h2>What inheritance rules make sense for <code>@MethodValidated</code>?</h2>
-              
-              <p>Assuming we have <code>@MethodValidated</code>, we need to define the overriding
-              rules.</p>
-              
-              <p>We could decide that <code>@MethodValided</code> must be placed on the method to be
-              validated (no overriding rule), or we could try and add some or all of
-              the following rules:</p>
-              
-              <ol>
-              <li><code>@MethodValidated</code> definitions on a method overrides the ones on a class</li>
-              <li><code>@MethodValidated</code> definition on a subclass overrides the ones on superclasses</li>
-              </ol>
-              
-              
-              <p>Here is an example</p>
-              
-              <pre><code>//example of rule 1&#x000A;@MethodValidated(validationMode=PARAMETERS)&#x000A;public class UserService {&#x000A;    @MethodValidated(validationMode=BOTH)&#x000A;    @Valid&#x000A;    public User createUser(&#x000A;        @NotEmpty @Email String email,&#x000A;        @Valid Address address ) {&#x000A;        ...&#x000A;    }&#x000A;}&#x000A;</code></pre>
-              
-              <p>Interfaces make things harder as there would be no magic rule to decide
-              which definition has precedence over another in case of conflict.</p>
-              
-              <p>We could consider that methods of a class implementing an interface
-              inherit the interface hosted <code>@MethodValidated</code> definition (unless overridden).
-              And in case two interfaces define the same method, overriding the
-              <code>@MethodValidated</code> definition would be mandatory.</p>
-              
-              <p>I can live with rule 1, I can support rule 2. but I feel that the rules
-              related to interfaces make things quite complex and not especially
-              readable. Plus I don't see why you would want to add <code>@MethodValidated</code>
-              on an interface. Not surprising as I don't see why one would do it on a
-              class method anyways ;)</p>
-              
-              <p>What do you make of that?</p>
-              
-              <h2>You are a convinced @MethodValidated fan? What about the name?</h2>
-              
-              <p>We have never found a good name for this annotation anyways. If you
-              like and want this annotation, how should it be named?</p>
-              
-              <p>Yep that's the bonus question, sorry.</p>
-              
-              <h2>Conclusion</h2>
-              
-              <p>I realize that it must look like I am having a <code>@MethodValidated</code>
-              mid-life crisis but better now than later :D</p>
-               <a href="http://beanvalidation.org/news/2012/09/12/fine-control-over-method-validation/#disqus_thread">Comments</a>
-            </div>
-          </article>
           <div class="pagination-links"><a href="/news/page/4/" class="previous-link">Previous</a> <a href="/news/" class="page-link">1</a> <a href="/news/page/2/" class="page-link">2</a> <span class="skip">...</span><a href="/news/page/4/" class="page-link">4</a> <span class="current-page">5</span> <a href="/news/page/6/" class="page-link">6</a> <a href="/news/page/7/" class="page-link">7</a> <a href="/news/page/8/" class="page-link">8</a> <a href="/news/page/6/" class="next-link">Next</a> </div>
         </div>
         <div class="sidebar sidebar-right col-sm-3 col-md-3 col-lg-3" id="sidebar" role="complementary">
@@ -521,6 +398,7 @@
               Stay up to date, subscribe to the&nbsp;<a href="/news/news.atom">news feed</a>.
             </div>
           </div>
+          <a class="news-link" href="/news/2017/05/12/feedback-on-positive-and-negative-constraints/">Survey - Behavior of @Positive and @Negative constraints</a>
           <a class="news-link" href="/news/2017/04/26/bean-validation-2-0-up-for-public-review/">Bean Validation 2.0 is up for Public Review</a>
           <a class="news-link" href="/news/2017/03/31/bean-validation-2-0-alpha2-is-out/">Bean Validation 2.0 Alpha2 is out</a>
           <a class="news-link" href="/news/2017/02/16/first-alpha-of-bean-validation-2-0-reference-implementation/">First Alpha of Bean Validation 2.0 Reference Implementation Available</a>

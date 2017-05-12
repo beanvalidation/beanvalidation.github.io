@@ -63,6 +63,38 @@
           <article class="post">
             <header>
               <h1 class="title">
+                <a href="/news/2011/09/16/method-level-validation/">Work on method level validation</a>
+              </h1>
+              <span class="author">
+                by
+                <b>Emmanuel Bernard</b>
+              </span>
+              <span class="date">
+                on 16 Sep 2011
+              </span>
+              <span class="tags">
+                <a class="label label-info" href="/news/tags/proposal/">proposal</a>
+              </span>
+            </header>
+            <div class="body">
+              <p>The expert groups has begun its work on method-level validation. A feature that was drafted in the
+              latest spec (appendix) but that we could nto finish in time.</p>
+              
+              <p>You will be able to define constraints on parameters and your favorite interception technology
+              (CDI, @Inject, AspectJ, Spring etc) will call Bean Validation.</p>
+              
+              <p>The final approach is not fixed yet but it will look like this.</p>
+              
+              <pre>public class BidManager {&#x000A;    public void placeBid(&#64;Min(0) BigDecimal upTo) { ... }&#x000A;}</pre>
+              
+              
+              <p>Want to know more? Join the expert group mailing list. <a href="/contribute">Learn how</a>.</p>
+               <a href="http://beanvalidation.org/news/2011/09/16/method-level-validation/#disqus_thread">Comments</a>
+            </div>
+          </article>
+          <article class="post">
+            <header>
+              <h1 class="title">
                 <a href="/news/2011/09/01/spec-repository-out/">The specification repository is released</a>
               </h1>
               <span class="author">
@@ -174,6 +206,7 @@
               Stay up to date, subscribe to the&nbsp;<a href="/news/news.atom">news feed</a>.
             </div>
           </div>
+          <a class="news-link" href="/news/2017/05/12/feedback-on-positive-and-negative-constraints/">Survey - Behavior of @Positive and @Negative constraints</a>
           <a class="news-link" href="/news/2017/04/26/bean-validation-2-0-up-for-public-review/">Bean Validation 2.0 is up for Public Review</a>
           <a class="news-link" href="/news/2017/03/31/bean-validation-2-0-alpha2-is-out/">Bean Validation 2.0 Alpha2 is out</a>
           <a class="news-link" href="/news/2017/02/16/first-alpha-of-bean-validation-2-0-reference-implementation/">First Alpha of Bean Validation 2.0 Reference Implementation Available</a>
