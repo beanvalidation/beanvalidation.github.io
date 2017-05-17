@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 1.5.3">
+<meta name="generator" content="Asciidoctor 1.5.4">
 <meta name="author" content="Gunnar Morling">
 <title>Bean Validation specification</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
@@ -515,7 +515,7 @@ table.CodeRay td.code>pre{padding:0}
 <div class="details">
 <span id="author" class="author">Gunnar Morling</span><br>
 <span id="revnumber">version 2.0.0-SNAPSHOT,</span>
-<span id="revdate">2017-04-24</span>
+<span id="revdate">2017-05-17</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -710,7 +710,7 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#integration-cdi">11.3. Context and Dependency Injection (CDI) integration</a>
 <ul class="sectlevel3">
 <li><a href="#integration-cdi-validatorfactory">11.3.1. <code class="classname">ValidatorFactory</code> and <code class="classname">Validator</code></a></li>
-<li><a href="#integration-cdi-customconfiguration">11.3.2. <code class="classname">ConstraintValidatorFactory</code>, <code class="classname">MessageInterpolator</code>, <code class="classname">ParameterNameProvider</code>, <code class="classname">ClockProvider</code> and <code class="classname">TraversableResolver</code></a></li>
+<li><a href="#integration-cdi-customconfiguration">11.3.2. <code class="classname">ConstraintValidatorFactory</code>, <code class="classname">MessageInterpolator</code>, <code class="classname">ParameterNameProvider</code>, <code class="classname">ClockProvider</code>, <code class="classname">TraversableResolver</code> and <code>ValueExtractor</code></a></li>
 <li><a href="#integration-cdi-methodconstructorvalidation">11.3.3. Method and constructor validation</a></li>
 </ul>
 </li>
@@ -722,7 +722,8 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#terminology">Appendix A: Terminology</a></li>
 <li><a href="#standard-resolver-messages">Appendix B: Standard ResourceBundle messages</a></li>
 <li><a href="#appendix-jpa">Appendix C: Java Persistence 2.0 and schema generation</a></li>
-<li><a href="#changelog">Appendix D: Changelog</a></li>
+<li><a href="#appendix-module-name">Appendix D: Module name</a></li>
+<li><a href="#changelog">Appendix E: Changelog</a></li>
 </ul>
 </div>
 </div>
@@ -1209,7 +1210,7 @@ fine-grained control over the current time and time zone used for validation (se
 <div class="sect3">
 <h4 id="whatsnew-11-groupconversion"><a class="anchor" href="#whatsnew-11-groupconversion"></a>2.2.5. Group conversion</h4>
 <div class="paragraph">
-<p>The specification offers a way to alter the targeted group when validation cascading in happening. This feature is particularly useful to reuse a given object (graph) and to avoid leaking groups between various object subgraphs. It also makes for more readable constraints.</p>
+<p>The specification offers a way to alter the targeted group when validation cascading is happening. This feature is particularly useful to reuse a given object (graph) and to avoid leaking groups between various object subgraphs. It also makes for more readable constraints.</p>
 </div>
 </div>
 <div class="sect3">
@@ -1323,8 +1324,9 @@ fine-grained control over the current time and time zone used for validation (se
 <div class="paragraph">
 <p>A constraint is said to be generic if it has at least one constraint validator targeting the element annotated i.e. targeting the (returned) element annotated by the constraint (a bean, a field, a getter, a method/constructor return value or a method/constructor parameter). A constraint is said to be cross-parameter if it has one constraint validator targeting the array of parameters of a method or constructor (to validate the consistency of several method/constructor parameters). A Bean Validation constraint is most of the time either a generic constraint or a cross-parameter constraint. In rare situations, a constraint can be both.</p>
 </div>
-<div class="paragraph tck-not-testable">
-<p><div class="paragraph">
+<div class="openblock tck-not-testable">
+<div class="content">
+<div class="paragraph">
 <p>Generic constraint annotations can target any of the following <code class="classname">ElementType</code>s:</p>
 </div>
 <div class="ulist">
@@ -1351,10 +1353,12 @@ fine-grained control over the current time and time zone used for validation (se
 <p><code>TYPE_USE</code> for container element constraints</p>
 </li>
 </ul>
-</div></p>
 </div>
-<div class="paragraph tck-not-testable">
-<p><div class="paragraph">
+</div>
+</div>
+<div class="openblock tck-not-testable">
+<div class="content">
+<div class="paragraph">
 <p>Cross-parameter constraint annotations can target any of the following <code class="classname">ElementType</code>s:</p>
 </div>
 <div class="ulist">
@@ -1369,7 +1373,8 @@ fine-grained control over the current time and time zone used for validation (se
 <p><code>ANNOTATION_TYPE</code> for cross-parameter constraints composing other cross-parameter constraints</p>
 </li>
 </ul>
-</div></p>
+</div>
+</div>
 </div>
 <div class="paragraph">
 <p><span class="tck-not-testable">A constraint annotation that is both can target the union of the generic and cross-parameter constraint annotations targets.</span></p>
@@ -1488,7 +1493,7 @@ fine-grained control over the current time and time zone used for validation (se
 <p>One use case for payload shown in <a href="#example-payload">Use of payload to associate severity to a constraint</a> is to associate a severity to a constraint. This severity can be exploited by a presentation framework to adjust how a constraint failure is displayed.</p>
 </div>
 <div id="example-payload" class="exampleblock">
-<div class="title">Example 1. Use of payload to associate severity to a constraint</div>
+<div class="title">Example 3.1: Use of payload to associate severity to a constraint</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -1526,7 +1531,7 @@ fine-grained control over the current time and time zone used for validation (se
 <p><span class="tck-testable">The type of the <code>validationAppliesTo</code> parameter is <code class="classname">ConstraintTarget</code>. The default value must be <code class="classname">ConstraintTarget.IMPLICIT</code>.</span></p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 2. validationAppliesTo and ConstraintTarget</div>
+<div class="title">Example 3.2: validationAppliesTo and ConstraintTarget</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -1606,7 +1611,7 @@ fine-grained control over the current time and time zone used for validation (se
 <div class="sect3">
 <h4 id="constraintsdefinitionimplementation-constraintdefinition-examples"><a class="anchor" href="#constraintsdefinitionimplementation-constraintdefinition-examples"></a>3.1.2. Examples</h4>
 <div id="example-definition-notnull" class="exampleblock">
-<div class="title">Example 3. Simple constraint definition</div>
+<div class="title">Example 3.3: Simple constraint definition</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -1637,7 +1642,7 @@ fine-grained control over the current time and time zone used for validation (se
 <p><a href="#example-definition-notnull">Simple constraint definition</a> marks a <code class="classname">String</code> as a well-formed order number. The constraint validator is implemented by <code class="classname">OrderNumberValidator</code>.</p>
 </div>
 <div id="example-definition-crossparameter" class="exampleblock">
-<div class="title">Example 4. Simple cross-parameter constraint definition</div>
+<div class="title">Example 3.4: Simple cross-parameter constraint definition</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -1669,7 +1674,7 @@ fine-grained control over the current time and time zone used for validation (se
 <p><a href="#example-definition-crossparameter">Simple cross-parameter constraint definition</a> shows a cross-parameter constraint which ensures that two date parameters of a method are in the correct order. The constraint validator is implemented by <code class="classname">DateParametersConsistentValidator</code>.</p>
 </div>
 <div id="example-definition-genericandcrossparameter" class="exampleblock">
-<div class="title">Example 5. Constraint that is both generic and cross parameter</div>
+<div class="title">Example 3.5: Constraint that is both generic and cross parameter</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -1688,7 +1693,7 @@ fine-grained control over the current time and time zone used for validation (se
 <span class="annotation">@Retention</span>(RUNTIME)
 <span class="directive">public</span> <span class="annotation">@interface</span> ELAssert {
 
-    <span class="predefined-type">String</span> message() <span class="keyword">default</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">{com.acme.constraint.DateParametersConsistent.message}</span><span class="delimiter">&quot;</span></span>;
+    <span class="predefined-type">String</span> message() <span class="keyword">default</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">{com.acme.constraint.ELAssert.message}</span><span class="delimiter">&quot;</span></span>;
 
     <span class="predefined-type">Class</span>&lt;?&gt;<span class="type">[]</span> groups() <span class="keyword">default</span> {};
 
@@ -1716,7 +1721,7 @@ fine-grained control over the current time and time zone used for validation (se
 <p><a href="#example-definition-genericandcrossparameter">Constraint that is both generic and cross parameter</a> shows a constraint that can be applied both on the annotated element and across parameters of a method or a constructor. Note in this case the presence of <code class="methodname">validationAppliesTo</code>.</p>
 </div>
 <div id="example-definition-length" class="exampleblock">
-<div class="title">Example 6. Constraint definition with default parameter</div>
+<div class="title">Example 3.6: Constraint definition with default parameter</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -1753,7 +1758,7 @@ fine-grained control over the current time and time zone used for validation (se
 <p><a href="#example-definition-length">Constraint definition with default parameter</a> ensures that a given frequency is within the scope of human ears. The constraint definition includes an optional parameter that may be specified when the constraint is applied.</p>
 </div>
 <div id="example-definition-mandatory" class="exampleblock">
-<div class="title">Example 7. Constraint definition with mandatory parameter</div>
+<div class="title">Example 3.7: Constraint definition with mandatory parameter</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -1800,7 +1805,7 @@ This marks the constraint annotation type as repeatable and lets users specify t
 All built-in annotations follow this pattern.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 8. Multi-valued constraint definition</div>
+<div class="title">Example 3.8: Multi-valued constraint definition</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -1839,7 +1844,7 @@ All built-in annotations follow this pattern.</p>
 </div>
 </div>
 <div class="exampleblock">
-<div class="title">Example 9. Multi-valued constraint declaration</div>
+<div class="title">Example 3.9: Multi-valued constraint declaration</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -1861,7 +1866,7 @@ All built-in annotations follow this pattern.</p>
 It is also possible to specify a constraint several times by explicitly using the <code class="classname">@List</code> annotation (though simply repeating the annotation is the preferred idiom as of Bean Validation 2.0 and Java 8):</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 10. Multi-valued constraint declaration using explicit <code class="classname">@List</code> annotation</div>
+<div class="title">Example 3.10: Multi-valued constraint declaration using explicit <code class="classname">@List</code> annotation</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -1904,7 +1909,7 @@ It is also possible to specify a constraint several times by explicitly using th
 <p>Composition is done by annotating a constraint annotation with the composing constraint annotations.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 11. Composition is done by annotating the composed constraint</div>
+<div class="title">Example 3.11: Composition is done by annotating the composed constraint</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -1946,7 +1951,7 @@ It is also possible to specify a constraint several times by explicitly using th
 <p>It is possible to ensure that composing annotations do not raise individual error reports. In this scenario, if one or more composing annotations are invalid, the main constraint is automatically considered invalid and the corresponding error report is generated. To mark a constraint as raising a single constraint error report if either the composed or one of the composing constraints fail, use the <code class="classname">@ReportAsSingleViolation</code> annotation.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 12. If any of the composing constraints fail, the error report corresponding to <code class="classname">@FrenchZipCode</code> is raised and none other.</div>
+<div class="title">Example 3.12: If any of the composing constraints fail, the error report corresponding to <code class="classname">@FrenchZipCode</code> is raised and none other.</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -2006,7 +2011,7 @@ It is also possible to specify a constraint several times by explicitly using th
 <p><span class="tck-testable">Composing annotations can define the value of <code>message</code> and custom attributes (excluding <code class="methodname">groups</code>, <code class="methodname">payload</code> and <code class="methodname">validationAppliesTo</code>) but these are fixed in the composed constraint definition.</span></p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 13. Composing annotations can use attributes. They are fixed for a given main annotation. All <code class="classname">@FrenchZipCode</code> constraints have a <code class="classname">@Size</code> restricted to 5.</div>
+<div class="title">Example 3.13: Composing annotations can use attributes. They are fixed for a given main annotation. All <code class="classname">@FrenchZipCode</code> constraints have a <code class="classname">@Size</code> restricted to 5.</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -2035,15 +2040,17 @@ It is also possible to specify a constraint several times by explicitly using th
 </div>
 </div>
 </div>
-<div class="paragraph tck-testable">
-<p><div class="paragraph">
+<div class="openblock tck-testable">
+<div class="content">
+<div class="paragraph">
 <p>It is possible to override attributes and messages defined on a composing annotation.
 An attribute from the main annotation is used to override one or more attributes of the composing annotations.
 Such an attribute is annotated with one or more <code>@OverridesAttribute</code> annotations.</p>
-</div></p>
+</div>
+</div>
 </div>
 <div id="example-composing-overridden" class="exampleblock">
-<div class="title">Example 14. Attributes from composing annotations can be overridden by attributes from the composed annotation</div>
+<div class="title">Example 3.14: Attributes from composing annotations can be overridden by attributes from the composed annotation</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -2159,17 +2166,19 @@ Such an attribute is annotated with one or more <code>@OverridesAttribute</code>
 <span class="tck-testable">If the composing constraints are directly given on the composed constraint, <code>constraintIndex</code> refers to the left-to-right order of the constraints of this type in which they are given on the composed constraint.</span>
 <span class="tck-testable">If the composing constraints are specified using their corresponding <code>List</code> annotation, <code>constraintIndex</code> refers to the index within the <code>value</code> array.</span></p>
 </div>
-<div class="paragraph tck-testable">
-<p><div class="paragraph">
+<div class="openblock tck-testable">
+<div class="content">
+<div class="paragraph">
 <p>A composing constraint must not be given directly on the composed constraint and using the corresponding <code>List</code> annotation at the same time.
 A <code>ConstraintDeclarationException</code> will be raised in this case.</p>
-</div></p>
+</div>
+</div>
 </div>
 <div class="paragraph">
 <p><span class="tck-testable">If <code>index</code> is undefined, the single constraint declaration is targeted.</span></p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 15. Use of constraintIndex in @OverridesAttribute</div>
+<div class="title">Example 3.15: Use of constraintIndex in @OverridesAttribute</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -2280,8 +2289,9 @@ A <code>ConstraintDeclarationException</code> will be raised in this case.</p>
 </li>
 </ul>
 </div>
-<div class="paragraph tck-testable">
-<p><div class="paragraph">
+<div class="openblock tck-testable">
+<div class="content">
+<div class="paragraph">
 <p>If the composition is invalid, e.g.</p>
 </div>
 <div class="ulist">
@@ -2305,7 +2315,8 @@ A <code>ConstraintDeclarationException</code> will be raised in this case.</p>
 </div>
 <div class="paragraph">
 <p>a <code class="classname">ConstraintDefinitionException</code> is raised either at validation time or when the metadata is requested.</p>
-</div></p>
+</div>
+</div>
 </div>
 <div class="paragraph">
 <p>Constraint designers are encouraged to make use of composition (recursively or not) based on the built-in constraints defined by the specification. The composing constraints are exposed through the Bean Validation metadata API (<a href="#constraintmetadata-constraintdescriptor">ConstraintDescriptor</a>). This metadata is particularly useful for third-party metadata consumers like persistence frameworks generating database schemas (such as Java Persistence) or presentation frameworks.</p>
@@ -2371,8 +2382,9 @@ A <code>ConstraintDeclarationException</code> will be raised in this case.</p>
 }</code></pre>
 </div>
 </div>
-<div class="paragraph tck-not-testable">
-<p><div class="paragraph">
+<div class="openblock tck-not-testable">
+<div class="content">
+<div class="paragraph">
 <p>Some restrictions apply on the generic type <code class="classname">T</code> (used in the <code class="methodname">isValid()</code> method). <code class="classname">T</code> must</p>
 </div>
 <div class="ulist">
@@ -2384,7 +2396,8 @@ A <code>ConstraintDeclarationException</code> will be raised in this case.</p>
 <p>or generic parameters of <code class="classname">T</code> must be unbounded wildcard types (i.e. <code>&lt;?&gt;</code>).</p>
 </li>
 </ul>
-</div></p>
+</div>
+</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2404,7 +2417,7 @@ A <code>ConstraintDeclarationException</code> will be raised in this case.</p>
 <p><span class="tck-testable">By default, a <code class="classname">ConstraintValidator</code> targets the (returned) element annotated by the constraint. You can make a <code class="classname">ConstraintValidator</code> target the array of parameters of a method or constructor (aka cross-parameter) by annotating the validator implementation with <code class="classname">@SupportedValidationTarget</code>.</span></p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 16. @SupportedValidationTarget annotation and ValidationTarget enum</div>
+<div class="title">Example 3.16: @SupportedValidationTarget annotation and ValidationTarget enum</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -2469,7 +2482,7 @@ A <code>ConstraintDeclarationException</code> will be raised in this case.</p>
 <p><span class="tck-testable">If a <code class="classname">ConstraintValidator</code> targets array of parameters (cross-parameter), <code class="classname">T</code> must resolve to <code class="classname">Object[]</code> (or <code class="classname">Object</code>) in order to have the array of parameter values passed to the <code class="methodname">isValid()</code> method. A <code class="classname">ConstraintDefinitionException</code> is raised otherwise.</span></p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 17. Example of cross parameter ConstraintValidator</div>
+<div class="title">Example 3.17: Example of cross parameter ConstraintValidator</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -2493,7 +2506,7 @@ A <code>ConstraintDeclarationException</code> will be raised in this case.</p>
 <p><a href="#example-constraintsdefinitionimplementation-validationimplementation-validdef">Valid ConstraintValidator definitions</a> shows some examples of valid definitions.</p>
 </div>
 <div id="example-constraintsdefinitionimplementation-validationimplementation-validdef" class="exampleblock">
-<div class="title">Example 18. Valid ConstraintValidator definitions</div>
+<div class="title">Example 3.18: Valid ConstraintValidator definitions</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -2532,17 +2545,17 @@ A <code>ConstraintDeclarationException</code> will be raised in this case.</p>
 <p>And some invalid definitions in <a href="#example-constraintsdefinitionimplementation-validationimplementation-invaliddef">Invalid ConstraintValidator definitions</a>.</p>
 </div>
 <div id="example-constraintsdefinitionimplementation-validationimplementation-invaliddef" class="exampleblock">
-<div class="title">Example 19. Invalid ConstraintValidator definitions</div>
+<div class="title">Example 3.19: Invalid ConstraintValidator definitions</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="JAVA"><span class="comment">//parameterized type</span>
-<span class="directive">public</span> <span class="type">class</span> <span class="class">SizeValidatorForString</span> <span class="directive">implements</span>&lt;Size, <span class="predefined-type">Collection</span>&lt;<span class="predefined-type">String</span>&gt;&gt; {
+<span class="directive">public</span> <span class="type">class</span> <span class="class">SizeValidatorForString</span> <span class="directive">implements</span> ConstraintValidator&lt;Size, <span class="predefined-type">Collection</span>&lt;<span class="predefined-type">String</span>&gt;&gt; {
     [...]
 }
 
 <span class="comment">//parameterized type using bounded wildcard</span>
-<span class="directive">public</span> <span class="type">class</span> <span class="class">SizeValidatorForCollection</span> <span class="directive">implements</span>&lt;Size, <span class="predefined-type">Collection</span>&lt;? <span class="directive">extends</span> Address&gt;&gt; {
+<span class="directive">public</span> <span class="type">class</span> <span class="class">SizeValidatorForCollection</span> <span class="directive">implements</span> ConstraintValidator&lt;Size, <span class="predefined-type">Collection</span>&lt;? <span class="directive">extends</span> Address&gt;&gt; {
     [...]
 }
 
@@ -3165,7 +3178,7 @@ This object is built from the default constraint message template as defined by 
 <p><a href="#example-constraintsdefinitionimplementation-validationimplementation-errorbuilder">Using the fluent API to build custom constraint violations</a> shows a few examples.</p>
 </div>
 <div id="example-constraintsdefinitionimplementation-validationimplementation-errorbuilder" class="exampleblock">
-<div class="title">Example 20. Using the fluent API to build custom constraint violations</div>
+<div class="title">Example 3.20: Using the fluent API to build custom constraint violations</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -3200,6 +3213,7 @@ context.buildConstraintViolationWithTemplate( <span class="string"><span class="
 <span class="comment">//under the &quot;home&quot; key in the map</span>
 context.buildConstraintViolationWithTemplate( <span class="string"><span class="delimiter">&quot;</span><span class="content">Incorrect home address</span><span class="delimiter">&quot;</span></span> )
             .addBeanNode()
+                .inContainer( <span class="predefined-type">Map</span>.class, <span class="integer">0</span> )
                 .inIterable().atKey( <span class="string"><span class="delimiter">&quot;</span><span class="content">home</span><span class="delimiter">&quot;</span></span> )
             .addConstraintViolation();
 
@@ -3209,6 +3223,7 @@ context.buildConstraintViolationWithTemplate( <span class="string"><span class="
 context.buildConstraintViolationWithTemplate( <span class="string"><span class="delimiter">&quot;</span><span class="content">this detail is wrong</span><span class="delimiter">&quot;</span></span> )
             .addPropertyNode( <span class="string"><span class="delimiter">&quot;</span><span class="content">addresses</span><span class="delimiter">&quot;</span></span> )
             .addPropertyNode( <span class="string"><span class="delimiter">&quot;</span><span class="content">country</span><span class="delimiter">&quot;</span></span> )
+                .inContainer( <span class="predefined-type">Map</span>.class, <span class="integer">0</span> )
                 .inIterable().atKey( <span class="string"><span class="delimiter">&quot;</span><span class="content">home</span><span class="delimiter">&quot;</span></span> )
             .addPropertyNode( <span class="string"><span class="delimiter">&quot;</span><span class="content">name</span><span class="delimiter">&quot;</span></span> )
             .addConstraintViolation();
@@ -3229,6 +3244,7 @@ context.buildConstraintViolationWithTemplate(
         <span class="string"><span class="delimiter">&quot;</span><span class="content">Map entry home present in both and does not match</span><span class="delimiter">&quot;</span></span> )
             .addParameterNode( <span class="integer">1</span> )
             .addBeanNode()
+                .inContainer( <span class="predefined-type">Map</span>.class, <span class="integer">0</span> )
                 .inIterable().atKey( <span class="string"><span class="delimiter">&quot;</span><span class="content">home</span><span class="delimiter">&quot;</span></span> )
             .addConstraintViolation();
 
@@ -3241,6 +3257,7 @@ context.buildConstraintViolationWithTemplate(
         <span class="string"><span class="delimiter">&quot;</span><span class="content">Map entry home present in both but city does not match</span><span class="delimiter">&quot;</span></span> )
             .addParameterNode( <span class="integer">1</span> )
             .addPropertyNode( <span class="string"><span class="delimiter">&quot;</span><span class="content">city</span><span class="delimiter">&quot;</span></span> )
+                .inContainer( <span class="predefined-type">Map</span>.class, <span class="integer">0</span> )
                 .inIterable().atKey( <span class="string"><span class="delimiter">&quot;</span><span class="content">home</span><span class="delimiter">&quot;</span></span> )
             .addConstraintViolation();</code></pre>
 </div>
@@ -3295,37 +3312,48 @@ This can be useful for testing, for applying the time zone of the currently logg
 <div class="sect3">
 <h4 id="constraintsdefinitionimplementation-validationimplementation-example"><a class="anchor" href="#constraintsdefinitionimplementation-validationimplementation-example"></a>3.4.2. Examples</h4>
 <div class="exampleblock">
-<div class="title">Example 21. ConstraintValidator implementation</div>
+<div class="title">Example 3.21: ConstraintValidator implementation</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="JAVA"><span class="comment">/**
- * Check that a text is within the authorized syntax
+ * Check that a text is within the authorized syntax.
  */</span>
 <span class="directive">public</span> <span class="type">class</span> <span class="class">SyntaxValidator</span> <span class="directive">implements</span> ConstraintValidator&lt;Syntax, <span class="predefined-type">String</span>&gt; {
+
     <span class="directive">private</span> <span class="predefined-type">Set</span>&lt;<span class="predefined-type">Format</span>&gt; allowedFormats;
 
     <span class="comment">/**
-     * Configure the constraint validator based on the elements
-     * specified at the time it was defined.
+     * Configure the constraint validator based on the elements specified at the time it was defined.
+     *
      * @param constraint the constraint definition
      */</span>
+    <span class="annotation">@Override</span>
     <span class="directive">public</span> <span class="type">void</span> initialize(Syntax constraint) {
-        allowedFormats = <span class="keyword">new</span> <span class="predefined-type">HashSet</span>( <span class="predefined-type">Arrays</span>.asList( constraint.value() ) );
+        allowedFormats = convertToFormatSet( constraint.value() );
     }
 
     <span class="comment">/**
-     * Validate a specified value.
-     * returns false if the specified value does not conform to the definition
+     * Validate a specified value. returns false if the specified value does not conform to the definition
      */</span>
+    <span class="annotation">@Override</span>
     <span class="directive">public</span> <span class="type">boolean</span> isValid(<span class="predefined-type">String</span> value, ConstraintValidatorContext context) {
-        <span class="keyword">if</span> ( value == <span class="predefined-constant">null</span> ) <span class="keyword">return</span> <span class="predefined-constant">true</span>;
+        <span class="keyword">if</span> ( value == <span class="predefined-constant">null</span> )
+            <span class="keyword">return</span> <span class="predefined-constant">true</span>;
 
         <span class="keyword">return</span> allowedFormats.size() == <span class="integer">0</span>
-            || (! <span class="predefined-type">Collections</span>.disjoint( guessFormat(value), allowedFormats ) );
+                || ( !<span class="predefined-type">Collections</span>.disjoint( guessFormats( value ), allowedFormats ) );
     }
 
-    <span class="predefined-type">Set</span>&lt;<span class="predefined-type">Format</span>&gt; guessFormats(<span class="predefined-type">String</span> text) { [...] }
+    <span class="directive">private</span> <span class="predefined-type">Set</span>&lt;<span class="predefined-type">Format</span>&gt; convertToFormatSet(<span class="predefined-type">String</span><span class="type">[]</span> value) {
+        <span class="comment">// [...]</span>
+        <span class="keyword">return</span> <span class="predefined-constant">null</span>;
+    }
+
+    <span class="directive">private</span> <span class="predefined-type">Set</span>&lt;<span class="predefined-type">Format</span>&gt; guessFormats(<span class="predefined-type">String</span> text) {
+        <span class="comment">// [...]</span>
+        <span class="keyword">return</span> <span class="predefined-constant">null</span>;
+    }
 }</code></pre>
 </div>
 </div>
@@ -3338,35 +3366,29 @@ This can be useful for testing, for applying the time zone of the currently logg
 <p>The following listing shows a validator implementing the validation logic for a cross-parameter constraint.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 22. Cross-parameter validator implementation</div>
+<div class="title">Example 3.22: Cross-parameter validator implementation</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="JAVA"><span class="comment">/**
- * Check that two date parameters of a method are in the expected order. Expects the
- * 2nd and 3rd parameter of the validated method to be of type java.util.Date.
+ * Check that two date parameters of a method are in the expected order. Expects the 2nd and 3rd parameter of the
+ * validated method to be of type java.util.Date.
  */</span>
 <span class="annotation">@SupportedValidationTarget</span>(ValidationTarget.PARAMETERS)
-<span class="directive">public</span> <span class="type">class</span> <span class="class">DateParametersConsistentValidator</span> <span class="directive">implements</span>&lt;DateParametersConsistent, <span class="predefined-type">Object</span><span class="type">[]</span>&gt; {
+<span class="directive">public</span> <span class="type">class</span> <span class="class">DateParametersConsistentValidator</span> <span class="directive">implements</span> ConstraintValidator&lt;DateParametersConsistent, <span class="predefined-type">Object</span><span class="type">[]</span>&gt; {
 
     <span class="comment">/**
-     * Configure the constraint validator based on the elements
-     * specified at the time it was defined.
-     * @param constraint the constraint definition
+     * Validate a specified value. returns false if the specified value does not conform to the definition
      */</span>
-    <span class="directive">public</span> <span class="type">void</span> initialize(DateParametersConsistent constraint) {
-    }
-
-    <span class="comment">/**
-     * Validate a specified value.
-     * returns false if the specified value does not conform to the definition
-     */</span>
+    <span class="annotation">@Override</span>
     <span class="directive">public</span> <span class="type">boolean</span> isValid(<span class="predefined-type">Object</span><span class="type">[]</span> value, ConstraintValidatorContext context) {
         <span class="keyword">if</span> ( value.length != <span class="integer">3</span> ) {
-            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="exception">IllegalStateException</span>( <span class="string"><span class="delimiter">&quot;</span><span class="content">Unexpected method signature</span><span class="delimiter">&quot;</span></span> );
+            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="exception">IllegalArgumentException</span>( <span class="string"><span class="delimiter">&quot;</span><span class="content">Unexpected method signature</span><span class="delimiter">&quot;</span></span> );
         }
         <span class="comment">// one or both limits are unbounded =&gt; always consistent</span>
-        <span class="keyword">if</span> ( value[<span class="integer">1</span>] == <span class="predefined-constant">null</span> || value[<span class="integer">2</span>] == <span class="predefined-constant">null</span> ) <span class="keyword">return</span> <span class="predefined-constant">true</span>;
+        <span class="keyword">if</span> ( value[<span class="integer">1</span>] == <span class="predefined-constant">null</span> || value[<span class="integer">2</span>] == <span class="predefined-constant">null</span> ) {
+            <span class="keyword">return</span> <span class="predefined-constant">true</span>;
+        }
         <span class="keyword">return</span> ( (<span class="predefined-type">Date</span>) value[<span class="integer">1</span>] ).before( (<span class="predefined-type">Date</span>) value[<span class="integer">2</span>] );
     }
 }</code></pre>
@@ -3378,7 +3400,7 @@ This can be useful for testing, for applying the time zone of the currently logg
 <p>The following listing shows a validator implementing the validation logic for a constraint that is both generic and cross-parameter.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 23. Generic and cross-parameter validator implementation</div>
+<div class="title">Example 3.23: Generic and cross-parameter validator implementation</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -3387,7 +3409,7 @@ This can be useful for testing, for applying the time zone of the currently logg
  * provided by the constraint.
  */</span>
 <span class="annotation">@SupportedValidationTarget</span>({ValidationTarget.ANNOTATED_ELEMENT, ValidationTarget.PARAMETERS})
-<span class="directive">public</span> <span class="type">class</span> <span class="class">ELScriptValidator</span> <span class="directive">implements</span>&lt;ELScript, <span class="predefined-type">Object</span>&gt; {
+<span class="directive">public</span> <span class="type">class</span> <span class="class">ELScriptValidator</span> <span class="directive">implements</span> ConstraintValidator&lt;ELScript, <span class="predefined-type">Object</span>&gt; {
 
     <span class="directive">public</span> <span class="type">void</span> initialize(ELScript constraint) {
         [...]
@@ -3405,55 +3427,68 @@ This can be useful for testing, for applying the time zone of the currently logg
 <p>The next example shows how to use <code class="classname">ConstraintValidatorContext</code>.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 24. Use of ConstraintValidatorContext</div>
+<div class="title">Example 3.24: Use of ConstraintValidatorContext</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="JAVA"><span class="comment">/**
- * Check that a text is within the authorized syntax
+ * Check that a text is within the authorized syntax.
+ * &lt;p&gt;
  * Error messages are using either key:
- *  - com.acme.constraint.Syntax.unknown if no particular syntax is detected
- *  - com.acme.constraint.Syntax.unauthorized if the syntax is not allowed
+ * &lt;ul&gt;
+ *   &lt;li&gt;com.acme.constraint.Syntax.unknown if no particular syntax is detected&lt;/li&gt;
+ *   &lt;li&gt;com.acme.constraint.Syntax.unauthorized if the syntax is not allowed&lt;/li&gt;
+ * &lt;/ul&gt;
  */</span>
 <span class="directive">public</span> <span class="type">class</span> <span class="class">FineGrainedSyntaxValidator</span> <span class="directive">implements</span> ConstraintValidator&lt;Syntax, <span class="predefined-type">String</span>&gt; {
+
     <span class="directive">private</span> <span class="predefined-type">Set</span>&lt;<span class="predefined-type">Format</span>&gt; allowedFormats;
 
     <span class="comment">/**
-     * Configure the constraint validator based on the elements
-     * specified at the time it was defined.
+     * Configure the constraint validator based on the elements specified at the time it was defined.
+     *
      * @param constraint the constraint definition
      */</span>
+    <span class="annotation">@Override</span>
     <span class="directive">public</span> <span class="type">void</span> initialize(Syntax constraint) {
-        allowedFormats = <span class="keyword">new</span> <span class="predefined-type">HashSet</span>( <span class="predefined-type">Arrays</span>.asList( constraint.value() ) );
+        allowedFormats = convertToFormatSet( constraint.value() );
     }
 
     <span class="comment">/**
-     * Validate a specified value.
-     * returns false if the specified value does not conform to the definition
+     * Validate a specified value. returns false if the specified value does not conform to the definition
      */</span>
+    <span class="annotation">@Override</span>
     <span class="directive">public</span> <span class="type">boolean</span> isValid(<span class="predefined-type">String</span> value, ConstraintValidatorContext context) {
-        <span class="keyword">if</span> ( value == <span class="predefined-constant">null</span> ) <span class="keyword">return</span> <span class="predefined-constant">true</span>;
-        <span class="predefined-type">Set</span>&lt;<span class="predefined-type">Format</span>&gt; guessedFormats = guessFormats(value);
+        <span class="keyword">if</span> ( value == <span class="predefined-constant">null</span> )
+            <span class="keyword">return</span> <span class="predefined-constant">true</span>;
+        <span class="predefined-type">Set</span>&lt;<span class="predefined-type">Format</span>&gt; guessedFormats = guessFormats( value );
 
         context.disableDefaultConstraintViolation();
         <span class="keyword">if</span> ( guessedFormats.size() == <span class="integer">0</span> ) {
             <span class="predefined-type">String</span> unknown = <span class="string"><span class="delimiter">&quot;</span><span class="content">{com.acme.constraint.Syntax.unknown}</span><span class="delimiter">&quot;</span></span>;
-            context.buildConstraintViolationWithTemplate(unknown)
-                       .addConstraintViolation();
+            context.buildConstraintViolationWithTemplate( unknown )
+                    .addConstraintViolation();
             <span class="keyword">return</span> <span class="predefined-constant">false</span>;
         }
         <span class="keyword">if</span> ( allowedFormats.size() != <span class="integer">0</span>
-            &amp;&amp; <span class="predefined-type">Collections</span>.disjoint( guessedFormats, allowedFormats ) ) {
-
+                &amp;&amp; <span class="predefined-type">Collections</span>.disjoint( guessedFormats, allowedFormats ) ) {
             <span class="predefined-type">String</span> unauthorized = <span class="string"><span class="delimiter">&quot;</span><span class="content">{com.acme.constraint.Syntax.unauthorized}</span><span class="delimiter">&quot;</span></span>;
-            context.buildConstraintViolationWithTemplate(unauthorized)
-                       .addConstraintViolation();
+            context.buildConstraintViolationWithTemplate( unauthorized )
+                    .addConstraintViolation();
             <span class="keyword">return</span> <span class="predefined-constant">false</span>;
         }
         <span class="keyword">return</span> <span class="predefined-constant">true</span>;
     }
 
-    <span class="predefined-type">Set</span>&lt;<span class="predefined-type">Format</span>&gt; guessFormats(<span class="predefined-type">String</span> text) { [...] }
+    <span class="directive">private</span> <span class="predefined-type">Set</span>&lt;<span class="predefined-type">Format</span>&gt; convertToFormatSet(<span class="predefined-type">String</span><span class="type">[]</span> value) {
+        <span class="comment">// [...]</span>
+        <span class="keyword">return</span> <span class="predefined-constant">null</span>;
+    }
+
+    <span class="directive">private</span> <span class="predefined-type">Set</span>&lt;<span class="predefined-type">Format</span>&gt; guessFormats(<span class="predefined-type">String</span> text) {
+        <span class="comment">// [...]</span>
+        <span class="keyword">return</span> <span class="predefined-constant">null</span>;
+    }
 }</code></pre>
 </div>
 </div>
@@ -3466,7 +3501,7 @@ This can be useful for testing, for applying the time zone of the currently logg
 <p>The following example shows how to obtain the current date and time via the <code>ClockProvider</code> when validating a temporal constraint such as <code>@Past</code>:</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 25. Validation of a temporal constraint</div>
+<div class="title">Example 3.25: Validation of a temporal constraint</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -3515,7 +3550,7 @@ This can be useful for testing, for applying the time zone of the currently logg
 </table>
 </div>
 <div class="exampleblock">
-<div class="title">Example 26. ConstraintValidatorFactory interface</div>
+<div class="title">Example 3.26: ConstraintValidatorFactory interface</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -3577,7 +3612,7 @@ The retrieval of values stored in a container is handled via implementations of 
 <pre class="CodeRay highlight"><code data-lang="JAVA"><span class="keyword">package</span> <span class="namespace">javax.validation.valueextraction</span>;
 
 <span class="comment">/**
- * Defines the logic used to extract the values from a container object of type {@code T}.
+ * Defines the logic used to extract the values to validate from an object of type {@code T}.
  * &lt;p&gt;
  * A value extractor is tied to one specific type parameter of {@code T}. The {@link ExtractedValue} annotation
  * is used to mark that type parameter.
@@ -3620,7 +3655,7 @@ The retrieval of values stored in a container is handled via implementations of 
         <span class="comment">/**
          * Receives the value extracted from an object.
          *
-         * @param nodeName the name of the node representing the container element. It will be added to the {@link Path}
+         * @param nodeName the name of the node to be added to the {@link Path}
          * @param object the value to validate
          */</span>
         <span class="type">void</span> value(<span class="predefined-type">String</span> nodeName, <span class="predefined-type">Object</span> object);
@@ -3628,7 +3663,7 @@ The retrieval of values stored in a container is handled via implementations of 
         <span class="comment">/**
          * Receives the value extracted from an {@link Iterable} object that is not indexed (e.g. a {@link Set}).
          *
-         * @param nodeName the name of the node representing the container element. It will be added to the {@link Path}
+         * @param nodeName the name of the node to be added to the {@link Path}
          * @param object the value to validate
          */</span>
         <span class="type">void</span> iterableValue(<span class="predefined-type">String</span> nodeName, <span class="predefined-type">Object</span> object);
@@ -3636,7 +3671,7 @@ The retrieval of values stored in a container is handled via implementations of 
         <span class="comment">/**
          * Receives the value extracted from an indexed object (e.g. a {@link List} or an array).
          *
-         * @param nodeName the name of the node representing the container element. It will be added to the {@link Path}
+         * @param nodeName the name of the node to be added to the {@link Path}
          * @param i the index of the value in the original object
          * @param object the value to validate
          */</span>
@@ -3645,7 +3680,7 @@ The retrieval of values stored in a container is handled via implementations of 
         <span class="comment">/**
          * Receives the value extracted from a keyed object (e.g. a {@link Map}).
          *
-         * @param nodeName the name of the node representing the container element. It will be added to the {@link Path}
+         * @param nodeName the name of the node to be added to the {@link Path}
          * @param key the key of the value in the original object
          * @param object the value to validate
          */</span>
@@ -3680,7 +3715,7 @@ When calling</p>
 a node of kind <code>CONTAINER_ELEMENT</code> will be appended to the property path, with <code>Node#getName()</code> returning the specified name.
 If null is passed as node name, no node will be appended to the property path.
 The resulting property path will then be the same as if the constraint had been given on the container instead of a container element.
-That is desirable for pure wrapper types such as <code>Optional</code>.</p>
+That is desirable for pure wrapper types such as <code>Optional</code>, <code>OptionalInt</code> etc.</p>
 </div>
 <div class="paragraph">
 <p>The container value passed to a value extractor is retrieved from the element that hosts the type argument carrying the constraint or <code>@Valid</code> annotation:</p>
@@ -3708,16 +3743,13 @@ the map as obtained directly from the field will be passed to the map value extr
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="JAVA"><span class="keyword">package</span> <span class="namespace">javax.validation.valueextraction</span>;
 
-<span class="comment">/**
- * Marks the type parameter of a container type to which a {@link ValueExtractor} is tied.
+ * <span class="predefined-type">Annotation</span> used to mark the type parameter to which a {<span class="annotation">@link</span> ValueExtractor} is tied.
  * &lt;p&gt;
- * Must be given exactly once for a value extractor type.
+ * Must be given exactly once <span class="keyword">for</span> a value extractor type.
  *
- * @author Gunnar Morling
- * @author Guillaume Smet
- *
- * @see ValueExtractor
- */</span>
+ * <span class="annotation">@author</span> Gunnar Morling
+ * <span class="annotation">@author</span> Guillaume Smet
+ */
 <span class="annotation">@Retention</span>(<span class="predefined-type">RetentionPolicy</span>.RUNTIME)
 <span class="annotation">@Target</span>(<span class="predefined-type">ElementType</span>.TYPE_USE)
 <span class="annotation">@Documented</span>
@@ -3730,8 +3762,8 @@ the map as obtained directly from the field will be passed to the map value extr
 <p>The <code>@ExtractedValue</code> annotation must be specified exactly once for a value extractor type.</p>
 </div>
 <div class="paragraph">
-<p><code>@ExtractedValue</code> is to be specified on a type argument of the container type as used in the extractor definition.
-Only wildcard type arguments are supported as target for <code>@ExtractedValue</code>.</p>
+<p>For generic container types (e.g. <code>java.util.List</code>), <code>@ExtractedValue</code> is to be specified on a type argument of the container type as used in the extractor definition.
+Only wildcard type arguments are supported as target for <code>@ExtractedValue</code> in this case.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -3749,6 +3781,10 @@ I.e. there can be an extractor for <code>List&lt;?&gt;</code>, but not one for <
 </table>
 </div>
 <div class="paragraph">
+<p>For non-generic container types (e.g. <code>java.util.OptionalInt</code>), <code>@ExtractedValue</code> is to be specified on the container type as used in the extractor definition.
+The type of the wrapped element(s) must be specified using <code>@ExtractedValue#type()</code> in this case.</p>
+</div>
+<div class="paragraph">
 <p>In case an illegal value extractor definition is detected, a <code>ValueExtractorDefinitionException</code> is raised.</p>
 </div>
 </div>
@@ -3759,24 +3795,16 @@ I.e. there can be an extractor for <code>List&lt;?&gt;</code>, but not one for <
 This causes constraints to be automatically applied to the wrapped value if a constraint is found for an element handled by that extractor (see <a href="#constraintdeclarationvalidationprocess-containerelementconstraints-implicitunwrapping">Implicit unwrapping of containers</a>):</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 27. <code>@UnwrapByDefault</code> annotation</div>
+<div class="title">Example 4.1: <code>@UnwrapByDefault</code> annotation</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="JAVA"><span class="keyword">package</span> <span class="namespace">javax.validation.valueextraction</span>;
 
 <span class="comment">/**
- * Marks a {@link ValueExtractor} definition so that it is applied automatically when detecting constraints declared on
- * the container type supported by the extractor, causing the constraints to be applied to the container's elements
- * instead of the container.
+ * Annotation used on a {@link ValueExtractor} to indicate that the value should be unwrapped by default.
  * &lt;p&gt;
- * If needed, this behavior can be changed per constraint using {@link Unwrapping.Skip}, causing the constraints to be
- * applied to the container itself:
- *
- * &lt;pre&gt;
- * &amp;#064;SomeConstraint(payload = Unwrapping.Skip.class)
- * SomeContainerType container;
- * &lt;/pre&gt;
+ * This behavior can be changed per constraint using {@code &amp;#064;Constraint(validateWrappedValue = NO )}.
  *
  * @author Guillaume Smet
  * @since 2.0
@@ -3823,13 +3851,19 @@ This causes constraints to be automatically applied to the wrapped value if a co
 <code>keyedValue()</code> must be invoked by the map value extractor for each contained value, passing the string literal <code>&lt;map value&gt;</code> as node name</p>
 </li>
 <li>
-<p><code>java.util.Optional</code>; <code>value()</code> must be invoked if a value is present, passing <code>null</code> as node name</p>
+<p><code>java.util.Optional</code>; <code>value()</code> must be invoked (passing the contained value or <code>null</code> if none is present), passing <code>null</code> as node name</p>
+</li>
+<li>
+<p><code>java.util.OptionalInt</code>, <code>java.util.OptionalLong</code> and <code>java.util.OptionalDouble</code>; <code>value()</code> must be invoked (passing the contained value or <code>null</code> if none is present), passing <code>null</code> as node name; the extractor must be marked with <code>@UnwrapByDefault</code></p>
 </li>
 <li>
 <p><code>javafx.beans.observable.ObservableValue</code>; <code>value()</code> must be invoked with the observable value, passing <code>null</code> as node name; the extractor must be marked with <code>@UnwrapByDefault</code></p>
 </li>
 <li>
 <p><code>javafx.beans.property.ReadOnlyListProperty</code> and <code>javafx.beans.property.ListProperty</code>; <code>indexedValue()</code> must be invoked for each contained element, passing the string literal <code>&lt;list element&gt;</code> as node name</p>
+</li>
+<li>
+<p><code>javafx.beans.property.ReadOnlySetProperty</code> and <code>javafx.beans.property.SetProperty</code>; <code>iterableValue()</code> must be invoked for each contained element, passing the string literal <code>&lt;iterable element&gt;</code> as node name</p>
 </li>
 <li>
 <p><code>javafx.beans.property.ReadOnlyMapProperty</code> and <code>javafx.beans.property.MapProperty</code>; both map keys and map values are to be supported;
@@ -3869,7 +3903,22 @@ This causes constraints to be automatically applied to the wrapped value if a co
 
     <span class="annotation">@Override</span>
     <span class="directive">public</span> <span class="type">void</span> extractValues(Optional&lt;?&gt; originalValue, ValueExtractor.ValueReceiver receiver) {
-        receiver.value( <span class="predefined-constant">null</span>, originalValue.isPresent() ? originalValue.get() : <span class="predefined-constant">null</span> );
+        receiver.value( <span class="predefined-constant">null</span>, originalValue.orElse( <span class="predefined-constant">null</span> ) );
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A value extractor for <code>java.util.OptionalInt</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@UnwrapByDefault</span>
+<span class="directive">public</span> <span class="type">class</span> <span class="class">OptionalIntValueExtractor</span> <span class="directive">implements</span> ValueExtractor&lt;<span class="annotation">@ExtractedValue</span>(type = <span class="predefined-type">Integer</span>.class) OptionalInt&gt; {
+
+    <span class="annotation">@Override</span>
+    <span class="directive">public</span> <span class="type">void</span> extractValues(OptionalInt originalValue, ValueReceiver receiver) {
+        receiver.value( <span class="predefined-constant">null</span>, originalValue.isPresent() ? originalValue.getAsInt() : <span class="predefined-constant">null</span> );
     }
 }</code></pre>
 </div>
@@ -3883,7 +3932,7 @@ This causes constraints to be automatically applied to the wrapped value if a co
 </div>
 </div>
 <div class="paragraph">
-<p>The following extractor definition is illegal as it specifies <code>@ExtractedValue</code> on a non-wildcard type argument:</p>
+<p>The following extractor definition is unsupported as it specifies <code>@ExtractedValue</code> on a non-wildcard type argument:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -3933,8 +3982,9 @@ Container element constraints are discussed in detail in <a href="#constraintdec
 </td>
 <td class="content">
 <div class="title">What is a getter?</div>
-<div class="paragraph tck-testable">
-<p><div class="paragraph">
+<div class="openblock tck-testable">
+<div class="content">
+<div class="paragraph">
 <p>The JavaBeans specification specifies that a getter is a method whose</p>
 </div>
 <div class="ulist">
@@ -3946,14 +3996,16 @@ Container element constraints are discussed in detail in <a href="#constraintdec
 <p>name starts with <code>is</code>, has no parameter and is returning <code class="classname">boolean</code></p>
 </li>
 </ul>
-</div></p>
+</div>
+</div>
 </div>
 </td>
 </tr>
 </table>
 </div>
-<div class="paragraph tck-testable">
-<p><div class="paragraph">
+<div class="openblock tck-testable">
+<div class="content">
+<div class="paragraph">
 <p>The target of an annotation definition can be a</p>
 </div>
 <div class="ulist">
@@ -3993,7 +4045,8 @@ Container element constraints are discussed in detail in <a href="#constraintdec
 <p>in the case of container element constraints, a corresponding value extractor exists (see <a href="#constraintdeclarationvalidationprocess-validationroutine-valueextractorresolution">ValueExtractor resolution</a> for the details of value extractor resolution)</p>
 </li>
 </ul>
-</div></p>
+</div>
+</div>
 </div>
 <div class="sect3">
 <h4 id="constraintdeclarationvalidationprocess-requirements-objectvalidation"><a class="anchor" href="#constraintdeclarationvalidationprocess-requirements-objectvalidation"></a>5.1.1. Object validation</h4>
@@ -4040,13 +4093,11 @@ Container element constraints are discussed in detail in <a href="#constraintdec
 <p>In addition to supporting instance validation, validation of graphs of objects is also supported. The result of a graph validation is returned as a unified set of constraint violations. <code class="classname">@Valid</code> is used to express validation traversal of an association.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 28. <code class="classname">@Valid</code> annotation</div>
+<div class="title">Example 5.1: <code class="classname">@Valid</code> annotation</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="JAVA"><span class="keyword">package</span> <span class="namespace">javax.validation</span>;
-
-<span class="comment">/**
+<pre class="CodeRay highlight"><code data-lang="JAVA"><span class="comment">/**
  * Marks a property, method parameter or method return type for validation cascading.
  * &lt;p&gt;
  * Constraints defined on the object and its properties are be validated when the
@@ -4105,12 +4156,16 @@ In addition, there is a built-in extractor for the key objects of maps.
 See <a href="#valueextractordefinition-builtinvalueextractors">Built-in value extractors</a> for the complete list of built-in value extractors.</p>
 </div>
 <div class="paragraph">
+<p>For a given container, the <code>@Valid</code> annotation should either be put to the container itself <em>or</em> to the type argument(s) of container,
+but not both (in order to prevent the container elements from being validated twice).</p>
+</div>
+<div class="paragraph">
 <p><span class="tck-testable">The <code class="classname">@Valid</code> annotation is applied recursively.</span> A conforming implementation avoids infinite loops according to the rules described in <a href="#constraintdeclarationvalidationprocess-validationroutine-graphvalidation">Object graph validation</a>.</p>
 </div>
 <div class="sect4">
 <h5 id="constraintdeclarationvalidationprocess-requirements-graphvalidation-examples"><a class="anchor" href="#constraintdeclarationvalidationprocess-requirements-graphvalidation-examples"></a>5.1.3.1. Examples</h5>
 <div class="exampleblock">
-<div class="title">Example 29. Making elements of a list subject to graph validation</div>
+<div class="title">Example 5.2: Making elements of a list subject to graph validation</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -4122,13 +4177,18 @@ See <a href="#valueextractordefinition-builtinvalueextractors">Built-in value ex
     <span class="comment">// traditional style; continues to be supported</span>
     <span class="annotation">@Valid</span>
     <span class="directive">private</span> <span class="predefined-type">List</span>&lt;PhoneNumber&gt; phoneNumbers;
+
+    <span class="comment">// discouraged; either the container or the type argument(s) should be</span>
+    <span class="comment">// annotated with @Valid, but not both</span>
+    <span class="annotation">@Valid</span>
+    <span class="directive">private</span> <span class="predefined-type">List</span>&lt;<span class="annotation">@Valid</span> PhoneNumber&gt; phoneNumbers;
 }</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="exampleblock">
-<div class="title">Example 30. Making values of a map subject to graph validation</div>
+<div class="title">Example 5.3: Making values of a map subject to graph validation</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -4140,13 +4200,18 @@ See <a href="#valueextractordefinition-builtinvalueextractors">Built-in value ex
     <span class="comment">// traditional style; continues to be supported</span>
     <span class="annotation">@Valid</span>
     <span class="directive">private</span> <span class="predefined-type">Map</span>&lt;AddressType, Address&gt; addressesByType;
+
+    <span class="comment">// discouraged; either the map or the map value type argument should be</span>
+    <span class="comment">// annotated with @Valid, but not both</span>
+    <span class="annotation">@Valid</span>
+    <span class="directive">private</span> <span class="predefined-type">Map</span>&lt;AddressType, <span class="annotation">@Valid</span> Address&gt; addressesByType;
 }</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="exampleblock">
-<div class="title">Example 31. Making keys and values of a map subject to graph validation</div>
+<div class="title">Example 5.4: Making keys and values of a map subject to graph validation</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -4159,7 +4224,7 @@ See <a href="#valueextractordefinition-builtinvalueextractors">Built-in value ex
 </div>
 </div>
 <div class="exampleblock">
-<div class="title">Example 32. Making a nested collection subject to graph validation</div>
+<div class="title">Example 5.5: Making a nested collection subject to graph validation</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -4217,7 +4282,7 @@ Two value extractors are invoked for this:</p>
 <p><span class="tck-testable">Groups are represented by interfaces.</span></p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 33. Definition of groups</div>
+<div class="title">Example 5.6: Definition of groups</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -4239,7 +4304,7 @@ Two value extractors are invoked for this:</p>
 <p><span class="tck-testable">A constraint can belong to one or more groups.</span></p>
 </div>
 <div id="example-assigngrouptoconstraints" class="exampleblock">
-<div class="title">Example 34. Assign groups to constraints</div>
+<div class="title">Example 5.7: Assign groups to constraints</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -4292,7 +4357,7 @@ Two value extractors are invoked for this:</p>
 <p>In some situations, a group is a superset of one or more groups. This can be described by Bean Validation. <span class="tck-testable">A group may inherit one or more groups by using interface inheritance.</span></p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 35. Groups can inherit other groups</div>
+<div class="title">Example 5.8: Groups can inherit other groups</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -4311,7 +4376,7 @@ Two value extractors are invoked for this:</p>
 <p>In the following example:</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 36. Use of a inherited group</div>
+<div class="title">Example 5.9: Use of a inherited group</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -4370,8 +4435,9 @@ Two value extractors are invoked for this:</p>
 <div class="paragraph">
 <p>Processing a group is defined in <a href="#constraintdeclarationvalidationprocess-validationroutine">Validation routine</a> ; <span class="tck-testable">if one of the groups processed in the sequence generates one or more constraint violations, the groups following in the sequence must not be processed.</span> This ensures that a set of constraints is evaluated only if another set of constraints is valid.</p>
 </div>
-<div class="paragraph tck-testable">
-<p><div class="paragraph">
+<div class="openblock tck-testable">
+<div class="content">
+<div class="paragraph">
 <p>Groups defining a sequence and groups composing a sequence must not be involved in a cyclic dependency:</p>
 </div>
 <div class="ulist">
@@ -4383,7 +4449,8 @@ Two value extractors are invoked for this:</p>
 <p>either through cascaded sequence definitions or group inheritance</p>
 </li>
 </ul>
-</div></p>
+</div>
+</div>
 </div>
 <div class="paragraph">
 <p><span class="tck-testable">If a group containing such a circularity is evaluated, a <code class="classname">GroupDefinitionException</code> is raised.</span></p>
@@ -4423,7 +4490,7 @@ Two value extractors are invoked for this:</p>
 <p>Here is a usage example:</p>
 </div>
 <div id="example-groupsequence" class="exampleblock">
-<div class="title">Example 37. Make use of group sequence</div>
+<div class="title">Example 5.10: Make use of group sequence</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -4479,7 +4546,7 @@ Two value extractors are invoked for this:</p>
 <p>In <a href="#example-groupsequence">Make use of group sequence</a>, validating the <code class="classname">Default</code> group does not validate <code class="classname">HighLevelCoherence</code> constraints. To ensure a complete validation, a user must use the <code class="classname">Complete</code> group. This breaks some of the encapsulation you could expect. You can work around this by redefining what the <code class="classname">Default</code> group means for a given class. <span class="tck-testable">To redefine <code class="classname">Default</code> for a class, place a <code class="classname">@GroupSequence</code> annotation on the class; this sequence expresses the sequence of groups that does substitute <code class="classname">Default</code> for this class.</span></p>
 </div>
 <div id="example-overridedefaultgroup" class="exampleblock">
-<div class="title">Example 38. Redefining Default group for Address</div>
+<div class="title">Example 5.11: Redefining Default group for Address</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -4521,7 +4588,7 @@ Two value extractors are invoked for this:</p>
 <p>It is possible to implicitly group several constraints in the same group without explicitly listing such a group in the constraint declaration. <span class="tck-testable">Every constraint hosted on an interface <code class="classname">Z</code> and part of the <code class="classname">Default</code> group (implicitly or explicitly) belongs to the group <code class="classname">Z</code>.</span> This is useful to validate the partial state of an object based on a role represented by an interface.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 39. Example of interface / group hosting constraints</div>
+<div class="title">Example 5.12: Example of interface / group hosting constraints</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -4584,7 +4651,7 @@ Two value extractors are invoked for this:</p>
 <p>When performing cascading validation, it is possible to use a different group than the one originally requested using the group conversion feature. Group conversions are declared by using the <code class="classname">@ConvertGroup</code> annotation.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 40. @ConvertGroup annotation</div>
+<div class="title">Example 5.13: @ConvertGroup annotation</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -4719,7 +4786,7 @@ Two value extractors are invoked for this:</p>
 <p>In this example we will reuse the <code class="classname">Address</code> group split and match it to the <code class="classname">User</code> group split.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 41. Example of group conversion</div>
+<div class="title">Example 5.14: Example of group conversion</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -4757,7 +4824,7 @@ Two value extractors are invoked for this:</p>
 <p>Group conversions can also be applied during container element validation:</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 42. Example of container element validation with group conversion</div>
+<div class="title">Example 5.15: Example of container element validation with group conversion</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -4777,7 +4844,7 @@ Two value extractors are invoked for this:</p>
 <p>The following example shows an illegal declaration of a group conversion rule on a method&#8217;s return value:</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 43. Example of an illegal group conversion</div>
+<div class="title">Example 5.16: Example of an illegal group conversion</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -4833,8 +4900,9 @@ Two value extractors are invoked for this:</p>
 </li>
 </ol>
 </div>
-<div class="paragraph tck-testable">
-<p><div class="olist arabic">
+<div class="openblock tck-testable">
+<div class="content">
+<div class="olist arabic">
 <ol class="arabic" start="2">
 <li>
 <p>The group <code class="classname">X</code> contains the following constraints:
@@ -4857,10 +4925,12 @@ Two value extractors are invoked for this:</p>
 </div>
 </li>
 </ol>
-</div></p>
 </div>
-<div class="paragraph tck-testable">
-<p><div class="olist arabic">
+</div>
+</div>
+<div class="openblock tck-testable">
+<div class="content">
+<div class="olist arabic">
 <ol class="arabic" start="3">
 <li>
 <p>If <code class="classname">X</code> has no <code class="classname">@GroupSequence</code> annotation, the group <code class="classname">Default</code> contains the following constraints:
@@ -4878,7 +4948,8 @@ Two value extractors are invoked for this:</p>
 </div>
 </li>
 </ol>
-</div></p>
+</div>
+</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic" start="4">
@@ -4895,8 +4966,9 @@ Two value extractors are invoked for this:</p>
 </li>
 </ol>
 </div>
-<div class="paragraph tck-testable">
-<p><div class="olist arabic">
+<div class="openblock tck-testable">
+<div class="content">
+<div class="olist arabic">
 <ol class="arabic" start="5">
 <li>
 <p>For every interface <code class="classname">Z</code>, the group <code class="classname">Z</code> contains the following constraints:
@@ -4927,7 +4999,8 @@ Two value extractors are invoked for this:</p>
 </div>
 </li>
 </ol>
-</div></p>
+</div>
+</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic" start="6">
@@ -4937,8 +5010,9 @@ Two value extractors are invoked for this:</p>
 </li>
 </ol>
 </div>
-<div class="paragraph tck-testable">
-<p><div class="paragraph">
+<div class="openblock tck-testable">
+<div class="content">
+<div class="paragraph">
 <p>When a given group <code class="classname">G</code> (represented by an interface <code class="classname">G</code>) is requested for the validation of a class <code class="classname">X</code>:</p>
 </div>
 <div class="ulist">
@@ -4966,10 +5040,12 @@ Two value extractors are invoked for this:</p>
 <p>if the group <code class="classname">G</code> represents the <code class="classname">Default</code> group of <code class="classname">X</code> overridden by <code class="classname">@GroupSequence</code>, operations are equivalent</p>
 </li>
 </ul>
-</div></p>
 </div>
-<div class="paragraph tck-testable">
-<p><div class="paragraph">
+</div>
+</div>
+<div class="openblock tck-testable">
+<div class="content">
+<div class="paragraph">
 <p>When the <code class="classname">Default</code> group of a given class <code class="classname">X</code> is overridden via <code class="classname">@GroupSequence</code>, its validation is as followed:</p>
 </div>
 <div class="ulist">
@@ -4988,7 +5064,8 @@ Two value extractors are invoked for this:</p>
 </div>
 </li>
 </ul>
-</div></p>
+</div>
+</div>
 </div>
 <div class="paragraph">
 <p><span class="tck-not-testable">Unless defined by a <code class="classname">@GroupSequence</code>, evaluation ordering is not constrained. In particular, several groups can be validated in the same pass.</span> <span class="tck-testable">If a group definition leads to a circular sequencing order between groups, a <code class="classname">GroupDefinitionException</code> is raised.</span></p>
@@ -5033,7 +5110,7 @@ Container element constraints can be used within the following declarations:</p>
 </ul>
 </div>
 <div class="exampleblock">
-<div class="title">Example 44. Container element constraints</div>
+<div class="title">Example 5.17: Container element constraints</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -5069,7 +5146,7 @@ or multiple values in the case of collection types.</p>
 <p>Container element constraints can be applied to nested container types:</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 45. Container element constraints on nested containers</div>
+<div class="title">Example 5.18: Container element constraints on nested containers</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -5099,7 +5176,7 @@ In the example above,</p>
 <p>Container element constraints are not supported on wildcard type arguments (with or without bounds), i.e. the following usage is unsupported:</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 46. Unsupported usage of a container element constraint on a wildcard type argument</div>
+<div class="title">Example 5.19: Unsupported usage of a container element constraint on a wildcard type argument</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -5113,21 +5190,22 @@ In the example above,</p>
 <div class="paragraph">
 <p>Besides specifying container element constraints on type arguments, it is also possible to declare container element constraints on non-generic container types.
 This is done by means of <em>implicit unwrapping</em>, i.e. a constraint doesn&#8217;t apply to the annotated container itself but to its elements.
-An example are JavaFX&#8217;s non-generic property types such as <code>StringProperty</code> or <code>IntegerProperty</code>:</p>
+Examples for types being subject to implicit unwrapping are <code>java.util.OptionalInt</code>, <code>OptionalLong</code> and <code>OptionalDouble</code> as well as JavaFX&#8217;s non-generic property types such as <code>StringProperty</code> or <code>IntegerProperty</code>:</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 47. Implicit unwrapping of container elements</div>
+<div class="title">Example 5.20: Implicit unwrapping of container elements</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="JAVA"><span class="annotation">@Size</span>(max=<span class="integer">10</span>) <span class="directive">private</span> StringProperty name;
+<pre class="CodeRay highlight"><code data-lang="JAVA"><span class="annotation">@Min</span>(<span class="integer">1</span>) <span class="directive">private</span> OptionalInt optionalNumber;
+<span class="annotation">@Size</span>(max=<span class="integer">10</span>) <span class="directive">private</span> StringProperty name;
 <span class="annotation">@Positive</span> <span class="directive">private</span> IntegerProperty positiveInt;</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="paragraph">
-<p>Here the <code>@Size</code> and <code>@Positive</code> constraints don&#8217;t apply to the annotated <code>StringProperty</code> and <code>IntegerProperty</code> themselves, but rather to the wrapped string and integer values, respectively.</p>
+<p>Here the <code>@Min</code>, <code>@Size</code> and <code>@Positive</code> constraints don&#8217;t apply to the annotated <code>OptionalInt</code>, <code>StringProperty</code> and <code>IntegerProperty</code> themselves, but rather to the wrapped string and integer values, respectively.</p>
 </div>
 <div class="paragraph">
 <p>For this to work, an unambiguously resolvable value extractor must be defined which carries the <code>@UnwrapByDefault</code> annotation (see <a href="#valueextractordefinition-unwrapbydefault">@UnwrapByDefault</a>).</p>
@@ -5136,7 +5214,7 @@ An example are JavaFX&#8217;s non-generic property types such as <code>StringPro
 <p>If needed, the target (container or container element) of a constraint declared on a container can be explicitly specified via the <code>Unwrap</code> and <code>Skip</code> payload definitions:</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 48. <code>Payload</code> types for unwrapping control</div>
+<div class="title">Example 5.21: <code>Payload</code> types for unwrapping control</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -5262,7 +5340,7 @@ I.e. you should prefer</p>
 <p><span class="tck-testable">Parameter constraints are declared by putting constraint annotations on method or constructor parameters.</span></p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 49. Declaring parameter constraints</div>
+<div class="title">Example 5.22: Declaring parameter constraints</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -5325,7 +5403,7 @@ I.e. you should prefer</p>
 <p>Cross-parameter constraints allow to express constraints based on the value of several method parameters, similar to class-level constraints which are based on several properties of a given class. <span class="tck-testable">Cross-parameter constraints are declared by putting cross-parameter constraint annotations on methods or constructors</span> as shown in the following example.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 50. Declaring cross-parameter constraints</div>
+<div class="title">Example 5.23: Declaring cross-parameter constraints</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -5409,8 +5487,9 @@ I.e. you should prefer</p>
 }</code></pre>
 </div>
 </div>
-<div class="paragraph tck-testable">
-<p><div class="paragraph">
+<div class="openblock tck-testable">
+<div class="content">
+<div class="paragraph">
 <p>A conforming Bean Validation implementation provides a default <code class="classname">ParameterNameProvider</code> implementation which returns parameter names as stored in the class file containing the validated executable, if present. A conforming implementation must either use the Java reflection API or ensure behavioral compatibility to using the reflection API in the following way:</p>
 </div>
 <div class="ulist">
@@ -5422,7 +5501,8 @@ I.e. you should prefer</p>
 <p>Obtain each parameter&#8217;s name via <code class="methodname">java.lang.reflect.Parameter.getName()</code></p>
 </li>
 </ul>
-</div></p>
+</div>
+</div>
 </div>
 <div class="paragraph">
 <p>Depending on whether the class file of the validated executable contains parameter name information or not, the actual parameter names as provided in the executable&#8217;s definition will be returned or synthetic names in the form arg<code>PARAMETER_INDEX</code>, where <code>PARAMETER_INDEX</code> starts at 0 for the first parameter, e.g. <code class="varname">arg0</code>, <code class="varname">arg1</code> etc.</p>
@@ -5444,7 +5524,7 @@ I.e. you should prefer</p>
 <p>Some constraints can target both the return value and the array of parameters of an executable. <span class="tck-testable">They are known to be both generic and cross-parameter constraints. When using such constraint on an executable to target the return value, one must set <code class="methodname">validationAppliesTo</code> in case there is an ambiguity.</span> The set of ambiguities is described in <a href="#constraintsdefinitionimplementation-constraintdefinition-properties-validationappliesto">validationAppliesTo</a>. Even without ambiguity, it is recommended to explicitly set <code class="methodname">validationAppliesTo</code> to <code>ConstraintTarget.RETURN_VALUE</code> as it improves readability.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 51. Declaring return value constraints</div>
+<div class="title">Example 5.24: Declaring return value constraints</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -5516,7 +5596,7 @@ I.e. you should prefer</p>
 </ul>
 </div>
 <div class="exampleblock">
-<div class="title">Example 52. Marking parameters and return values for cascaded validation</div>
+<div class="title">Example 5.25: Marking parameters and return values for cascaded validation</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -5623,7 +5703,7 @@ I.e. you should prefer</p>
 <p>This sections provides some examples of illegal constraint definitions which violate the rules stated above in one way or another.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 53. Illegally declared parameter constraints on interface implementation</div>
+<div class="title">Example 5.26: Illegally declared parameter constraints on interface implementation</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -5650,7 +5730,7 @@ I.e. you should prefer</p>
 <p>The constraints in <code class="classname">SimpleOrderService</code> are illegal, as they strengthen the preconditions of the <code class="methodname">placeOrder()</code> method as constituted by the interface <code class="classname">OrderService</code>.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 54. Illegally declared parameter constraints on sub class</div>
+<div class="title">Example 5.27: Illegally declared parameter constraints on sub class</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -5677,7 +5757,7 @@ I.e. you should prefer</p>
 <p>The constraints in <code class="classname">SimpleOrderService</code> are illegal, as they strengthen the preconditions of the <code class="methodname">placeOrder()</code> method as constituted by the super class <code class="classname">OrderService</code>.</p>
 </div>
 <div id="illegal_constraints_in_parallel_types" class="exampleblock">
-<div class="title">Example 55. Illegally declared parameter constraints on parallel types</div>
+<div class="title">Example 5.28: Illegally declared parameter constraints on parallel types</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -5709,7 +5789,7 @@ I.e. you should prefer</p>
 <p>Here the class <code class="classname">SimpleOrderService</code> implements the interfaces <code class="classname">OrderService</code> and <code class="classname">OrderPlacementService</code>, which themselves are unrelated to each other but both define a method <code class="methodname">placeOrder()</code> with an identical signature. This hierarchy is illegal with respect to the parameter constraints as a client of <code class="classname">SimpleOrderService</code> would have to fulfill the constraints defined on the interface <code class="classname">OrderPlacementService</code> even if the client only expects <code class="classname">OrderService</code>.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 56. Correctly declared return value constraints on sub class</div>
+<div class="title">Example 5.29: Correctly declared return value constraints on sub class</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -5741,8 +5821,9 @@ I.e. you should prefer</p>
 </div>
 <div class="sect2">
 <h3 id="constraintdeclarationvalidationprocess-validationroutine"><a class="anchor" href="#constraintdeclarationvalidationprocess-validationroutine"></a>5.7. Validation routine</h3>
-<div class="paragraph tck-testable">
-<p><div class="paragraph">
+<div class="openblock tck-testable">
+<div class="content">
+<div class="paragraph">
 <p>For a given group, the validation routine applied on a given bean instance is expected to execute the following constraint validations in no particular order:</p>
 </div>
 <div class="ulist">
@@ -5760,7 +5841,8 @@ I.e. you should prefer</p>
 <p>for all <em>reachable</em> and <em>cascadable</em> associations, execute all cascading validations (see <a href="#constraintdeclarationvalidationprocess-validationroutine-graphvalidation">Object graph validation</a>) including the ones expressed on interfaces and superclasses (see <a href="#constraintdeclarationvalidationprocess-groupsequence-formaldefinition">Formal group definitions</a>). Note that group conversion can apply (see <a href="#constraintdeclarationvalidationprocess-groupsequence-groupconversion">Group conversion</a>).</p>
 </li>
 </ul>
-</div></p>
+</div>
+</div>
 </div>
 <div class="paragraph">
 <p>Reachable fields, getters and associations as well as cascadable associations are defined in <a href="#constraintdeclarationvalidationprocess-validationroutine-traversable">Traversable property</a>.</p>
@@ -5771,8 +5853,9 @@ I.e. you should prefer</p>
 <div class="paragraph">
 <p><span class="tck-not-testable">Unless ordered by group sequences, groups can be validated in no particular order.</span> This implies that the validation routine can be run for several groups in the same pass.</p>
 </div>
-<div class="paragraph tck-testable">
-<p><div class="paragraph">
+<div class="openblock tck-testable">
+<div class="content">
+<div class="paragraph">
 <p>The object validation routine is described as such. For each constraint declaration:</p>
 </div>
 <div class="ulist">
@@ -5790,7 +5873,8 @@ I.e. you should prefer</p>
 <p>if <code class="methodname">isValid()</code> returns <code>false</code>, the Bean Validation provider populates <code class="classname">ConstraintViolation</code> object(s) according to the rules defined in <a href="#constraintsdefinitionimplementation-validationimplementation">Constraint validation implementation</a> and appends these objects to the list of constraint violations.</p>
 </li>
 </ul>
-</div></p>
+</div>
+</div>
 </div>
 <div class="sect3">
 <h4 id="constraintdeclarationvalidationprocess-validationroutine-graphvalidation"><a class="anchor" href="#constraintdeclarationvalidationprocess-validationroutine-graphvalidation"></a>5.7.1. Object graph validation</h4>
@@ -5818,7 +5902,7 @@ I.e. you should prefer</p>
 </table>
 </div>
 <div id="example-oglimit" class="exampleblock">
-<div class="title">Example 57. Object graph limits</div>
+<div class="title">Example 5.30: Object graph limits</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -5871,7 +5955,7 @@ Order -(billingAddress)&#8594; Address2 -(inhabitant)&#8594; User -(addresses)&#
 <p><span class="tck-testable"><code class="classname">@Valid</code> is an orthogonal concept to the notion of group. If two groups are in sequence, the first group must pass for all associated objects before the second group is evaluated.</span> Note however that the <code class="classname">Default</code> group sequence overriding is local to the class it is defined on and is not propagated to the associated objects. The following example illustrates this:</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 58. Class Driver with redefined default group</div>
+<div class="title">Example 5.31: Class Driver with redefined default group</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -5893,7 +5977,7 @@ Order -(billingAddress)&#8594; Address2 -(inhabitant)&#8594; User -(addresses)&#
 </div>
 </div>
 <div class="exampleblock">
-<div class="title">Example 59. Class Car with redefined default group</div>
+<div class="title">Example 5.32: Class Car with redefined default group</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -5912,7 +5996,7 @@ Order -(billingAddress)&#8594; Address2 -(inhabitant)&#8594; User -(addresses)&#
 </div>
 </div>
 <div class="exampleblock">
-<div class="title">Example 60. Defining a group sequence</div>
+<div class="title">Example 5.33: Defining a group sequence</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -5924,7 +6008,7 @@ Order -(billingAddress)&#8594; Address2 -(inhabitant)&#8594; User -(addresses)&#
 </div>
 </div>
 <div class="exampleblock">
-<div class="title">Example 61. Group sequence overriding is not propagated to associated objects</div>
+<div class="title">Example 5.34: Group sequence overriding is not propagated to associated objects</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -5956,8 +6040,9 @@ violations = validator.validate( driver, SequencedGroups.class );
 </div>
 <div class="sect3">
 <h4 id="constraintdeclarationvalidationprocess-validationroutine-methodconstructorvalidation"><a class="anchor" href="#constraintdeclarationvalidationprocess-validationroutine-methodconstructorvalidation"></a>5.7.2. Method and constructor validation</h4>
-<div class="paragraph tck-testable">
-<p><div class="paragraph">
+<div class="openblock tck-testable">
+<div class="content">
+<div class="paragraph">
 <p>For a given group, the validation routine applied to validate parameters of a method or constructor is expected to execute the following constraint validations in no particular order:</p>
 </div>
 <div class="ulist">
@@ -5972,10 +6057,12 @@ violations = validator.validate( driver, SequencedGroups.class );
 <p>for all parameters marked for cascaded validation, execute all cascading validations (see <a href="#constraintdeclarationvalidationprocess-validationroutine-graphvalidation">Object graph validation</a>), in case of overriding method validation including the ones expressed on overridden methods of the interfaces and superclasses (see <a href="#constraintdeclarationvalidationprocess-groupsequence-formaldefinition">Formal group definitions</a>). Note that group conversion can apply (see <a href="#constraintdeclarationvalidationprocess-groupsequence-groupconversion">Group conversion</a>).</p>
 </li>
 </ul>
-</div></p>
 </div>
-<div class="paragraph tck-testable">
-<p><div class="paragraph">
+</div>
+</div>
+<div class="openblock tck-testable">
+<div class="content">
+<div class="paragraph">
 <p>For a given group, the validation routine applied to validate the return value of a method or constructor is expected to execute the following constraint validations in no particular order:</p>
 </div>
 <div class="ulist">
@@ -5987,7 +6074,8 @@ violations = validator.validate( driver, SequencedGroups.class );
 <p>if the return value is marked for cascaded validation, execute all cascading validations (see <a href="#constraintdeclarationvalidationprocess-validationroutine-graphvalidation">Object graph validation</a>) including the ones expressed on interfaces and superclasses (see <a href="#constraintdeclarationvalidationprocess-groupsequence-formaldefinition">Formal group definitions</a>). Note that group conversion can apply (see <a href="#constraintdeclarationvalidationprocess-groupsequence-groupconversion">Group conversion</a>).</p>
 </li>
 </ul>
-</div></p>
+</div>
+</div>
 </div>
 <div class="paragraph">
 <p>Note that this implies that a given validation constraint will not be processed more than once per validation per path. Some implementations might even process a single constraint only once across paths provided that they return the expected set of <code class="classname">ConstraintViolation</code>.</p>
@@ -6113,8 +6201,9 @@ violations = validator.validate( driver, SequencedGroups.class );
 <div class="paragraph">
 <p><span class="tck-testable">If an exception occurs when the <code class="classname">TraversableResolver</code> is called, the exception is wrapped into a <code class="classname">ValidationException</code>.</span></p>
 </div>
-<div class="paragraph tck-testable">
-<p><div class="paragraph">
+<div class="openblock tck-testable">
+<div class="content">
+<div class="paragraph">
 <p>The following elements are not passed through the traversable resolver filter:</p>
 </div>
 <div class="ulist">
@@ -6129,7 +6218,8 @@ violations = validator.validate( driver, SequencedGroups.class );
 <p>the method and constructor return value being validated</p>
 </li>
 </ul>
-</div></p>
+</div>
+</div>
 </div>
 <div class="paragraph">
 <p><span class="tck-testable">But the properties of these elements (if validated) are. In this case the complete path is provided via <code>pathToTraversableObject</code>.</span></p>
@@ -6154,7 +6244,7 @@ violations = validator.validate( driver, SequencedGroups.class );
 <p>An example implementation of such a resolver is shown in <a href="#constraintdeclarationvalidationprocess-validationroutine-traversable-jparesolver">Java Persistence aware TraversableResolver</a>.</p>
 </div>
 <div id="constraintdeclarationvalidationprocess-validationroutine-traversable-jparesolver" class="exampleblock">
-<div class="title">Example 62. Java Persistence aware TraversableResolver</div>
+<div class="title">Example 5.35: Java Persistence aware TraversableResolver</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -6192,7 +6282,7 @@ violations = validator.validate( driver, SequencedGroups.class );
 <p>The following example assumes the object graph defined in <a href="#example-ognav-definitions">Definitions used in the example</a> and assumes the validation operation is applied on an address object.</p>
 </div>
 <div id="example-ognav-definitions" class="exampleblock">
-<div class="title">Example 63. Definitions used in the example</div>
+<div class="title">Example 5.36: Definitions used in the example</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -6331,7 +6421,7 @@ violations = validator.validate( driver, SequencedGroups.class );
 <p>The following example shows invocations of the <code class="classname">TraversableResolver</code> as to be performed by the Bean Validation provider during method validation. The example is based on the object graph defined in <a href="#example-ognav-definitions">Definitions used in the example</a> and the <code class="classname">AddressService</code> class shown in <a href="#example-ognav-definitions-methodvalidation">Examplary class <code class="classname">AddressService</code></a>. It assumes that a call of <code class="methodname">persistAddress()</code> is subject to method parameter validation.</p>
 </div>
 <div id="example-ognav-definitions-methodvalidation" class="exampleblock">
-<div class="title">Example 64. Examplary class <code class="classname">AddressService</code></div>
+<div class="title">Example 5.37: Examplary class <code class="classname">AddressService</code></div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -6402,7 +6492,14 @@ violations = validator.validate( driver, SequencedGroups.class );
 <p><span class="tck-testable">The list of <code class="classname">ConstraintValidator</code>s can contain at most one which targets cross-parameter. If the constraint targets the parameters of an executable either implicitly or by the use of <code class="methodname">validationAppliesTo</code> in the constraint - see <a href="#constraintsdefinitionimplementation-constraintdefinition-properties-validationappliesto">validationAppliesTo</a>, then the cross-parameter <code class="classname">ConstraintValidator</code> is used. If none is present, a <code class="classname">ConstraintDefinitionException</code> is raised. If more than one cross-parameter <code class="classname">ConstraintValidator</code> is present, a <code class="classname">ConstraintDefinitionException</code> is raised.</span></p>
 </div>
 <div class="paragraph">
-<p><span class="tck-testable">If the constraint is a generic constraint, the following rules apply. If the constraint declaration is hosted on a class or an interface, the targeted type is the class or the interface.</span> <span class="tck-testable">If the constraint is hosted on a class attribute, the type of the attribute is the targeted type.</span> <span class="tck-testable">If the constraint is hosted on a getter, the return type of the getter is the targeted type.</span> In other words, the resolution algorithm considers the type as defined in the method signature and not the runtime type of the value.</p>
+<p><span class="tck-testable">If the constraint is a generic constraint, the following rules apply. If the constraint declaration is hosted on a class or an interface, the targeted type is the class or the interface.</span>
+<span class="tck-testable">If the constraint is hosted on a class attribute, the type of the attribute is the targeted type.</span>
+<span class="tck-testable">If the constraint is hosted on a method (getter or non-getter) or constructor, the return type is the targeted type.</span>
+<span class="tck-testable">If the constraint is hosted on a method or constructor parameter, the parameter type is the targeted type.</span>
+<span class="tck-testable">If the constraint is hosted on a type argument of a generic type (i.e. a container element constraint, see <a href="#constraintdeclarationvalidationprocess-containerelementconstraints">Container element constraints</a>), the type argument&#8217;s type is the targeted type.</span>
+<span class="tck-testable">If the constraint is subject to implicit unwrapping (see <a href="#constraintdeclarationvalidationprocess-containerelementconstraints-implicitunwrapping">Implicit unwrapping of containers</a>) and the applicable value extractor is defined for a generic type (e.g. <code>javafx.beans.value.ObservableValue</code>), the targeted type is the type captured for the type parameter handled by the value extractor (e.g. <code>String</code> if the constraint is placed on a <code>StringProperty</code>).</span>
+<span class="tck-testable">If the constraint is subject to implicit unwrapping and the applicable value extractor is defined for a non-generic type, the targeted type is the type defined by the extractor via <code>@ExtractedValue#type()</code> (e.g. <code>Integer</code> if the constraint is placed on a <code>java.util.OptionalInt</code>).</span>
+In other words, the resolution algorithm considers the type as defined in the source code and not the runtime type of the value.</p>
 </div>
 <div class="paragraph">
 <p>The rules written below describe formally the following statement: <span class="tck-testable">the <code class="classname">ConstraintValidator</code> chosen to validate the generic constraint on a declared type <code class="classname">T</code> is the one where the <code class="classname">ConstraintValidator</code> targets the annotated element, where the type supported by the <code class="classname">ConstraintValidator</code> is a supertype of <code class="classname">T</code> and where there is no other <code class="classname">ConstraintValidator</code> whose supported type is a supertype of <code class="classname">T</code> and not a supertype of the chosen <code class="classname">ConstraintValidator</code> supported type.</span></p>
@@ -6453,7 +6550,7 @@ violations = validator.validate( driver, SequencedGroups.class );
 <p>Let&#8217;s see a couple of declarations and their respective <code class="classname">ConstraintValidator</code> resolution. Assuming the definitions shown in <a href="#example-constraintvalidator-resolution">ConstraintValidator and type resolution</a>:</p>
 </div>
 <div id="example-constraintvalidator-resolution" class="exampleblock">
-<div class="title">Example 65. ConstraintValidator and type resolution</div>
+<div class="title">Example 5.38: ConstraintValidator and type resolution</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -6484,7 +6581,7 @@ violations = validator.validate( driver, SequencedGroups.class );
 <p>The resolutions shown in <a href="#table-constraintvalidator-resolution">Resolution of ConstraintValidator for various constraints declarations</a> occur.</p>
 </div>
 <table id="table-constraintvalidator-resolution" class="tableblock frame-all grid-all spread">
-<caption class="title">Table 1. Resolution of ConstraintValidator for various constraints declarations</caption>
+<caption class="title">Table 5.1: Resolution of ConstraintValidator for various constraints declarations</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -6717,7 +6814,7 @@ if there is no type-compliant extractor or multiple maximally-specific type-comp
 <p>Let&#8217;s consider a couple of value extractor definitions and their respective <code>ValueExtractor</code> resolution against container element constraint declarations:</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 66. <code>ValueExtractor</code> resolution</div>
+<div class="title">Example 5.39: <code>ValueExtractor</code> resolution</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -6789,7 +6886,7 @@ if there is no type-compliant extractor or multiple maximally-specific type-comp
 <p>The following value extractor resolutions occur:</p>
 </div>
 <table id="table-valueextractor-resolution" class="tableblock frame-all grid-all spread">
-<caption class="title">Table 2. Resolution of <code>ValueExtractor</code> for various container element constraints</caption>
+<caption class="title">Table 5.2: Resolution of <code>ValueExtractor</code> for various container element constraints</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -6852,7 +6949,7 @@ if there is no type-compliant extractor or multiple maximally-specific type-comp
 <p>The first example demonstrates how beans, fields and getters are annotated to express some constraints.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 67. Place constraint declarations on the element to validate</div>
+<div class="title">Example 5.40: Place constraint declarations on the element to validate</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -6928,7 +7025,7 @@ if there is no type-compliant extractor or multiple maximally-specific type-comp
 <p>The second example demonstrates object graph validation.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 68. Define object graph validation</div>
+<div class="title">Example 5.41: Define object graph validation</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -7053,10 +7150,6 @@ if there is no type-compliant extractor or multiple maximally-specific type-comp
     <span class="type">class</span> <span class="class">NotEmptyValidator</span> <span class="directive">implements</span> ConstraintValidator&lt;NotEmpty, <span class="predefined-type">String</span>&gt; {
 
         <span class="annotation">@Override</span>
-        <span class="directive">public</span> <span class="type">void</span> initialize(NotEmpty constraintAnnotation) {
-        }
-
-        <span class="annotation">@Override</span>
         <span class="directive">public</span> <span class="type">boolean</span> isValid(<span class="predefined-type">String</span> value, ConstraintValidatorContext context) {
             <span class="keyword">return</span> <span class="predefined-constant">true</span>;
         }
@@ -7068,7 +7161,7 @@ if there is no type-compliant extractor or multiple maximally-specific type-comp
 <p>The third example demonstrates superclass, inheritance and composite constraints.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 69. Use inheritance, constraints on superclasses and composite constraints</div>
+<div class="title">Example 5.42: Use inheritance, constraints on superclasses and composite constraints</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -7189,7 +7282,7 @@ if there is no type-compliant extractor or multiple maximally-specific type-comp
 <p>The fourth example demonstrates the influence of group sequence.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 70. Use groups and group sequence to define constraint ordering</div>
+<div class="title">Example 5.43: Use groups and group sequence to define constraint ordering</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -7336,7 +7429,7 @@ author.setCompany(<span class="string"><span class="delimiter">&quot;</span><spa
 <p>A <code class="classname">Validator</code> instance is able to validate instances of beans and their associated objects if any. It is recommended to leave the caching of <code class="classname">Validator</code> instances to the <code class="classname">ValidatorFactory</code>. <span class="tck-not-testable"><code class="classname">Validator</code> implementations must be thread-safe.</span></p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 71. Validator interface</div>
+<div class="title">Example 6.1: Validator interface</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -7465,7 +7558,7 @@ author.setCompany(<span class="string"><span class="delimiter">&quot;</span><spa
 <p><code class="methodname">unwrap()</code> is provided as a way to access objects of a given type specific to a Bean Validation provider typically as a complement to the <code class="classname">Validator</code> contract. Using this method makes your code non portable.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 72. Using unwrap to access a provider specific contract</div>
+<div class="title">Example 6.2: Using unwrap to access a provider specific contract</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -7615,7 +7708,7 @@ address.setCity(<span class="string"><span class="delimiter">&quot;</span><span 
 <p>The methods for the validation of parameters and return values of methods and constructors can be found on the interface <code class="classname">javax.validation.executable.ExecutableValidator</code>.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 73. ExecutableValidator interface</div>
+<div class="title">Example 6.3: ExecutableValidator interface</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -8157,8 +8250,9 @@ executableValidator.validateConstructorParameters(constructor, <span class="keyw
 <div class="paragraph">
 <p><span class="tck-testable">The <code class="methodname">getRootBeanClass()</code> method returns the class of the root bean being validated. For method validation, this is the object class the method is executed on. For constructor validation, this is the class the constructor is declared on.</span></p>
 </div>
-<div class="paragraph tck-testable">
-<p><div class="paragraph">
+<div class="openblock tck-testable">
+<div class="content">
+<div class="paragraph">
 <p>The <code class="methodname">getLeafBean()</code> method returns the following object:</p>
 </div>
 <div class="ulist">
@@ -8182,7 +8276,8 @@ executableValidator.validateConstructorParameters(constructor, <span class="keyw
 <p>If a constructor return value constraint, the object the constructor has created.</p>
 </li>
 </ul>
-</div></p>
+</div>
+</div>
 </div>
 <div class="paragraph">
 <p><span class="tck-testable">The <code class="methodname">getExecutableParameters()</code> returns the parameters provided to the method or constructor invocation or <code>null</code> if not validating the method or constructor parameters.</span></p>
@@ -8203,7 +8298,7 @@ executableValidator.validateConstructorParameters(constructor, <span class="keyw
 <p><code class="methodname">unwrap()</code> is provided as a way to access objects of a given type specific to a Bean Validation provider typically as a complement to the <code class="classname">ConstraintViolation</code> contract. Using this method makes your code non portable.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 74. Path, Node and ElementKind interfaces</div>
+<div class="title">Example 6.4: Path, Node and ElementKind interfaces</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -8616,15 +8711,17 @@ e.g. <code>&lt;map value&gt;</code> if the default value extractor for map value
 <p><span class="tck-testable">In particular, <code class="classname">MethodNode</code> and <code class="classname">ConstructorNode</code> host <code class="methodname">getParameterTypes()</code> which return the method or constructor parameter list.</span>
 <span class="tck-testable">Likewise <code class="classname">ParameterNode</code> hosts <code class="methodname">getParameterIndex()</code> which returns the parameter index in the method or constructor parameter list.</span></p>
 </div>
-<div class="paragraph tck-testable">
-<p><div class="paragraph">
+<div class="openblock tck-testable">
+<div class="content">
+<div class="paragraph">
 <p><code>BeanNode</code>, <code>PropertyNode</code> and <code>ContainerElementNode</code> host <code>getContainerClass()</code> and <code>getTypeArgumentIndex()</code>.
 If the constrained element is contained in a generic container such as <code>Optional</code>, <code>List</code> or <code>Map</code>,
 the former returns the class of the container and the latter returns the index of the affected type argument.</p>
-</div></p>
+</div>
+</div>
 </div>
 <div class="exampleblock">
-<div class="title">Example 75. Narrow a node to its specific type</div>
+<div class="title">Example 6.5: Narrow a node to its specific type</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -8693,15 +8790,16 @@ the former returns the class of the container and the latter returns the index o
 <p><span class="tck-testable">for all <code class="classname">Iterable</code> or <code class="classname">Map</code>, the following <code class="classname">Node</code> object added is marked as <code>inIterable</code> (<code class="methodname">isInIterable()</code>)</span></p>
 </li>
 <li>
-<p><span class="tck-testable">if the traversed object is of a container type (e.g. a <code>List</code> or <code>Map</code>), the following <code>Node</code> object added returns the type of the traversed container via <code>getContainerClass()</code> and the index of the type argument to which the constraint applies via `getTypeArgumentIndex()</span></p>
+<p><span class="tck-testable">if the traversed object is of a container type (e.g. a <code>List</code> or <code>Map</code>), the following <code>Node</code> object added returns the type of the traversed container via <code>getContainerClass()</code> and the index of the type argument to which the constraint applies via <code>getTypeArgumentIndex()</code></span></p>
 </li>
 </ul>
 </div>
 </li>
 </ul>
 </div>
-<div class="paragraph tck-testable">
-<p><div class="ulist">
+<div class="openblock tck-testable">
+<div class="content">
+<div class="ulist">
 <ul>
 <li>
 <p>For a property level constraint (field and getter)</p>
@@ -8717,10 +8815,12 @@ the former returns the class of the container and the latter returns the index o
 </div>
 </li>
 </ul>
-</div></p>
 </div>
-<div class="paragraph tck-testable">
-<p><div class="ulist">
+</div>
+</div>
+<div class="openblock tck-testable">
+<div class="content">
+<div class="ulist">
 <ul>
 <li>
 <p>For a class level constraint:</p>
@@ -8736,7 +8836,8 @@ the former returns the class of the container and the latter returns the index o
 </div>
 </li>
 </ul>
-</div></p>
+</div>
+</div>
 </div>
 <div class="ulist">
 <ul>
@@ -8789,8 +8890,9 @@ the former returns the class of the container and the latter returns the index o
 </li>
 </ul>
 </div>
-<div class="paragraph tck-testable">
-<p><div class="ulist">
+<div class="openblock tck-testable">
+<div class="content">
+<div class="ulist">
 <ul>
 <li>
 <p>For a container element constraint:</p>
@@ -8809,10 +8911,12 @@ The <code class="classname">ElementKind</code> of the node is <code class="varna
 </div>
 </li>
 </ul>
-</div></p>
 </div>
-<div class="paragraph tck-testable">
-<p><div class="paragraph">
+</div>
+</div>
+<div class="openblock tck-testable">
+<div class="content">
+<div class="paragraph">
 <p>If additional path nodes are added in a constraint validator implementation using the node builder API (see <a href="#constraintsdefinitionimplementation-validationimplementation">Constraint validation implementation</a>), the following rules apply:</p>
 </div>
 <div class="ulist">
@@ -8837,19 +8941,26 @@ The <code class="classname">ElementKind</code> of the node is <code class="varna
 <p><span class="tck-testable">A <code class="classname">ParameterNode</code> is appended in case <code class="methodname">addParameterNode(int)</code> is invoked. The node name is equal to the parameter name at the provided index. The name is determined by the current parameter name provider. The <code class="classname">ElementKind</code> of the node is <code>ElementKind.PARAMETER</code>. The previous node (removed) must be a <code class="classname">CrossParameterNode</code>.</span></p>
 </li>
 <li>
-<p><span class="tck-testable">if <code class="methodname">inIterable()</code> is invoked, the node returns <code>true</code> for <code class="methodname">isInIterable()</code>, <code>false</code> otherwise.</span></p>
+<p><span class="tck-testable">A <code class="classname">ContainerElementNode</code> is appended in case <code class="methodname">addContainerElementNode(String, Class, Integer)</code> is invoked. The name, container type and type argument index of the node are equal to the values provided. The <code class="classname">ElementKind</code> of the node is <code>ElementKind.CONTAINER_ELEMENT</code>.</span></p>
 </li>
 <li>
-<p><span class="tck-testable">if <code class="methodname">atIndex(Integer)</code> is invoked, the node returns the provided integer for <code class="methodname">getIndex()</code>, <code>null</code> otherwise.</span></p>
+<p><span class="tck-testable">If <code class="methodname">inIterable()</code> is invoked, the node returns <code>true</code> for <code class="methodname">isInIterable()</code>, <code>false</code> otherwise.</span></p>
 </li>
 <li>
-<p><span class="tck-testable">if <code class="methodname">atKey(Object)</code> is invoked, the node returns the provided object for <code class="methodname">getKey()</code>, <code>null</code> otherwise.</span></p>
+<p><span class="tck-testable">If <code class="methodname">inContainer(Class, Integer)</code> is invoked, the node returns the passed container type and type argument index from <code>getContainerClass()</code> and <code>getTypeArgumentIndex()</code>, respectively.</span></p>
+</li>
+<li>
+<p><span class="tck-testable">If <code class="methodname">atIndex(Integer)</code> is invoked, the node returns the provided integer for <code class="methodname">getIndex()</code>, <code>null</code> otherwise.</span></p>
+</li>
+<li>
+<p><span class="tck-testable">If <code class="methodname">atKey(Object)</code> is invoked, the node returns the provided object for <code class="methodname">getKey()</code>, <code>null</code> otherwise.</span></p>
 </li>
 </ul>
 </div>
 </li>
 </ul>
-</div></p>
+</div>
+</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -8897,7 +9008,7 @@ The <code class="classname">ElementKind</code> of the node is <code class="varna
 <p>Let there be the following object definitions:</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 76. Object model definition for examples</div>
+<div class="title">Example 6.6: Object model definition for examples</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -8970,7 +9081,7 @@ The <code class="classname">ElementKind</code> of the node is <code class="varna
 <p>Assuming a <code class="classname">Book</code> instance gets validated, the property paths to the different constraints would be as described in <a href="#table-propertypath">propertyPath examples</a>:</p>
 </div>
 <table id="table-propertypath" class="tableblock frame-all grid-all spread">
-<caption class="title">Table 3. propertyPath examples</caption>
+<caption class="title">Table 6.1: propertyPath examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -9033,7 +9144,7 @@ The <code class="classname">ElementKind</code> of the node is <code class="varna
 <p>Assuming the constructor and methods of the <code class="classname">Library</code> class are subject to method constraint validation, the following property paths would exist for the different constraints:</p>
 </div>
 <table id="table-method-level-propertypath" class="tableblock frame-all grid-all spread">
-<caption class="title">Table 4. Property path examples for constrained methods or constructors</caption>
+<caption class="title">Table 6.2: Property path examples for constrained methods or constructors</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -9163,10 +9274,6 @@ The <code class="classname">ElementKind</code> of the node is <code class="varna
     <span class="type">class</span> <span class="class">NotEmptyValidator</span> <span class="directive">implements</span> ConstraintValidator&lt;NotEmpty, <span class="predefined-type">String</span>&gt; {
 
         <span class="annotation">@Override</span>
-        <span class="directive">public</span> <span class="type">void</span> initialize(NotEmpty constraintAnnotation) {
-        }
-
-        <span class="annotation">@Override</span>
         <span class="directive">public</span> <span class="type">boolean</span> isValid(<span class="predefined-type">String</span> value, ConstraintValidatorContext context) {
             <span class="keyword">return</span> <span class="predefined-constant">true</span>;
         }
@@ -9256,7 +9363,7 @@ book.setAuthor(author);
 <p>The <code class="classname">ConstraintViolation</code> object for this failure passes the following assertions:</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 77. Test assertions on ContraintViolation</div>
+<div class="title">Example 6.7: Test assertions on ContraintViolation</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -9621,7 +9728,7 @@ node = nodeIter.next();
 <p>Below are two examples using message parameters and expressions. The second is evaluated using Expression Language as defined in <a href="#validationapi-message-defaultmessageinterpolation-expressionlanguage">Message expressions using Expression Language (EL)</a>.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 78. Message using parameters</div>
+<div class="title">Example 6.8: Message using parameters</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -9631,7 +9738,7 @@ node = nodeIter.next();
 </div>
 </div>
 <div class="exampleblock">
-<div class="title">Example 79. Message using expressions</div>
+<div class="title">Example 6.9: Message using expressions</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -9853,7 +9960,7 @@ myapp.creditcard.error=credit card number not valid</code></pre>
 </div>
 </div>
 <table id="table-messageinterpolation" class="tableblock frame-all grid-all spread">
-<caption class="title">Table 5. message interpolation</caption>
+<caption class="title">Table 6.3: message interpolation</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -9890,7 +9997,7 @@ myapp.creditcard.error=credit card number not valid</code></pre>
 <p>Here is an approach to specify the <code class="classname">Locale</code> value to choose on a given <code class="classname">Validator</code> using a <code class="classname">Locale</code> aware <code class="classname">MessageInterpolator</code>. See <a href="#validationapi-bootstrapping">Bootstrapping</a> for more details on the APIs.</p>
 </div>
 <div id="validationapi-message-examples-specificlocale" class="exampleblock">
-<div class="title">Example 80. Use MessageInterpolator to use a specific Locale value</div>
+<div class="title">Example 6.10: Use MessageInterpolator to use a specific Locale value</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -9941,7 +10048,7 @@ MessageInterpolator interpolator = <span class="keyword">new</span> LocaleSpecif
 <p>Most of the time, however, the relevant <code class="classname">Locale</code> will be provided by your application framework transparently. This framework will implement its own version of <code class="classname">MessageInterpolator</code> and pass it during the <code class="classname">ValidatorFactory</code> configuration. The application will not have to set the <code class="classname">Locale</code> itself. This example shows how a container framework would implement <code class="classname">MessageInterpolator</code> to provide a user specific default locale.</p>
 </div>
 <div id="validationapi-message-examples-jsflocale" class="exampleblock">
-<div class="title">Example 81. Contextual container possible <code class="classname">MessageInterpolator</code> implementation</div>
+<div class="title">Example 6.11: Contextual container possible <code class="classname">MessageInterpolator</code> implementation</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -9988,8 +10095,9 @@ ValidatorFactory factory = configuration
 <div class="paragraph">
 <p>Instead method constraints must be validated by invoking the appropriate methods on <code class="classname">javax.validation.executable.ExecutableValidator</code>. Typically this won&#8217;t happen by manually calling these methods but rather automatically upon invocation of the constrained methods or constructors, using approaches and techniques such as CDI/EJB interceptors, aspect-oriented programming or dynamic proxies.</p>
 </div>
-<div class="paragraph tck-testable">
-<p><div class="paragraph">
+<div class="openblock tck-testable">
+<div class="content">
+<div class="paragraph">
 <p>The validation of method / constructor constraints comprises the following steps:</p>
 </div>
 <div class="ulist">
@@ -10010,7 +10118,8 @@ ValidatorFactory factory = configuration
 <p>If this validation yields a non-empty set of constraint violations, throw a <code class="classname">ConstraintViolationException</code> wrapping the violations. Otherwise return the invocation result to the method caller.</p>
 </li>
 </ul>
-</div></p>
+</div>
+</div>
 </div>
 <div class="paragraph">
 <p>By throwing a <code class="classname">ConstraintViolationException</code> if either of the validation steps fails, it is ensured that the control flow</p>
@@ -10035,7 +10144,7 @@ ValidatorFactory factory = configuration
 <p>Here is an example of what such metadata usage would be:</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 82. Using metadata API to figure out if method interception is required</div>
+<div class="title">Example 6.12: Using metadata API to figure out if method interception is required</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -10085,7 +10194,7 @@ ValidatorFactory factory = configuration
 </div>
 </div>
 <div class="exampleblock">
-<div class="title">Example 83. Using metadata API to figure out if constructor interception is required</div>
+<div class="title">Example 6.13: Using metadata API to figure out if constructor interception is required</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -10263,7 +10372,7 @@ ValidatorFactory factory = configuration
 <p>The most simple approach is to initialize the default Bean Validation provider or the one defined in the XML configuration file. The <code class="classname">ValidatorFactory</code> is then ready to provide <code class="classname">Validator</code> instances.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 84. Simple Bean Validation bootstrap sequence</div>
+<div class="title">Example 6.14: Simple Bean Validation bootstrap sequence</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -10285,7 +10394,7 @@ factory.close();</code></pre>
 <p>The second example shows how a container can customize aspects like message interpolation, constraint validator instantiation and others.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 85. Customize message resolution, traversable resolver etc.</div>
+<div class="title">Example 6.15: Customize message resolution, traversable resolver etc.</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -10314,7 +10423,7 @@ factory.close();</code></pre>
 <p>The third example shows how to bootstrap Bean Validation in an environment not following the traditional Java classloader strategies (such as tools or alternative service containers like OSGi). They can provide some alternative provider resolution strategy to discover Bean Validation providers.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 86. Customize the Bean Validation provider resolution mechanism</div>
+<div class="title">Example 6.16: Customize the Bean Validation provider resolution mechanism</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -10338,7 +10447,7 @@ factory.close();</code></pre>
 <p>The next example shows how a client can choose a specific Bean Validation provider and configure provider specific properties programmatically in a type-safe way.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 87. Use a specific provider and add specific configuration</div>
+<div class="title">Example 6.17: Use a specific provider and add specific configuration</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -10386,7 +10495,7 @@ ValidatorFactory factory = acmeConfiguration
 <p>The last example shows how a <code class="classname">Validator</code> can use a specific <code class="classname">MessageInterpolator</code> implementation.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 88. Use a specific MessageInterpolator instance for a given Validator</div>
+<div class="title">Example 6.18: Use a specific MessageInterpolator instance for a given Validator</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -10420,7 +10529,7 @@ MessageInterpolator customInterpolator = <span class="keyword">new</span> Locale
 <p><span class="tck-not-testable"><code class="classname">ValidatorFactory</code> implementations must be thread-safe.</span> <code class="classname">ValidatorFactory</code> implementations can cache <code class="classname">Validator</code> instances if needed.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 89. ValidatorFactory interface</div>
+<div class="title">Example 6.19: ValidatorFactory interface</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -10545,7 +10654,7 @@ MessageInterpolator customInterpolator = <span class="keyword">new</span> Locale
 <p><code class="methodname">unwrap()</code> is provided as a way to access objects of a given type specific to a Bean Validation provider typically as a complement to the <code class="classname">ValidatorFactory</code> contract. Using this method makes your code non portable.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 90. Using unwrap to access a provider specific contract</div>
+<div class="title">Example 6.20: Using unwrap to access a provider specific contract</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -10578,7 +10687,7 @@ acmeFactory.setSpecificConfiguration( [...] );</code></pre>
 <p><code class="classname">ValidatorContext</code> returned by <code class="methodname">usingContext()</code> can be used to customize the state in which the <code class="classname">Validator</code> must be initialized. This is used to customize the <code class="classname">MessageInterpolator</code>, the <code class="classname">TraversableResolver</code>, the <code class="classname">ParameterNameProvider</code>, the  <code class="classname">ClockProvider</code> or the <code class="classname">ConstraintValidatorFactory</code>.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 91. ValidatorContext interface</div>
+<div class="title">Example 6.21: ValidatorContext interface</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -10689,7 +10798,7 @@ acmeFactory.setSpecificConfiguration( [...] );</code></pre>
 <p><span class="tck-testable">The <code>MessageInterpolator</code>, the <code>TraversableResolver</code>, the <code>ConstraintValidatorFactory</code>, the <code>ParameterNameProvider</code> or the <code>ClockProvider</code> passed to the <code>ValidatorContext</code> are used instead of the <code>ValidatorFactory</code>'s <code>MessageInterpolator</code>, <code>TraversableResolver</code>, <code>ConstraintValidatorFactory</code>, <code>ParameterNameProvider</code> or <code>ClockProvider</code> instances.</span></p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 92. Use of ValidatorFactory</div>
+<div class="title">Example 6.22: Use of ValidatorFactory</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -10787,7 +10896,7 @@ detected through the service loader or given in the XML configuration.</p>
 <p>Clients call <code class="methodname">Configuration.buildValidatorFactory()</code> to retrieve the initialized <code class="classname">ValidatorFactory</code> instance. <span class="tck-testable">It is legal to invoke <code class="methodname">buildValidatorFactory()</code> several times, e.g. in order to retrieve several <code class="classname">ValidatorFactory</code> instances with a slightly different configuration (see <a href="#using-configuration-several-times">Using Configuration to create several validator factories</a>).</span></p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 93. Configuration and BootstrapConfiguration interfaces</div>
+<div class="title">Example 6.23: Configuration and BootstrapConfiguration interfaces</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -11201,7 +11310,7 @@ detected through the service loader or given in the XML configuration.</p>
 <p>To facilitate the use of provider specific configuration methods, <code class="classname">Configuration</code> uses generics: <code class="classname">Configuration&lt;T extends Configuration&lt;T&gt;&gt;</code> ; the generic return type <code class="classname">T</code> is returned by chaining methods. The provider specific sub interface must resolve the generic T as itself as shown in <a href="#example-providerspecific-config">Example of provider specific Configuration sub interface</a>.</p>
 </div>
 <div id="example-providerspecific-config" class="exampleblock">
-<div class="title">Example 94. Example of provider specific Configuration sub interface</div>
+<div class="title">Example 6.24: Example of provider specific Configuration sub interface</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -11244,7 +11353,7 @@ detected through the service loader or given in the XML configuration.</p>
 <p><span class="tck-not-testable">Streams represented in the XML configuration and opened by the <code class="classname">Configuration</code> implementation must be closed by the <code class="classname">Configuration</code> implementation after the <code class="classname">ValidatorFactory</code> creation (or if an exception occurs).</span> Streams provided programmatically are the responsibility of the application.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 95. ConfigurationState interface</div>
+<div class="title">Example 6.25: ConfigurationState interface</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -11429,8 +11538,9 @@ detected through the service loader or given in the XML configuration.</p>
 </div>
 </div>
 </div>
-<div class="paragraph tck-testable">
-<p><div class="paragraph">
+<div class="openblock tck-testable">
+<div class="content">
+<div class="paragraph">
 <p>The requested provider implementation is resolved according to the following rules in the following order:</p>
 </div>
 <div class="ulist">
@@ -11445,7 +11555,8 @@ detected through the service loader or given in the XML configuration.</p>
 <p>Use the first provider implementation returned by <code class="classname">validationProviderResolver.getValidationProviders()</code>.</p>
 </li>
 </ul>
-</div></p>
+</div>
+</div>
 </div>
 <div class="paragraph">
 <p>The <code class="classname">ValidationProviderResolver</code> is specified when <code class="classname">Configuration</code> instances are created (see <code class="classname">ValidationProvider</code>). <span class="tck-not-testable">If no <code class="classname">ValidationProviderResolver</code> instance has been specified, the default <code class="classname">ValidationProviderResolver</code> is used.</span></p>
@@ -11485,7 +11596,7 @@ detected through the service loader or given in the XML configuration.</p>
 <p>Here is an example of <code class="classname">Configuration</code> use.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 96. Use Configuration</div>
+<div class="title">Example 6.26: Use Configuration</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -11502,7 +11613,7 @@ ValidatorFactory factory = configuration
 <p>The following shows an example of setting up a <code class="classname">Configuration</code>, retrieving a validator factory from it, subsequently altering the configuration and then retrieving another factory:</p>
 </div>
 <div id="using-configuration-several-times" class="exampleblock">
-<div class="title">Example 97. Using Configuration to create several validator factories</div>
+<div class="title">Example 6.27: Using Configuration to create several validator factories</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -11533,7 +11644,7 @@ ValidatorFactory factory2 = configuration
 <p><span class="tck-testable"><code class="classname">ValidationProviderResolver</code> returns the list of Bean Validation providers available at runtime and more specifically a <code class="classname">ValidationProvider</code> instance for each provider available in the context.</span> This service can be customized by implementing <code class="classname">ValidationProviderResolver</code>. <span class="tck-not-testable">Implementations must be thread-safe.</span></p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 98. ValidationProviderResolver</div>
+<div class="title">Example 6.28: ValidationProviderResolver</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -11597,7 +11708,7 @@ ValidatorFactory factory2 = configuration
 </ul>
 </div>
 <div class="exampleblock">
-<div class="title">Example 99. ValidationProvider</div>
+<div class="title">Example 6.29: ValidationProvider</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -11661,7 +11772,7 @@ ValidatorFactory factory2 = configuration
 </div>
 </div>
 <div class="exampleblock">
-<div class="title">Example 100. BootstrapState interface</div>
+<div class="title">Example 6.30: BootstrapState interface</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -11702,7 +11813,7 @@ ValidatorFactory factory2 = configuration
 <p>A <code class="classname">ValidationProvider</code> implementation is linked (via its generic parameter) to a specific sub interface of <code class="classname">Configuration</code>. The Bean Validation bootstrap API makes use of this link to return the specific <code class="classname">Configuration</code> subinterface implementation in a type-safe way when a specific provider is requested. The sub interface does not have to add any new methods but is the natural holder for provider specific configuration methods.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 101. Example of provider specific Configuration sub interface</div>
+<div class="title">Example 6.31: Example of provider specific Configuration sub interface</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -11747,8 +11858,9 @@ ValidatorFactory factory2 = configuration
 </tr>
 </table>
 </div>
-<div class="paragraph tck-testable">
-<p><div class="paragraph">
+<div class="openblock tck-testable">
+<div class="content">
+<div class="paragraph">
 <p>The provider discovery mechanism uses the following algorithm:</p>
 </div>
 <div class="ulist">
@@ -11760,7 +11872,8 @@ ValidatorFactory factory2 = configuration
 <p>The first <code class="classname">ValidationProvider</code> matching the requested provider is returned. Providers are evaluated in the order they are returned by <code class="classname">ValidationProviderResolver</code>. A provider instance is considered matching if it is assignable to the requested provider class.</p>
 </li>
 </ul>
-</div></p>
+</div>
+</div>
 </div>
 <div class="paragraph">
 <p><span class="tck-testable">When the default Bean Validation provider is requested, the first <code class="classname">ValidationProvider</code> returned by the <code class="classname">ValidationProviderResolver</code> strategy is returned.</span></p>
@@ -11798,7 +11911,7 @@ ValidatorFactory factory2 = configuration
 <p>The <code class="classname">Validation</code> class is the entry point used to bootstrap Bean Validation providers. <span class="tck-testable">The first entry point, <code class="methodname">buildDefaultValidatorFactory()</code>, is considered to be the default <code class="classname">ValidatorFactory</code> and is equivalent to the <code class="classname">ValidatorFactory</code> returned by <code class="code">Validation.byDefaultProvider().configure().buildValidatorFactory()</code>.</span></p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 102. Validation methods available</div>
+<div class="title">Example 6.32: Validation methods available</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -11944,7 +12057,7 @@ ValidatorFactory factory2 = configuration
 <p><span class="tck-testable">The second entry point lets the client provide a custom <code class="classname">ValidationProviderResolver</code> instance. This instance is passed to <code class="classname">GenericBootstrap</code>. <code class="classname">GenericBootstrap</code> builds a generic <code class="classname">Configuration</code> using the first <code class="classname">ValidationProvider</code> returned by <code class="classname">ValidationProviderResolution</code> and calling <code class="code">ValidationProvider.createGenericConfiguration(BootstrapState state)</code>.</span> <code class="classname">BootstrapState</code> holds the <code class="classname">ValidationProviderResolution</code> instance passed to <code class="classname">GenericBootstrap</code> and will be used by the <code class="classname">Configuration</code> instance when resolving the provider to use. Note that <code class="code">ValidationProvider.createGenericConfiguration</code> returns a <code class="classname">Configuration</code> object not bound to any particular provider.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 103. GenericBootstrap interface</div>
+<div class="title">Example 6.33: GenericBootstrap interface</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -11998,7 +12111,7 @@ ValidatorFactory factory2 = configuration
 <p>A <code class="classname">ProviderSpecificBootstrap</code> object can optionally receive a <code class="classname">ValidationProviderResolver</code> instance.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 104. ProviderSpecificBootstrap interface</div>
+<div class="title">Example 6.34: ProviderSpecificBootstrap interface</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -12099,15 +12212,17 @@ ValidatorFactory factory2 = configuration
 <div class="paragraph">
 <p><span class="tck-testable"><code>clock-provider</code>: represents the fully qualified class name of the <code class="classname">ClockProvider</code> implementation. When defined in XML, the implementation must have a public no-arg constructor.</span></p>
 </div>
-<div class="paragraph tck-testable">
-<p><div class="paragraph">
+<div class="openblock tck-testable">
+<div class="content">
+<div class="paragraph">
 <p><code>value-extractor</code>: represents the fully qualified class name of a <code class="classname">ValueExtractor</code> implementation.
 When defined in XML, the implementation must have a public no-arg constructor.
 <code>value-extractor</code> can be given several times for declaring multiple extractors.
 An extractor for a given type and type parameter configured via XML takes precedence
 over any extractor for the same type and type parameter detected through the service loader or provided by the Bean Validation implementation itself.
 If more than one value extractor for the same type and type parameter is configured via XML, a <code>ValidationException</code> is raised.</p>
-</div></p>
+</div>
+</div>
 </div>
 <div class="paragraph">
 <p><span class="tck-testable"><code>executable-validation</code>: allows to disable executable validation entirely via its attribute <code class="code">enabled="false"</code> and optionally contains <code>default-validated-executable-types</code>. <code>enabled</code> defaults to <code>true</code>.</span></p>
@@ -12128,7 +12243,7 @@ If more than one value extractor for the same type and type parameter is configu
 <p><span class="tck-testable">If a public no-arg constructor is missing on any of the classes referenced by the relevant XML elements, a <code class="classname">ValidationException</code> is raised during the <code class="methodname">Configuration.buildValidatorFactory()</code> call.</span></p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 105. Example of META-INF/validation.xml file</div>
+<div class="title">Example 6.35: Example of META-INF/validation.xml file</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -12202,7 +12317,7 @@ If more than one value extractor for the same type and type parameter is configu
 <p>A <code class="classname">Validator</code> instance hosts the method to access to the metadata repository for a given class. It is recommended to leave the caching of <code class="classname">Validator</code> instances to the <code class="classname">ValidatorFactory</code>. <code class="classname">Validator</code> implementations are thread-safe.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 106. Validator interface (metadata request API)</div>
+<div class="title">Example 7.1: Validator interface (metadata request API)</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -12252,7 +12367,7 @@ If more than one value extractor for the same type and type parameter is configu
 <p><code class="classname">ElementDescriptor</code> is the root interface describing elements hosting constraints. It is used to describe the list of constraints for a given element (whether it be a class, property, method etc.).</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 107. ElementDescriptor interface</div>
+<div class="title">Example 7.2: ElementDescriptor interface</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -12390,8 +12505,9 @@ If more than one value extractor for the same type and type parameter is configu
 }</code></pre>
 </div>
 </div>
-<div class="paragraph tck-testable">
-<p><div class="paragraph">
+<div class="openblock tck-testable">
+<div class="content">
+<div class="paragraph">
 <p><code class="methodname">getElementClass()</code> returns</p>
 </div>
 <div class="ulist">
@@ -12409,7 +12525,8 @@ If more than one value extractor for the same type and type parameter is configu
 <p>the return type when invoked on <code class="classname">ConstructorDescriptor</code>, <code class="classname">MethodDescriptor</code> or <code class="classname">ReturnValueDescriptor</code>.</p>
 </li>
 </ul>
-</div></p>
+</div>
+</div>
 </div>
 <div class="paragraph">
 <p><span class="tck-testable"><code class="classname">getConstraintDescriptors()</code> returns all the <code class="classname">ConstraintDescriptor</code>s (see <a href="#constraintmetadata-constraintdescriptor">ConstraintDescriptor</a>) hosted on the given element in the class hierarchy, each <code class="classname">ConstraintDescriptor</code> describing one of the constraints declared on the given element.</span></p>
@@ -12433,7 +12550,7 @@ If more than one value extractor for the same type and type parameter is configu
 <p>Here is an example restricting the list of constraints on getters, matching the default group and declared physically on the <code>name</code> getter of <code class="classname">Customer</code> (and not any of the getters on the super classes).</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 108. Using the fluent API to restrict matching constraints</div>
+<div class="title">Example 7.3: Using the fluent API to restrict matching constraints</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -12477,7 +12594,7 @@ constraints = pd.getConstraintDescriptors();
 <p>The following example shows how the fluent API is used to retrieve parameter, cross-parameter and return value constraints, taking into account locally declared constraints as well as constraints declared in the inheritance hierarchy.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 109. Using the fluent API to select method and constructor constraints</div>
+<div class="title">Example 7.4: Using the fluent API to select method and constructor constraints</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -12557,7 +12674,7 @@ ConstructorDescriptor constructorDescriptor = validator
 <p>The <code class="classname">BeanDescriptor</code> interface describes a constrained Java Bean. This interface is returned by <code class="methodname">Validator.getConstraintsForClass(Class&lt;?&gt;)</code>.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 110. BeanDescriptor interface</div>
+<div class="title">Example 7.5: BeanDescriptor interface</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -12685,7 +12802,7 @@ ConstructorDescriptor constructorDescriptor = validator
 </div>
 </div>
 <div class="exampleblock">
-<div class="title">Example 111. MethodType</div>
+<div class="title">Example 7.6: MethodType</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -13166,6 +13283,8 @@ ConstructorDescriptor constructorDescriptor = validator
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="JAVA"><span class="keyword">package</span> <span class="namespace">javax.validation.metadata</span>;
 
+<span class="keyword">import</span> <span class="include">javax.validation.Valid</span>;
+
 <span class="comment">/**
  * Represents an element that might be a container, thus allowing container element constraints.
  *
@@ -13175,15 +13294,25 @@ ConstructorDescriptor constructorDescriptor = validator
 <span class="directive">public</span> <span class="type">interface</span> <span class="class">ContainerDescriptor</span> {
 
     <span class="comment">/**
-     * Returns the list of descriptors representing the container element
-     * types (e.g. type arguments of a generic type) of this container, if any,
-     * in the order of their declaration.
+     * Returns the container element type descriptor for a given type argument.
+     * &lt;p&gt;
+     * Returns {@code null} if the container element type does not exist or has no constraint nor is marked as cascaded
+     * (see {@link #getConstrainedContainerElementTypes()})
      *
-     * @return the list of descriptors representing the container element types of
-     *         this container; an empty set will be returned if this executable has
-     *         no container element types, but never {@code null}
+     * @param typeArgumentIndex type argument index evaluated
+     * @return the container element type descriptor
      */</span>
-    <span class="predefined-type">List</span>&lt;ContainerElementTypeDescriptor&gt; getContainerElementTypes();
+    ContainerElementTypeDescriptor getConstraintsForContainerElementType(<span class="type">int</span> typeArgumentIndex);
+
+    <span class="comment">/**
+     * Returns a set of container element type descriptors having at least one constraint defined or marked as cascaded
+     * ({@link Valid}).
+     * &lt;p&gt;
+     * If no container element type matches, an empty set is returned.
+     *
+     * @return the set of {@link ContainerElementTypeDescriptor}s
+     */</span>
+    <span class="predefined-type">Set</span>&lt;ContainerElementTypeDescriptor&gt; getConstrainedContainerElementTypes();
 }</code></pre>
 </div>
 </div>
@@ -13421,10 +13550,6 @@ in the order of their declaration.</p>
     }
 
     <span class="type">class</span> <span class="class">NotEmptyValidator</span> <span class="directive">implements</span> ConstraintValidator&lt;NotEmpty, <span class="predefined-type">String</span>&gt; {
-
-        <span class="annotation">@Override</span>
-        <span class="directive">public</span> <span class="type">void</span> initialize(NotEmpty constraintAnnotation) {
-        }
 
         <span class="annotation">@Override</span>
         <span class="directive">public</span> <span class="type">boolean</span> isValid(<span class="predefined-type">String</span> value, ConstraintValidatorContext context) {
@@ -13779,7 +13904,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 <p>All built-in constraints are in the <code class="classname">javax.validation.constraints</code> package. Here is the list of constraints and their declaration.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 112. <span class="tck-testable">@Null constraint</span></div>
+<div class="title">Example 8.1: <span class="tck-testable">@Null constraint</span></div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -13822,7 +13947,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 </div>
 </div>
 <div class="exampleblock">
-<div class="title">Example 113. <span class="tck-testable">@NotNull constraint</span></div>
+<div class="title">Example 8.2: <span class="tck-testable">@NotNull constraint</span></div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -13865,7 +13990,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 </div>
 </div>
 <div class="exampleblock">
-<div class="title">Example 114. <span class="tck-testable">@AssertTrue constraint</span></div>
+<div class="title">Example 8.3: <span class="tck-testable">@AssertTrue constraint</span></div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -13910,7 +14035,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 </div>
 </div>
 <div class="exampleblock">
-<div class="title">Example 115. <span class="tck-testable">@AssertFalse constraint</span></div>
+<div class="title">Example 8.4: <span class="tck-testable">@AssertFalse constraint</span></div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -13955,7 +14080,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 </div>
 </div>
 <div class="exampleblock">
-<div class="title">Example 116. <span class="tck-testable">@Min constraint</span></div>
+<div class="title">Example 8.5: <span class="tck-testable">@Min constraint</span></div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -14015,7 +14140,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 </div>
 </div>
 <div class="exampleblock">
-<div class="title">Example 117. <span class="tck-testable">@Max constraint</span></div>
+<div class="title">Example 8.6: <span class="tck-testable">@Max constraint</span></div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -14075,7 +14200,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 </div>
 </div>
 <div class="exampleblock">
-<div class="title">Example 118. <span class="tck-testable">@DecimalMin constraint</span></div>
+<div class="title">Example 8.7: <span class="tck-testable">@DecimalMin constraint</span></div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -14150,7 +14275,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 </div>
 </div>
 <div class="exampleblock">
-<div class="title">Example 119. <span class="tck-testable">@DecimalMax constraint</span></div>
+<div class="title">Example 8.8: <span class="tck-testable">@DecimalMax constraint</span></div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -14225,7 +14350,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 </div>
 </div>
 <div class="exampleblock">
-<div class="title">Example 120. <span class="tck-testable">@Negative constraint</span></div>
+<div class="title">Example 8.9: <span class="tck-testable">@Negative constraint</span></div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -14286,7 +14411,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 </div>
 </div>
 <div class="exampleblock">
-<div class="title">Example 121. <span class="tck-testable">@Positive constraint</span></div>
+<div class="title">Example 8.10: <span class="tck-testable">@Positive constraint</span></div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -14347,7 +14472,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 </div>
 </div>
 <div class="exampleblock">
-<div class="title">Example 122. <span class="tck-testable">@Size constraint</span></div>
+<div class="title">Example 8.11: <span class="tck-testable">@Size constraint</span></div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -14409,7 +14534,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 </div>
 </div>
 <div class="exampleblock">
-<div class="title">Example 123. <span class="tck-testable">@Digits constraint</span></div>
+<div class="title">Example 8.12: <span class="tck-testable">@Digits constraint</span></div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -14471,7 +14596,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 </div>
 </div>
 <div class="exampleblock">
-<div class="title">Example 124. <span class="tck-testable">@Past constraint</span></div>
+<div class="title">Example 8.13: <span class="tck-testable">@Past constraint</span></div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -14548,7 +14673,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 </div>
 </div>
 <div class="exampleblock">
-<div class="title">Example 125. <span class="tck-testable">@Future constraint</span></div>
+<div class="title">Example 8.14: <span class="tck-testable">@Future constraint</span></div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -14625,7 +14750,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 </div>
 </div>
 <div class="exampleblock">
-<div class="title">Example 126. <span class="tck-testable">@Pattern constraint</span></div>
+<div class="title">Example 8.15: <span class="tck-testable">@Pattern constraint</span></div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -14759,7 +14884,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 </div>
 </div>
 <div class="exampleblock">
-<div class="title">Example 127. <span class="tck-testable">@NotEmpty constraint</span></div>
+<div class="title">Example 8.16: <span class="tck-testable">@NotEmpty constraint</span></div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -14808,7 +14933,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 </div>
 </div>
 <div class="exampleblock">
-<div class="title">Example 128. <span class="tck-testable">@NotBlank constraint</span></div>
+<div class="title">Example 8.17: <span class="tck-testable">@NotBlank constraint</span></div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -14851,7 +14976,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 </div>
 </div>
 <div class="exampleblock">
-<div class="title">Example 129. <span class="tck-testable">@Email constraint</span></div>
+<div class="title">Example 8.18: <span class="tck-testable">@Email constraint</span></div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -14955,7 +15080,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 <p><span class="tck-testable">If the name of the class does refer to a class not present in the classpath, a <code class="classname">ValidationException</code> is raised.</span></p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 130. Example of bean XML declaration</div>
+<div class="title">Example 9.1: Example of bean XML declaration</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -14999,7 +15124,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 </ul>
 </div>
 <div class="exampleblock">
-<div class="title">Example 131. Example of class-level declaration</div>
+<div class="title">Example 9.2: Example of class-level declaration</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -15052,7 +15177,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 <p><span class="tck-testable">If the name of the field does not correspond to a field in the given bean a <code class="classname">ValidationException</code> is raised.</span></p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 132. Field-level declaration</div>
+<div class="title">Example 9.3: Field-level declaration</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -15104,7 +15229,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 <p><span class="tck-testable">If the name of the property does not correspond to a property in the given bean a <code class="classname">ValidationException</code> is raised.</span></p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 133. Property-level declaration</div>
+<div class="title">Example 9.4: Property-level declaration</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -15210,7 +15335,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 </ul>
 </div>
 <div class="exampleblock">
-<div class="title">Example 134. Constructor-level declaration</div>
+<div class="title">Example 9.5: Constructor-level declaration</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -15342,7 +15467,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 </ul>
 </div>
 <div class="exampleblock">
-<div class="title">Example 135. Method-level declaration</div>
+<div class="title">Example 9.6: Method-level declaration</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -15400,7 +15525,7 @@ Whether or not to perform cascaded validation is controlled using the <code>vali
 Group conversion rules for cascaded validation are specified using the <code>convert-group</code> element.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 136. Container-element declaration</div>
+<div class="title">Example 9.7: Container-element declaration</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -15486,7 +15611,7 @@ Group conversion rules for cascaded validation are specified using the <code>con
 <p><span class="tck-testable">Elements with default values in the annotation definition do not have to be represented in XML: the default value will be used in this case.</span> <span class="tck-testable">If an XML constraint declaration is missing mandatory elements, or if it contains elements not part of the constraint definition, a <code class="classname">ValidationException</code> is raised.</span></p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 137. Constraint declaration</div>
+<div class="title">Example 9.8: Constraint declaration</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -15632,7 +15757,7 @@ Group conversion rules for cascaded validation are specified using the <code>con
 <p><span class="tck-testable">Source and target group of a conversion rule are given by specifying their fully-qualified names within the <code>from</code> and <code>to</code> attribute respectively. If the <code>default-package</code> element is configured for the mapping file, any unqualified class names will be resolved using the given default package.</span></p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 138. Declaration of group conversions</div>
+<div class="title">Example 9.9: Declaration of group conversions</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -15698,7 +15823,7 @@ Group conversion rules for cascaded validation are specified using the <code>con
 <p><span class="tck-testable">If <code>include-existing-validator</code> is set to false, <code class="classname">ConstraintValidator</code> defined on the constraint annotation are ignored.</span> <span class="tck-testable">If set to true, the list of <code class="classname">ConstraintValidator</code>s described in XML are concatenated to the list of <code class="classname">ConstraintValidator</code> described on the annotation to form a new array of <code class="classname">ConstraintValidator</code> evaluated.</span> <span class="tck-testable">Annotation based <code class="classname">ConstraintValidator</code> come before XML based <code class="classname">ConstraintValidator</code>s in the array.</span> <span class="tck-testable">The new list is returned by <code class="methodname">ConstraintDescriptor.getConstraintValidatorClasses()</code>.</span></p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 139. Overriding constraint definitions</div>
+<div class="title">Example 9.10: Overriding constraint definitions</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -15754,8 +15879,9 @@ Group conversion rules for cascaded validation are specified using the <code>con
 <div class="paragraph">
 <p><span class="tck-testable">A <code class="classname">boolean</code> is represented according to the rules defined in <code class="methodname">Boolean.parseBoolean(String)</code>.</span></p>
 </div>
-<div class="paragraph tck-testable">
-<p><div class="paragraph">
+<div class="openblock tck-testable">
+<div class="content">
+<div class="paragraph">
 <p>A <code class="classname">char</code> is represented according to the following rules:</p>
 </div>
 <div class="ulist">
@@ -15767,7 +15893,8 @@ Group conversion rules for cascaded validation are specified using the <code>con
 <p>the character extracted from the string is the returned <code class="classname">char</code></p>
 </li>
 </ul>
-</div></p>
+</div>
+</div>
 </div>
 <div class="paragraph">
 <p><span class="tck-testable">A <code class="classname">Class</code> is represented by the fully qualified class name of the class or more precisely according to the syntax described in the documentation of <code class="methodname">java.lang.Class.getName()</code>. Note that if the raw string is unqualified, default package is taken into account.</span></p>
@@ -15791,7 +15918,7 @@ Group conversion rules for cascaded validation are specified using the <code>con
 <p><span class="tck-testable">In case an unknown version is given (e.g. if a mapping descriptor adhering to a future schema version is parsed by a Bean Validation 2.0 provider) a <code class="classname">ValidationException</code> is raised.</span></p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 140. XML schema for constraint mapping descriptors</div>
+<div class="title">Example 9.11: XML schema for constraint mapping descriptors</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -16110,7 +16237,7 @@ Group conversion rules for cascaded validation are specified using the <code>con
 <p>XML Configuration is set in <code class="filename">META-INF/validation.xml</code>. The file is optional. The XML schema followed by the configuration file is as followed.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 141. XML configuration XSD</div>
+<div class="title">Example 9.12: XML configuration XSD</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -16293,7 +16420,7 @@ Group conversion rules for cascaded validation are specified using the <code>con
 <p>Bean Validation provides a reference exception for such cases. Frameworks and applications are encouraged to use <code class="classname">ConstraintViolationException</code> as opposed to a custom exception to increase consistency of the Java platform. The exception can be raised directly or wrapped into the framework or application specific parent exception.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 142. ConstraintViolationException</div>
+<div class="title">Example 10.1: ConstraintViolationException</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -16724,7 +16851,7 @@ One example is the configuration of multiple extractors for the same container e
 <p><span class="tck-not-testable">Mixing <code>IMPLICIT</code> and other executable types is illegal.</span></p>
 </div>
 <div id="example-validateonexecution" class="exampleblock">
-<div class="title">Example 143. @ValidateOnExecution annotation</div>
+<div class="title">Example 11.1: @ValidateOnExecution annotation</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -16860,7 +16987,7 @@ One example is the configuration of multiple extractors for the same container e
 <p><span class="tck-testable">You can globally disable executable validation by using <code class="code">&lt;executable-validation enabled="false"/&gt;</code>, in this case, <code class="code">&lt;default-validated-executable-types/&gt;</code> and <code class="classname">@ValidateOnExecution</code> are ignored.</span></p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 144. validation.xml disabling executable validation</div>
+<div class="title">Example 11.2: validation.xml disabling executable validation</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -16911,7 +17038,7 @@ One example is the configuration of multiple extractors for the same container e
 <p>The following example shows some of the way you can refine executable validation with <code class="classname">@ValidateOnExecution</code>.</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 145. Method validation configurations</div>
+<div class="title">Example 11.3: Method validation configurations</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -16964,8 +17091,9 @@ One example is the configuration of multiple extractors for the same container e
 </div>
 <div class="sect2">
 <h3 id="integration-javaee"><a class="anchor" href="#integration-javaee"></a>11.2. Java EE</h3>
-<div class="paragraph tck-testable">
-<p><div class="paragraph">
+<div class="openblock tck-testable">
+<div class="content">
+<div class="paragraph">
 <p>Java EE must obey the rules defined above and make the following instances available under JNDI:</p>
 </div>
 <div class="ulist">
@@ -16977,7 +17105,8 @@ One example is the configuration of multiple extractors for the same container e
 <p><code class="classname">Validator</code> under <code>java:comp/Validator</code></p>
 </li>
 </ul>
-</div></p>
+</div>
+</div>
 </div>
 <div class="paragraph">
 <p><span class="tck-testable">Instead of looking the instances up via JNDI, the user can request them to be injected via the <code class="classname">Resource</code> annotation:</span></p>
@@ -17034,12 +17163,13 @@ One example is the configuration of multiple extractors for the same container e
 </div>
 </div>
 <div class="sect3">
-<h4 id="integration-cdi-customconfiguration"><a class="anchor" href="#integration-cdi-customconfiguration"></a>11.3.2. <code class="classname">ConstraintValidatorFactory</code>, <code class="classname">MessageInterpolator</code>, <code class="classname">ParameterNameProvider</code>, <code class="classname">ClockProvider</code> and <code class="classname">TraversableResolver</code></h4>
+<h4 id="integration-cdi-customconfiguration"><a class="anchor" href="#integration-cdi-customconfiguration"></a>11.3.2. <code class="classname">ConstraintValidatorFactory</code>, <code class="classname">MessageInterpolator</code>, <code class="classname">ParameterNameProvider</code>, <code class="classname">ClockProvider</code>, <code class="classname">TraversableResolver</code> and <code>ValueExtractor</code></h4>
 <div class="paragraph">
-<p><span class="tck-testable">If a custom <code class="classname">ConstraintValidatorFactory</code>, <code class="classname">MessageInterpolator</code>, <code class="classname">ParameterNameProvider</code>, <code class="classname">ClockProvider</code> or <code class="classname">TraversableResolver</code> class is defined in the XML deployment descriptor (see <a href="#validationapi-bootstrapping-xmlconfiguration">XML configuration: META-INF/validation.xml</a>), the <code class="classname">ValidatorFactory</code> must be configured with CDI managed beans representing the requested classes. Services like dependency injection, interception and decoration must thus be made available to these instances by the container.</span></p>
+<p><span class="tck-testable">If custom <code class="classname">ConstraintValidatorFactory</code>, <code class="classname">MessageInterpolator</code>, <code class="classname">ParameterNameProvider</code>, <code class="classname">ClockProvider</code>, <code class="classname">TraversableResolver</code> or <code>ValueExtractor</code> classes are defined in the XML deployment descriptor (see <a href="#validationapi-bootstrapping-xmlconfiguration">XML configuration: META-INF/validation.xml</a>), the <code class="classname">ValidatorFactory</code> must be configured with CDI managed beans representing the requested classes. Services like dependency injection, interception and decoration must thus be made available to these instances by the container.</span></p>
 </div>
-<div class="paragraph tck-testable">
-<p><div class="paragraph">
+<div class="openblock tck-testable">
+<div class="content">
+<div class="paragraph">
 <p>If no custom <code class="classname">ConstraintValidatorFactory</code> is requested by the user, the <code class="classname">ValidatorFactory</code> must be configured with a custom <code class="classname">ConstraintValidatorFactory</code> instance that returns CDI managed beans representing the requested <code class="classname">ConstraintValidator</code> types. The factory</p>
 </div>
 <div class="ulist">
@@ -17051,7 +17181,8 @@ One example is the configuration of multiple extractors for the same container e
 <p>calls <code class="classname">InjectionTarget.preDestroy()</code> and <code class="classname">InjectionTarget.dispose()</code> upon <code class="classname">ConstraintValidatorFactory.releaseInstance</code> (see also <a href="#constraintsdefinitionimplementation-constraintfactory">The ConstraintValidatorFactory</a> for more information about the lifecycle of a <code class="classname">ConstraintValidator</code>).</p>
 </li>
 </ul>
-</div></p>
+</div>
+</div>
 </div>
 <div class="paragraph">
 <p><span class="tck-not-testable">Using directly or indirectly a JPA <code class="classname">EntityManager</code> that might call back Bean Validation for validation is not allowed in the Bean Validation extension points and in <code class="classname">ConstraintValidator</code> instances. This would lead to infinite flush or unexpected behavior.</span></p>
@@ -17313,14 +17444,51 @@ Provide a way to disable BV metadata use by a persistence provider (property bas
 </div>
 </div>
 <div class="sect1">
-<h2 id="changelog"><a class="anchor" href="#changelog"></a>Appendix D: Changelog</h2>
+<h2 id="appendix-module-name"><a class="anchor" href="#appendix-module-name"></a>Appendix D: Module name</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>While not specified by this specification, Bean Validation providers are encouraged to use the module name <code>java.validation</code>
+in case they provide the Bean Validation API as a module for the Java Platform Module System (as defined by JSR 376).</p>
+</div>
+<div class="paragraph">
+<p>A mandatory module name - which may be <code>java.validation</code> or another one - will be defined in a future revision of this specification.</p>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="changelog"><a class="anchor" href="#changelog"></a>Appendix E: Changelog</h2>
 <div class="sectionbody">
 <div class="exampleblock">
-<div class="title">Example 146. Changelog</div>
+<div class="title">Example E.1: Changelog</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code>2.0.0.Alpha2 (2017-03-28)
+<pre class="CodeRay highlight"><code>2.0.0.Beta1 (Public Review Draft 1, 2017-04-24)
+-----------------------------------------------
+
+** Improvement
+    * [BVAL-598] - Use the license-maven-plugin to check the presence of the license
+    * [BVAL-596] - Move ValidateUnwrappedValue to javax.validation.metadata
+    * [BVAL-595] - Adding missing @since tags
+
+** New Feature
+    * [BVAL-594] - Extend meta-data API to cover container element constraints
+    * [BVAL-593] - Allow to configure group conversions for container elements in XML
+    * [BVAL-591] - Dissolve "container element validation" appendix into spec sections
+    * [BVAL-589] - Document release process of the spec
+    * [BVAL-549] - Nested cascaded validation
+
+** Task
+    * [BVAL-602] - Check that every section has an id
+    * [BVAL-599] - Remove metadata usage example from API
+    * [BVAL-585] - Add descriptions of build goals to beanvalidation-spec/README.md
+    * [BVAL-584] - Use short license headers
+    * [BVAL-581] - Discuss with Java EE EG whether it's actually WEB-INF/validation.xml
+    * [BVAL-577] - Proof-read "3.3. Constraint composition" on "composing" vs. "composed"
+    * [BVAL-575] - Update documentation of Configuration#getDefaultParameterNameProvider()
+
+2.0.0.Alpha2 (2017-03-28)
 -------------------------
 
 ** Bug
@@ -17845,7 +18013,7 @@ Provide a way to disable BV metadata use by a persistence provider (property bas
 <div id="footer">
 <div id="footer-text">
 Version 2.0.0-SNAPSHOT<br>
-Last updated 2017-04-24 09:41:56 +00:00
+Last updated 2017-05-17 13:24:40 UTC
 </div>
 </div>
 <script>
