@@ -3213,7 +3213,7 @@ context.buildConstraintViolationWithTemplate( <span class="string"><span class="
 <span class="comment">//under the &quot;home&quot; key in the map</span>
 context.buildConstraintViolationWithTemplate( <span class="string"><span class="delimiter">&quot;</span><span class="content">Incorrect home address</span><span class="delimiter">&quot;</span></span> )
             .addBeanNode()
-                .inContainer( <span class="predefined-type">Map</span>.class, <span class="integer">0</span> )
+                .inContainer( <span class="predefined-type">Map</span>.class, <span class="integer">1</span> )
                 .inIterable().atKey( <span class="string"><span class="delimiter">&quot;</span><span class="content">home</span><span class="delimiter">&quot;</span></span> )
             .addConstraintViolation();
 
@@ -3223,9 +3223,18 @@ context.buildConstraintViolationWithTemplate( <span class="string"><span class="
 context.buildConstraintViolationWithTemplate( <span class="string"><span class="delimiter">&quot;</span><span class="content">this detail is wrong</span><span class="delimiter">&quot;</span></span> )
             .addPropertyNode( <span class="string"><span class="delimiter">&quot;</span><span class="content">addresses</span><span class="delimiter">&quot;</span></span> )
             .addPropertyNode( <span class="string"><span class="delimiter">&quot;</span><span class="content">country</span><span class="delimiter">&quot;</span></span> )
-                .inContainer( <span class="predefined-type">Map</span>.class, <span class="integer">0</span> )
+                .inContainer( <span class="predefined-type">Map</span>.class, <span class="integer">1</span> )
                 .inIterable().atKey( <span class="string"><span class="delimiter">&quot;</span><span class="content">home</span><span class="delimiter">&quot;</span></span> )
             .addPropertyNode( <span class="string"><span class="delimiter">&quot;</span><span class="content">name</span><span class="delimiter">&quot;</span></span> )
+            .addConstraintViolation();
+
+<span class="comment">//From a class level constraint on User</span>
+<span class="comment">//Build a constraint violation on the default path + addresses[&quot;home&quot;].&lt;map key&gt;</span>
+<span class="comment">//i.e. a container element constraint violation for the map key</span>
+context.buildConstraintViolationWithTemplate( <span class="string"><span class="delimiter">&quot;</span><span class="content">the map key is invalid</span><span class="delimiter">&quot;</span></span> )
+            .addPropertyNode( <span class="string"><span class="delimiter">&quot;</span><span class="content">addresses</span><span class="delimiter">&quot;</span></span> )
+            .addContainerElementNode( <span class="string"><span class="delimiter">&quot;</span><span class="content">&lt;map key&gt;</span><span class="delimiter">&quot;</span></span>, <span class="predefined-type">Map</span>.class, <span class="integer">0</span> )
+                .inIterable().atKey( <span class="string"><span class="delimiter">&quot;</span><span class="content">invalid</span><span class="delimiter">&quot;</span></span> )
             .addConstraintViolation();
 
 <span class="comment">//To create a subnode representing a method parameter from a cross-parameter constraint violation</span>
@@ -3244,7 +3253,7 @@ context.buildConstraintViolationWithTemplate(
         <span class="string"><span class="delimiter">&quot;</span><span class="content">Map entry home present in both and does not match</span><span class="delimiter">&quot;</span></span> )
             .addParameterNode( <span class="integer">1</span> )
             .addBeanNode()
-                .inContainer( <span class="predefined-type">Map</span>.class, <span class="integer">0</span> )
+                .inContainer( <span class="predefined-type">Map</span>.class, <span class="integer">1</span> )
                 .inIterable().atKey( <span class="string"><span class="delimiter">&quot;</span><span class="content">home</span><span class="delimiter">&quot;</span></span> )
             .addConstraintViolation();
 
@@ -3257,7 +3266,7 @@ context.buildConstraintViolationWithTemplate(
         <span class="string"><span class="delimiter">&quot;</span><span class="content">Map entry home present in both but city does not match</span><span class="delimiter">&quot;</span></span> )
             .addParameterNode( <span class="integer">1</span> )
             .addPropertyNode( <span class="string"><span class="delimiter">&quot;</span><span class="content">city</span><span class="delimiter">&quot;</span></span> )
-                .inContainer( <span class="predefined-type">Map</span>.class, <span class="integer">0</span> )
+                .inContainer( <span class="predefined-type">Map</span>.class, <span class="integer">1</span> )
                 .inIterable().atKey( <span class="string"><span class="delimiter">&quot;</span><span class="content">home</span><span class="delimiter">&quot;</span></span> )
             .addConstraintViolation();</code></pre>
 </div>
