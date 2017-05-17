@@ -3612,7 +3612,7 @@ The retrieval of values stored in a container is handled via implementations of 
 <pre class="CodeRay highlight"><code data-lang="JAVA"><span class="keyword">package</span> <span class="namespace">javax.validation.valueextraction</span>;
 
 <span class="comment">/**
- * Defines the logic used to extract the values to validate from an object of type {@code T}.
+ * Defines the logic used to extract the values from a container object of type {@code T}.
  * &lt;p&gt;
  * A value extractor is tied to one specific type parameter of {@code T}. The {@link ExtractedValue} annotation
  * is used to mark that type parameter.
@@ -3655,7 +3655,7 @@ The retrieval of values stored in a container is handled via implementations of 
         <span class="comment">/**
          * Receives the value extracted from an object.
          *
-         * @param nodeName the name of the node to be added to the {@link Path}
+         * @param nodeName the name of the node representing the container element. It will be added to the {@link Path}
          * @param object the value to validate
          */</span>
         <span class="type">void</span> value(<span class="predefined-type">String</span> nodeName, <span class="predefined-type">Object</span> object);
@@ -3663,7 +3663,7 @@ The retrieval of values stored in a container is handled via implementations of 
         <span class="comment">/**
          * Receives the value extracted from an {@link Iterable} object that is not indexed (e.g. a {@link Set}).
          *
-         * @param nodeName the name of the node to be added to the {@link Path}
+         * @param nodeName the name of the node representing the container element. It will be added to the {@link Path}
          * @param object the value to validate
          */</span>
         <span class="type">void</span> iterableValue(<span class="predefined-type">String</span> nodeName, <span class="predefined-type">Object</span> object);
@@ -3671,7 +3671,7 @@ The retrieval of values stored in a container is handled via implementations of 
         <span class="comment">/**
          * Receives the value extracted from an indexed object (e.g. a {@link List} or an array).
          *
-         * @param nodeName the name of the node to be added to the {@link Path}
+         * @param nodeName the name of the node representing the container element. It will be added to the {@link Path}
          * @param i the index of the value in the original object
          * @param object the value to validate
          */</span>
@@ -3680,7 +3680,7 @@ The retrieval of values stored in a container is handled via implementations of 
         <span class="comment">/**
          * Receives the value extracted from a keyed object (e.g. a {@link Map}).
          *
-         * @param nodeName the name of the node to be added to the {@link Path}
+         * @param nodeName the name of the node representing the container element. It will be added to the {@link Path}
          * @param key the key of the value in the original object
          * @param object the value to validate
          */</span>
@@ -3743,17 +3743,35 @@ the map as obtained directly from the field will be passed to the map value extr
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="JAVA"><span class="keyword">package</span> <span class="namespace">javax.validation.valueextraction</span>;
 
- * <span class="predefined-type">Annotation</span> used to mark the type parameter to which a {<span class="annotation">@link</span> ValueExtractor} is tied.
+<span class="comment">/**
+ * Marks the type parameter of a container type to which a {@link ValueExtractor} is tied.
  * &lt;p&gt;
- * Must be given exactly once <span class="keyword">for</span> a value extractor type.
+ * Must be given exactly once for a value extractor type.
  *
- * <span class="annotation">@author</span> Gunnar Morling
- * <span class="annotation">@author</span> Guillaume Smet
- */
+ * @author Gunnar Morling
+ * @author Guillaume Smet
+ *
+ * @see ValueExtractor
+ */</span>
 <span class="annotation">@Retention</span>(<span class="predefined-type">RetentionPolicy</span>.RUNTIME)
 <span class="annotation">@Target</span>(<span class="predefined-type">ElementType</span>.TYPE_USE)
 <span class="annotation">@Documented</span>
 <span class="directive">public</span> <span class="annotation">@interface</span> ExtractedValue {
+
+    <span class="comment">/**
+     * Returns the type of the value extracted by the {@link ValueExtractor}. If not set, returns
+     * {@code Void.class}, meaning the type will be automatically inferred from the type argument
+     * of the parameterized type.
+     * &lt;p&gt;
+     * Used to define value extractors for non-generic wrapper types e.g. {@link OptionalInt}.
+     * &lt;p&gt;
+     * May not be used when {@code ExtractedValue} is defined on the type parameter of
+     * a generic wrapper type. A {@code ValueExtractorDefinitionException} will be thrown in
+     * this case.
+     *
+     * @return the type of the value extracted by the value extractor
+     */</span>
+    <span class="predefined-type">Class</span>&lt;?&gt; type() <span class="keyword">default</span> <span class="predefined-type">Void</span>.class;
 
 }</code></pre>
 </div>
@@ -3802,9 +3820,17 @@ This causes constraints to be automatically applied to the wrapped value if a co
 <pre class="CodeRay highlight"><code data-lang="JAVA"><span class="keyword">package</span> <span class="namespace">javax.validation.valueextraction</span>;
 
 <span class="comment">/**
- * Annotation used on a {@link ValueExtractor} to indicate that the value should be unwrapped by default.
+ * Marks a {@link ValueExtractor} definition so that it is applied automatically when detecting constraints declared on
+ * the container type supported by the extractor, causing the constraints to be applied to the container's elements
+ * instead of the container.
  * &lt;p&gt;
- * This behavior can be changed per constraint using {@code &amp;#064;Constraint(validateWrappedValue = NO )}.
+ * If needed, this behavior can be changed per constraint using {@link Unwrapping.Skip}, causing the constraints to be
+ * applied to the container itself:
+ *
+ * &lt;pre&gt;
+ * &amp;#064;SomeConstraint(payload = Unwrapping.Skip.class)
+ * SomeContainerType container;
+ * &lt;/pre&gt;
  *
  * @author Guillaume Smet
  * @since 2.0
@@ -8608,8 +8634,7 @@ executableValidator.validateConstructorParameters(constructor, <span class="keyw
     RETURN_VALUE,
 
     <span class="comment">/**
-     * An element stored in a container, e.g. the value wrapped by {@code Optional}, a value stored in a {@code List} or
-     * a value stored in an array.
+     * An element stored in a container, e.g. a key or value of a {@code Map} or an element of a {@code List}.
      *
      * @since 2.0
      */</span>
@@ -13283,8 +13308,6 @@ ConstructorDescriptor constructorDescriptor = validator
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="JAVA"><span class="keyword">package</span> <span class="namespace">javax.validation.metadata</span>;
 
-<span class="keyword">import</span> <span class="include">javax.validation.Valid</span>;
-
 <span class="comment">/**
  * Represents an element that might be a container, thus allowing container element constraints.
  *
@@ -13294,25 +13317,15 @@ ConstructorDescriptor constructorDescriptor = validator
 <span class="directive">public</span> <span class="type">interface</span> <span class="class">ContainerDescriptor</span> {
 
     <span class="comment">/**
-     * Returns the container element type descriptor for a given type argument.
-     * &lt;p&gt;
-     * Returns {@code null} if the container element type does not exist or has no constraint nor is marked as cascaded
-     * (see {@link #getConstrainedContainerElementTypes()})
+     * Returns the list of descriptors representing the container element
+     * types (e.g. type arguments of a generic type) of this container, if any,
+     * in the order of their declaration.
      *
-     * @param typeArgumentIndex type argument index evaluated
-     * @return the container element type descriptor
+     * @return the list of descriptors representing the container element types of
+     *         this container; an empty list will be returned if there are  no
+     *         container element types, but never {@code null}
      */</span>
-    ContainerElementTypeDescriptor getConstraintsForContainerElementType(<span class="type">int</span> typeArgumentIndex);
-
-    <span class="comment">/**
-     * Returns a set of container element type descriptors having at least one constraint defined or marked as cascaded
-     * ({@link Valid}).
-     * &lt;p&gt;
-     * If no container element type matches, an empty set is returned.
-     *
-     * @return the set of {@link ContainerElementTypeDescriptor}s
-     */</span>
-    <span class="predefined-type">Set</span>&lt;ContainerElementTypeDescriptor&gt; getConstrainedContainerElementTypes();
+    <span class="predefined-type">List</span>&lt;ContainerElementTypeDescriptor&gt; getContainerElementTypes();
 }</code></pre>
 </div>
 </div>
@@ -18013,7 +18026,7 @@ in case they provide the Bean Validation API as a module for the Java Platform M
 <div id="footer">
 <div id="footer-text">
 Version 2.0.0-SNAPSHOT<br>
-Last updated 2017-05-17 13:24:40 UTC
+Last updated 2017-05-17 14:08:31 UTC
 </div>
 </div>
 <script>
