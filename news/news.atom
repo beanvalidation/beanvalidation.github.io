@@ -2,13 +2,171 @@
 <feed xml:lang="en-US" xmlns="http://www.w3.org/2005/Atom">
   <id>http://beanvalidation.org/</id>
   <title>Bean Validation</title>
-  <updated>2017-05-12T11:48:49+00:00</updated>
+  <updated>2017-05-24T11:18:18+00:00</updated>
   <link href="http://beanvalidation.org/news/news.atom" rel="self" type="application/atom+xml" />
   <link href="http://beanvalidation.org/" rel="alternate" type="text/html" />
   <entry>
+    <id>http://beanvalidation.org/news/2017/05/24/bean-validation-2-0-public-review-update/</id>
+    <title>Update to the Bean Validation 2.0 Public Review Draft</title>
+    <updated>2017-05-24T11:18:18+00:00</updated>
+    <published>2017-05-24T00:00:00+00:00</published>
+    <link href="http://beanvalidation.org/news/2017/05/24/bean-validation-2-0-public-review-update/" rel="alternate" type="text/html" />
+    <author>
+      <name>Gunnar Morling</name>
+    </author>
+    <category term="release"></category>
+    <summary>
+      While the Bean Validation 2.0 spec (JSR 380) has been put up for Public Review last month,
+      we&#8217;ve continued to address some more outstanding issues, added some clarifications etc.
+      
+      
+      Of course we wanted to get out these improvements as quickly as possible,
+      so we&#8217;ve published an update to the Public Review draft
+      (the JCP rules explicitly foresee the possibility of updates during the Public Review phase).
+      The updated draft can be found here on beanvalidation.org or you can download it from jcp.org.
+      
+      
+      As always the updated API is deployed to Maven Central, using the GAV coordinates are javax.validation:validation-api:2.0.0.Beta2.
+      Alternatively, it&#8217;s part of the ZIP that can be...
+    </summary>
+    <content type="html">
+      &lt;div id=&quot;preamble&quot;&gt;
+      &lt;div class=&quot;sectionbody&quot;&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;While the Bean Validation 2.0 spec (&lt;a href=&quot;https://www.jcp.org/en/jsr/detail?id=380&quot;&gt;JSR 380&lt;/a&gt;) has been &lt;a href=&quot;http://beanvalidation.org/news/2017/04/26/bean-validation-2-0-up-for-public-review/&quot;&gt;put up for Public Review&lt;/a&gt; last month,
+      we’ve continued to address some more outstanding issues, added some clarifications etc.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Of course we wanted to get out these improvements as quickly as possible,
+      so we’ve published an update to the Public Review draft
+      (the JCP rules &lt;a href=&quot;https://jcp.org/en/procedures/jcp2#3.4.4&quot;&gt;explicitly foresee&lt;/a&gt; the possibility of updates during the Public Review phase).
+      The updated draft can be found &lt;a href=&quot;http://beanvalidation.org/2.0/spec/2.0.0.beta2/&quot;&gt;here on beanvalidation.org&lt;/a&gt; or you can download it &lt;a href=&quot;https://jcp.org/aboutJava/communityprocess/pr/jsr380/index.html&quot;&gt;from jcp.org&lt;/a&gt;.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;As always the updated API is deployed to Maven Central, using the GAV coordinates are &lt;em&gt;javax.validation:validation-api:2.0.0.Beta2&lt;/em&gt;.
+      Alternatively, it’s part of the ZIP that can be downloaded from &lt;a href=&quot;https://jcp.org/aboutJava/communityprocess/pr/jsr380/index.html&quot;&gt;from jcp.org&lt;/a&gt;.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;sect1&quot;&gt;
+      &lt;h2 id=&quot;what-has-changed-since-the-original-public-review-draft&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#what-has-changed-since-the-original-public-review-draft&quot;&gt;&lt;/a&gt;What has changed since the original Public Review Draft?&lt;/h2&gt;
+      &lt;div class=&quot;sectionbody&quot;&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;&lt;a href=&quot;http://beanvalidation.org/2.0/spec/2.0.0.beta2/#valueextractordefinition&quot;&gt;Value extractors&lt;/a&gt; got more flexible and can extract values from non-generic wrapper types now.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;This allows to put all the constraints for numeric types (e.g. &lt;code&gt;@Min&lt;/code&gt;, &lt;code&gt;@Max&lt;/code&gt;, &lt;code&gt;@DecimalMin&lt;/code&gt;, &lt;code&gt;@DecimalMax&lt;/code&gt; etc.) to the optional numeric wrapper types in Java 8: &lt;code&gt;OptionalInt&lt;/code&gt;, &lt;code&gt;OptionalLong&lt;/code&gt; and &lt;code&gt;OptionalDouble&lt;/code&gt; (&lt;a href=&quot;https://hibernate.atlassian.net/browse/BVAL-579&quot;&gt;BVAL-579&lt;/a&gt;).
+      Also other JVM languages with their own numeric types benefit from that, as one can define value extractors for such types and apply all existing numeric constraints to them.
+      The key to this is the &lt;a href=&quot;http://beanvalidation.org/2.0/spec/2.0.0.beta2/#valueextractordefinition-extractedvalue&quot;&gt;new attribute&lt;/a&gt; &lt;code&gt;@ExtractedValue#type()&lt;/code&gt; which allows to specify the type of the wrapped element for extractors of non-generic types.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Another improvement related to constraints on the elements of (generic) containers is the possibility to build property paths leading to a container element using the node builder API exposed via &lt;code&gt;ConstraintValidatorContext&lt;/code&gt; (&lt;a href=&quot;https://hibernate.atlassian.net/browse/BVAL-592&quot;&gt;BVAL-592&lt;/a&gt;).
+      For instance this will let you declare the container type and type argument index of a container element from within a custom class-level constraint validator.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;The following validator for the &lt;code&gt;ValidUser&lt;/code&gt; constraint will ensure that an entry for the &lt;code&gt;WORK&lt;/code&gt; key is in the addresses map if the user’s type is &lt;code&gt;EMPLOYEE&lt;/code&gt;.
+      If not, it will create a property path pointing to the map’s value, with the container type (&lt;code&gt;Map.class&lt;/code&gt;) and type argument index (1, representing the &lt;code&gt;V&lt;/code&gt; type parameter, as it’s about the map value):&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;listingblock&quot;&gt;
+      &lt;div class=&quot;content&quot;&gt;
+      &lt;pre class=&quot;CodeRay highlight&quot;&gt;&lt;code data-lang=&quot;java&quot;&gt;&lt;span style=&quot;color:#007&quot;&gt;@ValidUser&lt;/span&gt;
+      &lt;span style=&quot;color:#088;font-weight:bold&quot;&gt;public&lt;/span&gt; &lt;span style=&quot;color:#339;font-weight:bold&quot;&gt;class&lt;/span&gt; &lt;span style=&quot;color:#B06;font-weight:bold&quot;&gt;User&lt;/span&gt; {
+      
+          &lt;span style=&quot;color:#088;font-weight:bold&quot;&gt;private&lt;/span&gt; UserType type;
+          &lt;span style=&quot;color:#088;font-weight:bold&quot;&gt;private&lt;/span&gt; &lt;span style=&quot;color:#0a8;font-weight:bold&quot;&gt;Map&lt;/span&gt;&amp;lt;AddressType, Address&amp;gt; addressesByType;
+      
+          &lt;span style=&quot;color:#777&quot;&gt;// getters, setters etc. ...&lt;/span&gt;
+      }&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;listingblock&quot;&gt;
+      &lt;div class=&quot;content&quot;&gt;
+      &lt;pre class=&quot;CodeRay highlight&quot;&gt;&lt;code data-lang=&quot;java&quot;&gt;&lt;span style=&quot;color:#007&quot;&gt;@Constraint&lt;/span&gt;(validatedBy=UserValidator.class)
+      &lt;span style=&quot;color:#088;font-weight:bold&quot;&gt;public&lt;/span&gt; &lt;span style=&quot;color:#007&quot;&gt;@interface&lt;/span&gt; ValidUser {
+          &lt;span style=&quot;color:#777&quot;&gt;// constraint attributes ...&lt;/span&gt;
+      }&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;listingblock&quot;&gt;
+      &lt;div class=&quot;content&quot;&gt;
+      &lt;pre class=&quot;CodeRay highlight&quot;&gt;&lt;code data-lang=&quot;java&quot;&gt;&lt;span style=&quot;color:#088;font-weight:bold&quot;&gt;public&lt;/span&gt; &lt;span style=&quot;color:#339;font-weight:bold&quot;&gt;class&lt;/span&gt; &lt;span style=&quot;color:#B06;font-weight:bold&quot;&gt;UserValidator&lt;/span&gt; &lt;span style=&quot;color:#088;font-weight:bold&quot;&gt;implements&lt;/span&gt; ConstraintValidator&amp;lt;ValidUser, User&amp;gt; {
+      
+          &lt;span style=&quot;color:#007&quot;&gt;@Override&lt;/span&gt;
+          &lt;span style=&quot;color:#088;font-weight:bold&quot;&gt;public&lt;/span&gt; &lt;span style=&quot;color:#339;font-weight:bold&quot;&gt;boolean&lt;/span&gt; isValid(User user, ConstraintValidatorContext context) {
+              context.disableDefaultConstraintViolation();
+      
+              &lt;span style=&quot;color:#080;font-weight:bold&quot;&gt;if&lt;/span&gt; ( user.getType() == UserType.EMPLOYEE &amp;amp;&amp;amp;
+                      user.getAddressesByType().get( AddressType.WORK ) == &lt;span style=&quot;color:#069&quot;&gt;null&lt;/span&gt; ) {
+                  context.buildConstraintViolationWithTemplate( &lt;span style=&quot;background-color:hsla(0,100%,50%,0.05)&quot;&gt;&lt;span style=&quot;color:#710&quot;&gt;&quot;&lt;/span&gt;&lt;span style=&quot;color:#D20&quot;&gt;Work address needed for employee&lt;/span&gt;&lt;span style=&quot;color:#710&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt; )
+                      .addContainerElementNode( &lt;span style=&quot;background-color:hsla(0,100%,50%,0.05)&quot;&gt;&lt;span style=&quot;color:#710&quot;&gt;&quot;&lt;/span&gt;&lt;span style=&quot;color:#D20&quot;&gt;addressesByType&lt;/span&gt;&lt;span style=&quot;color:#710&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;, &lt;span style=&quot;color:#0a8;font-weight:bold&quot;&gt;Map&lt;/span&gt;.class, &lt;span style=&quot;color:#00D&quot;&gt;1&lt;/span&gt; )
+                          .inIterable()
+                              .atKey( AddressType.WORK )
+                      .addConstraintViolation();
+      
+                  &lt;span style=&quot;color:#080;font-weight:bold&quot;&gt;return&lt;/span&gt; &lt;span style=&quot;color:#069&quot;&gt;false&lt;/span&gt;;
+              }
+      
+              &lt;span style=&quot;color:#080;font-weight:bold&quot;&gt;return&lt;/span&gt; &lt;span style=&quot;color:#069&quot;&gt;true&lt;/span&gt;;
+          }
+      }&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;One further improvement to mention is that the specification now recommends the module name &quot;java.validation&quot; (&lt;a href=&quot;https://hibernate.atlassian.net/browse/BVAL-517&quot;&gt;BVAL-517&lt;/a&gt;),
+      should Bean Validation providers wish to distribute the API as a module for the Java Platform Module System (JPMS) as currently developed under &lt;a href=&quot;https://www.jcp.org/en/jsr/detail?id=376&quot;&gt;JSR 376&lt;/a&gt;.
+      This could be used within a &lt;em&gt;module-info.java&lt;/em&gt; descriptor or via the manifest entry &quot;Automatic-Module-Name&quot; when preparing the module to be used as an automatic module.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Note that this is a non-binding recommendation as of Bean Validation 2.0.
+      A mandatory module name (which could be &quot;java.validation&quot; or something else) — and potentially other requirements relating to the module system — will be mandated in a future revision of the spec,
+      once the module module system has been finalized and best practices around modules have emerged.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;The complete list of all issues can be found in the &lt;a href=&quot;https://hibernate.atlassian.net/secure/ReleaseNote.jspa?projectId=10090&amp;amp;version=28800&quot;&gt;release notes&lt;/a&gt;.
+      There are also HTML diffs which highlight what has changed since the &lt;a href=&quot;http://beanvalidation.org/2.0/spec/2.0.0.beta2/diff/diff-to-2.0-beta1/&quot;&gt;original Public Review Draft&lt;/a&gt; (2.0.0.Beta1)
+      and since &lt;a href=&quot;http://beanvalidation.org/2.0/spec/2.0.0.beta2/diff/diff-to-1.1/&quot;&gt;Bean Validation 1.1&lt;/a&gt;.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;sect1&quot;&gt;
+      &lt;h2 id=&quot;new-releases-of-reference-implementation-and-tck&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#new-releases-of-reference-implementation-and-tck&quot;&gt;&lt;/a&gt;New releases of reference implementation and TCK&lt;/h2&gt;
+      &lt;div class=&quot;sectionbody&quot;&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Together with the specification we’ve also released a corresponding version of the reference implementation Hibernate Validator 6.
+      Refer to the &lt;a href=&quot;http://in.relation.to/2017/05/24/hibernate-validator-600-beta2-out/&quot;&gt;announcement blog post&lt;/a&gt; for more details.
+      This release lets you try out all the new features added in Bean Validation 2.0.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Also the TCK (test compatibility kit) has been updated and released.
+      You can learn more in the &lt;a href=&quot;http://docs.jboss.org/hibernate/beanvalidation/tck/2.0/reference/html_single/&quot;&gt;TCK documentation&lt;/a&gt; and the &lt;a href=&quot;https://hibernate.atlassian.net/secure/ReleaseNote.jspa?projectId=10100&amp;amp;version=29100&quot;&gt;release notes&lt;/a&gt;.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;sect1&quot;&gt;
+      &lt;h2 id=&quot;what-can-you-do-to-help&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#what-can-you-do-to-help&quot;&gt;&lt;/a&gt;What can you do to help?&lt;/h2&gt;
+      &lt;div class=&quot;sectionbody&quot;&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;The Public Review phase still runs for a few more days, followed by the Public Review Ballot (the voting by the JCP executive committee) until June 12th.
+      So it’s the perfect time for reviewing the &lt;a href=&quot;http://beanvalidation.org/2.0/spec/2.0.0.beta1/diff/diff-to-1.1/&quot;&gt;spec changes&lt;/a&gt;, we are very curious about your feedback.
+      Also it’d be of great help if you tried out the reference implementation in your applications and let us know how it works.
+      Any feedback is appreciated!&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;To post your feedback, just add a comment below, send a message to our &lt;a href=&quot;http://lists.jboss.org/pipermail/beanvalidation-dev/&quot;&gt;mailing list&lt;/a&gt; or post in the &lt;a href=&quot;https://forum.hibernate.org/viewforum.php?f=26&quot;&gt;Bean Validation forum&lt;/a&gt;.
+      If you find a bug or have a specific feature request, please raise it in the &lt;a href=&quot;https://hibernate.atlassian.net/projects/BVAL/summary&quot;&gt;issue tracker&lt;/a&gt;.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Everything in Bean Validation is open source, so you also can send in actual patches: to the API, the spec document or the TCK.
+      If you are interested, you can find out all the details to get started in the &lt;a href=&quot;http://beanvalidation.org/contribute&quot;&gt;contribution guide&lt;/a&gt;.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+    </content>
+  </entry>
+  <entry>
     <id>http://beanvalidation.org/news/2017/05/12/feedback-on-positive-and-negative-constraints/</id>
     <title>Survey - Behavior of @Positive and @Negative constraints</title>
-    <updated>2017-05-12T11:48:49+00:00</updated>
+    <updated>2017-05-24T11:18:18+00:00</updated>
     <published>2017-05-12T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2017/05/12/feedback-on-positive-and-negative-constraints/" rel="alternate" type="text/html" />
     <author>
@@ -47,7 +205,7 @@
       &lt;p&gt;Thanks a lot for your help!&lt;/p&gt;
       &lt;/div&gt;
       &lt;div style=&quot;text-align: center&quot;&gt;
-      &lt;iframe src=&quot;https://docs.google.com/forms/d/e/1FAIpQLScJR1k6NdMjjV3xj8dPA4AMIqP5LZBdq_FKmqmKWLU_KX2few/viewform?embedded=true&quot; width=&quot;760&quot; height=&quot;1300&quot; frameborder=&quot;0&quot; marginheight=&quot;0&quot; marginwidth=&quot;0&quot;&gt;Loading...&lt;/iframe&gt;
+      &lt;iframe src=&quot;https://docs.google.com/forms/d/e/1FAIpQLScJR1k6NdMjjV3xj8dPA4AMIqP5LZBdq_FKmqmKWLU_KX2few/viewform?embedded=true&quot; width=&quot;760&quot; height=&quot;600&quot; frameborder=&quot;0&quot; marginheight=&quot;0&quot; marginwidth=&quot;0&quot;&gt;Loading...&lt;/iframe&gt;
       &lt;/div&gt;
     </content>
   </entry>

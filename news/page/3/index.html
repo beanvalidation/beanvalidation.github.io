@@ -63,6 +63,88 @@
           <article class="post">
             <header>
               <h1 class="title">
+                <a href="/news/2016/07/15/bean-validation-2-0-is-coming/">Bean Validation 2.0 - A new JSR is born!</a>
+              </h1>
+              <span class="author">
+                by
+                <b>Gunnar Morling</b>
+              </span>
+              <span class="date">
+                on 15 Jul 2016
+              </span>
+              <span class="tags">
+                <a class="label label-info" href="/news/tags/news/">news</a>
+              </span>
+            </header>
+            <div class="body">
+              <p>Today I've got some great news to share with you: a new revision of the Bean Validation spec is about to be kicked off!</p>
+              
+              <p>Over the last weeks, we've been busy with preparing a proposal for this JSR and I've submitted it to the JCP (Java Community Process) last week.
+              You can find the proposal for "JSR 380: Bean Validation 2.0" on <a href="https://jcp.org/en/jsr/detail?id=380">jcp.org</a>.</p>
+              
+              <p>In the following, let's take a look at what we think should be part of Bean Validation 2.0 and what we've planned as the next steps.</p>
+              
+              <h2>Looking back...</h2>
+              
+              <p>Bean Validation 1.0 and 1.1 (JSRs 303/349) saw a huge adoption by the Java community and are integrated with a wide range of technologies, be it other Java standards (e.g. CDI, JPA, JAX-RS)
+              or 3rd party libraries and frameworks such as Spring, Vaadin and many, many more.</p>
+              
+              <p>The main contribution of Bean Validation 1.1 - the declarative validation of method-level constraints - has been integrated into techs such as CDI and Spring,
+              making it a breeze to write expressive API contracts with constraints which are automatically validated upon execution.</p>
+              
+              <p>Bean Validation 1.1 has been finalized <a href="http://beanvalidation.org/news/2013/05/02/bean-validation-1-1-is-a-spec/">three years ago</a> and Java continued to evolve since then.
+              Java 8 - released in 2014 - brings many very interesting language features to the table, but also adds a new time and date API and much more.</p>
+              
+              <h2>...and forward</h2>
+              
+              <p>So it's about time that Bean Validation supports new JDK types such as <code>LocalTime</code> or <code>Optional</code>, but also takes advantage of new (language) features such as type annotations, repeatable annotations, reflective parameter name retrieval, lambda expressions etc.</p>
+              
+              <p>To give just one example, let's consider the requirement of applying constraints to the elements of a specific collection.
+              This has been a <a href="https://hibernate.atlassian.net/browse/BVAL-202">long-standing feature request</a>, but we could never find a way to solve it generically in an acceptable manner.</p>
+              
+              <p>Java 8 finally provides the perfect tool to solve this issue: <a href="https://docs.oracle.com/javase/tutorial/java/annotations/type_annotations.html">type annotations</a>.
+              Annotating type parameters of collections is a very intuitive way to apply constraints to collection elements (and not the entire collection itself):</p>
+              
+              <pre><code>List&lt;@Email String&gt; emails;&#x000A;</code></pre>
+              
+              <p>Java 8 provides the required APIs to retrieve the constraint annotation from the type parameter and apply the validation accordingly.</p>
+              
+              <p>But it doesn't stop there.
+              Repeatable annotation types will make it less verbose to specify several constraints of the same type one and the same element.
+              Reflective parameter name retrieval will provide better validation messages out of the box when validating constraints on method parameters.
+              Lambda expressions might be a useful vehicle to express small ad-hoc validation routines.</p>
+              
+              <h2>What else?</h2>
+              
+              <p>While we envision supporting and leveraging Java 8 as the "main theme" of Bean Validation 2.0, we hope to address some other issues, too.
+              E.g. there may be support for more customized payloads of constraint violations.
+              Also a builder API for constraint violation exceptions might be useful.
+              As would an API for validating an object graph assuming a list of changes to be applied.
+              Check out the <a href="https://jcp.org/en/jsr/detail?id=380">JSR 380 proposal</a> for some more ideas we have.</p>
+              
+              <p>While the baseline for Bean Validation 2.0 will be Java 8, we'll also be tracking the ongoing work for Java 9 and work towards making Bean Validation ready for Java 9 and its module system as far as possible.</p>
+              
+              <p>As the time-line of Bean Validation 2.0 is quite compact, we are very eager to hear from you, the community of users, and learn what would be the things most useful to you.
+              For sure we won't be able to address all potential ideas out there. So if there are features close to your heart which you'd really love to see in the spec, be sure to speak up and let us know.</p>
+              
+              <h2>What's next?</h2>
+              
+              <p>As per <a href="https://jcp.org/en/procedures/jcp2#3.3">the rules</a> of the Java Community Process, the Bean Validation 2.0 JSR is currently up for review by the JCP executive committee.
+              After that, there will be an approval ballot and we will hopefully be ready to go and kick off the work on actual spec changes, prototyping new features in the reference implementation and so on.</p>
+              
+              <p>So if you ever wanted to contribute to a Java Specification Request - be it just by voting for issues, opening new feature requests or actually working on the specification, its reference implementation and the test compatability kit (TCK) - then this is the perfect time.
+              If you are a member of the JCP, you also can <a href="https://jcp.org/en/jsr/egnom?id=380">join the expert group</a>, we'd be very happy to have you aboard.</p>
+              
+              <p>Whether EG member or not, in order to get the discussion on this JSR proposal started, just drop a comment below, post to the <a href="https://forum.hibernate.org/viewforum.php?f=26">feedback forum</a>, shoot a message to the <a href="https://lists.jboss.org/mailman/listinfo/beanvalidation-dev">Bean Validation mailing list</a> or
+              comment on specific issues in <a href="https://hibernate.atlassian.net/projects/BVAL/summary">the tracker</a>.</p>
+              
+              <p>We are looking forward to hearing from you and get Bean Validation 2.0 rolling!</p>
+               <a href="http://beanvalidation.org/news/2016/07/15/bean-validation-2-0-is-coming/#disqus_thread">Comments</a>
+            </div>
+          </article>
+          <article class="post">
+            <header>
+              <h1 class="title">
                 <a href="/news/2015/06/18/bean-validation-tck-1-1-4-released/">Bean Validation TCK 1.1.4.Final released</a>
               </h1>
               <span class="author">
@@ -223,56 +305,7 @@
                <a href="http://beanvalidation.org/news/2013/06/04/xml-namespace-and-jcp/#disqus_thread">Comments</a>
             </div>
           </article>
-          <article class="post">
-            <header>
-              <h1 class="title">
-                <a href="/news/2013/05/02/bean-validation-1-1-is-a-spec/">Bean Validation 1.1 is a spec</a>
-              </h1>
-              <span class="author">
-                by
-                <b>Emmanuel Bernard</b>
-              </span>
-              <span class="date">
-                on 02 May 2013
-              </span>
-              <span class="tags">
-                <a class="label label-info" href="/news/tags/release/">release</a>
-              </span>
-            </header>
-            <div class="body">
-              <p>It's now official, these couple of years of work have made it into <a href="http://jcp.org/en/jsr/results?id=5488">an
-              official JCP specification</a>.
-              Bean Validation is also part of Java EE 7 which has
-              <a href="https://blogs.oracle.com/theaquarium/entry/java_ee_7_platform_completes">been approved too</a>
-              a few of days ago.</p>
-              
-              <p>We have already discussed the features at great length here but to do a short
-              summary:</p>
-              
-              <ul>
-              <li>support for method and constructor validation (via CDI, JAX-RS etc)</li>
-              <li>integration with CDI (<code>Validator</code> and <code>ValidatorFactory</code> injectable,
-              <code>ConstraintValidator</code> instances being CDI beans and thus accept <code>@Inject</code>,
-              etc)</li>
-              <li>EL expressions based error messages</li>
-              <li>group conversion in object graphs</li>
-              </ul>
-              
-              
-              <p>I would like to thank the <strong>expert group</strong> and the <strong>community</strong> at large (without your
-              input there would be no 1.1), <strong>Hardy</strong> and <strong>Gunnar</strong> that worked round to clock on the
-              spec, the RI and the TCK and deliver everything on time, <strong>Pete</strong> for being my
-              springboard when all hell broke lose and the <strong>folks at Oracle</strong> who worked with us
-              to integrate Bean Validation with the rest of the Java EE ecosystem whether it
-              be spec, implementation or TCK.</p>
-              
-              <p>Go grab <a href="http://validator.hibernate.org">Hibernate Validator</a>, the RI. The team
-              has even spent an extra couple of weeks to deliver a nice documentation. And if you
-              can't sleep, go read the <a href="/1.1/">specification itself</a>.</p>
-               <a href="http://beanvalidation.org/news/2013/05/02/bean-validation-1-1-is-a-spec/#disqus_thread">Comments</a>
-            </div>
-          </article>
-          <div class="pagination-links"><a href="/news/page/2/" class="previous-link">Previous</a> <a href="/news/" class="page-link">1</a> <a href="/news/page/2/" class="page-link">2</a> <span class="current-page">3</span> <a href="/news/page/4/" class="page-link">4</a> <span class="skip">...</span><a href="/news/page/7/" class="page-link">7</a> <a href="/news/page/8/" class="page-link">8</a> <a href="/news/page/4/" class="next-link">Next</a> </div>
+          <div class="pagination-links"><a href="/news/page/2/" class="previous-link">Previous</a> <a href="/news/" class="page-link">1</a> <a href="/news/page/2/" class="page-link">2</a> <span class="current-page">3</span> <a href="/news/page/4/" class="page-link">4</a> <span class="skip">...</span><a href="/news/page/8/" class="page-link">8</a> <a href="/news/page/9/" class="page-link">9</a> <a href="/news/page/4/" class="next-link">Next</a> </div>
         </div>
         <div class="sidebar sidebar-right col-sm-3 col-md-3 col-lg-3" id="sidebar" role="complementary">
           <div id="newsfeed">
@@ -286,6 +319,7 @@
               Stay up to date, subscribe to the&nbsp;<a href="/news/news.atom">news feed</a>.
             </div>
           </div>
+          <a class="news-link" href="/news/2017/05/24/bean-validation-2-0-public-review-update/">Update to the Bean Validation 2.0 Public Review Draft</a>
           <a class="news-link" href="/news/2017/05/12/feedback-on-positive-and-negative-constraints/">Survey - Behavior of @Positive and @Negative constraints</a>
           <a class="news-link" href="/news/2017/04/26/bean-validation-2-0-up-for-public-review/">Bean Validation 2.0 is up for Public Review</a>
           <a class="news-link" href="/news/2017/03/31/bean-validation-2-0-alpha2-is-out/">Bean Validation 2.0 Alpha2 is out</a>
