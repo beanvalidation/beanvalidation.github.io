@@ -527,7 +527,7 @@ and re-render the HTML.
 <div class="details">
 <span id="author" class="author">Gunnar Morling</span><br>
 <span id="revnumber">version 2.0.0-SNAPSHOT,</span>
-<span id="revdate">2017-06-08</span>
+<span id="revdate">2017-06-12</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -2255,7 +2255,7 @@ A <code>ConstraintDeclarationException</code> will be raised in this case.</p>
      *
      * @return name of constraint attribute overridden
      */</span>
-    <span class="predefined-type">String</span> name() <span class="keyword">default</span> <span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>;
+    <span class="predefined-type">String</span> name();
 
     <span class="comment">/**
      * The index of the targeted constraint declaration when using
@@ -3920,44 +3920,34 @@ The retrieval of values stored in a container is handled via implementations of 
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="JAVA"><span class="keyword">package</span> <span class="namespace">javax.validation.valueextraction</span>;
 
-<span class="comment">/**
- * Defines the logic used to extract the values from a container object of type {@code T}.
  * &lt;p&gt;
- * A value extractor for a generic type such as {@link Optional}, {@link List} or {@link Map} is
- * tied to one specific type parameter of {@code T}. The {@link ExtractedValue} annotation is
- * used to mark that type parameter. A value extractor for a non-generic type such as
- * {@link OptionalInt} needs to declare the type of the wrapped element using
- * {@link ExtractedValue#type()}.
+ * A value extractor is tied to one specific type parameter of {<span class="annotation">@code</span> T}. The {<span class="annotation">@link</span> ExtractedValue} annotation
+ * is used to mark that type parameter.
  * &lt;p&gt;
- * The extracted values are passed to the corresponding method of the {@link ValueReceiver}.
+ * The extracted values are passed to the corresponding method of the {<span class="annotation">@link</span> ValueReceiver}.
  * &lt;p&gt;
- * A typical value extractor implementation for {@code List} may look like this:
- *
+ * A typical value extractor implementation <span class="keyword">for</span> {<span class="annotation">@link</span> <span class="predefined-type">List</span>} may look like <span class="local-variable">this</span>:
  * &lt;pre&gt;
- * public class ListValueExtractor implements
- *         ValueExtractor&amp;lt;List&amp;lt;&amp;#064;ExtractedValue ?&amp;gt;&amp;gt; {
+ * <span class="directive">public</span> <span class="type">class</span> <span class="class">ListValueExtractor</span> <span class="directive">implements</span> ValueExtractor&amp;lt;<span class="predefined-type">List</span>&amp;lt;&amp;<span class="error">#</span><span class="octal">064</span>;ExtractedValue ?&amp;gt;&amp;gt; {
  *
- *     &amp;#064;Override
- *     public void extractValues(List&amp;lt;?&amp;gt; originalValue, ValueReceiver receiver) {
- *         for ( int i = 0; i &amp;lt; originalValue.size(); i++ ) {
- *             receiver.indexedValue( &quot;&amp;lt;list element&amp;gt;&quot;, i, originalValue.get( i ) );
+ *     &amp;<span class="error">#</span><span class="octal">064</span>;<span class="predefined-type">Override</span>
+ *     <span class="directive">public</span> <span class="type">void</span> extractValues(<span class="predefined-type">List</span>&amp;lt;?&amp;gt; originalValue, ValueReceiver receiver) {
+ *         <span class="keyword">for</span> ( <span class="type">int</span> i = <span class="integer">0</span>; i &amp;lt; originalValue.size(); i++ ) {
+ *             receiver.indexedValue( <span class="string"><span class="delimiter">&quot;</span><span class="content">&amp;lt;iterable element&amp;gt;</span><span class="delimiter">&quot;</span></span>, i, originalValue.get( i ) );
  *         }
  *     }
  * }
  * &lt;/pre&gt;
  *
- * @author Gunnar Morling
- * @author Guillaume Smet
- * @see ExtractedValue
- * @see UnwrapByDefault
- */</span>
+ * <span class="annotation">@author</span> Gunnar Morling
+ * <span class="annotation">@author</span> Guillaume Smet
+ */
 <span class="directive">public</span> <span class="type">interface</span> <span class="class">ValueExtractor</span>&lt;T&gt; {
 
     <span class="comment">/**
      * Extracts the values to validate from the original object.
      *
-     * @param originalValue the original value from which to extract the values, never
-     * {@code null}
+     * @param originalValue the original value from which we want to extract the values to validate
      * @param receiver the corresponding {@code ValueReceiver}
      */</span>
     <span class="type">void</span> extractValues(T originalValue, ValueReceiver receiver);
@@ -3965,26 +3955,22 @@ The retrieval of values stored in a container is handled via implementations of 
     <span class="comment">/**
      * Provides a set of methods receiving value extracted by the {@link ValueExtractor}.
      * &lt;p&gt;
-     * The value has to be passed to the method corresponding best to the type of the original
-     * value.
+     * The value has to be passed to the method corresponding best to the type of the original value.
      */</span>
     <span class="type">interface</span> <span class="class">ValueReceiver</span> {
 
         <span class="comment">/**
          * Receives the value extracted from an object.
          *
-         * @param nodeName the name of the node representing the container element. If not
-         * {@code null}, a node with that name will be added to the {@link Path}
+         * @param nodeName the name of the node representing the container element. It will be added to the {@link Path}
          * @param object the value to validate
          */</span>
         <span class="type">void</span> value(<span class="predefined-type">String</span> nodeName, <span class="predefined-type">Object</span> object);
 
         <span class="comment">/**
-         * Receives the value extracted from an {@link Iterable} object that is not indexed (e.g.
-         * a {@link Set}).
+         * Receives the value extracted from an {@link Iterable} object that is not indexed (e.g. a {@link Set}).
          *
-         * @param nodeName the name of the node representing the container element. If not
-         * {@code null}, a node with that name will be added to the {@link Path}
+         * @param nodeName the name of the node representing the container element. It will be added to the {@link Path}
          * @param object the value to validate
          */</span>
         <span class="type">void</span> iterableValue(<span class="predefined-type">String</span> nodeName, <span class="predefined-type">Object</span> object);
@@ -3992,8 +3978,7 @@ The retrieval of values stored in a container is handled via implementations of 
         <span class="comment">/**
          * Receives the value extracted from an indexed object (e.g. a {@link List} or an array).
          *
-         * @param nodeName the name of the node representing the container element. If not
-         * {@code null}, a node with that  name will be added to the {@link Path}
+         * @param nodeName the name of the node representing the container element. It will be added to the {@link Path}
          * @param i the index of the value in the original object
          * @param object the value to validate
          */</span>
@@ -4002,8 +3987,7 @@ The retrieval of values stored in a container is handled via implementations of 
         <span class="comment">/**
          * Receives the value extracted from a keyed object (e.g. a {@link Map}).
          *
-         * @param nodeName the name of the node representing the container element. If not
-         * {@code null}, a node with that name will be added to the {@link Path}
+         * @param nodeName the name of the node representing the container element. It will be added to the {@link Path}
          * @param key the key of the value in the original object
          * @param object the value to validate
          */</span>
@@ -18423,7 +18407,7 @@ in case they provide the Bean Validation API as a module for the Java Platform M
 <div id="footer">
 <div id="footer-text">
 Version 2.0.0-SNAPSHOT<br>
-Last updated 2017-05-17 13:24:40 UTC
+Last updated 2017-06-12 07:44:31 UTC
 </div>
 </div>
 <script>
