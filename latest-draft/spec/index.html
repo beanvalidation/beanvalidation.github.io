@@ -6018,8 +6018,8 @@ I.e. you should prefer</p>
     <span class="annotation">@NotNull</span> <span class="annotation">@Valid</span>
     <span class="directive">public</span> Order getOrderByPk(<span class="annotation">@NotNull</span> <span class="annotation">@Valid</span> OrderPK orderPk) { [...] }
 
-    <span class="annotation">@NotNull</span> <span class="annotation">@Valid</span>
-    <span class="directive">public</span> <span class="predefined-type">Set</span>&lt;Order&gt; getOrdersByCustomer(<span class="annotation">@NotNull</span> <span class="annotation">@Valid</span> CustomerPK customerPk) { [...] }
+    <span class="annotation">@NotNull</span>
+    <span class="directive">public</span> <span class="predefined-type">Set</span>&lt;<span class="annotation">@Valid</span> Order&gt; getOrdersByCustomer(<span class="annotation">@NotNull</span> <span class="annotation">@Valid</span> CustomerPK customerPk) { [...] }
 }</code></pre>
 </div>
 </div>
@@ -9543,7 +9543,7 @@ The <code class="classname">ElementKind</code> of the node is <code class="varna
         [...]
     }
 
-    <span class="directive">public</span> <span class="type">void</span> addAllBooks(<span class="annotation">@NotNull</span> <span class="annotation">@Valid</span> <span class="predefined-type">List</span>&lt;<span class="predefined-type">Book</span>&gt; books) {
+    <span class="directive">public</span> <span class="type">void</span> addAllBooks(<span class="annotation">@NotNull</span> <span class="predefined-type">List</span>&lt;<span class="annotation">@Valid</span> <span class="predefined-type">Book</span>&gt; books) {
         [...]
     }
 
@@ -9551,7 +9551,7 @@ The <code class="classname">ElementKind</code> of the node is <code class="varna
         [...]
     }
 
-    <span class="annotation">@Valid</span> <span class="directive">public</span> <span class="predefined-type">Map</span>&lt;Author, <span class="predefined-type">Book</span>&gt; getMostPopularBookPerAuthor() {
+    <span class="directive">public</span> <span class="predefined-type">Map</span>&lt;Author, <span class="annotation">@Valid</span> <span class="predefined-type">Book</span>&gt; getMostPopularBookPerAuthor() {
         [...]
     }
 }</code></pre>
@@ -9923,7 +9923,7 @@ node = nodeIter.next();
         [...]
     }
 
-    <span class="directive">public</span> Library(<span class="annotation">@NotNull</span> <span class="annotation">@Valid</span> <span class="predefined-type">List</span>&lt;<span class="predefined-type">Book</span>&gt; books) {
+    <span class="directive">public</span> Library(<span class="annotation">@NotNull</span> <span class="predefined-type">List</span>&lt;<span class="annotation">@Valid</span> <span class="predefined-type">Book</span>&gt; books) {
         [...]
     }
 
@@ -18570,7 +18570,7 @@ in case they provide the Bean Validation API as a module for the Java Platform M
 <div id="footer">
 <div id="footer-text">
 Version 2.0.0-SNAPSHOT<br>
-Last updated 2017-06-15 11:19:31 UTC
+Last updated 2017-06-15 15:52:57 UTC
 </div>
 </div>
 <script>
