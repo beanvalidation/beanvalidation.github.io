@@ -527,7 +527,7 @@ and re-render the HTML.
 <div class="details">
 <span id="author" class="author">Gunnar Morling</span><br>
 <span id="revnumber">version 2.0.0-SNAPSHOT,</span>
-<span id="revdate">2017-06-15</span>
+<span id="revdate">2017-06-16</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -3544,7 +3544,7 @@ context.buildConstraintViolationWithTemplate( <span class="string"><span class="
 context.buildConstraintViolationWithTemplate( <span class="string"><span class="delimiter">&quot;</span><span class="content">the map key is invalid</span><span class="delimiter">&quot;</span></span> )
             .addPropertyNode( <span class="string"><span class="delimiter">&quot;</span><span class="content">addresses</span><span class="delimiter">&quot;</span></span> )
             .addContainerElementNode( <span class="string"><span class="delimiter">&quot;</span><span class="content">&lt;map key&gt;</span><span class="delimiter">&quot;</span></span>, <span class="predefined-type">Map</span>.class, <span class="integer">0</span> )
-                .inIterable().atKey( <span class="string"><span class="delimiter">&quot;</span><span class="content">invalid</span><span class="delimiter">&quot;</span></span> )
+                .inIterable().atKey( <span class="string"><span class="delimiter">&quot;</span><span class="content">home</span><span class="delimiter">&quot;</span></span> )
             .addConstraintViolation();
 
 <span class="comment">//To create a subnode representing a method parameter from a cross-parameter constraint violation</span>
@@ -3980,8 +3980,8 @@ The retrieval of values stored in a container is handled via implementations of 
         <span class="type">void</span> value(<span class="predefined-type">String</span> nodeName, <span class="predefined-type">Object</span> object);
 
         <span class="comment">/**
-         * Receives the value extracted from an {@link Iterable} object that is not indexed (e.g.
-         * a {@link Set}).
+         * Receives the value extracted from an iterable object that is not indexed (e.g.
+         * a {@link Iterable}, {@link Set} or a {@link Map}).
          *
          * @param nodeName the name of the node representing the container element. If not
          * {@code null}, a node with that name will be added to the {@link Path}
@@ -3990,7 +3990,7 @@ The retrieval of values stored in a container is handled via implementations of 
         <span class="type">void</span> iterableValue(<span class="predefined-type">String</span> nodeName, <span class="predefined-type">Object</span> object);
 
         <span class="comment">/**
-         * Receives the value extracted from an indexed object (e.g. a {@link List} or an array).
+         * Receives the value extracted from an indexed object (e.g. a {@link List}).
          *
          * @param nodeName the name of the node representing the container element. If not
          * {@code null}, a node with that  name will be added to the {@link Path}
@@ -9096,7 +9096,7 @@ e.g. <code>&lt;map value&gt;</code> if the default value extractor for map value
 </div>
 </li>
 <li>
-<p><span class="tck-testable"><code class="methodname">isInIterable()</code> returns <code>true</code> if the node represents an object contained in an <code class="classname">Iterable</code> or in a <code class="classname">Map</code>, <code>false</code> otherwise.</span></p>
+<p><span class="tck-testable"><code class="methodname">isInIterable()</code> returns <code>true</code> if the node represents an object contained in an array, <code class="classname">Iterable</code> or in a <code class="classname">Map</code>, <code>false</code> otherwise.</span></p>
 </li>
 <li>
 <p><span class="tck-testable"><code class="methodname">getIndex()</code> returns the index of the node if it is contained in an array or <code class="classname">List</code>. Returns <code>null</code> otherwise.</span></p>
@@ -13177,6 +13177,7 @@ ConstructorDescriptor constructorDescriptor = validator
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="JAVA"><span class="keyword">package</span> <span class="namespace">javax.validation.metadata</span>;
 
+
 <span class="comment">/**
  * Describes a constrained Java Bean and the constraints associated to it. All
  * objects returned by the methods of this descriptor (and associated objects
@@ -13287,7 +13288,7 @@ ConstructorDescriptor constructorDescriptor = validator
      * or at least one parameter or return value marked for cascaded validation.
      *
      * @return a set with descriptors for the constrained constructor of this
-     *         bean; will be empty if this bea has no constrained constructor
+     *         bean; will be empty if this bean has no constrained constructor
      *         but never {@code null}
      *
      * @since 1.1
@@ -14843,7 +14844,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 <pre class="CodeRay highlight"><code data-lang="JAVA"><span class="keyword">package</span> <span class="namespace">javax.validation.constraints</span>;
 
 <span class="comment">/**
- * The annotated element must be a negative number.
+ * The annotated element must be a strictly negative number (i.e. 0 is considered as an invalid value).
  * &lt;p&gt;
  * Supported types are:
  * &lt;ul&gt;
@@ -14872,14 +14873,6 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
     <span class="predefined-type">Class</span>&lt;? <span class="directive">extends</span> Payload&gt;<span class="type">[]</span> payload() <span class="keyword">default</span> { };
 
     <span class="comment">/**
-     * Whether the annotated element must be strictly negative (0 is considered as an invalid value) or not (0 is a
-     * valid value).
-     *
-     * @return whether the annotated element must be strictly negative
-     */</span>
-    <span class="type">boolean</span> strict() <span class="keyword">default</span> <span class="predefined-constant">false</span>;
-
-    <span class="comment">/**
      * Defines several {@link Negative} constraints on the same element.
      *
      * @see Negative
@@ -14901,7 +14894,50 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="JAVA">Unresolved directive in sources/builtin-constraints.asciidoc - include::../target/validation-api/javax/validation/constraints/NegativeOrZero.java[lines=<span class="integer">7</span>.<span class="float">.8</span>;<span class="integer">26</span>..-<span class="integer">1</span>]</code></pre>
+<pre class="CodeRay highlight"><code data-lang="JAVA"><span class="keyword">package</span> <span class="namespace">javax.validation.constraints</span>;
+
+<span class="comment">/**
+ * The annotated element must be a negative number or 0.
+ * &lt;p&gt;
+ * Supported types are:
+ * &lt;ul&gt;
+ *     &lt;li&gt;{@code BigDecimal}&lt;/li&gt;
+ *     &lt;li&gt;{@code BigInteger}&lt;/li&gt;
+ *     &lt;li&gt;{@code byte}, {@code short}, {@code int}, {@code long}, {@code float}, {@code double} and their respective
+ *     wrappers&lt;/li&gt;
+ * &lt;/ul&gt;
+ * &lt;p&gt;
+ * {@code null} elements are considered valid.
+ *
+ * @author Gunnar Morling
+ * @since 2.0
+ */</span>
+<span class="annotation">@Target</span>({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
+<span class="annotation">@Retention</span>(RUNTIME)
+<span class="annotation">@Repeatable</span>(<span class="predefined-type">List</span>.class)
+<span class="annotation">@Documented</span>
+<span class="annotation">@Constraint</span>(validatedBy = { })
+<span class="directive">public</span> <span class="annotation">@interface</span> NegativeOrZero {
+
+    <span class="predefined-type">String</span> message() <span class="keyword">default</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">{javax.validation.constraints.NegativeOrZero.message}</span><span class="delimiter">&quot;</span></span>;
+
+    <span class="predefined-type">Class</span>&lt;?&gt;<span class="type">[]</span> groups() <span class="keyword">default</span> { };
+
+    <span class="predefined-type">Class</span>&lt;? <span class="directive">extends</span> Payload&gt;<span class="type">[]</span> payload() <span class="keyword">default</span> { };
+
+    <span class="comment">/**
+     * Defines several {@link NegativeOrZero} constraints on the same element.
+     *
+     * @see NegativeOrZero
+     */</span>
+    <span class="annotation">@Target</span>({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
+    <span class="annotation">@Retention</span>(RUNTIME)
+    <span class="annotation">@Documented</span>
+    <span class="annotation">@interface</span> <span class="predefined-type">List</span> {
+
+        NegativeOrZero<span class="type">[]</span> value();
+    }
+}</code></pre>
 </div>
 </div>
 </div>
@@ -14914,7 +14950,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 <pre class="CodeRay highlight"><code data-lang="JAVA"><span class="keyword">package</span> <span class="namespace">javax.validation.constraints</span>;
 
 <span class="comment">/**
- * The annotated element must be a positive number.
+ * The annotated element must be a strictly positive number (i.e. 0 is considered as an invalid value).
  * &lt;p&gt;
  * Supported types are:
  * &lt;ul&gt;
@@ -14943,14 +14979,6 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
     <span class="predefined-type">Class</span>&lt;? <span class="directive">extends</span> Payload&gt;<span class="type">[]</span> payload() <span class="keyword">default</span> { };
 
     <span class="comment">/**
-     * Whether the annotated element must be strictly positive (0 is considered as an invalid value) or not (0 is a
-     * valid value).
-     *
-     * @return whether the annotated element must be strictly positive
-     */</span>
-    <span class="type">boolean</span> strict() <span class="keyword">default</span> <span class="predefined-constant">false</span>;
-
-    <span class="comment">/**
      * Defines several {@link Positive} constraints on the same element.
      *
      * @see Positive
@@ -14972,7 +15000,50 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="JAVA">Unresolved directive in sources/builtin-constraints.asciidoc - include::../target/validation-api/javax/validation/constraints/PositiveOrZero.java[lines=<span class="integer">7</span>.<span class="float">.8</span>;<span class="integer">26</span>..-<span class="integer">1</span>]</code></pre>
+<pre class="CodeRay highlight"><code data-lang="JAVA"><span class="keyword">package</span> <span class="namespace">javax.validation.constraints</span>;
+
+<span class="comment">/**
+ * The annotated element must be a positive number or 0.
+ * &lt;p&gt;
+ * Supported types are:
+ * &lt;ul&gt;
+ *     &lt;li&gt;{@code BigDecimal}&lt;/li&gt;
+ *     &lt;li&gt;{@code BigInteger}&lt;/li&gt;
+ *     &lt;li&gt;{@code byte}, {@code short}, {@code int}, {@code long}, {@code float}, {@code double} and their respective
+ *     wrappers&lt;/li&gt;
+ * &lt;/ul&gt;
+ * &lt;p&gt;
+ * {@code null} elements are considered valid.
+ *
+ * @author Gunnar Morling
+ * @since 2.0
+ */</span>
+<span class="annotation">@Target</span>({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
+<span class="annotation">@Retention</span>(RUNTIME)
+<span class="annotation">@Repeatable</span>(<span class="predefined-type">List</span>.class)
+<span class="annotation">@Documented</span>
+<span class="annotation">@Constraint</span>(validatedBy = { })
+<span class="directive">public</span> <span class="annotation">@interface</span> PositiveOrZero {
+
+    <span class="predefined-type">String</span> message() <span class="keyword">default</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">{javax.validation.constraints.PositiveOrZero.message}</span><span class="delimiter">&quot;</span></span>;
+
+    <span class="predefined-type">Class</span>&lt;?&gt;<span class="type">[]</span> groups() <span class="keyword">default</span> { };
+
+    <span class="predefined-type">Class</span>&lt;? <span class="directive">extends</span> Payload&gt;<span class="type">[]</span> payload() <span class="keyword">default</span> { };
+
+    <span class="comment">/**
+     * Defines several {@link PositiveOrZero} constraints on the same element.
+     *
+     * @see PositiveOrZero
+     */</span>
+    <span class="annotation">@Target</span>({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
+    <span class="annotation">@Retention</span>(RUNTIME)
+    <span class="annotation">@Documented</span>
+    <span class="annotation">@interface</span> <span class="predefined-type">List</span> {
+
+        PositiveOrZero<span class="type">[]</span> value();
+    }
+}</code></pre>
 </div>
 </div>
 </div>
@@ -15396,19 +15467,20 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="JAVA"><span class="keyword">package</span> <span class="namespace">javax.validation.constraints</span>;
 
- * The annotated element must not be {<span class="annotation">@code</span> <span class="predefined-constant">null</span>} nor empty. Supported types are:
+<span class="comment">/**
+ * The annotated element must not be {@code null} nor empty. Supported types are:
  * &lt;ul&gt;
- * &lt;li&gt;{<span class="annotation">@code</span> <span class="predefined-type">CharSequence</span>} (length of character sequence is evaluated)&lt;/li&gt;
- * &lt;li&gt;{<span class="annotation">@code</span> <span class="predefined-type">Collection</span>} (collection size is evaluated)&lt;/li&gt;
- * &lt;li&gt;{<span class="annotation">@code</span> <span class="predefined-type">Map</span>} (map size is evaluated)&lt;/li&gt;
- * &lt;li&gt;<span class="predefined-type">Array</span> (array length is evaluated)&lt;/li&gt;
+ * &lt;li&gt;{@code CharSequence} (length of character sequence is evaluated)&lt;/li&gt;
+ * &lt;li&gt;{@code Collection} (collection size is evaluated)&lt;/li&gt;
+ * &lt;li&gt;{@code Map} (map size is evaluated)&lt;/li&gt;
+ * &lt;li&gt;Array (array length is evaluated)&lt;/li&gt;
  * &lt;/ul&gt;
  *
- * <span class="annotation">@author</span> Emmanuel Bernard
- * <span class="annotation">@author</span> Hardy Ferentschik
+ * @author Emmanuel Bernard
+ * @author Hardy Ferentschik
  *
- * <span class="annotation">@since</span> <span class="float">2.0</span>
- */
+ * @since 2.0
+ */</span>
 <span class="annotation">@Documented</span>
 <span class="annotation">@Constraint</span>(validatedBy = { })
 <span class="annotation">@Target</span>({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
@@ -15445,13 +15517,14 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="JAVA"><span class="keyword">package</span> <span class="namespace">javax.validation.constraints</span>;
 
- * The annotated element must not be {<span class="annotation">@code</span> <span class="predefined-constant">null</span>} nor empty after removing any leading or trailing
- * whitespace. Accepts {<span class="annotation">@code</span> <span class="predefined-type">CharSequence</span>}.
+<span class="comment">/**
+ * The annotated element must not be {@code null} nor empty after removing any leading or trailing
+ * whitespace. Accepts {@code CharSequence}.
  *
- * <span class="annotation">@author</span> Hardy Ferentschik
+ * @author Hardy Ferentschik
  *
- * <span class="annotation">@since</span> <span class="float">2.0</span>
- */
+ * @since 2.0
+ */</span>
 <span class="annotation">@Documented</span>
 <span class="annotation">@Constraint</span>(validatedBy = { })
 <span class="annotation">@Target</span>({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
@@ -15488,13 +15561,15 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="JAVA"><span class="keyword">package</span> <span class="namespace">javax.validation.constraints</span>;
 
- * address are left to Bean Validation providers. Accepts {<span class="annotation">@code</span> <span class="predefined-type">CharSequence</span>}.
+<span class="comment">/**
+ * The string has to be a well-formed email address. Exact semantics of what makes up a valid email
+ * address are left to Bean Validation providers. Accepts {@code CharSequence}.
  *
- * <span class="annotation">@author</span> Emmanuel Bernard
- * <span class="annotation">@author</span> Hardy Ferentschik
+ * @author Emmanuel Bernard
+ * @author Hardy Ferentschik
  *
- * <span class="annotation">@since</span> <span class="float">2.0</span>
- */
+ * @since 2.0
+ */</span>
 <span class="annotation">@Documented</span>
 <span class="annotation">@Constraint</span>(validatedBy = { })
 <span class="annotation">@Target</span>({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
@@ -18570,7 +18645,7 @@ in case they provide the Bean Validation API as a module for the Java Platform M
 <div id="footer">
 <div id="footer-text">
 Version 2.0.0-SNAPSHOT<br>
-Last updated 2017-06-15 15:52:57 UTC
+Last updated 2017-06-15 11:19:31 UTC
 </div>
 </div>
 <script>
