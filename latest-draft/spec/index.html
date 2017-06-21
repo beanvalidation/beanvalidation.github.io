@@ -527,7 +527,7 @@ and re-render the HTML.
 <div class="details">
 <span id="author" class="author">Gunnar Morling</span><br>
 <span id="revnumber">version 2.0.0-SNAPSHOT,</span>
-<span id="revdate">2017-06-20</span>
+<span id="revdate">2017-06-21</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -1497,7 +1497,10 @@ fine-grained control over the current time and time zone used for validation (se
 </div>
 </div>
 <div class="paragraph">
-<p>Payloads are typically used by validation clients to associate some metadata information with a given constraint declaration. Payloads are typically non-portable. Describing payloads as interface extensions as opposed to a string-based approach allows an easier and more type-safe approach.</p>
+<p>Payloads are typically used by validation clients to associate some metadata information with a given constraint declaration.
+Describing payloads as interface extensions as opposed to a string-based approach allows an easier and more type-safe approach.
+Payloads are typically non-portable.
+An exception are the <code>Unwrapping.Skip</code> and <code>Unwrapping.Unwrap</code> payload types which are defined by this specification (see <a href="#constraintdeclarationvalidationprocess-containerelementconstraints-implicitunwrapping">Implicit unwrapping of containers</a>).</p>
 </div>
 <div class="paragraph">
 <p>One use case for payload shown in <a href="#example-payload">Use of payload to associate severity to a constraint</a> is to associate a severity to a constraint. This severity can be exploited by a presentation framework to adjust how a constraint failure is displayed.</p>
@@ -2531,7 +2534,7 @@ A <code>ConstraintDeclarationException</code> will be raised in this case.</p>
     [...]
 }
 
-<span class="comment">//Collection uses generics and unbounded windcard type</span>
+<span class="comment">//Collection uses generics and unbounded wildcard type</span>
 <span class="directive">public</span> <span class="type">class</span> <span class="class">SizeValidatorForCollection</span> <span class="directive">implements</span> ConstraintValidator&lt;Size, <span class="predefined-type">Collection</span>&lt;?&gt;&gt; {
     [...]
 }
@@ -3662,9 +3665,7 @@ This can be useful for testing, for applying the time zone of the currently logg
             <span class="keyword">return</span> <span class="predefined-constant">true</span>;
 
         <span class="keyword">return</span> allowedPrefixes.stream()
-                .filter( s -&gt; value.startsWith( s ) )
-                .findAny()
-                .isPresent();
+                .anyMatch( value::startsWith );
     }
 }</code></pre>
 </div>
@@ -4103,7 +4104,7 @@ the map as obtained directly from the field will be passed to the map value extr
 </div>
 <div class="paragraph">
 <p><span class="tck-testable">For generic container types (e.g. <code>java.util.List</code>), <code>@ExtractedValue</code> is to be specified on a type argument of the container type as used in the extractor definition.</span>
-<span class="tck-not-testable">Only wildcard type arguments are supported as target for <code>@ExtractedValue</code> in this case.</span></p>
+<span class="tck-not-testable">Only unbounded wildcard type arguments are supported as target for <code>@ExtractedValue</code> in this case.</span></p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -4524,6 +4525,11 @@ but not both (in order to prevent the container elements from being validated tw
 <div class="paragraph">
 <p><span class="tck-testable">The <code class="classname">@Valid</code> annotation is applied recursively.</span> A conforming implementation avoids infinite loops according to the rules described in <a href="#constraintdeclarationvalidationprocess-validationroutine-graphvalidation">Object graph validation</a>.</p>
 </div>
+<div class="paragraph">
+<p><span class="tck-not-testable">It is not supported to put <code>@Valid</code> to the type parameters of generic types or methods.</span>
+<span class="tck-not-testable">It is also not supported to put <code>@Valid</code> to type arguments within the <code>extends</code> or <code>implements</code> clauses of type definitions.</span>
+A future revision of this specification might define support for such usages of <code>@Valid</code>.</p>
+</div>
 <div class="sect4">
 <h5 id="constraintdeclarationvalidationprocess-requirements-graphvalidation-examples"><a class="anchor" href="#constraintdeclarationvalidationprocess-requirements-graphvalidation-examples"></a>5.1.3.1. Examples</h5>
 <div class="exampleblock">
@@ -4653,6 +4659,10 @@ The following value extractors are invoked for this:</p>
 </div>
 <div class="paragraph">
 <p><a href="#constraintdeclarationvalidationprocess-methodlevelconstraints">Method and constructor constraints</a> discusses in detail constraints on methods and constructors.</p>
+</div>
+<div class="paragraph">
+<p>Constraints can also be applied to the elements of container types, e.g. to the elements of a <code>List</code>-typed property or to the value wrapped by an <code>Optional</code> object returned by a method.
+Container element constraints are discussed in <a href="#constraintdeclarationvalidationprocess-containerelementconstraints">Container element constraints</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -5529,7 +5539,7 @@ This is done by putting constraint annotations to the type arguments of such con
 </div>
 </div>
 <div class="paragraph">
-<p><span class="tck-testable">When a field, property, executable parameter or method return value which is of a container type gets validated, then all values contained in the container will be validated provided that their container element is constrained.</span>
+<p><span class="tck-testable">When a field, property, executable parameter or method return value which is of a container type gets validated, then all values contained in the container will be validated provided that their container element type is constrained.</span>
 <span class="tck-testable">Any container element constraints of that element will be validated alongside any other constraints hosted by that element.</span>
 <span class="tck-testable">For container element constraints, the same rules for validation groups and group sequences apply as for any other constraint on the same element.</span></p>
 </div>
@@ -5572,17 +5582,32 @@ or multiple values in the case of collection types.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p><span class="tck-not-testable">Container element constraints are not supported on wildcard type arguments (with or without bounds), i.e. the following usage is unsupported</span>:</p>
+<p><span class="tck-not-testable">It is not supported to declare container element constraints on the type parameters of generic types or methods.</span>
+<span class="tck-not-testable">It is also not supported to declare container element constraints on type arguments within the <code>extends</code> or <code>implements</code> clauses of type definitions.</span>
+I.e. the following usages are unsupported:</p>
 </div>
 <div class="exampleblock">
-<div class="title">Example 5.20: Unsupported usage of a container element constraint on a wildcard type argument</div>
+<div class="title">Example 5.20: Unsupported usage of container element constraints on generic types and methods</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="JAVA"><span class="directive">private</span> <span class="predefined-type">List</span>&lt;<span class="annotation">@NotEmpty</span> ?&gt; list;</code></pre>
+<pre class="CodeRay highlight"><code data-lang="JAVA"><span class="directive">public</span> <span class="type">class</span> <span class="class">NonNullList</span>&lt;<span class="annotation">@NotNull</span> T&gt; {
+    [...]
+}
+
+<span class="directive">public</span> <span class="type">class</span> <span class="class">ContainerFactory</span> {
+    &lt;<span class="annotation">@NotNull</span> T&gt; <span class="predefined-type">Container</span>&lt;T&gt; instantiateContainer(<span class="predefined-type">Class</span>&lt;T&gt; clazz) { [...] }
+}
+
+<span class="directive">public</span> <span class="type">class</span> <span class="class">NonNullSet</span>&lt;T&gt; <span class="directive">extends</span> <span class="predefined-type">Set</span>&lt;<span class="annotation">@NotNull</span> T&gt; {
+    [...]
+}</code></pre>
 </div>
 </div>
 </div>
+</div>
+<div class="paragraph">
+<p>A future revision of this specification might define support for such usages of container element constraints.</p>
 </div>
 <div class="sect3">
 <h4 id="constraintdeclarationvalidationprocess-containerelementconstraints-implicitunwrapping"><a class="anchor" href="#constraintdeclarationvalidationprocess-containerelementconstraints-implicitunwrapping"></a>5.5.1. Implicit unwrapping of containers</h4>
@@ -8754,7 +8779,9 @@ executableValidator.validateConstructorParameters(constructor, <span class="keyw
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="JAVA"><span class="comment">/**
+<pre class="CodeRay highlight"><code data-lang="JAVA"><span class="keyword">import</span> <span class="include">javax.validation.valueextraction.ValueExtractor</span>;
+
+<span class="comment">/**
  * Represents the navigation path from an object to another
  * in an object graph.
  * Each path element is represented by a {@code Node}.
@@ -8800,6 +8827,12 @@ executableValidator.validateConstructorParameters(constructor, <span class="keyw
          *     cross-parameter.&lt;/li&gt;
          *     &lt;li&gt;The literal {@code &lt;return value&gt;} for a method or constructor return
          *     value.&lt;/li&gt;
+         *     &lt;li&gt;The node name as defined by the {@link ValueExtractor} for a container
+         *     element; specifically, the literal {@code &lt;list element&gt;} for elements
+         *     stored in a list, the literal {@code &lt;iterable element&gt;} for elements
+         *     stored in an {@code Iterable}, the literal {@code &lt;map key&gt;} for the keys
+         *     stored in a {@code Map} and the literal {@code &lt;map value&gt;} for the values
+         *     stored in a {@code Map}.
          * &lt;/ul&gt;
          *
          * @return name of the element which the node represents
@@ -8807,20 +8840,21 @@ executableValidator.validateConstructorParameters(constructor, <span class="keyw
         <span class="predefined-type">String</span> getName();
 
         <span class="comment">/**
-         * @return {@code true} if the node represents an object contained in an
-         *         {@code Iterable} or in a {@code Map}, {@code false} otherwise
+         * @return  @return {@code true} if the node represents an object contained in
+         * a multi-valued container such as {@code Iterable} or {@code Map} or an array,
+         * {@code false} otherwise
          */</span>
         <span class="type">boolean</span> isInIterable();
 
         <span class="comment">/**
-         * @return the index the node is placed in if contained in an array or
-         *         {@code List}; {@code null} otherwise
+         * @return the index the node is placed in if contained in an array, a {@code List}
+         *         or any other container supporting indexed access, {@code null} otherwise
          */</span>
         <span class="predefined-type">Integer</span> getIndex();
 
         <span class="comment">/**
-         * @return the key the node is placed in if contained in a {@code Map},
-         *         {@code null} otherwise
+         * @return the key the node is placed in if contained in a {@code Map} or any
+         *         other container supporting keyed access, {@code null} otherwise
          */</span>
         <span class="predefined-type">Object</span> getKey();
 
@@ -9101,20 +9135,20 @@ executableValidator.validateConstructorParameters(constructor, <span class="keyw
 <p>The literal <code>&lt;return value&gt;</code> for a method or constructor return value.</p>
 </li>
 <li>
-<p>The name set by the applied value extractor for a container element constraint,
-e.g. <code>&lt;map value&gt;</code> if the default value extractor for map values is applied</p>
+<p>The name set by the applied value extractor for a container element constraint;
+specifically, when applying the default value extractor for iterable elements, list elements, map keys or map values, the literal <code>&lt;iterable element&gt;</code>, <code>&lt;list element&gt;</code>, <code>&lt;map key&gt;</code> or <code>&lt;map value&gt;</code>, respectively.</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><span class="tck-testable"><code class="methodname">isInIterable()</code> returns <code>true</code> if the node represents an object contained in an array, <code class="classname">Iterable</code> or in a <code class="classname">Map</code>, <code>false</code> otherwise.</span></p>
+<p><span class="tck-testable"><code class="methodname">isInIterable()</code> returns <code>true</code> if the node represents an object contained in an array or in a multi-valued container such as <code class="classname">Iterable</code> or <code class="classname">Map</code>, <code>false</code> otherwise.</span></p>
 </li>
 <li>
-<p><span class="tck-testable"><code class="methodname">getIndex()</code> returns the index of the node if it is contained in an array or <code class="classname">List</code>. Returns <code>null</code> otherwise.</span></p>
+<p><span class="tck-testable"><code class="methodname">getIndex()</code> returns the index of the node if it is contained in an array, <code class="classname">List</code> or any other container supporting indexed access. Returns <code>null</code> otherwise.</span></p>
 </li>
 <li>
-<p><span class="tck-testable"><code class="methodname">getKey()</code> returns the key of the node if it is contained in a <code class="classname">Map</code>. Returns <code>null</code> otherwise.</span></p>
+<p><span class="tck-testable"><code class="methodname">getKey()</code> returns the key of the node if it is contained in a <code class="classname">Map</code> or any other container supporting keyed access. Returns <code>null</code> otherwise.</span></p>
 </li>
 <li>
 <p><span class="tck-testable"><code class="methodname">getKind()</code> returns the <code class="classname">ElementKind</code> corresponding to the actual node type. This can be used in conjunction with the method <code class="methodname">as()</code> to narrow the type and access node specific methods</span></p>
@@ -9443,7 +9477,8 @@ The <code class="classname">ElementKind</code> of the node is <code class="varna
 </td>
 <td class="content">
 <div class="paragraph">
-<p>A given <code class="classname">Node</code> object derives its <code>inIterable</code>, <code>key</code> and <code>index</code> properties from the previous association, method parameter or return value traversed.</p>
+<p>A given <code class="classname">Node</code> object derives its <code>inIterable</code>, <code>key</code> and <code>index</code> properties from the previous association, method parameter or return value traversed.
+The same applies to <code>typeArgumentIndex</code> and <code>containerClass</code> if the given node type defines these properties.</p>
 </div>
 </td>
 </tr>
@@ -13036,7 +13071,10 @@ over any extractor for the same type and type parameter detected through the ser
 <p><code>Object[].class</code> when invoked on <code class="classname">CrossParameterDescriptor</code>,</p>
 </li>
 <li>
-<p>the return type when invoked on <code class="classname">ConstructorDescriptor</code>, <code class="classname">MethodDescriptor</code> or <code class="classname">ReturnValueDescriptor</code>.</p>
+<p>the return type when invoked on <code class="classname">ConstructorDescriptor</code>, <code class="classname">MethodDescriptor</code> or <code class="classname">ReturnValueDescriptor</code>,</p>
+</li>
+<li>
+<p>the container element type when invoked on <code>ContainerElementTypeDescriptor</code> (e.g. when invoked on a descriptor representing the container element type of <code>List&lt;String&gt;</code>, <code>String.class</code> will be returned).</p>
 </li>
 </ul>
 </div>
@@ -13788,7 +13826,7 @@ ConstructorDescriptor constructorDescriptor = validator
 <div class="sect2">
 <h3 id="constraintmetadata-containerdescriptor"><a class="anchor" href="#constraintmetadata-containerdescriptor"></a>7.11. ContainerDescriptor and ContainerElementTypeDescriptor</h3>
 <div class="paragraph">
-<p>The <code>ContainerDescriptor</code> interface describes those elements that can host container element constraints (see <a href="#constraintdeclarationvalidationprocess-containerelementconstraints">Container element constraints</a>).</p>
+<p>The <code>ContainerDescriptor</code> interface describes those elements that can be of a container type, e.g. <code>List</code> or <code>Map</code>, and as such may host container element constraints (see <a href="#constraintdeclarationvalidationprocess-containerelementconstraints">Container element constraints</a>) or have container element types that are marked with <code>@Valid</code>.</p>
 </div>
 <div class="paragraph">
 <p><code>ContainerDescriptor</code> is extended by <code>PropertyDescriptor</code>, <code>ParameterDescriptor</code>, <code>ReturnValueDescriptor</code> and <code>ContainerElementTypeDescriptor</code>.</p>
@@ -13819,14 +13857,15 @@ ConstructorDescriptor constructorDescriptor = validator
 </div>
 </div>
 <div class="paragraph">
-<p><span class="tck-testable"><code>getContainerElementTypes()</code> returns a list of descriptors representing all the type arguments of the container type,
-in the order of their declaration.</span></p>
+<p><span class="tck-testable">If a given element is of a container type, <code>getConstrainedContainerElementTypes()</code> returns a set with descriptors representing those container element types that either host at least one constraint or are marked with <code>@Valid</code>.</span>
+<span class="tck-testable">The returned set will be empty if the given element is not of a container type or is of a container type but has no element types that are constrained or marked with <code>@Valid</code>.</span>
+In the context of properties and method return values, container element types of super-types are considered.</p>
 </div>
 <div class="paragraph">
-<p><span class="tck-testable">The <code>ContainerElementTypeDescriptor</code> interface describes the potential container element constraints applied to one type argument of a container type.</span></p>
+<p><span class="tck-testable">The <code>ContainerElementTypeDescriptor</code> interface describes the potential container element constraints applied to one element type of a container.</span></p>
 </div>
 <div class="paragraph">
-<p>This interface is returned by <code>ContainerDescriptor.getContainerElementTypes()</code>.</p>
+<p>This interface is returned by <code>ContainerDescriptor.getConstrainedContainerElementTypes()</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -13848,7 +13887,153 @@ in the order of their declaration.</span></p>
 </div>
 </div>
 <div class="paragraph">
-<p><span class="tck-testable"><code>getTypeArgumentIndex()</code> returns the index of the type argument corresponding to this descriptor instance.</span></p>
+<p><span class="tck-testable"><code>getTypeArgumentIndex()</code> returns the index of the type argument corresponding to this descriptor instance.</span>
+<span class="tck-testable"><code>getContainerClass()</code> returns the type of the container declaring the container element type represented by this descriptor instance.</span></p>
+</div>
+<div class="paragraph">
+<p>As an example, consider the following type hierarchy:</p>
+</div>
+<div class="exampleblock">
+<div class="title">Example 7.7: Type hierarchy with container element constraints</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="JAVA"><span class="directive">public</span> <span class="type">interface</span> <span class="class">LegalEntity</span> {
+
+    <span class="predefined-type">Iterable</span>&lt;<span class="annotation">@NotNull</span> <span class="predefined-type">String</span>&gt; getRoles();
+}
+
+<span class="directive">public</span> <span class="type">interface</span> <span class="class">Person</span> <span class="directive">extends</span> LegalEntity {
+
+    <span class="annotation">@Override</span>
+    <span class="predefined-type">Set</span>&lt;<span class="annotation">@NotEmpty</span> <span class="predefined-type">String</span>&gt; getRoles();
+
+    <span class="predefined-type">Map</span>&lt;<span class="annotation">@NotNull</span> <span class="predefined-type">String</span>, <span class="annotation">@Valid</span> Account&gt; getAccounts();
+}
+
+<span class="directive">public</span> <span class="type">interface</span> <span class="class">Employee</span> <span class="directive">extends</span> Person {
+
+    <span class="annotation">@Override</span>
+    <span class="predefined-type">Set</span>&lt;<span class="annotation">@NotBlank</span> <span class="predefined-type">String</span>&gt; getRoles();
+
+    <span class="predefined-type">Map</span>&lt;<span class="predefined-type">String</span>, <span class="predefined-type">List</span>&lt;<span class="annotation">@NotNull</span> <span class="annotation">@Valid</span> Address&gt;&gt; getAddresses();
+}
+
+<span class="directive">public</span> <span class="directive">abstract</span> <span class="type">class</span> <span class="class">Roles</span> <span class="directive">implements</span> <span class="predefined-type">Set</span>&lt;<span class="predefined-type">String</span>&gt; {
+    [...]
+}
+
+<span class="directive">public</span> <span class="type">class</span> <span class="class">EmployeeImpl</span> <span class="directive">implements</span> Employee {
+
+    <span class="annotation">@Override</span>
+    <span class="directive">public</span> Roles getRoles() {
+        [...]
+    }
+
+    <span class="directive">public</span> <span class="predefined-type">Map</span>&lt;<span class="predefined-type">String</span>, <span class="predefined-type">List</span>&lt;<span class="annotation">@ValidAddress</span> Address&gt;&gt; getAddresses() {
+        [...]
+    }
+
+    [...]
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Then the assertions in the following example are true:</p>
+</div>
+<div class="exampleblock">
+<div class="title">Example 7.8: Retrieving metadata on container element constraints</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="JAVA"><span class="predefined-type">Validator</span> validator = ...;
+
+<span class="predefined-type">BeanDescriptor</span> employeeImplDescriptor = validator.getConstraintsForClass( Employee.class );
+
+<span class="comment">// container element constraints for property &quot;roles&quot;</span>
+<span class="predefined-type">PropertyDescriptor</span> rolesDescriptor = employeeImplDescriptor.getConstraintsForProperty( <span class="string"><span class="delimiter">&quot;</span><span class="content">roles</span><span class="delimiter">&quot;</span></span> );
+<span class="keyword">assert</span> rolesDescriptor != <span class="predefined-constant">null</span>;
+
+<span class="predefined-type">Set</span>&lt;ContainerElementTypeDescriptor&gt; constrainedContainerElementTypes = rolesDescriptor.getConstrainedContainerElementTypes();
+<span class="comment">// the container element types of Set and Iterable; Roles does not declare any container element types itself</span>
+<span class="keyword">assert</span> constrainedContainerElementTypes.size() == <span class="integer">2</span>;
+
+<span class="predefined-type">Iterator</span>&lt;ContainerElementTypeDescriptor&gt; it = constrainedContainerElementTypes.iterator();
+
+<span class="comment">// assuming that the descriptor for Set is returned first</span>
+ContainerElementTypeDescriptor containerElementTypeDescriptor = it.next();
+<span class="keyword">assert</span> containerElementTypeDescriptor.getContainerClass() == <span class="predefined-type">Set</span>.class;
+<span class="keyword">assert</span> containerElementTypeDescriptor.getTypeArgumentIndex() == <span class="integer">0</span>;
+<span class="keyword">assert</span> containerElementTypeDescriptor.getElementClass() == <span class="predefined-type">String</span>.class;
+<span class="comment">// @NotEmpty and @NotBlank</span>
+<span class="keyword">assert</span> containerElementTypeDescriptor.getConstraintDescriptors().size() == <span class="integer">2</span>;
+
+<span class="comment">// assuming that the descriptor for Iterable is returned next</span>
+containerElementTypeDescriptor = it.next();
+<span class="keyword">assert</span> containerElementTypeDescriptor.getContainerClass() == <span class="predefined-type">Iterable</span>.class;
+<span class="keyword">assert</span> containerElementTypeDescriptor.getTypeArgumentIndex() == <span class="integer">0</span>;
+<span class="keyword">assert</span> containerElementTypeDescriptor.getElementClass() == <span class="predefined-type">String</span>.class;
+<span class="comment">// @NotNull</span>
+<span class="keyword">assert</span> containerElementTypeDescriptor.getConstraintDescriptors().size() == <span class="integer">1</span>;
+
+<span class="comment">// container element constraints for property &quot;accounts&quot;</span>
+<span class="predefined-type">PropertyDescriptor</span> accountsDescriptor = employeeImplDescriptor.getConstraintsForProperty( <span class="string"><span class="delimiter">&quot;</span><span class="content">accounts</span><span class="delimiter">&quot;</span></span> );
+constrainedContainerElementTypes = accountsDescriptor.getConstrainedContainerElementTypes();
+<span class="comment">// the map key type and the map value type</span>
+<span class="keyword">assert</span> constrainedContainerElementTypes.size() == <span class="integer">2</span>;
+
+it = constrainedContainerElementTypes.iterator();
+
+<span class="comment">// assuming that the descriptor for the map key is returned first</span>
+containerElementTypeDescriptor = it.next();
+<span class="keyword">assert</span> containerElementTypeDescriptor.getContainerClass() == <span class="predefined-type">Map</span>.class;
+<span class="keyword">assert</span> containerElementTypeDescriptor.getTypeArgumentIndex() == <span class="integer">0</span>;
+<span class="keyword">assert</span> containerElementTypeDescriptor.getElementClass() == <span class="predefined-type">String</span>.class;
+<span class="comment">// @NotNull</span>
+<span class="keyword">assert</span> containerElementTypeDescriptor.getConstraintDescriptors().size() == <span class="integer">1</span>;
+<span class="keyword">assert</span> containerElementTypeDescriptor.isCascaded() == <span class="predefined-constant">false</span>;
+
+<span class="comment">// assuming that the descriptor for the map value is returned next</span>
+containerElementTypeDescriptor = it.next();
+<span class="keyword">assert</span> containerElementTypeDescriptor.getContainerClass() == <span class="predefined-type">Map</span>.class;
+<span class="keyword">assert</span> containerElementTypeDescriptor.getTypeArgumentIndex() == <span class="integer">1</span>;
+<span class="keyword">assert</span> containerElementTypeDescriptor.getElementClass() == Account.class;
+<span class="keyword">assert</span> containerElementTypeDescriptor.getConstraintDescriptors().size() == <span class="integer">0</span>;
+<span class="keyword">assert</span> containerElementTypeDescriptor.isCascaded() == <span class="predefined-constant">true</span>;
+
+<span class="comment">// container element constraints for property &quot;addresses&quot;</span>
+<span class="predefined-type">PropertyDescriptor</span> addressesDescriptor = employeeImplDescriptor.getConstraintsForProperty( <span class="string"><span class="delimiter">&quot;</span><span class="content">addresses</span><span class="delimiter">&quot;</span></span> );
+constrainedContainerElementTypes = accountsDescriptor.getConstrainedContainerElementTypes();
+<span class="comment">// the map value type</span>
+<span class="keyword">assert</span> constrainedContainerElementTypes.size() == <span class="integer">1</span>;
+
+it = constrainedContainerElementTypes.iterator();
+
+containerElementTypeDescriptor = it.next();
+<span class="keyword">assert</span> containerElementTypeDescriptor.getContainerClass() == <span class="predefined-type">Map</span>.class;
+<span class="keyword">assert</span> containerElementTypeDescriptor.getTypeArgumentIndex() == <span class="integer">1</span>;
+<span class="keyword">assert</span> containerElementTypeDescriptor.getElementClass() == <span class="predefined-type">List</span>.class;
+<span class="comment">// No constraints nor @Valid on List itself</span>
+<span class="keyword">assert</span> containerElementTypeDescriptor.getConstraintDescriptors().size() == <span class="integer">0</span>;
+<span class="keyword">assert</span> containerElementTypeDescriptor.isCascaded() == <span class="predefined-constant">false</span>;
+
+<span class="comment">// container element type of the nested List container</span>
+constrainedContainerElementTypes = containerElementTypeDescriptor.getConstrainedContainerElementTypes();
+<span class="keyword">assert</span> constrainedContainerElementTypes.size() == <span class="integer">1</span>;
+it = constrainedContainerElementTypes.iterator();
+
+containerElementTypeDescriptor = it.next();
+<span class="keyword">assert</span> containerElementTypeDescriptor.getContainerClass() == <span class="predefined-type">List</span>.class;
+<span class="keyword">assert</span> containerElementTypeDescriptor.getTypeArgumentIndex() == <span class="integer">0</span>;
+<span class="keyword">assert</span> containerElementTypeDescriptor.getElementClass() == Address.class;
+<span class="comment">// @NotNull and @ValidAddress</span>
+<span class="keyword">assert</span> containerElementTypeDescriptor.getConstraintDescriptors().size() == <span class="integer">2</span>;
+<span class="keyword">assert</span> containerElementTypeDescriptor.isCascaded() == <span class="predefined-constant">true</span>;</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -16114,7 +16299,7 @@ ConstraintDescriptor&lt;?&gt; crossParameterConstraint =
 <div class="paragraph">
 <p><span class="tck-testable">The <code>type-argument-index</code> is used to specify the index of the configured type argument.</span>
 <span class="tck-testable">The <code>type-argument-index</code> can be omitted, if the container element type has exactly one type argument.</span>
-<span class="tck-testable">The <code>ignore-annotations</code> settings effectively applying for the encapsulating element (<code>field</code>, <code>getter</code> etc.) are applied for <code>container-element-type</code>, too.</span>
+<span class="tck-testable">The <code>ignore-annotations</code> settings effectively applying to the encapsulating element (<code>field</code>, <code>getter</code> etc.) are applied to <code>container-element-type</code>, too.</span>
 <span class="tck-testable">The <code>container-element-type</code> element can be nested for configuring nested generic containers such as <code>List&lt;List&lt;String&gt;&gt;</code>.</span></p>
 </div>
 <div class="paragraph">
@@ -17024,7 +17209,7 @@ This includes the following configuration errors:</p>
 <p>Each of these error cases lead to a <code class="classname">ValidationException</code> or a subclass of <code class="classname">ValidationException</code> (see following subsections).</p>
 </div>
 <div class="paragraph">
-<p><span class="tck-testable">Every (runtime) exception raised either at initialization time or execution time by any of the extension interfaces (<code class="classname">ConstraintValidator</code>, <code class="classname">ConstraintValidatorFactory</code>, <code class="classname">MessageInterpolator</code>, <code class="classname">TraversableResolver</code>, <code class="classname">ValidationProviderResolver</code>, <code class="classname">ParameterNameProvider</code>, <code class="classname">ClockProvider</code>) is wrapped in a <code class="classname">ValidationException</code>.</span></p>
+<p><span class="tck-testable">Every (runtime) exception raised either at initialization time or execution time by any of the extension interfaces (<code class="classname">ConstraintValidator</code>, <code class="classname">ConstraintValidatorFactory</code>, <code class="classname">MessageInterpolator</code>, <code class="classname">TraversableResolver</code>, <code class="classname">ValidationProviderResolver</code>, <code class="classname">ParameterNameProvider</code>, <code class="classname">ClockProvider</code>, <code>ValueExtractor</code>) is wrapped in a <code class="classname">ValidationException</code>.</span></p>
 </div>
 <div class="paragraph">
 <p>If a constraint definition or constraint declaration is invalid for a given class, the metadata API should raise the according exception.</p>
