@@ -1,0 +1,261 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>
+      Bean Validation - Bean Validation XML Schemas
+    </title>
+    <link href="../../../stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="../../../stylesheets/print.css" media="print" rel="stylesheet" type="text/css">
+    <!--[if lt IE 8]>
+      <link href="../../../stylesheets/ie.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <![endif]-->
+    <link href="../../../news/news.atom" rel="alternate" type="application/atom+xml">
+    <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="/javascripts/patternfly.js"></script>
+    <script src="/javascripts/bootstrap.js"></script>
+  </head>
+  <body>
+    <header role="banner">
+      <nav class="navbar navbar-default navbar-pf" role="navigation">
+        <div class="navbar-header">
+          <button class="navbar-toggle" data-target=".navbar-collapse-1" data-toggle="collapse" type="button">
+            <span class="sr-only">Toggle Navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../../.." id="logo" title="Bean Validation">
+            Bean Validation
+          </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-primary navbar-right" id="meny-primary">
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="../../../news">News</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="../../../specification">Specification</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="../../../tck">TCK</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="../../../1.1/ri">RI</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="../../../1.1/certified">Certified</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="../../../contribute">Contribute</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="../../../licensing">Licensing</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <div class="container" id="overview">
+      <div class="clearfix row" id="content">
+        <div class="col-sm-12 col-md-12 col-lg-12 clearfix" id="main">
+          <h1>Bean Validation XML Schemas</h1>
+          <div id="preamble">
+          <div class="sectionbody">
+          <div class="paragraph">
+          <p>This page describes the XML schemas used to validate the XML descriptors of Bean Validation.</p>
+          </div>
+          </div>
+          </div>
+          <div class="sect1">
+          <h2 id="xml-namespaces"><a class="anchor" href="#xml-namespaces"></a>XML Namespaces</h2>
+          <div class="sectionbody">
+          <div class="paragraph">
+          <p>As of Bean Validation 2.0, the XML namespaces of the descriptors are:</p>
+          </div>
+          <div class="ulist">
+          <ul>
+          <li>
+          <p><code><a href="http://xmlns.jcp.org/xml/ns/validation/configuration" class="bare">http://xmlns.jcp.org/xml/ns/validation/configuration</a></code> for <em>META-INF/validation.xml</em></p>
+          </li>
+          <li>
+          <p><code><a href="http://xmlns.jcp.org/xml/ns/validation/mapping" class="bare">http://xmlns.jcp.org/xml/ns/validation/mapping</a></code> for constraint mapping XML files</p>
+          </li>
+          </ul>
+          </div>
+          <div class="paragraph">
+          <p>For Bean Validation 1.x the XML namespaces are:</p>
+          </div>
+          <div class="ulist">
+          <ul>
+          <li>
+          <p><code><a href="http://jboss.org/xml/ns/javax/validation/configuration" class="bare">http://jboss.org/xml/ns/javax/validation/configuration</a></code> for <em>META-INF/validation.xml</em></p>
+          </li>
+          <li>
+          <p><code><a href="http://jboss.org/xml/ns/javax/validation/mapping" class="bare">http://jboss.org/xml/ns/javax/validation/mapping</a></code> for constraint mapping XML files</p>
+          </li>
+          </ul>
+          </div>
+          </div>
+          </div>
+          <div class="sect1">
+          <h2 id="using-the-bean-validation-xml-schemas"><a class="anchor" href="#using-the-bean-validation-xml-schemas"></a>Using the Bean Validation XML Schemas</h2>
+          <div class="sectionbody">
+          <div class="paragraph">
+          <p>XML descriptors for Bean Validation 1.1 and later must specify the used schema version using the <code>version</code> attribute in the root element, e.g. like so:</p>
+          </div>
+          <div class="listingblock">
+          <div class="content">
+          <pre class="CodeRay highlight"><code data-lang="XML"><span style="color:#579">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>&#x000A;<span style="color:#070;font-weight:bold">&lt;validation-config</span>&#x000A;        <span style="color:#b48">xmlns</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">http://xmlns.jcp.org/xml/ns/validation/configuration</span><span style="color:#710">&quot;</span></span>&#x000A;        <span style="color:#b48">xmlns:xsi</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">http://www.w3.org/2001/XMLSchema-instance</span><span style="color:#710">&quot;</span></span>&#x000A;        <span style="color:#b48">xsi:schemaLocation</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">http://xmlns.jcp.org/xml/ns/validation/configuration validation-configuration-2.0.xsd</span><span style="color:#710">&quot;</span></span>&#x000A;        <span style="color:#b48">version</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">2.0</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">&gt;</span>&#x000A;&#x000A;        [...]&#x000A;&#x000A;<span style="color:#070;font-weight:bold">&lt;/validation-config&gt;</span></code></pre>
+          </div>
+          </div>
+          <div class="paragraph">
+          <p>This allows XML descriptor processors to use the version information to choose the appropriate version of the schema document(s) to process XML descriptor instances.</p>
+          </div>
+          </div>
+          </div>
+          <div class="sect1">
+          <h2 id="bean-validation-2-0-schema-resources"><a class="anchor" href="#bean-validation-2-0-schema-resources"></a>Bean Validation 2.0 Schema Resources</h2>
+          <div class="sectionbody">
+          <table class="tableblock frame-all grid-all spread">
+          <caption class="title">Table 1. XML schemas for Bean Validation 2.0</caption>
+          <colgroup>
+          <col style="width: 20%;">
+          <col style="width: 20%;">
+          <col style="width: 20%;">
+          <col style="width: 20%;">
+          <col style="width: 20%;">
+          </colgroup>
+          <thead>
+          <tr>
+          <th class="tableblock halign-left valign-top">Date Published</th>
+          <th class="tableblock halign-left valign-top">File Name</th>
+          <th class="tableblock halign-left valign-top">Description</th>
+          <th class="tableblock halign-left valign-top">Specification Section</th>
+          <th class="tableblock halign-left valign-top">Status</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+          <td class="tableblock halign-left valign-top"><p class="tableblock">June 23 2017</p></td>
+          <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="validation-configuration-2.0.xsd">validation-configuration-2.0.xsd</a></p></td>
+          <td class="tableblock halign-left valign-top"><p class="tableblock">Bean Validation configuration schema</p></td>
+          <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="/2.0/spec/2.0.0.cr1/#validationapi-bootstrapping-xmlconfiguration">6.5.6</a></p></td>
+          <td class="tableblock halign-left valign-top"><p class="tableblock">Proposed Final Draft</p></td>
+          </tr>
+          <tr>
+          <td class="tableblock halign-left valign-top"><p class="tableblock">June 23 2017</p></td>
+          <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="validation-mapping-2.0.xsd">validation-mapping-2.0.xsd</a></p></td>
+          <td class="tableblock halign-left valign-top"><p class="tableblock">Bean Validation constraint mapping schema</p></td>
+          <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="/2.0/spec/2.0.0.cr1/#xml">9</a></p></td>
+          <td class="tableblock halign-left valign-top"><p class="tableblock">Proposed Final Draft</p></td>
+          </tr>
+          </tbody>
+          </table>
+          </div>
+          </div>
+          <div class="sect1">
+          <h2 id="bean-validation-1-1-schema-resources"><a class="anchor" href="#bean-validation-1-1-schema-resources"></a>Bean Validation 1.1 Schema Resources</h2>
+          <div class="sectionbody">
+          <table class="tableblock frame-all grid-all spread">
+          <caption class="title">Table 2. XML schemas for Bean Validation 1.1</caption>
+          <colgroup>
+          <col style="width: 20%;">
+          <col style="width: 20%;">
+          <col style="width: 20%;">
+          <col style="width: 20%;">
+          <col style="width: 20%;">
+          </colgroup>
+          <thead>
+          <tr>
+          <th class="tableblock halign-left valign-top">Date Published</th>
+          <th class="tableblock halign-left valign-top">File Name</th>
+          <th class="tableblock halign-left valign-top">Description</th>
+          <th class="tableblock halign-left valign-top">Specification Section</th>
+          <th class="tableblock halign-left valign-top">Status</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+          <td class="tableblock halign-left valign-top"><p class="tableblock">May 24 2013</p></td>
+          <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="validation-configuration-1.1.xsd">validation-configuration-1.1.xsd</a></p></td>
+          <td class="tableblock halign-left valign-top"><p class="tableblock">Bean Validation configuration schema</p></td>
+          <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="/1.1/spec/#xml-config">5.5.6</a></p></td>
+          <td class="tableblock halign-left valign-top"><p class="tableblock">Final Release</p></td>
+          </tr>
+          <tr>
+          <td class="tableblock halign-left valign-top"><p class="tableblock">May 24 2013</p></td>
+          <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="validation-mapping-1.1.xsd">validation-mapping-1.1.xsd</a></p></td>
+          <td class="tableblock halign-left valign-top"><p class="tableblock">Bean Validation constraint mapping schema</p></td>
+          <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="/1.1/spec/#xml">8</a></p></td>
+          <td class="tableblock halign-left valign-top"><p class="tableblock">Final Release</p></td>
+          </tr>
+          </tbody>
+          </table>
+          </div>
+          </div>
+          <div class="sect1">
+          <h2 id="bean-validation-1-0-schema-resources"><a class="anchor" href="#bean-validation-1-0-schema-resources"></a>Bean Validation 1.0 Schema Resources</h2>
+          <div class="sectionbody">
+          <table class="tableblock frame-all grid-all spread">
+          <caption class="title">Table 3. XML schemas for Bean Validation 1.0</caption>
+          <colgroup>
+          <col style="width: 20%;">
+          <col style="width: 20%;">
+          <col style="width: 20%;">
+          <col style="width: 20%;">
+          <col style="width: 20%;">
+          </colgroup>
+          <thead>
+          <tr>
+          <th class="tableblock halign-left valign-top">Date Published</th>
+          <th class="tableblock halign-left valign-top">File Name</th>
+          <th class="tableblock halign-left valign-top">Description</th>
+          <th class="tableblock halign-left valign-top">Specification Section</th>
+          <th class="tableblock halign-left valign-top">Status</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+          <td class="tableblock halign-left valign-top"><p class="tableblock">November 16 2009</p></td>
+          <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="validation-configuration-1.0.xsd">validation-configuration-1.0.xsd</a></p></td>
+          <td class="tableblock halign-left valign-top"><p class="tableblock">Bean Validation configuration schema</p></td>
+          <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="/1.0/spec/#xml-config">5.5.6</a></p></td>
+          <td class="tableblock halign-left valign-top"><p class="tableblock">Final Release</p></td>
+          </tr>
+          <tr>
+          <td class="tableblock halign-left valign-top"><p class="tableblock">November 16 2009</p></td>
+          <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="validation-mapping-1.0.xsd">validation-mapping-1.0.xsd</a></p></td>
+          <td class="tableblock halign-left valign-top"><p class="tableblock">Bean Validation constraint mapping schema</p></td>
+          <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="/1.0/spec/#xml">8</a></p></td>
+          <td class="tableblock halign-left valign-top"><p class="tableblock">Final Release</p></td>
+          </tr>
+          </tbody>
+          </table>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer class="container" id="widget-footer" role="contentinfo">
+    <hr>
+    <div class="row">
+      <div class="widget col-md-12 widget_text">
+        Copyright (c) Red Hat, Inc., Emmanuel Bernard
+        <a href="http://redhat.com" id="logo-redhat">Red Hat</a>
+      </div>
+    </div>
+  </footer>
+  <script>
+   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+   
+  ga('create', 'UA-24703879-1', 'auto');
+  ga('send', 'pageview');
+  
+  </script>
+</html>
