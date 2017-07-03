@@ -527,7 +527,7 @@ and re-render the HTML.
 <div class="details">
 <span id="author" class="author">Gunnar Morling</span><br>
 <span id="revnumber">version 2.0.0-SNAPSHOT,</span>
-<span id="revdate">2017-06-23</span>
+<span id="revdate">2017-07-03</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -5158,7 +5158,7 @@ Container element constraints are discussed in <a href="#constraintdeclarationva
  * @author Emmanuel Bernard
  * @since 1.1
  */</span>
-<span class="annotation">@Target</span>({ TYPE, METHOD, FIELD, CONSTRUCTOR, PARAMETER, TYPE_USE })
+<span class="annotation">@Target</span>({ METHOD, FIELD, CONSTRUCTOR, PARAMETER, TYPE_USE })
 <span class="annotation">@Retention</span>(RUNTIME)
 <span class="annotation">@Repeatable</span>(<span class="predefined-type">List</span>.class)
 <span class="annotation">@Documented</span>
@@ -5172,7 +5172,7 @@ Container element constraints are discussed in <a href="#constraintdeclarationva
      * Defines several {@link ConvertGroup} annotations
      * on the same element.
      */</span>
-    <span class="annotation">@Target</span>({ TYPE, METHOD, FIELD, CONSTRUCTOR, PARAMETER, TYPE_USE })
+    <span class="annotation">@Target</span>({ METHOD, FIELD, CONSTRUCTOR, PARAMETER, TYPE_USE })
     <span class="annotation">@Retention</span>(RUNTIME)
     <span class="annotation">@Documented</span>
     <span class="directive">public</span> <span class="annotation">@interface</span> <span class="predefined-type">List</span> {
@@ -5704,7 +5704,7 @@ I.e. the following usages are unsupported:</p>
 <h4 id="constraintdeclarationvalidationprocess-containerelementconstraints-implicitunwrapping"><a class="anchor" href="#constraintdeclarationvalidationprocess-containerelementconstraints-implicitunwrapping"></a>5.5.1. Implicit unwrapping of containers</h4>
 <div class="paragraph">
 <p>Besides specifying container element constraints on type arguments, it is also possible to declare container element constraints on non-generic container types.
-This is done by means of <em>implicit unwrapping</em>, i.e. a constraint doesn&#8217;t apply to the annotated container itself but to its elements.
+This is done by means of <em>implicit unwrapping</em>, i.e. a constraint doesn&#8217;t apply to the annotated container itself but to its element(s).
 Examples for types being subject to implicit unwrapping are <code>java.util.OptionalInt</code>, <code>OptionalLong</code> and <code>OptionalDouble</code> as well as JavaFX&#8217;s non-generic property types such as <code>StringProperty</code> or <code>IntegerProperty</code>:</p>
 </div>
 <div class="exampleblock">
@@ -5715,20 +5715,22 @@ Examples for types being subject to implicit unwrapping are <code>java.util.Opti
 <pre class="CodeRay highlight"><code data-lang="JAVA"><span class="annotation">@Min</span>(<span class="integer">1</span>)
 <span class="directive">private</span> OptionalInt optionalNumber;
 
-<span class="annotation">@Size</span>(max=<span class="integer">10</span>)
-<span class="directive">private</span> StringProperty name;
+<span class="annotation">@Negative</span>
+<span class="directive">private</span> LongProperty negativeLong;
 
 <span class="annotation">@Positive</span>
-<span class="directive">private</span> IntegerProperty positiveInt;</code></pre>
+<span class="directive">private</span> IntegerProperty positiveInt;
+
+<span class="directive">private</span> <span class="directive">final</span> ListProperty&lt;<span class="annotation">@NotBlank</span> StringProperty&gt; notBlankStrings;</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="paragraph">
-<p>Here the <code>@Min</code>, <code>@Size</code> and <code>@Positive</code> constraints don&#8217;t apply to the annotated <code>OptionalInt</code>, <code>StringProperty</code> and <code>IntegerProperty</code> themselves, but rather to the wrapped string and integer values, respectively.</p>
+<p>Here the <code>@Min</code>, <code>@Negative</code>, <code>@Positive</code> and <code>@NotBlank</code> constraints don&#8217;t apply to the annotated <code>OptionalInt</code>, <code>LongProperty</code>, <code>IntegerProperty</code> and <code>StringProperty</code> objects themselves, but rather to the wrapped numeric and string values, respectively.</p>
 </div>
 <div class="paragraph">
-<p>For this to work, an unambiguously resolvable value extractor must be defined which carries the <code>@UnwrapByDefault</code> annotation (see <a href="#valueextractordefinition-unwrapbydefault">@UnwrapByDefault</a>).</p>
+<p>For this to work, an unambiguously resolvable value extractor (see <a href="#constraintdeclarationvalidationprocess-validationroutine-valueextractorresolution-implicitunwrapping">ValueExtractor resolution algorithm for applying container-level constraints to container elements</a>) must be defined which carries the <code>@UnwrapByDefault</code> annotation (see <a href="#valueextractordefinition-unwrapbydefault">@UnwrapByDefault</a>).</p>
 </div>
 <div class="paragraph">
 <p>If needed, the target (container or container element) of a constraint declared on a container can be explicitly specified via the <code>Unwrap</code> and <code>Skip</code> payload definitions:</p>
@@ -7360,7 +7362,7 @@ hence it is not possible to perform the extractor resolution only once per usage
 <div class="ulist">
 <ul>
 <li>
-<p><span class="tck-testable">If there is exactly one maximally-specific type-compliant value extractor marked with <code>@UnwrapByDefault</code>, this extractor is applied;</span></p>
+<p><span class="tck-testable">If there is exactly one maximally-specific type-compliant value extractor and this extractor is marked with <code>@UnwrapByDefault</code>, this extractor is applied;</span></p>
 </li>
 <li>
 <p><span class="tck-testable">Otherwise, no value extractor is applied.</span></p>
@@ -8869,7 +8871,8 @@ executableValidator.validateConstructorParameters(constructor, <span class="keyw
 <p><span class="tck-testable">The <code class="methodname">getExecutableReturnValue()</code> returns the return value of the method or constructor invocation or <code>null</code> if the method has no return value or if not validating a method or constructor return value.</span></p>
 </div>
 <div class="paragraph">
-<p><span class="tck-testable">The <code class="methodname">getInvalidValue()</code> method returns the value (field, property, method/constructor parameter, method/constructor return value, container element or validated object) being passed to <code class="methodname">isValid()</code>.</span> <span class="tck-testable">For a cross-parameter constraint failure, an <code class="code">Object[]</code> representing the method/constructor invocation arguments is returned.</span></p>
+<p><span class="tck-testable">The <code class="methodname">getInvalidValue()</code> method returns the value (field, property, method/constructor parameter, method/constructor return value, container element or validated object) being passed to <code class="methodname">isValid()</code>.</span> <span class="tck-testable">For a cross-parameter constraint failure, an <code class="code">Object[]</code> representing the method/constructor invocation arguments is returned.</span>
+<span class="tck-testable">In case of a constraint given on a container is subject to implicit application to the container element(s) (see <a href="#constraintdeclarationvalidationprocess-containerelementconstraints-implicitunwrapping">Implicit unwrapping of containers</a>), <code>getInvalidValue()</code> returns the invalid container element value.</span></p>
 </div>
 <div class="paragraph">
 <p><span class="tck-testable"><code class="methodname">getConstraintDescriptor()</code> provides access to the failing constraint metadata</span> (see <a href="#constraintmetadata-constraintdescriptor">ConstraintDescriptor</a>).</p>
@@ -9515,10 +9518,14 @@ the former returns the declared type of the container and the latter returns the
 <div class="ulist">
 <ul>
 <li>
-<p>a <code class="classname">ContainerElementNode</code> object is added to <code class="classname">Path</code> whose <code>name</code> is the node name produced by the corresponding value extractor (see <a href="#valueextractordefinition">Value extractor definition</a>).
+<p>if the corresponding value extractor (see <a href="#valueextractordefinition">Value extractor definition</a>) has specified a node name when calling one of the receiver methods, a <code class="classname">ContainerElementNode</code> object with that name is added to the <code>Path</code>.
 The <code class="classname">ElementKind</code> of the node is <code class="varname">ElementKind.CONTAINER_ELEMENT</code>.
 <code>getContainerClass()</code> returns the declared type of the container hosting the constraint.
-<code>getTypeArgumentIndex()</code> returns the index of the type argument hosting the constraint.</p>
+<code>getTypeArgumentIndex()</code> returns the index of the type argument hosting the constraint.
+If the constraint is given on a container and is subject to implicit application to the container&#8217;s element(s) (see <a href="#constraintdeclarationvalidationprocess-containerelementconstraints-implicitunwrapping">Implicit unwrapping of containers</a>) and the applied value extractor is not tied to a type parameter, <code>getTypeArgumentIndex()</code> returns null.</p>
+</li>
+<li>
+<p>if the corresponding value extractor has passed no node name to the called receiver method, no node is appended.</p>
 </li>
 <li>
 <p>the property path is considered complete</p>
@@ -15581,10 +15588,9 @@ containerElementTypeDescriptor = it.next();
 <span class="comment">/**
  * The annotated element must be an instant, date or time in the past.
  * &lt;p&gt;
- * &lt;i&gt;Now&lt;/i&gt; is defined by the {@link ClockProvider} attached to the {@link javax.validation.Validator}
- * or {@link javax.validation.ValidatorFactory}.
- * The default {@code clockProvider} defines the current time according to the virtual machine,
- * applying the current default time zone if needed.
+ * &lt;i&gt;Now&lt;/i&gt; is defined by the {@link ClockProvider} attached to the {@link Validator} or
+ * {@link ValidatorFactory}. The default {@code clockProvider} defines the current time
+ * according to the virtual machine, applying the current default time zone if needed.
  * &lt;p&gt;
  * Supported types are:
  * &lt;ul&gt;
@@ -15653,12 +15659,13 @@ containerElementTypeDescriptor = it.next();
 <span class="comment">/**
  * The annotated element must be an instant, date or time in the past or in the present.
  * &lt;p&gt;
- * &lt;i&gt;Now&lt;/i&gt; is defined by the {@link ClockProvider} attached to the {@link javax.validation.Validator}
- * or {@link javax.validation.ValidatorFactory}.
- * The default {@code clockProvider} defines the current time according to the virtual machine,
- * applying the current default time zone if needed.
- * &lt;p&gt;The notion of present is defined relatively to the type on which the constraint is used.
- * For instance, if the constraint is on a {@link Year}, present would mean the whole current year.
+ * &lt;i&gt;Now&lt;/i&gt; is defined by the {@link ClockProvider} attached to the {@link Validator} or
+ * {@link ValidatorFactory}. The default {@code clockProvider} defines the current time
+ * according to the virtual machine, applying the current default time zone if needed.
+ * &lt;p&gt;
+ * The notion of present is defined relatively to the type on which the constraint is
+ * used. For instance, if the constraint is on a {@link Year}, present would mean the whole
+ * current year.
  * &lt;p&gt;
  * Supported types are:
  * &lt;ul&gt;
@@ -15728,10 +15735,9 @@ containerElementTypeDescriptor = it.next();
 <span class="comment">/**
  * The annotated element must be an instant, date or time in the future.
  * &lt;p&gt;
- * &lt;i&gt;Now&lt;/i&gt; is defined by the {@link ClockProvider} attached to the {@link javax.validation.Validator}
- * or {@link javax.validation.ValidatorFactory}.
- * The default {@code clockProvider} defines the current time according to the virtual machine,
- * applying the current default time zone if needed.
+ * &lt;i&gt;Now&lt;/i&gt; is defined by the {@link ClockProvider} attached to the {@link Validator} or
+ * {@link ValidatorFactory}. The default {@code clockProvider} defines the current time
+ * according to the virtual machine, applying the current default time zone if needed.
  * &lt;p&gt;
  * Supported types are:
  * &lt;ul&gt;
@@ -15800,12 +15806,13 @@ containerElementTypeDescriptor = it.next();
 <span class="comment">/**
  * The annotated element must be an instant, date or time in the present or in the future.
  * &lt;p&gt;
- * &lt;i&gt;Now&lt;/i&gt; is defined by the {@link ClockProvider} attached to the {@link javax.validation.Validator}
- * or {@link javax.validation.ValidatorFactory}.
- * The default {@code clockProvider} defines the current time according to the virtual machine,
- * applying the current default time zone if needed.
- * &lt;p&gt;The notion of present here is defined relatively to the type on which the constraint is used.
- * For instance, if the constraint is on a {@link Year}, present would mean the whole current year.
+ * &lt;i&gt;Now&lt;/i&gt; is defined by the {@link ClockProvider} attached to the {@link Validator} or
+ * {@link ValidatorFactory}. The default {@code clockProvider} defines the current time
+ * according to the virtual machine, applying the current default time zone if needed.
+ * &lt;p&gt;
+ * The notion of present here is defined relatively to the type on which the constraint is
+ * used. For instance, if the constraint is on a {@link Year}, present would mean the whole
+ * current year.
  * &lt;p&gt;
  * Supported types are:
  * &lt;ul&gt;
@@ -18670,9 +18677,6 @@ in case they provide the Bean Validation API as a module for the Java Platform M
 <div class="sect1">
 <h2 id="changelog"><a class="anchor" href="#changelog"></a>Appendix E: Changelog</h2>
 <div class="sectionbody">
-<div class="exampleblock">
-<div class="title">Example E.1: Changelog</div>
-<div class="content">
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code>2.0.0.CR1 (Proposed Final Draft 1, 2017-06-21)
@@ -19293,12 +19297,10 @@ in case they provide the Bean Validation API as a module for the Java Platform M
 </div>
 </div>
 </div>
-</div>
-</div>
 <div id="footer">
 <div id="footer-text">
 Version 2.0.0-SNAPSHOT<br>
-Last updated 2017-06-15 11:19:31 UTC
+Last updated 2017-06-15 15:52:57 UTC
 </div>
 </div>
 <script>
