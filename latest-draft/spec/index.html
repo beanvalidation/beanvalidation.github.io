@@ -527,7 +527,7 @@ and re-render the HTML.
 <div class="details">
 <span id="author" class="author">Gunnar Morling</span><br>
 <span id="revnumber">version 2.0.0-SNAPSHOT,</span>
-<span id="revdate">2017-07-03</span>
+<span id="revdate">2017-07-04</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -1700,7 +1700,8 @@ An exception are the <code>Unwrapping.Skip</code> and <code>Unwrapping.Unwrap</c
 <span class="keyword">package</span> <span class="namespace">com.acme.constraint</span>;
 
 <span class="comment">/**
- * Cross-parameter constraint ensuring that two date parameters of a method are in the correct order.
+ * Cross-parameter constraint ensuring that two date parameters of a method are in the correct
+ * order.
  */</span>
 <span class="annotation">@Documented</span>
 <span class="annotation">@Constraint</span>(validatedBy = DateParametersConsistentValidator.class)
@@ -1776,7 +1777,8 @@ An exception are the <code>Unwrapping.Skip</code> and <code>Unwrapping.Unwrap</c
 <pre class="CodeRay highlight"><code data-lang="JAVA"><span class="keyword">package</span> <span class="namespace">com.acme.constraint</span>;
 
 <span class="comment">/**
- * A frequency in Hz as audible to human ear. Adjustable to the age of the person. Accept Numbers.
+ * A frequency in Hz as audible to human ear. Adjustable to the age of the person. Accepts
+ * Numbers.
  */</span>
 <span class="annotation">@Documented</span>
 <span class="annotation">@Constraint</span>(validatedBy = AudibleValidator.class)
@@ -2406,6 +2408,9 @@ A <code>ConstraintDeclarationException</code> will be raised in this case.</p>
  * {@code ConstraintValidator} implementation to mark it as supporting
  * cross-parameter constraints. Check out {@link SupportedValidationTarget}
  * and {@link Constraint} for more information.
+ *
+ * @param &lt;A&gt; the annotation type handled by an implementation
+ * @param &lt;T&gt; the target type supported by an implementation
  *
  * @author Emmanuel Bernard
  * @author Hardy Ferentschik
@@ -3752,14 +3757,16 @@ It also demonstrates an interesting best practice: return <code>true</code> on a
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="JAVA"><span class="comment">/**
- * Check that two date parameters of a method are in the expected order. Expects the 2nd and 3rd parameter of the
- * validated method to be of type java.util.Date.
+ * Check that two date parameters of a method are in the expected order. Expects the 2nd and
+ * 3rd parameter of the validated method to be of type java.util.Date.
  */</span>
 <span class="annotation">@SupportedValidationTarget</span>(ValidationTarget.PARAMETERS)
-<span class="directive">public</span> <span class="type">class</span> <span class="class">DateParametersConsistentValidator</span> <span class="directive">implements</span> ConstraintValidator&lt;DateParametersConsistent, <span class="predefined-type">Object</span><span class="type">[]</span>&gt; {
+<span class="directive">public</span> <span class="type">class</span> <span class="class">DateParametersConsistentValidator</span> <span class="directive">implements</span>
+        ConstraintValidator&lt;DateParametersConsistent, <span class="predefined-type">Object</span><span class="type">[]</span>&gt; {
 
     <span class="comment">/**
-     * Validate a specified value. returns false if the specified value does not conform to the definition
+     * Validate a specified value. returns false if the specified value does not conform to
+     * the definition
      */</span>
     <span class="annotation">@Override</span>
     <span class="directive">public</span> <span class="type">boolean</span> isValid(<span class="predefined-type">Object</span><span class="type">[]</span> value, ConstraintValidatorContext context) {
@@ -4014,6 +4021,8 @@ The retrieval of values stored in a container is handled via implementations of 
  *     }
  * }
  * &lt;/pre&gt;
+ *
+ * @param &lt;T&gt; the container type handled by a specific implementation
  *
  * @author Gunnar Morling
  * @author Guillaume Smet
@@ -7701,7 +7710,7 @@ hence it is not possible to perform the extractor resolution only once per usage
 <p>During the validation routine execution on an <code class="classname">Address</code> object, constraints on <code class="methodname">addressLine1</code>, <code class="methodname">addressLine2</code>, <code class="methodname">zipCode</code>, <code class="classname">getCity</code> and <code class="methodname">country</code> are processed as well as the validation of the <code class="classname">Country</code> object itself, more specifically <code class="methodname">country.name</code> is checked for <code class="classname">@NotNull</code>, <code class="methodname">ISO2Code</code> and <code class="methodname">ISO3Code</code> are checked for <code class="classname">@Size</code>.</p>
 </div>
 <div class="paragraph">
-<p>Assuming that <code class="classname">@NotEmpty</code> is defined as such</p>
+<p>Assuming that <code class="classname">@NonEmpty</code> is defined as such:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -7709,12 +7718,12 @@ hence it is not possible to perform the extractor resolution only once per usage
 <span class="annotation">@NotNull</span>
 <span class="annotation">@Size</span>(min = <span class="integer">1</span>)
 <span class="annotation">@ReportAsSingleViolation</span>
-<span class="annotation">@Constraint</span>(validatedBy = NotEmpty.NotEmptyValidator.class)
+<span class="annotation">@Constraint</span>(validatedBy = NonEmpty.NonEmptyValidator.class)
 <span class="annotation">@Target</span>({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
 <span class="annotation">@Retention</span>(RUNTIME)
-<span class="directive">public</span> <span class="annotation">@interface</span> NotEmpty {
+<span class="directive">public</span> <span class="annotation">@interface</span> NonEmpty {
 
-    <span class="predefined-type">String</span> message() <span class="keyword">default</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">{com.acme.constraint.NotEmpty.message}</span><span class="delimiter">&quot;</span></span>;
+    <span class="predefined-type">String</span> message() <span class="keyword">default</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">{com.acme.constraint.NonEmpty.message}</span><span class="delimiter">&quot;</span></span>;
 
     <span class="predefined-type">Class</span>&lt;?&gt;<span class="type">[]</span> groups() <span class="keyword">default</span> {};
 
@@ -7724,10 +7733,10 @@ hence it is not possible to perform the extractor resolution only once per usage
     <span class="annotation">@Retention</span>(RUNTIME)
     <span class="annotation">@Documented</span>
     <span class="annotation">@interface</span> <span class="predefined-type">List</span> {
-        NotEmpty<span class="type">[]</span> value();
+        NonEmpty<span class="type">[]</span> value();
     }
 
-    <span class="type">class</span> <span class="class">NotEmptyValidator</span> <span class="directive">implements</span> ConstraintValidator&lt;NotEmpty, <span class="predefined-type">String</span>&gt; {
+    <span class="type">class</span> <span class="class">NonEmptyValidator</span> <span class="directive">implements</span> ConstraintValidator&lt;NonEmpty, <span class="predefined-type">String</span>&gt; {
 
         <span class="annotation">@Override</span>
         <span class="directive">public</span> <span class="type">boolean</span> isValid(<span class="predefined-type">String</span> value, ConstraintValidatorContext context) {
@@ -7746,12 +7755,12 @@ hence it is not possible to perform the extractor resolution only once per usage
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="JAVA"><span class="directive">public</span> <span class="type">interface</span> <span class="class">Person</span> {
-    <span class="annotation">@NotEmpty</span>
+    <span class="annotation">@NonEmpty</span>
     <span class="predefined-type">String</span> getFirstName();
 
     <span class="predefined-type">String</span> getMiddleName();
 
-    <span class="annotation">@NotEmpty</span>
+    <span class="annotation">@NonEmpty</span>
     <span class="predefined-type">String</span> getLastName();
 }
 
@@ -7829,10 +7838,10 @@ hence it is not possible to perform the extractor resolution only once per usage
 <div class="ulist">
 <ul>
 <li>
-<p><code class="classname">@NotEmpty</code>, <code class="classname">@NotNull</code> and <code class="classname">@Size(min=1)</code> on <code class="methodname">firstName</code></p>
+<p><code class="classname">@NonEmpty</code>, <code class="classname">@NotNull</code> and <code class="classname">@Size(min=1)</code> on <code class="methodname">firstName</code></p>
 </li>
 <li>
-<p><code class="classname">@NotEmpty</code>, <code class="classname">@NotNull</code> and <code class="classname">@Size(min=1)</code> on <code class="methodname">lastName</code></p>
+<p><code class="classname">@NonEmpty</code>, <code class="classname">@NotNull</code> and <code class="classname">@Size(min=1)</code> on <code class="methodname">lastName</code></p>
 </li>
 <li>
 <p><code class="classname">@NotNull</code> on <code class="methodname">customerId</code>, <code class="classname">@Password</code> on <code class="methodname">password</code></p>
@@ -7848,10 +7857,10 @@ hence it is not possible to perform the extractor resolution only once per usage
 <div class="ulist">
 <ul>
 <li>
-<p><code class="classname">@NotEmpty</code>, <code class="classname">@NotNull</code> and <code class="classname">@Size(min=1)</code> on <code class="methodname">firstName</code></p>
+<p><code class="classname">@NonEmpty</code>, <code class="classname">@NotNull</code> and <code class="classname">@Size(min=1)</code> on <code class="methodname">firstName</code></p>
 </li>
 <li>
-<p><code class="classname">@NotEmpty</code>, <code class="classname">@NotNull</code> and <code class="classname">@Size(min=1)</code> on <code class="methodname">lastName</code></p>
+<p><code class="classname">@NonEmpty</code>, <code class="classname">@NotNull</code> and <code class="classname">@Size(min=1)</code> on <code class="methodname">lastName</code></p>
 </li>
 <li>
 <p><code class="classname">@NotNull</code> on <code class="methodname">customerId</code>, <code class="classname">@Password</code> on <code class="methodname">password</code></p>
@@ -7870,7 +7879,7 @@ hence it is not possible to perform the extractor resolution only once per usage
 <span class="directive">public</span> <span class="type">interface</span> <span class="class">Complete</span> {}
 
 <span class="directive">public</span> <span class="type">class</span> <span class="class">Book</span> {
-    <span class="annotation">@NotEmpty</span>(groups=First.class)
+    <span class="annotation">@NonEmpty</span>(groups=First.class)
     <span class="directive">private</span> <span class="predefined-type">String</span> title;
 
     <span class="annotation">@Size</span>(max=<span class="integer">30</span>, groups=Second.class)
@@ -7906,10 +7915,10 @@ hence it is not possible to perform the extractor resolution only once per usage
 }
 
 <span class="directive">public</span> <span class="type">class</span> <span class="class">Author</span> {
-    <span class="annotation">@NotEmpty</span>(groups=Last.class)
+    <span class="annotation">@NonEmpty</span>(groups=Last.class)
     <span class="directive">private</span> <span class="predefined-type">String</span> firstName;
 
-    <span class="annotation">@NotEmpty</span>(groups=First.class)
+    <span class="annotation">@NonEmpty</span>(groups=First.class)
     <span class="directive">private</span> <span class="predefined-type">String</span> lastName;
 
     <span class="annotation">@Size</span>(max=<span class="integer">30</span>, groups=Last.class)
@@ -7961,7 +7970,7 @@ book.setAuthor( author );</code></pre>
 <div class="ulist">
 <ul>
 <li>
-<p><code class="classname">@NotNull</code> failure (from <code class="classname">@NotEmpty</code>) on the <code>title</code> field</p>
+<p><code class="classname">@NotNull</code> failure (from <code class="classname">@NonEmpty</code>) on the <code>title</code> field</p>
 </li>
 </ul>
 </div>
@@ -7980,7 +7989,7 @@ author.setCompany( <span class="string"><span class="delimiter">&quot;</span><sp
 <div class="ulist">
 <ul>
 <li>
-<p><code class="methodname">author.firstName</code> fails to pass the <code class="classname">@Size(min=1)</code> (from <code class="classname">@NotEmpty</code>) constraint</p>
+<p><code class="methodname">author.firstName</code> fails to pass the <code class="classname">@Size(min=1)</code> (from <code class="classname">@NonEmpty</code>) constraint</p>
 </li>
 <li>
 <p><code class="methodname">author.company</code> fails to pass the <code class="classname">@Size</code> constraint</p>
@@ -8572,14 +8581,14 @@ executableValidator.validateConstructorParameters(constructor, <span class="keyw
 
 <span class="directive">public</span> <span class="type">class</span> <span class="class">Address</span> {
 
-    <span class="annotation">@NotEmpty</span>(groups = Minimal.class)
+    <span class="annotation">@NonEmpty</span>(groups = Minimal.class)
     <span class="annotation">@Size</span>(max=<span class="integer">50</span>)
     <span class="directive">private</span> <span class="predefined-type">String</span> street1;
 
-    <span class="annotation">@NotEmpty</span>
+    <span class="annotation">@NonEmpty</span>
     <span class="directive">private</span> <span class="predefined-type">String</span> city;
 
-    <span class="annotation">@NotEmpty</span>(groups = {Minimal.class, Default.class})
+    <span class="annotation">@NonEmpty</span>(groups = {Minimal.class, Default.class})
     <span class="directive">private</span> <span class="predefined-type">String</span> zipCode;
 
     [...]
@@ -8587,7 +8596,7 @@ executableValidator.validateConstructorParameters(constructor, <span class="keyw
 </div>
 </div>
 <div class="paragraph">
-<p>In the previous example, <code class="classname">@NotEmpty</code> (and its composing constraints) on <code class="methodname">street1</code> applies to the group <code class="classname">Minimal</code>, <code class="classname">@Size</code> on <code class="methodname">street1</code> applies to the group <code>Default</code> and <code class="classname">@NotEmpty</code>(and its composing constraints) on <code class="methodname">zipCode</code> applies to the groups <code>Default</code> and <code>Minimal</code>.</p>
+<p>In the previous example, <code class="classname">@NonEmpty</code> (and its composing constraints, assuming the definition given in chapter <a href="#constraintdeclarationvalidationprocess">Constraint declaration and validation process</a>) on <code class="methodname">street1</code> applies to the group <code class="classname">Minimal</code>, <code class="classname">@Size</code> on <code class="methodname">street1</code> applies to the group <code>Default</code> and <code class="classname">@NonEmpty</code>(and its composing constraints) on <code class="methodname">zipCode</code> applies to the groups <code>Default</code> and <code>Minimal</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -8595,7 +8604,7 @@ executableValidator.validateConstructorParameters(constructor, <span class="keyw
 </div>
 </div>
 <div class="paragraph">
-<p>validates the group <code class="classname">Default</code> (implicitly) and applies <code class="classname">@Size</code> on <code class="methodname">street1</code>, <code class="classname">@NotEmpty</code> (and its composing constraints) on <code class="methodname">city</code>, <code class="classname">@NotEmpty</code> (and its composing constraints) on <code class="methodname">zipCode</code>. Particularly, <code class="classname">@NotEmpty</code> (and its composing constraints) on <code class="methodname">street1</code> are not applied.</p>
+<p>validates the group <code class="classname">Default</code> (implicitly) and applies <code class="classname">@Size</code> on <code class="methodname">street1</code>, <code class="classname">@NonEmpty</code> (and its composing constraints) on <code class="methodname">city</code>, <code class="classname">@NonEmpty</code> (and its composing constraints) on <code class="methodname">zipCode</code>. Particularly, <code class="classname">@NonEmpty</code> (and its composing constraints) on <code class="methodname">street1</code> are not applied.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -8603,7 +8612,7 @@ executableValidator.validateConstructorParameters(constructor, <span class="keyw
 </div>
 </div>
 <div class="paragraph">
-<p>applies <code class="classname">@NotEmpty</code> (and its composing constraints) on <code class="methodname">street1</code> and <code class="classname">@NotEmpty</code> (and its composing constraints) on <code class="methodname">zipCode</code> because they belong to the <code class="classname">Minimal</code> group.</p>
+<p>applies <code class="classname">@NonEmpty</code> (and its composing constraints) on <code class="methodname">street1</code> and <code class="classname">@NonEmpty</code> (and its composing constraints) on <code class="methodname">zipCode</code> because they belong to the <code class="classname">Minimal</code> group.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -8611,7 +8620,7 @@ executableValidator.validateConstructorParameters(constructor, <span class="keyw
 </div>
 </div>
 <div class="paragraph">
-<p>validates both <code class="classname">Default</code> and <code class="classname">Minimal</code> groups. The routine applies <code class="classname">@NotEmpty</code> (and its composing constraints) and <code class="classname">@Size</code> on <code class="methodname">street1</code>, <code class="classname">@NotEmpty</code> (and its composing constraints) on <code class="methodname">city</code>, <code class="classname">@NotEmpty</code> (and its composing constraints) on <code class="methodname">zipCode</code>. Note that if <code class="methodname">zipCode</code> is empty, only one <code class="classname">ConstraintViolation</code> object will represent the failure and the not empty validation will only be executed once.</p>
+<p>validates both <code class="classname">Default</code> and <code class="classname">Minimal</code> groups. The routine applies <code class="classname">@NonEmpty</code> (and its composing constraints) and <code class="classname">@Size</code> on <code class="methodname">street1</code>, <code class="classname">@NonEmpty</code> (and its composing constraints) on <code class="methodname">city</code>, <code class="classname">@NonEmpty</code> (and its composing constraints) on <code class="methodname">zipCode</code>. Note that if <code class="methodname">zipCode</code> is empty, only one <code class="classname">ConstraintViolation</code> object will represent the failure and the not empty validation will only be executed once.</p>
 </div>
 <div class="paragraph">
 <p>Let&#8217;s look at a more complex example involving group sequence.</p>
@@ -8619,14 +8628,14 @@ executableValidator.validateConstructorParameters(constructor, <span class="keyw
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="JAVA"><span class="directive">public</span> <span class="type">class</span> <span class="class">Address</span> {
-    <span class="annotation">@NotEmpty</span>(groups = Minimal.class)
+    <span class="annotation">@NonEmpty</span>(groups = Minimal.class)
     <span class="annotation">@Size</span>(max=<span class="integer">50</span>, groups=FirstStep.class)
     <span class="directive">private</span> <span class="predefined-type">String</span> street1;
 
-    <span class="annotation">@NotEmpty</span>(groups=SecondStep.class)
+    <span class="annotation">@NonEmpty</span>(groups=SecondStep.class)
     <span class="directive">private</span> <span class="predefined-type">String</span> city;
 
-    <span class="annotation">@NotEmpty</span>(groups = {Minimal.class, SecondStep.class})
+    <span class="annotation">@NonEmpty</span>(groups = {Minimal.class, SecondStep.class})
     <span class="directive">private</span> <span class="predefined-type">String</span> zipCode;
 
     [...]
@@ -8649,7 +8658,7 @@ executableValidator.validateConstructorParameters(constructor, <span class="keyw
 </div>
 </div>
 <div class="paragraph">
-<p>the validation process will process <code class="classname">@NotEmpty</code> (and its composing constraints) and <code class="classname">@Size</code> from <code class="methodname">street1</code> and <code class="classname">@NotEmpty</code> (and its composing constraints) from <code class="methodname">zipCode</code>. If <code class="classname">@Size</code> from <code class="methodname">street1</code> does not generate a failure, then <code class="classname">@NotEmpty</code> (and its composing constraints) from <code class="methodname">city</code> will be processed as part of <code class="classname">SecondStep</code>. Note that <code class="classname">@NotEmpty</code> (and its composing constraints) from <code class="methodname">zipCode</code> are not reprocessed as they have already been processed before.</p>
+<p>the validation process will process <code class="classname">@NonEmpty</code> (and its composing constraints) and <code class="classname">@Size</code> from <code class="methodname">street1</code> and <code class="classname">@NonEmpty</code> (and its composing constraints) from <code class="methodname">zipCode</code>. If <code class="classname">@Size</code> from <code class="methodname">street1</code> does not generate a failure, then <code class="classname">@NonEmpty</code> (and its composing constraints) from <code class="methodname">city</code> will be processed as part of <code class="classname">SecondStep</code>. Note that <code class="classname">@NonEmpty</code> (and its composing constraints) from <code class="methodname">zipCode</code> are not reprocessed as they have already been processed before.</p>
 </div>
 <div class="paragraph">
 <p>When running:</p>
@@ -8660,7 +8669,7 @@ executableValidator.validateConstructorParameters(constructor, <span class="keyw
 </div>
 </div>
 <div class="paragraph">
-<p><code class="classname">@NotEmpty</code> (and its composing constraints) from <code class="methodname">city</code> and <code class="classname">@NotEmpty</code> (and its composing constraints) from <code class="methodname">zipCode</code> will be processed even if <code class="classname">@Size</code> from <code class="methodname">street1</code> fails: while <code>SecondStep</code> is in the <code>Total</code> group sequence and hence should not be triggered if <code>FirstStep</code> has a failure, it also has been requested outside the sequence (in this case explicitly).</p>
+<p><code class="classname">@NonEmpty</code> (and its composing constraints) from <code class="methodname">city</code> and <code class="classname">@NonEmpty</code> (and its composing constraints) from <code class="methodname">zipCode</code> will be processed even if <code class="classname">@Size</code> from <code class="methodname">street1</code> fails: while <code>SecondStep</code> is in the <code>Total</code> group sequence and hence should not be triggered if <code>FirstStep</code> has a failure, it also has been requested outside the sequence (in this case explicitly).</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -8692,6 +8701,8 @@ executableValidator.validateConstructorParameters(constructor, <span class="keyw
 <pre class="CodeRay highlight"><code data-lang="JAVA"><span class="comment">/**
  * Describes a constraint violation. This object exposes the constraint
  * violation context as well as the message describing the violation.
+ *
+ * @param &lt;T&gt; the type of the root bean
  *
  * @author Emmanuel Bernard
  */</span>
@@ -9640,7 +9651,7 @@ The same applies to <code>typeArgumentIndex</code> and <code>containerClass</cod
 <span class="directive">public</span> <span class="type">class</span> <span class="class">Author</span> {
     <span class="directive">private</span> <span class="predefined-type">String</span> firstName;
 
-    <span class="annotation">@NotEmpty</span>(message=<span class="string"><span class="delimiter">&quot;</span><span class="content">lastname must not be null</span><span class="delimiter">&quot;</span></span>)
+    <span class="annotation">@NonEmpty</span>(message=<span class="string"><span class="delimiter">&quot;</span><span class="content">lastname must not be null</span><span class="delimiter">&quot;</span></span>)
     <span class="directive">private</span> <span class="predefined-type">String</span> lastName;
 
     <span class="annotation">@Size</span>(max=<span class="integer">30</span>)
@@ -9658,7 +9669,7 @@ The same applies to <code>typeArgumentIndex</code> and <code>containerClass</cod
 
 <span class="annotation">@AvailableInStore</span>(groups={Availability.class})
 <span class="directive">public</span> <span class="type">class</span> <span class="class">Book</span> {
-    <span class="annotation">@NotEmpty</span>(groups={FirstLevelCheck.class, Default.class})
+    <span class="annotation">@NonEmpty</span>(groups={FirstLevelCheck.class, Default.class})
     <span class="directive">private</span> <span class="predefined-type">String</span> title;
 
     <span class="annotation">@Valid</span>
@@ -9744,7 +9755,7 @@ The same applies to <code>typeArgumentIndex</code> and <code>containerClass</cod
 <td class="tableblock halign-left valign-top"><p class="tableblock">BeanNode(name=null, inIterable=false, index=null, key=null, containerClass=null, typeArgumentIndex=null, kind=ElementKind.BEAN)</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code class="classname">@NotEmpty</code>  on <code class="classname">Book.title</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code class="classname">@NonEmpty</code>  on <code class="classname">Book.title</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PropertyNode(name=title, inIterable=false, index=null, key=null, containerClass=null, typeArgumentIndex=null, kind=ElementKind.PROPERTY)</p></td>
 </tr>
 <tr>
@@ -9757,7 +9768,7 @@ The same applies to <code>typeArgumentIndex</code> and <code>containerClass</cod
 </p><p class="tableblock">BeanNode(name=null, inIterable=true, index=3, key=null, containerClass=List.class, typeArgumentIndex=0, kind=ElementKind.BEAN)</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code class="classname">@NotEmpty</code>  on the fourth author, <code class="classname">Author.lastname</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code class="classname">@NonEmpty</code>  on the fourth author, <code class="classname">Author.lastname</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PropertyNode(name=authors, inIterable=false, index=null, key=null, containerClass=null, typeArgumentIndex=null, kind=ElementKind.PROPERTY)
 </p><p class="tableblock">PropertyNode(name=lastName, inIterable=true, index=3, key=null, containerClass=List.class, typeArgumentIndex=0, kind=ElementKind.PROPERTY)</p></td>
 </tr>
@@ -9793,7 +9804,7 @@ The same applies to <code>typeArgumentIndex</code> and <code>containerClass</cod
 </p><p class="tableblock">PropertyNode(name=name, inIterable=true, index=1, key=null, containerClass=List.class, typeArgumentIndex=0, kind=ElementKind.PROPERTY)</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>@NotEmpty</code> on the last name of the third author of chapter 4, <code>Author.lastname</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>@NonEmpty</code> on the last name of the third author of chapter 4, <code>Author.lastname</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PropertyNode(name=authorsByChapter, inIterable=false, index=null, key=null, containerClass=null, typeArgumentIndex=null, kind=ElementKind.PROPERTY)
 </p><p class="tableblock">ContainerElementNode(name=&lt;map value&gt;, inIterable=true, index=null, key=4, containerClass=Map.class, typeArgumentIndex=1, kind=ElementKind.CONTAINER_ELEMENT)
 </p><p class="tableblock">PropertyNode(name=lastName, inIterable=true, index=2, key=null, containerClass=List.class, typeArgumentIndex=0, kind=ElementKind.PROPERTY)</p></td>
@@ -9828,7 +9839,7 @@ The same applies to <code>typeArgumentIndex</code> and <code>containerClass</cod
 </p><p class="tableblock">ParameterNode(name=book, inIterable=false, index=null, key=null, kind=ElementKind.PARAMETER, parameterIndex=0)</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code class="classname">@NotEmpty</code>  on
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code class="classname">@NonEmpty</code>  on
               <code class="classname">Book.title</code>  during validation of
               <code class="methodname">addBook()</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">MethodNode(name=addBook, inIterable=false, index=null, key=null, kind=ElementKind.METHOD, parameterTypes=[Book.class])
@@ -9836,7 +9847,7 @@ The same applies to <code>typeArgumentIndex</code> and <code>containerClass</cod
 </p><p class="tableblock">PropertyNode(name=title, inIterable=false, index=null, key=null, containerClass=null, typeArgumentIndex=null, kind=ElementKind.PROPERTY)</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code class="classname">@NotEmpty</code>  on fourth book,
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code class="classname">@NonEmpty</code>  on fourth book,
               <code class="classname">Book.title</code>  during validation of
               <code class="methodname">addAllBooks()</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">MethodNode(name=addAllBooks, inIterable=false, index=null, key=null, kind=ElementKind.METHOD, parameterTypes=[List.class])
@@ -9850,7 +9861,7 @@ The same applies to <code>typeArgumentIndex</code> and <code>containerClass</cod
 </p><p class="tableblock">ReturnValueNode(name=&lt;return value&gt;, inIterable=false, index=null, key=null, kind=ElementKind.RETURN_VALUE)</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code class="classname">@NotEmpty</code>  on most popular book of
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code class="classname">@NonEmpty</code>  on most popular book of
               author "John Doe", <code class="classname">Book.title</code>  during
               validation of
               <code class="methodname">getMostPopularBookPerAuthor()</code></p></td>
@@ -9902,7 +9913,7 @@ The same applies to <code>typeArgumentIndex</code> and <code>containerClass</cod
 <div class="sect3">
 <h4 id="validationapi-constraintviolation-examples"><a class="anchor" href="#validationapi-constraintviolation-examples"></a>6.2.1. Examples</h4>
 <div class="paragraph">
-<p>These examples assume the following definition of <code class="classname">@NotEmpty</code>.</p>
+<p>These examples assume the following definition of <code class="classname">@NonEmpty</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -9912,12 +9923,12 @@ The same applies to <code>typeArgumentIndex</code> and <code>containerClass</cod
 <span class="annotation">@NotNull</span>
 <span class="annotation">@Size</span>(min = <span class="integer">1</span>)
 <span class="annotation">@ReportAsSingleViolation</span>
-<span class="annotation">@Constraint</span>(validatedBy = NotEmpty.NotEmptyValidator.class)
+<span class="annotation">@Constraint</span>(validatedBy = NonEmpty.NonEmptyValidator.class)
 <span class="annotation">@Target</span>({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
 <span class="annotation">@Retention</span>(RUNTIME)
-<span class="directive">public</span> <span class="annotation">@interface</span> NotEmpty {
+<span class="directive">public</span> <span class="annotation">@interface</span> NonEmpty {
 
-    <span class="predefined-type">String</span> message() <span class="keyword">default</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">{com.acme.constraint.NotEmpty.message}</span><span class="delimiter">&quot;</span></span>;
+    <span class="predefined-type">String</span> message() <span class="keyword">default</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">{com.acme.constraint.NonEmpty.message}</span><span class="delimiter">&quot;</span></span>;
 
     <span class="predefined-type">Class</span>&lt;?&gt;<span class="type">[]</span> groups() <span class="keyword">default</span> {};
 
@@ -9928,10 +9939,10 @@ The same applies to <code>typeArgumentIndex</code> and <code>containerClass</cod
     <span class="annotation">@Documented</span>
     <span class="annotation">@interface</span> <span class="predefined-type">List</span> {
 
-        NotEmpty<span class="type">[]</span> value();
+        NonEmpty<span class="type">[]</span> value();
     }
 
-    <span class="type">class</span> <span class="class">NotEmptyValidator</span> <span class="directive">implements</span> ConstraintValidator&lt;NotEmpty, <span class="predefined-type">String</span>&gt; {
+    <span class="type">class</span> <span class="class">NonEmptyValidator</span> <span class="directive">implements</span> ConstraintValidator&lt;NonEmpty, <span class="predefined-type">String</span>&gt; {
 
         <span class="annotation">@Override</span>
         <span class="directive">public</span> <span class="type">boolean</span> isValid(<span class="predefined-type">String</span> value, ConstraintValidatorContext context) {
@@ -9950,7 +9961,7 @@ The same applies to <code>typeArgumentIndex</code> and <code>containerClass</cod
 
     <span class="directive">private</span> <span class="predefined-type">String</span> firstName;
 
-    <span class="annotation">@NotEmpty</span>(message = <span class="string"><span class="delimiter">&quot;</span><span class="content">lastname must not be null</span><span class="delimiter">&quot;</span></span>)
+    <span class="annotation">@NonEmpty</span>(message = <span class="string"><span class="delimiter">&quot;</span><span class="content">lastname must not be null</span><span class="delimiter">&quot;</span></span>)
     <span class="directive">private</span> <span class="predefined-type">String</span> lastName;
 
     <span class="annotation">@Size</span>(max = <span class="integer">30</span>)
@@ -9983,7 +9994,7 @@ The same applies to <code>typeArgumentIndex</code> and <code>containerClass</cod
 
 <span class="directive">public</span> <span class="type">class</span> <span class="class">Book</span> {
 
-    <span class="annotation">@NotEmpty</span>(groups = { FirstLevelCheck.class, Default.class })
+    <span class="annotation">@NonEmpty</span>(groups = { FirstLevelCheck.class, Default.class })
     <span class="directive">private</span> <span class="predefined-type">String</span> title;
 
     <span class="annotation">@Valid</span>
@@ -10017,7 +10028,7 @@ book.setAuthor(author);
 </div>
 </div>
 <div class="paragraph">
-<p><code class="classname">ConstraintViolations</code> is a set of size 2. One of the entries represents the failure of <code>@NotEmpty</code> (or more precisely <code class="classname">@Size(min=1)</code> a composing constraint of <code class="classname">@NotEmpty</code>) on the <code>title</code> property.</p>
+<p><code class="classname">ConstraintViolations</code> is a set of size 2. One of the entries represents the failure of <code>@NonEmpty</code> (or more precisely <code class="classname">@Size(min=1)</code> a composing constraint of <code class="classname">@NonEmpty</code>) on the <code>title</code> property.</p>
 </div>
 <div class="paragraph">
 <p>The <code class="classname">ConstraintViolation</code> object for this failure passes the following assertions:</p>
@@ -10047,7 +10058,7 @@ Node node = nodeIter.next();
 </div>
 </div>
 <div class="paragraph">
-<p>The second failure, <code>@NotEmpty</code> (or more precisely <code class="classname">@NotNull</code> a composing constraint of <code class="classname">@NotEmpty</code>) on the author&#8217;s <code class="methodname">lastname</code>, will produce the <code class="classname">ConstraintViolation</code> object satisfying the following assertions:</p>
+<p>The second failure, <code>@NonEmpty</code> (or more precisely <code class="classname">@NotNull</code> a composing constraint of <code class="classname">@NonEmpty</code>) on the author&#8217;s <code class="methodname">lastname</code>, will produce the <code class="classname">ConstraintViolation</code> object satisfying the following assertions:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -11607,6 +11618,8 @@ detected through the service loader or given in the XML configuration.</span>
  * &lt;p&gt;
  * Implementations are not meant to be thread-safe.
  *
+ * @param &lt;T&gt; the type of a provider-specific specialization of this contract
+ *
  * @author Emmanuel Bernard
  * @author Gunnar Morling
  * @author Hardy Ferentschik
@@ -12396,8 +12409,8 @@ ValidatorFactory factory2 = configuration
  * Implementations must have a public no-arg constructor. The construction of a provider
  * should be as &quot;lightweight&quot; as possible.
  *
- * {@code T} represents the provider specific Configuration subclass
- * which typically host provider's additional configuration methods.
+ * @param &lt;T&gt; the provider specific Configuration subclass which typically host provider's
+ * additional configuration methods
  *
  * @author Emmanuel Bernard
  * @author Hardy Ferentschik
@@ -12807,6 +12820,8 @@ ValidatorFactory factory2 = configuration
  * If no {@code ValidationProviderResolver} is defined, the
  * default {@code ValidationProviderResolver} strategy is used.
  *
+ * @param &lt;T&gt; the provider specific {@link Configuration} type
+ *
  * @author Emmanuel Bernard
  */</span>
 <span class="directive">public</span> <span class="type">interface</span> <span class="class">ProviderSpecificBootstrap</span>&lt;T <span class="directive">extends</span> <span class="predefined-type">Configuration</span>&lt;T&gt;&gt; {
@@ -12923,8 +12938,8 @@ over any extractor for the same type and type parameter detected through the ser
 &lt;validation-config
         xmlns=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://xmlns.jcp.org/xml/ns/validation/configuration</span><span class="delimiter">&quot;</span></span>
         xmlns:xsi=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://www.w3.org/2001/XMLSchema-instance</span><span class="delimiter">&quot;</span></span>
-        xsi:schemaLocation=
-            <span class="string"><span class="delimiter">&quot;</span><span class="content">http://xmlns.jcp.org/xml/ns/validation/configuration validation-configuration-2.0.xsd</span><span class="delimiter">&quot;</span></span>
+        xsi:schemaLocation=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://xmlns.jcp.org/xml/ns/validation/configuration
+            http://xmlns.jcp.org/xml/ns/validation/configuration/validation-configuration-2.0.xsd</span><span class="delimiter">&quot;</span></span>
         version=<span class="string"><span class="delimiter">&quot;</span><span class="content">2.0</span><span class="delimiter">&quot;</span></span>&gt;
     &lt;<span class="keyword">default</span>-provider&gt;com.acme.ACMEProvider&lt;/<span class="keyword">default</span>-provider&gt;
     &lt;message-interpolator&gt;com.acme.ACMEAwareMessageInterpolator&lt;/message-interpolator&gt;
@@ -14011,8 +14026,6 @@ ConstructorDescriptor constructorDescriptor = validator
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="JAVA"><span class="keyword">package</span> <span class="namespace">javax.validation.metadata</span>;
 
-<span class="keyword">import</span> <span class="include">javax.validation.Valid</span>;
-
 <span class="comment">/**
  * Represents an element that might be a container, thus allowing container element
  * constraints.
@@ -14060,8 +14073,6 @@ In the context of properties and method return values, container element types o
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="JAVA"><span class="keyword">package</span> <span class="namespace">javax.validation.metadata</span>;
 
-<span class="keyword">import</span> <span class="include">javax.validation.Valid</span>;
-
 <span class="comment">/**
  * Describes a validated container element type, e.g. the element type of {@code List} if it
  * hosts at least one constraint or is marked with {@link Valid}.
@@ -14106,8 +14117,8 @@ In the context of properties and method return values, container element types o
 
 <span class="comment">/**
  * Describes a single constraint and its composing constraints.
- * &lt;p&gt;
- * {@code T} is the constraint's annotation type.
+ *
+ * @param &lt;T&gt; the constraint's annotation type
  *
  * @author Emmanuel Bernard
  * @author Hardy Ferentschik
@@ -14194,11 +14205,27 @@ In the context of properties and method return values, container element types o
     <span class="type">boolean</span> isReportAsSingleViolation();
 
     <span class="comment">/**
-     * @return a {@link ValidateUnwrappedValue} defining the unwrapping behavior.
+     * @return a {@link ValidateUnwrappedValue} describing the unwrapping behavior as given
+     * via the {@link Unwrapping} constraint payloads.
      *
      * @since 2.0
      */</span>
-    ValidateUnwrappedValue validateUnwrappedValue();
+    ValidateUnwrappedValue getValueUnwrapping();
+
+    <span class="comment">/**
+     * Returns an instance of the specified type allowing access to provider-specific APIs.
+     * &lt;p&gt;
+     * If the Bean Validation provider implementation does not support the specified class,
+     * a {@link ValidationException} is thrown.
+     *
+     * @param type the class of the object to be returned
+     * @param &lt;U&gt; the type of the object to be returned
+     * @return an instance of the specified class
+     * @throws ValidationException if the provider does not support the call
+     *
+     * @since 2.0
+     */</span>
+    &lt;U&gt; U unwrap(<span class="predefined-type">Class</span>&lt;U&gt; type);
 }</code></pre>
 </div>
 </div>
@@ -14232,7 +14259,7 @@ In the context of properties and method return values, container element types o
 <p><span class="tck-testable"><code class="methodname">getConstraintValidatorClasses()</code> returns the <code class="classname">ConstraintValidator</code> classes associated with the constraint.</span></p>
 </div>
 <div class="paragraph">
-<p><span class="tck-testable"><code class="methodname">validateUnwrappedValue()</code> returns a <code class="classname">ValidateUnwrappedValue</code> instance describing the unwrapping behavior.</span></p>
+<p><span class="tck-testable"><code class="methodname">getValueUnwrapping()</code> returns a <code class="classname">ValidateUnwrappedValue</code> instance describing the unwrapping behavior.</span></p>
 </div>
 <div class="exampleblock api">
 <div class="title">Listing 7.17: <code>ValidateUnwrappedValue</code> enum</div>
@@ -14250,24 +14277,33 @@ In the context of properties and method return values, container element types o
 <span class="directive">public</span> <span class="type">enum</span> ValidateUnwrappedValue {
 
     <span class="comment">/**
-     * Respects the default behavior of the {@link ValueExtractor}.
+     * No specific unwrapping behavior has been defined for this constraint and the default
+     * behavior applies: if there is exactly one maximally-specific type-compliant
+     * {@link ValueExtractor} and this extractor is marked with {@link UnwrapByDefault}, this
+     * extractor is applied and the constraint is applied to the value(s) wrapped by the
+     * annotated container. Otherwise, no value extractor is applied.
      */</span>
     DEFAULT,
 
     <span class="comment">/**
-     * The value is unwrapped before validation.
+     * The value is unwrapped before validation, i.e. the constraint is applied to the
+     * value(s) wrapped by the annotated container.
      */</span>
-    YES,
+    UNWRAP,
 
     <span class="comment">/**
-     * The value is not unwrapped before validation.
+     * The value is not unwrapped before validation, i.e. the constraint is applied to the
+     * annotated element.
      */</span>
-    NO;
-
+    SKIP;
 }</code></pre>
 </div>
 </div>
 </div>
+</div>
+<div class="paragraph">
+<p><code>unwrap()</code> is provided as a way to access objects of a given type specific to a Bean Validation provider, exposing functionality complementary to the <code>ConstraintDescriptor</code> contract.
+Using this method makes your code non portable.</p>
 </div>
 </div>
 <div class="sect2">
@@ -14318,7 +14354,8 @@ In the context of properties and method return values, container element types o
 
         <span class="annotation">@Override</span>
         <span class="directive">public</span> <span class="type">boolean</span> isValid(<span class="predefined-type">Object</span><span class="type">[]</span> value, ConstraintValidatorContext context) {
-            <span class="keyword">return</span> <span class="predefined-type">Integer</span>.parseInt( <span class="predefined-type">String</span>.valueOf( value[start] ) ) &lt; <span class="predefined-type">Integer</span>.parseInt( <span class="predefined-type">String</span>.valueOf( value[end] ) );
+            <span class="keyword">return</span> <span class="predefined-type">Integer</span>.parseInt( <span class="predefined-type">String</span>.valueOf( value[start] ) ) &lt;
+                    <span class="predefined-type">Integer</span>.parseInt( <span class="predefined-type">String</span>.valueOf( value[end] ) );
         }
     }
 }
@@ -16228,8 +16265,8 @@ containerElementTypeDescriptor = it.next();
 <span class="tag">&lt;constraint-mappings</span>
         <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://xmlns.jcp.org/xml/ns/validation/mapping</span><span class="delimiter">&quot;</span></span>
         <span class="attribute-name">xmlns:xsi</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://www.w3.org/2001/XMLSchema-instance</span><span class="delimiter">&quot;</span></span>
-        <span class="attribute-name">xsi:schemaLocation</span>=
-            <span class="string"><span class="delimiter">&quot;</span><span class="content">http://xmlns.jcp.org/xml/ns/validation/mapping validation-mapping-2.0.xsd</span><span class="delimiter">&quot;</span></span>
+        <span class="attribute-name">xsi:schemaLocation</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://xmlns.jcp.org/xml/ns/validation/mapping</span>
+            <span class="content">http://xmlns.jcp.org/xml/ns/validation/mapping/validation-mapping-2.0.xsd</span><span class="delimiter">&quot;</span></span>
         <span class="attribute-name">version</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">2.0</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
 
     <span class="tag">&lt;default-package&gt;</span>com.acme.app.domain<span class="tag">&lt;/default-package&gt;</span>
@@ -16272,8 +16309,8 @@ containerElementTypeDescriptor = it.next();
 <span class="tag">&lt;constraint-mappings</span>
         <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://xmlns.jcp.org/xml/ns/validation/mapping</span><span class="delimiter">&quot;</span></span>
         <span class="attribute-name">xmlns:xsi</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://www.w3.org/2001/XMLSchema-instance</span><span class="delimiter">&quot;</span></span>
-        <span class="attribute-name">xsi:schemaLocation</span>=
-            <span class="string"><span class="delimiter">&quot;</span><span class="content">http://xmlns.jcp.org/xml/ns/validation/mapping validation-mapping-2.0.xsd</span><span class="delimiter">&quot;</span></span>
+        <span class="attribute-name">xsi:schemaLocation</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://xmlns.jcp.org/xml/ns/validation/mapping</span>
+            <span class="content">http://xmlns.jcp.org/xml/ns/validation/mapping/validation-mapping-2.0.xsd</span><span class="delimiter">&quot;</span></span>
         <span class="attribute-name">version</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">2.0</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
     <span class="tag">&lt;default-package&gt;</span>com.acme.app.domain<span class="tag">&lt;/default-package&gt;</span>
     <span class="tag">&lt;bean</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">Customer</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">ignore-annotations</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">false</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
@@ -16325,8 +16362,8 @@ containerElementTypeDescriptor = it.next();
 <span class="tag">&lt;constraint-mappings</span>
         <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://xmlns.jcp.org/xml/ns/validation/mapping</span><span class="delimiter">&quot;</span></span>
         <span class="attribute-name">xmlns:xsi</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://www.w3.org/2001/XMLSchema-instance</span><span class="delimiter">&quot;</span></span>
-        <span class="attribute-name">xsi:schemaLocation</span>=
-            <span class="string"><span class="delimiter">&quot;</span><span class="content">http://xmlns.jcp.org/xml/ns/validation/mapping validation-mapping-2.0.xsd</span><span class="delimiter">&quot;</span></span>
+        <span class="attribute-name">xsi:schemaLocation</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://xmlns.jcp.org/xml/ns/validation/mapping</span>
+            <span class="content">http://xmlns.jcp.org/xml/ns/validation/mapping/validation-mapping-2.0.xsd</span><span class="delimiter">&quot;</span></span>
         <span class="attribute-name">version</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">2.0</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
     <span class="tag">&lt;default-package&gt;</span>com.acme.app.domain<span class="tag">&lt;/default-package&gt;</span>
     <span class="tag">&lt;bean</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">Customer</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">ignore-annotations</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">false</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
@@ -16377,8 +16414,8 @@ containerElementTypeDescriptor = it.next();
 <span class="tag">&lt;constraint-mappings</span>
         <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://xmlns.jcp.org/xml/ns/validation/mapping</span><span class="delimiter">&quot;</span></span>
         <span class="attribute-name">xmlns:xsi</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://www.w3.org/2001/XMLSchema-instance</span><span class="delimiter">&quot;</span></span>
-        <span class="attribute-name">xsi:schemaLocation</span>=
-            <span class="string"><span class="delimiter">&quot;</span><span class="content">http://xmlns.jcp.org/xml/ns/validation/mapping validation-mapping-2.0.xsd</span><span class="delimiter">&quot;</span></span>
+        <span class="attribute-name">xsi:schemaLocation</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://xmlns.jcp.org/xml/ns/validation/mapping</span>
+            <span class="content">http://xmlns.jcp.org/xml/ns/validation/mapping/validation-mapping-2.0.xsd</span><span class="delimiter">&quot;</span></span>
         <span class="attribute-name">version</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">2.0</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
     <span class="tag">&lt;default-package&gt;</span>com.acme.app.domain<span class="tag">&lt;/default-package&gt;</span>
     <span class="tag">&lt;bean</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">Customer</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">ignore-annotations</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">false</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
@@ -16483,8 +16520,8 @@ containerElementTypeDescriptor = it.next();
 <span class="tag">&lt;constraint-mappings</span>
         <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://xmlns.jcp.org/xml/ns/validation/mapping</span><span class="delimiter">&quot;</span></span>
         <span class="attribute-name">xmlns:xsi</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://www.w3.org/2001/XMLSchema-instance</span><span class="delimiter">&quot;</span></span>
-        <span class="attribute-name">xsi:schemaLocation</span>=
-            <span class="string"><span class="delimiter">&quot;</span><span class="content">http://xmlns.jcp.org/xml/ns/validation/mapping validation-mapping-2.0.xsd</span><span class="delimiter">&quot;</span></span>
+        <span class="attribute-name">xsi:schemaLocation</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://xmlns.jcp.org/xml/ns/validation/mapping</span>
+            <span class="content">http://xmlns.jcp.org/xml/ns/validation/mapping/validation-mapping-2.0.xsd</span><span class="delimiter">&quot;</span></span>
         <span class="attribute-name">version</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">2.0</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
     <span class="tag">&lt;default-package&gt;</span>com.acme.app.domain<span class="tag">&lt;/default-package&gt;</span>
     <span class="tag">&lt;bean</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">Customer</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">ignore-annotations</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">false</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
@@ -16615,8 +16652,8 @@ containerElementTypeDescriptor = it.next();
 <span class="tag">&lt;constraint-mappings</span>
         <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://xmlns.jcp.org/xml/ns/validation/mapping</span><span class="delimiter">&quot;</span></span>
         <span class="attribute-name">xmlns:xsi</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://www.w3.org/2001/XMLSchema-instance</span><span class="delimiter">&quot;</span></span>
-        <span class="attribute-name">xsi:schemaLocation</span>=
-            <span class="string"><span class="delimiter">&quot;</span><span class="content">http://xmlns.jcp.org/xml/ns/validation/mapping validation-mapping-2.0.xsd</span><span class="delimiter">&quot;</span></span>
+        <span class="attribute-name">xsi:schemaLocation</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://xmlns.jcp.org/xml/ns/validation/mapping</span>
+            <span class="content">http://xmlns.jcp.org/xml/ns/validation/mapping/validation-mapping-2.0.xsd</span><span class="delimiter">&quot;</span></span>
         <span class="attribute-name">version</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">2.0</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
     <span class="tag">&lt;default-package&gt;</span>com.acme.app.domain<span class="tag">&lt;/default-package&gt;</span>
     <span class="tag">&lt;bean</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">Customer</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">ignore-annotations</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">false</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
@@ -16694,8 +16731,8 @@ This includes the following configuration errors:</p>
 <span class="tag">&lt;constraint-mappings</span>
         <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://xmlns.jcp.org/xml/ns/validation/mapping</span><span class="delimiter">&quot;</span></span>
         <span class="attribute-name">xmlns:xsi</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://www.w3.org/2001/XMLSchema-instance</span><span class="delimiter">&quot;</span></span>
-        <span class="attribute-name">xsi:schemaLocation</span>=
-            <span class="string"><span class="delimiter">&quot;</span><span class="content">http://xmlns.jcp.org/xml/ns/validation/mapping validation-mapping-2.0.xsd</span><span class="delimiter">&quot;</span></span>
+        <span class="attribute-name">xsi:schemaLocation</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://xmlns.jcp.org/xml/ns/validation/mapping</span>
+            <span class="content">http://xmlns.jcp.org/xml/ns/validation/mapping/validation-mapping-2.0.xsd</span><span class="delimiter">&quot;</span></span>
         <span class="attribute-name">version</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">2.0</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
     <span class="tag">&lt;default-package&gt;</span>com.acme.app.domain<span class="tag">&lt;/default-package&gt;</span>
     <span class="tag">&lt;bean</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">Customer</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">ignore-annotations</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">false</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
@@ -16780,8 +16817,8 @@ This includes the following configuration errors:</p>
 <span class="tag">&lt;constraint-mappings</span>
         <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://xmlns.jcp.org/xml/ns/validation/mapping</span><span class="delimiter">&quot;</span></span>
         <span class="attribute-name">xmlns:xsi</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://www.w3.org/2001/XMLSchema-instance</span><span class="delimiter">&quot;</span></span>
-        <span class="attribute-name">xsi:schemaLocation</span>=
-            <span class="string"><span class="delimiter">&quot;</span><span class="content">http://xmlns.jcp.org/xml/ns/validation/mapping validation-mapping-2.0.xsd</span><span class="delimiter">&quot;</span></span>
+        <span class="attribute-name">xsi:schemaLocation</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://xmlns.jcp.org/xml/ns/validation/mapping</span>
+            <span class="content">http://xmlns.jcp.org/xml/ns/validation/mapping/validation-mapping-2.0.xsd</span><span class="delimiter">&quot;</span></span>
         <span class="attribute-name">version</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">2.0</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
     <span class="tag">&lt;default-package&gt;</span>com.acme.app.domain<span class="tag">&lt;/default-package&gt;</span>
     <span class="tag">&lt;bean</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">Customer</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">ignore-annotations</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">false</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
@@ -16896,7 +16933,8 @@ This includes the following configuration errors:</p>
 
             <span class="tag">&lt;cross-parameter&gt;</span>
                 <span class="comment">&lt;!-- @ValidResetPasswordParameters --&gt;</span>
-                <span class="tag">&lt;constraint</span> <span class="attribute-name">annotation</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">com.acme.app.constraint.ValidResetPasswordParameters</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+                <span class="tag">&lt;constraint</span>
+                        <span class="attribute-name">annotation</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">com.acme.app.constraint.ValidResetPasswordParameters</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
             <span class="tag">&lt;/cross-parameter&gt;</span>
         <span class="tag">&lt;/method&gt;</span>
     <span class="tag">&lt;/bean&gt;</span>
@@ -16923,42 +16961,48 @@ This includes the following configuration errors:</p>
 <span class="tag">&lt;constraint-mappings</span>
         <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://xmlns.jcp.org/xml/ns/validation/mapping</span><span class="delimiter">&quot;</span></span>
         <span class="attribute-name">xmlns:xsi</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://www.w3.org/2001/XMLSchema-instance</span><span class="delimiter">&quot;</span></span>
-        <span class="attribute-name">xsi:schemaLocation</span>=
-            <span class="string"><span class="delimiter">&quot;</span><span class="content">http://xmlns.jcp.org/xml/ns/validation/mapping validation-mapping-2.0.xsd</span><span class="delimiter">&quot;</span></span>
+        <span class="attribute-name">xsi:schemaLocation</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://xmlns.jcp.org/xml/ns/validation/mapping</span>
+            <span class="content">http://xmlns.jcp.org/xml/ns/validation/mapping/validation-mapping-2.0.xsd</span><span class="delimiter">&quot;</span></span>
         <span class="attribute-name">version</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">2.0</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
     <span class="tag">&lt;default-package&gt;</span>com.acme.app.domain<span class="tag">&lt;/default-package&gt;</span>
     <span class="tag">&lt;bean</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">Customer</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">ignore-annotations</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">false</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
 
         <span class="tag">&lt;field</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">firstName</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
             <span class="tag">&lt;valid</span><span class="tag">/&gt;</span>
-            <span class="tag">&lt;convert-group</span> <span class="attribute-name">from</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">javax.validation.groups.Default</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">to</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">com.acme.CustomerBasic</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+            <span class="tag">&lt;convert-group</span> <span class="attribute-name">from</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">javax.validation.groups.Default</span><span class="delimiter">&quot;</span></span>
+                    <span class="attribute-name">to</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">com.acme.CustomerBasic</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
             <span class="tag">&lt;convert-group</span> <span class="attribute-name">from</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">com.acmenote.Advanced</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">to</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">com.acme.CustomerComplex</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
         <span class="tag">&lt;/field&gt;</span>
 
         <span class="tag">&lt;getter</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">orders</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
             <span class="tag">&lt;valid</span><span class="tag">/&gt;</span>
-            <span class="tag">&lt;convert-group</span> <span class="attribute-name">from</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">javax.validation.groups.Default</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">to</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">com.acme.CustomerBasic</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+            <span class="tag">&lt;convert-group</span> <span class="attribute-name">from</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">javax.validation.groups.Default</span><span class="delimiter">&quot;</span></span>
+                    <span class="attribute-name">to</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">com.acme.CustomerBasic</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
         <span class="tag">&lt;/getter&gt;</span>
 
         <span class="tag">&lt;constructor&gt;</span>
             <span class="tag">&lt;parameter</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">java.lang.String</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
                 <span class="tag">&lt;valid</span><span class="tag">/&gt;</span>
-                <span class="tag">&lt;convert-group</span> <span class="attribute-name">from</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">javax.validation.groups.Default</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">to</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">com.acme.CustomerBasic</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+                <span class="tag">&lt;convert-group</span> <span class="attribute-name">from</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">javax.validation.groups.Default</span><span class="delimiter">&quot;</span></span>
+                        <span class="attribute-name">to</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">com.acme.CustomerBasic</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
             <span class="tag">&lt;/parameter&gt;</span>
             <span class="tag">&lt;return-value&gt;</span>
                 <span class="tag">&lt;valid</span><span class="tag">/&gt;</span>
-                <span class="tag">&lt;convert-group</span> <span class="attribute-name">from</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">javax.validation.groups.Default</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">to</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">com.acme.CustomerBasic</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+                <span class="tag">&lt;convert-group</span> <span class="attribute-name">from</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">javax.validation.groups.Default</span><span class="delimiter">&quot;</span></span>
+                        <span class="attribute-name">to</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">com.acme.CustomerBasic</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
             <span class="tag">&lt;/return-value&gt;</span>
         <span class="tag">&lt;/constructor&gt;</span>
 
         <span class="tag">&lt;method</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">update</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
             <span class="tag">&lt;parameter</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">java.lang.String</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
                 <span class="tag">&lt;valid</span><span class="tag">/&gt;</span>
-                <span class="tag">&lt;convert-group</span> <span class="attribute-name">from</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">javax.validation.groups.Default</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">to</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">com.acme.CustomerBasic</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+                <span class="tag">&lt;convert-group</span> <span class="attribute-name">from</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">javax.validation.groups.Default</span><span class="delimiter">&quot;</span></span>
+                        <span class="attribute-name">to</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">com.acme.CustomerBasic</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
             <span class="tag">&lt;/parameter&gt;</span>
             <span class="tag">&lt;return-value&gt;</span>
                 <span class="tag">&lt;valid</span><span class="tag">/&gt;</span>
-                <span class="tag">&lt;convert-group</span> <span class="attribute-name">from</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">javax.validation.groups.Default</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">to</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">com.acme.CustomerBasic</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+                <span class="tag">&lt;convert-group</span> <span class="attribute-name">from</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">javax.validation.groups.Default</span><span class="delimiter">&quot;</span></span>
+                        <span class="attribute-name">to</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">com.acme.CustomerBasic</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
             <span class="tag">&lt;/return-value&gt;</span>
         <span class="tag">&lt;/constructor&gt;</span>
     <span class="tag">&lt;/bean&gt;</span>
@@ -16989,8 +17033,8 @@ This includes the following configuration errors:</p>
 <span class="tag">&lt;constraint-mappings</span>
         <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://xmlns.jcp.org/xml/ns/validation/mapping</span><span class="delimiter">&quot;</span></span>
         <span class="attribute-name">xmlns:xsi</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://www.w3.org/2001/XMLSchema-instance</span><span class="delimiter">&quot;</span></span>
-        <span class="attribute-name">xsi:schemaLocation</span>=
-            <span class="string"><span class="delimiter">&quot;</span><span class="content">http://xmlns.jcp.org/xml/ns/validation/mapping validation-mapping-2.0.xsd</span><span class="delimiter">&quot;</span></span>
+        <span class="attribute-name">xsi:schemaLocation</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://xmlns.jcp.org/xml/ns/validation/mapping</span>
+            <span class="content">http://xmlns.jcp.org/xml/ns/validation/mapping/validation-mapping-2.0.xsd</span><span class="delimiter">&quot;</span></span>
         <span class="attribute-name">version</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">2.0</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
    <span class="tag">&lt;default-package&gt;</span>com.acme.app.domain<span class="tag">&lt;/default-package&gt;</span>
    <span class="tag">&lt;bean</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">com.acme.common.model.Address</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
@@ -17106,7 +17150,7 @@ This includes the following configuration errors:</p>
                 xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
                 xsi:schemaLocation=&quot;
                     http://xmlns.jcp.org/xml/ns/validation/mapping
-                    validation-mapping-2.0.xsd&quot;
+                    http://xmlns.jcp.org/xml/ns/validation/mapping/validation-mapping-2.0.xsd&quot;
                 version=&quot;2.0&quot;&gt;
                 ...
             &lt;/constraint-mappings&gt;
@@ -17246,7 +17290,8 @@ This includes the following configuration errors:</p>
                         <span class="attribute-name">maxOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">unbounded</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
         <span class="tag">&lt;/xs:sequence&gt;</span>
         <span class="tag">&lt;xs:attribute</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">xs:string</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">class</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">use</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">required</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
-        <span class="tag">&lt;xs:attribute</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">xs:boolean</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">ignore-annotations</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">use</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">optional</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">default</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+        <span class="tag">&lt;xs:attribute</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">xs:boolean</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">ignore-annotations</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">use</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">optional</span><span class="delimiter">&quot;</span></span>
+                <span class="attribute-name">default</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
     <span class="tag">&lt;/xs:complexType&gt;</span>
     <span class="tag">&lt;xs:complexType</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">annotationType</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
         <span class="tag">&lt;xs:sequence&gt;</span>
@@ -17426,7 +17471,7 @@ This includes the following configuration errors:</p>
                 xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
                 xsi:schemaLocation=&quot;
                     http://xmlns.jcp.org/xml/ns/validation/configuration
-                    validation-configuration-2.0.xsd&quot;
+                    http://xmlns.jcp.org/xml/ns/validation/configuration/validation-configuration-2.0.xsd&quot;
                 version=&quot;2.0&quot;&gt;
                 [...]
             &lt;/validation-config&gt;
@@ -17443,17 +17488,22 @@ This includes the following configuration errors:</p>
             <span class="tag">&lt;xs:element</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">xs:string</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">constraint-validator-factory</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">minOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">0</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
             <span class="tag">&lt;xs:element</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">xs:string</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">parameter-name-provider</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">minOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">0</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
             <span class="tag">&lt;xs:element</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">xs:string</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">clock-provider</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">minOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">0</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
-            <span class="tag">&lt;xs:element</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">xs:string</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">value-extractor</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">maxOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">unbounded</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">minOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">0</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
-            <span class="tag">&lt;xs:element</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">config:executable-validationType</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">executable-validation</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">minOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">0</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
-            <span class="tag">&lt;xs:element</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">xs:string</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">constraint-mapping</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">maxOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">unbounded</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">minOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">0</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
-            <span class="tag">&lt;xs:element</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">config:propertyType</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">property</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">maxOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">unbounded</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">minOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">0</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+            <span class="tag">&lt;xs:element</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">xs:string</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">value-extractor</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">maxOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">unbounded</span><span class="delimiter">&quot;</span></span>
+                    <span class="attribute-name">minOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">0</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+            <span class="tag">&lt;xs:element</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">config:executable-validationType</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">executable-validation</span><span class="delimiter">&quot;</span></span>
+                    <span class="attribute-name">minOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">0</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+            <span class="tag">&lt;xs:element</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">xs:string</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">constraint-mapping</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">maxOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">unbounded</span><span class="delimiter">&quot;</span></span>
+                    <span class="attribute-name">minOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">0</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+            <span class="tag">&lt;xs:element</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">config:propertyType</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">property</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">maxOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">unbounded</span><span class="delimiter">&quot;</span></span>
+                    <span class="attribute-name">minOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">0</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
         <span class="tag">&lt;/xs:sequence&gt;</span>
         <span class="tag">&lt;xs:attribute</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">version</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">config:versionType</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">fixed</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">2.0</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">use</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">required</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
     <span class="tag">&lt;/xs:complexType&gt;</span>
 
     <span class="tag">&lt;xs:complexType</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">executable-validationType</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
         <span class="tag">&lt;xs:sequence&gt;</span>
-            <span class="tag">&lt;xs:element</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">config:default-validated-executable-typesType</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">default-validated-executable-types</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">minOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">0</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+            <span class="tag">&lt;xs:element</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">config:default-validated-executable-typesType</span><span class="delimiter">&quot;</span></span>
+                    <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">default-validated-executable-types</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">minOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">0</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
         <span class="tag">&lt;/xs:sequence&gt;</span>
         <span class="tag">&lt;xs:attribute</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">enabled</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">use</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">optional</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">xs:boolean</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">default</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
     <span class="tag">&lt;/xs:complexType&gt;</span>
@@ -18163,8 +18213,8 @@ One example is the configuration of multiple extractors for the same container e
 &lt;validation-config
         xmlns=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://xmlns.jcp.org/xml/ns/validation/configuration</span><span class="delimiter">&quot;</span></span>
         xmlns:xsi=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://www.w3.org/2001/XMLSchema-instance</span><span class="delimiter">&quot;</span></span>
-        xsi:schemaLocation=
-            <span class="string"><span class="delimiter">&quot;</span><span class="content">http://xmlns.jcp.org/xml/ns/validation/configuration validation-configuration-2.0.xsd</span><span class="delimiter">&quot;</span></span>
+        xsi:schemaLocation=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://xmlns.jcp.org/xml/ns/validation/configuration
+            http://xmlns.jcp.org/xml/ns/validation/configuration/validation-configuration-2.0.xsd</span><span class="delimiter">&quot;</span></span>
         version=<span class="string"><span class="delimiter">&quot;</span><span class="content">2.0</span><span class="delimiter">&quot;</span></span>&gt;
     &lt;<span class="keyword">default</span>-provider&gt;com.acme.ACMEProvider&lt;/<span class="keyword">default</span>-provider&gt;
     &lt;message-interpolator&gt;com.acme.ACMEAwareMessageInterpolator&lt;/message-interpolator&gt;
@@ -18690,16 +18740,22 @@ in case they provide the Bean Validation API as a module for the Java Platform M
     * [BVAL-668] - Address Guillaume's review remarks
     * [BVAL-666] - Clarify that constraints on type parameters are unsupported
     * [BVAL-664] - ValueExtractor exceptions should be wrapped in ValidationException
-    * [BVAL-661] - Proof-read on "type argument" vs. "type parameter" and "generic type" vs. "parameterized type"
-    * [BVAL-660] - Constructors from super-classes are not considered by getConstraintsForConstructor()
+    * [BVAL-661] - Proof-read on "type argument" vs. "type parameter" and "generic type" vs.
+                   "parameterized type"
+    * [BVAL-660] - Constructors from super-classes are not considered by
+                   getConstraintsForConstructor()
     * [BVAL-659] - Fix some cut-off listings
     * [BVAL-658] - Some JavaDoc fixes
-    * [BVAL-653] - In Examples for method and constructor constraint violations, we still use the legacy @Valid location
-    * [BVAL-649] - Use parameter names instead of arg&lt;i&gt; in Table 6.2: Property path examples for constrained methods or constructors
+    * [BVAL-653] - In Examples for method and constructor constraint violations, we still use
+                   the legacy @Valid location
+    * [BVAL-649] - Use parameter names instead of arg&lt;i&gt; in Table 6.2: Property path examples
+                   for constrained methods or constructors
     * [BVAL-647] - Relax a few tck-testable assertions
-    * [BVAL-646] - Missing assertions in 9.1.1.6. Container-element overriding (XML definition of container element constraints)
+    * [BVAL-646] - Missing assertions in 9.1.1.6. Container-element overriding (XML definition
+                   of container element constraints)
     * [BVAL-631] - Clarify which type should be used as the containerClass
-    * [BVAL-630] - Add containerClass info in propertyPath examples and add examples for container element
+    * [BVAL-630] - Add containerClass info in propertyPath examples and add examples for
+                   container element
     * [BVAL-618] - Add missing tck-testable markers
     * [BVAL-616] - Provide @PositiveOrZero and @NegativeOrZero constraints
 
@@ -18709,21 +18765,27 @@ in case they provide the Bean Validation API as a module for the Java Platform M
 ** Task
     * [BVAL-670] - Contradictory sentences about the default locale
     * [BVAL-663] - Raise an exception if both Unwrap and Skip are present in the payload
-    * [BVAL-662] - Adjustment on the value extractor resolution algorithm for "non-generic containers"
+    * [BVAL-662] - Adjustment on the value extractor resolution algorithm for "non-generic
+                   containers"
     * [BVAL-656] - Remove unused imports in Past and Future constraints
-    * [BVAL-655] - Allow metadata API to expose container element constraints inherited from the hierarchy
-    * [BVAL-652] - State in the spec that a ValueExtractorDeclarationException will be raised by addValueExtractor()
+    * [BVAL-655] - Allow metadata API to expose container element constraints inherited from
+                   the hierarchy
+    * [BVAL-652] - State in the spec that a ValueExtractorDeclarationException will be raised
+                   by addValueExtractor()
     * [BVAL-650] - Improve the value-extractor XML element description
     * [BVAL-648] - Add example of OptionalInt to value extractor resolution chapter
-    * [BVAL-640] - Explicitly state that ValueExtractor#extractValues() must not be called if the container is null
+    * [BVAL-640] - Explicitly state that ValueExtractor#extractValues() must not be called if
+                   the container is null
     * [BVAL-639] - Address Emmanuel's review remarks
     * [BVAL-637] - Indicate the extracted type for OptionalInt... value extractors
     * [BVAL-636] - Mandate JavaFX extractors only in environments with JavaFX present
     * [BVAL-635] - Add current git revision to generated tck-audit.xml
-    * [BVAL-634] - @OverridesAttribute#name() should have a default value as stated in its docs
+    * [BVAL-634] - @OverridesAttribute#name() should have a default value as stated in its
+                   docs
     * [BVAL-628] - Fix node builder assertions
     * [BVAL-625] - Clarify structure of property paths for nested containers
-    * [BVAL-624] - Clarify whether value extractors discovered through the service loader benefit from CDI
+    * [BVAL-624] - Clarify whether value extractors discovered through the service loader
+                   benefit from CDI
     * [BVAL-601] - Clarify semantics around nested usage of @Valid
     * [BVAL-552] - Clarify the isInIterable() return value for arrays
     * [BVAL-551] - Consider removing the cache of validation providers
@@ -18735,10 +18797,13 @@ in case they provide the Bean Validation API as a module for the Java Platform M
     * [BVAL-627] - Build - Always download new artifacts on CI
 
 ** Improvement
-    * [BVAL-620] - Clarify semantics when @Valid is used for a collection in the old and the new style at the same time
+    * [BVAL-620] - Clarify semantics when @Valid is used for a collection in the old and the
+                   new style at the same time
     * [BVAL-617] - Fix typo "in happening" in Group conversion paragraph
-    * [BVAL-615] - Use the new asciidoctor-ant core artifact and upgrade to the latest Asciidoctor
-    * [BVAL-614] - Use new Ant 1.9 features to simplify the dependency management in our build.xml
+    * [BVAL-615] - Use the new asciidoctor-ant core artifact and upgrade to the latest
+                   Asciidoctor
+    * [BVAL-614] - Use new Ant 1.9 features to simplify the dependency management in our
+                   build.xml
     * [BVAL-611] - Use the new hibernate-asciidoctor-extensions project
     * [BVAL-610] - Inject the section id constants in tck-audit.xml
     * [BVAL-609] - Consider JavaFX's set types in the list of built-in extractors
@@ -18781,14 +18846,16 @@ in case they provide the Bean Validation API as a module for the Java Platform M
 -------------------------
 
 ** Bug
-    * [BVAL-566] - Configuration JavaDoc still references "TODO BVAL-496 paste definition of the specification"
+    * [BVAL-566] - Configuration JavaDoc still references "TODO BVAL-496 paste definition of
+                   the specification"
 
 ** New Feature
     * [BVAL-548] - New constraints: @NotEmpty, @NotBlank, @Email, @Positive, @Negative
     * [BVAL-559] - Add NoProviderFoundException
     * [BVAL-562] - Create new ElementKind for constraint violations on the type-use level
     * [BVAL-571] - Discover value extractor implementations using the service loader mechanism
-    * [BVAL-572] - Allow to add value extractors per validator factory and validator and via validation.xml
+    * [BVAL-572] - Allow to add value extractors per validator factory and validator and via
+                   validation.xml
     * [BVAL-586] - Support defining constraint on container element type in XML mapping
 
 ** Task
@@ -18799,12 +18866,14 @@ in case they provide the Bean Validation API as a module for the Java Platform M
 
 ** Improvement
     * [BVAL-264] - Improve toString() in ConstraintViolationException
-    * [BVAL-528] - Replace all inline listings with includes of the actual API files / spec examples
+    * [BVAL-528] - Replace all inline listings with includes of the actual API files / spec
+                   examples
     * [BVAL-561] - Make @OverridesAttribute repeatable and documented
     * [BVAL-567] - Tone down @Past / @Future JavaDoc on clockprovider
     * [BVAL-568] - Make built-in annotations documented
     * [BVAL-576] - Revise wording in 10.3.3 "Method and constructor validation"
-    * [BVAL-580] - Switch assertion section ids to a string instead of a numeric representation
+    * [BVAL-580] - Switch assertion section ids to a string instead of a numeric
+                   representation
     * [BVAL-583] - Use the common theme for the asciidoc output
 
 
@@ -18812,7 +18881,8 @@ in case they provide the Bean Validation API as a module for the Java Platform M
 ----------------------------------------
 
 ** Bug
-    * [BVAL-558] - Ensure correct concurrent access to cacheValidationProviders in Validation#GetValidationProviderListAction
+    * [BVAL-558] - Ensure correct concurrent access to cacheValidationProviders in
+                   Validation#GetValidationProviderListAction
 
 ** New Feature
     * [BVAL-467] - Support JDK8's Optional class
@@ -18831,11 +18901,13 @@ in case they provide the Bean Validation API as a module for the Java Platform M
     * [BVAL-540] - Use Maven to download the snapshot of the API sources
     * [BVAL-541] - Change CI links in README.md
     * [BVAL-547] - Use simplified license header for API files
-    * [BVAL-554] - Add the ability to generate an asciidoc document containing all the spec in a single file
+    * [BVAL-554] - Add the ability to generate an asciidoc document containing all the spec in
+                   a single file
 
 ** Improvement
     * [BVAL-455] - Move XML namespace to jcp.org from jboss.org
-    * [BVAL-460] - Set ignore-annotation default value for beans to true in XSD to document the spec behavior
+    * [BVAL-460] - Set ignore-annotation default value for beans to true in XSD to document
+                   the spec behavior
     * [BVAL-486] - Do not use validation provider resolver when provider is explicitly given
     * [BVAL-527] - Raise Java baseline to version 8
     * [BVAL-529] - Mention JSR 380 and BV 2.0 in the spec
@@ -18864,7 +18936,8 @@ in case they provide the Bean Validation API as a module for the Java Platform M
 
 ** Bug
     * [BVAL-444] - Remove revisionflags from specification
-    * [BVAL-445] - Do not consider arrays of primitives equivalent to arrays of wrappers in ConstraintValidation resolution
+    * [BVAL-445] - Do not consider arrays of primitives equivalent to arrays of wrappers in
+                   ConstraintValidation resolution
 
 ** Improvement
     * [BVAL-448] - Mention "boolean" instead of "Boolean" in getter definition
@@ -18879,9 +18952,11 @@ in case they provide the Bean Validation API as a module for the Java Platform M
 
 ** Bug
     * [BVAL-431] - Typo in EL expression exemple
-    * [BVAL-435] - Rename element &lt;validated-executables/&gt; to &lt;default-validated-executable-types/&gt;
+    * [BVAL-435] - Rename element &lt;validated-executables/&gt; to
+                   &lt;default-validated-executable-types/&gt;
     * [BVAL-436] - Offer global switch to disable executable validation altogether
-    * [BVAL-437] - Redesign @ValidateExecutable into @ValidateOnExecution and as CDI marker for portability
+    * [BVAL-437] - Redesign @ValidateExecutable into @ValidateOnExecution and as CDI marker
+                   for portability
 
 ** Improvement
     * [BVAL-420] - Add missing @since in metadata package
@@ -18889,20 +18964,27 @@ in case they provide the Bean Validation API as a module for the Java Platform M
     * [BVAL-422] - Update TCK markers
     * [BVAL-423] - Clarify behavior of ConstraintViolation#getLeafBean() for validateValue()
     * [BVAL-424] - Refer to @SupportedValidationTarget in ConstraintValidation JavaDoc
-    * [BVAL-429] - Throw a ConstraintDefinitionException if there a several cross-parameter validators
-    * [BVAL-432] - Rename areParametersConstrained to hasConstrainedParameters and isReturnValueConstrained to hasConstrainedReturnValue on ExecutableDescriptor
+    * [BVAL-429] - Throw a ConstraintDefinitionException if there a several cross-parameter
+                   validators
+    * [BVAL-432] - Rename areParametersConstrained to hasConstrainedParameters and
+                   isReturnValueConstrained to hasConstrainedReturnValue on
+                   ExecutableDescriptor
     * [BVAL-433] - Forbid @ValidatedExecutable on methods of parallel hierarchies
-    * [BVAL-434] - Clarify exception type if cross-parameter validator support neither Object nor Object[]
+    * [BVAL-434] - Clarify exception type if cross-parameter validator support neither Object
+                   nor Object[]
     * [BVAL-440] - Improve description of ExecutableType.GETTER_METHODS
-    * [BVAL-442] - Make getConstrainedMethods(MethodType methodType, MethodType... methodTypes) to be less error-prone
+    * [BVAL-442] - Make getConstrainedMethods(MethodType methodType,
+                   MethodType... methodTypes) to be less error-prone
 
 ** New Feature
     * [BVAL-441] - Allow for identical configuration in subtypes
 
 ** Task
-    * [BVAL-425] - Raise IllegalArgumentException when validateParameters and validateReturnValue are passed parameters that do not match
+    * [BVAL-425] - Raise IllegalArgumentException when validateParameters and
+                   validateReturnValue are passed parameters that do not match
     * [BVAL-428] - Map remaining assertions for BV 1.1
-    * [BVAL-438] - Integration chapter should not mention that the boostrap API can be used to create additional ValidationFactory
+    * [BVAL-438] - Integration chapter should not mention that the boostrap API can be used to
+                   create additional ValidationFactory
     * [BVAL-439] - Clarify that EE validator factory supports CDI services
 
 
@@ -18912,31 +18994,40 @@ in case they provide the Bean Validation API as a module for the Java Platform M
 ** Bug
     * [BVAL-322] - Formatting and style improvements
     * [BVAL-369] - Specify copyright year correctly in license headers
-    * [BVAL-391] - Use @SupportValidationTarget instead of @CrossParameterConstraint for cross-parameter constraint validators
+    * [BVAL-391] - Use @SupportValidationTarget instead of @CrossParameterConstraint for
+                   cross-parameter constraint validators
     * [BVAL-397] - Align the JavaDoc on temps (return vs returns, define vs defines)
-    * [BVAL-401] - validateReturnValue should not throw an exception if the method has no return value
+    * [BVAL-401] - validateReturnValue should not throw an exception if the method has no
+                   return value
     * [BVAL-402] - Remove notion of "reachable" parameters in method validation routine
     * [BVAL-403] - Add example on method validation to 4.6.3. ("Traversable property")
-    * [BVAL-407] - ConstraintViolation.unwrap parameterized type hides ConstraintViolation parameterized type
+    * [BVAL-407] - ConstraintViolation.unwrap parameterized type hides ConstraintViolation
+                   parameterized type
 
 ** Improvement
     * [BVAL-275] - Align on style for referencing methods in spec text
     * [BVAL-277] - Align on style for author names in JavaDoc
     * [BVAL-285] - ValidatorFactory#close should clearly state post conditions
-    * [BVAL-350] - Add more examples on how to use methods for validating method and constructor constraints
+    * [BVAL-350] - Add more examples on how to use methods for validating method and
+                   constructor constraints
     * [BVAL-362] - Reference the various specs (JPA, JSF, CDI, JavaBeans)
-    * [BVAL-400] - Add xml and exception chapters to the list in "How this document is organized"
-    * [BVAL-404] - Path examples in table 5.2 are missing node specific attributes like parameterIndex
+    * [BVAL-400] - Add xml and exception chapters to the list in "How this document is
+                   organized"
+    * [BVAL-404] - Path examples in table 5.2 are missing node specific attributes like
+                   parameterIndex
     * [BVAL-405] - Clarify what isBeanConstrained does and add hasExecutableConstrained
     * [BVAL-406] - Add ConstraintDescriptor.getValidationAppliesTo() and getMessageTemplate()
     * [BVAL-409] - Make ParameterNameProvider use List instead of arrays
-    * [BVAL-410] - Make node creation suppress the cross-param and bean-level node in case of subnode creation
-    * [BVAL-412] - Make &lt;convert-group/&gt; follow &lt;valid/&gt; and precede &lt;constraint/&gt; in the mapping XSD
+    * [BVAL-410] - Make node creation suppress the cross-param and bean-level node in case of
+                   subnode creation
+    * [BVAL-412] - Make &lt;convert-group/&gt; follow &lt;valid/&gt; and precede &lt;constraint/&gt; in the
+                   mapping XSD
     * [BVAL-413] - Fix method validation and ConstraintViolation example
     * [BVAL-414] - Add example for metadata API with executables
     * [BVAL-415] - Make sure maven plugins are set in beanvalidation-api
     * [BVAL-417] - Mention "validationAppliesTo" in docs of @SupportedValidationTarget
-    * [BVAL-419] - Clarify that using a cross-parameter constraint on a method without parameter is illegal
+    * [BVAL-419] - Clarify that using a cross-parameter constraint on a method without
+                   parameter is illegal
 
 
 1.1.0.Beta4 (2013-02-15)
@@ -18947,42 +19038,58 @@ in case they provide the Bean Validation API as a module for the Java Platform M
     * [BVAL-330] - Refinements around metadata API
 
 ** Bug
-    * [BVAL-221] - The constraint violation builder cannot put constraint on a top level map key
-    * [BVAL-283] - Clarify that ConstraintValidator instances must be destroyed after each method validation call if the ConstraintValidatorFactory is provided to the Validator
-    * [BVAL-284] - Clarify that ConstraintValidator instances passed to CVF.releaseInstance must be coming from the CVF creating them
+    * [BVAL-221] - The constraint violation builder cannot put constraint on a top level map
+                   key
+    * [BVAL-283] - Clarify that ConstraintValidator instances must be destroyed after each
+                   method validation call if the ConstraintValidatorFactory is provided to the
+                  Validator
+    * [BVAL-284] - Clarify that ConstraintValidator instances passed to CVF.releaseInstance
+                   must be coming from the CVF creating them
     * [BVAL-326] - Fix metadata and error reports for cross-parameter validation
-    * [BVAL-328] - Add recommendation that @Inherited shouldn't be added to constraint annotation types
+    * [BVAL-328] - Add recommendation that @Inherited shouldn't be added to constraint
+                   annotation types
     * [BVAL-337] - Clarifications around ConstraintViolation for method validation
-    * [BVAL-370] - Re-consider how cross-parameter constraints are represented in metadata API and XML descriptors
-    * [BVAL-375] - Add dedicated "validationAppliesTo" element to schema type representing constraints
+    * [BVAL-370] - Re-consider how cross-parameter constraints are represented in metadata API
+                   and XML descriptors
+    * [BVAL-375] - Add dedicated "validationAppliesTo" element to schema type representing
+                   constraints
     * [BVAL-378] - Mismatch between enum ExecutableType and corresponding schema type
-    * [BVAL-380] - Remove improper sentence around constraint being validated once globally in validation routine
-    * [BVAL-381] - Specify which path is pathed to traversable resolvers in case of cascaded method validation
-    * [BVAL-388] - Create sub-types of Node instead of Node#getElementDescriptor() and remove ElementDescriptor.getKind()
-    * [BVAL-389] - @ValidateExecutable.type should default to ALL and NONE should be renamed OFF
+    * [BVAL-380] - Remove improper sentence around constraint being validated once globally in
+                   validation routine
+    * [BVAL-381] - Specify which path is pathed to traversable resolvers in case of cascaded
+                   method validation
+    * [BVAL-388] - Create sub-types of Node instead of Node#getElementDescriptor() and remove
+                   ElementDescriptor.getKind()
+    * [BVAL-389] - @ValidateExecutable.type should default to ALL and NONE should be renamed
+                   OFF
     * [BVAL-390] - Clarify syntax for specifying parameter types in XML
     * [BVAL-393] - Revert "intersection type trick"
 
 ** Improvement
     * [BVAL-191] - Introduce a addBeanNode() method to the fluent node builder API
     * [BVAL-269] - Polish support for dependency injection after draft feedback
-    * [BVAL-336] - Decide what to do about element descriptor when using constraint violation builder API
+    * [BVAL-336] - Decide what to do about element descriptor when using constraint violation
+                   builder API
     * [BVAL-344] - Improve wording around CDI integration
     * [BVAL-368] - Return constant value from Node#getName() for return value nodes
     * [BVAL-372] - Consider moving ExecutableValidator to the executable subpackage
     * [BVAL-379] - Clarify that modifications to BootstrapConfiguration have no effect
     * [BVAL-384] - Add example for ElementDescriptor#findConstraints() for methods
-    * [BVAL-385] - Return void ReturnValueDescriptor from ExecutableDescriptor#getReturnValueDescriptor() for void methods
+    * [BVAL-385] - Return void ReturnValueDescriptor from
+                   ExecutableDescriptor#getReturnValueDescriptor() for void methods
     * [BVAL-386] - Clarify that CDI integration is mandatory under Java EE only
-    * [BVAL-398] - Make validateReturnValue raise ValidationException if the method has no return value
+    * [BVAL-398] - Make validateReturnValue raise ValidationException if the method has no
+                   return value
 
 ** New Feature
     * [BVAL-329] - Method validation support (III)
     * [BVAL-383] - Add a  unwrap method in ConstraintViolation
-    * [BVAL-387] - Add ability to add a node corresponding to a parameter in ConstraintViolationBuilder
+    * [BVAL-387] - Add ability to add a node corresponding to a parameter in
+                   ConstraintViolationBuilder
 
 ** Task
-    * [BVAL-394] - Verify that we don't need a spec defined API to expose classes hosting constrained methods or constructor defined in XML
+    * [BVAL-394] - Verify that we don't need a spec defined API to expose classes hosting
+                   constrained methods or constructor defined in XML
 
 
 1.1.0.Beta3 (2013-02-01)
@@ -18994,28 +19101,35 @@ in case they provide the Bean Validation API as a module for the Java Platform M
 
 ** Bug
     * [BVAL-327] - Provide way to change the executable validation (ie accept getters)
-    * [BVAL-342] - Clarify that validateProperty / validateValue does not support property paths
-    * [BVAL-343] - "Provider org.hibernate.validator.HibernateValidator not a subtype" error during service discovery
+    * [BVAL-342] - Clarify that validateProperty / validateValue does not support property
+                   paths
+    * [BVAL-343] - "Provider org.hibernate.validator.HibernateValidator not a subtype" error
+                   during service discovery
     * [BVAL-345] - List of messages in the standard resource bundle is incomplete
     * [BVAL-346] - Clarify that getters must have no parameter
     * [BVAL-347] - Add implicit assumptions from TCK to spec text
     * [BVAL-351] - Clarify that EntityManager cannot be injected if validating from JPA
     * [BVAL-361] - Expose group conversions via meta-data API
-    * [BVAL-363] - Clarify that super method constraints are considered in the validation routine but not constructors
+    * [BVAL-363] - Clarify that super method constraints are considered in the validation
+                   routine but not constructors
     * [BVAL-366] - Fix typo on ConfigurationState JavaDoc
     * [BVAL-371] - Add package level javadoc (package-info.java)
     * [BVAL-377] - Provide MessageInterpolator.Context#unwrap to allow for custom extensions
 
 ** Improvement
     * [BVAL-192] - Add 'exclusive' boolean attribute to @DecimalMin/@DecimalMax constraints
-    * [BVAL-332] - Specify semantics of @ConvertGroup when given several times at overridden property
-    * [BVAL-340] - Denote method parameter constraints at declaration site (vs. at definition site)
+    * [BVAL-332] - Specify semantics of @ConvertGroup when given several times at overridden
+                   property
+    * [BVAL-340] - Denote method parameter constraints at declaration site (vs. at definition
+                   site)
     * [BVAL-352] - Clarify what managed means in the integration chapter in particular for CDI
     * [BVAL-359] - Relax contract of ExecutableDescriptor#getParameterDescriptors()
     * [BVAL-360] - Describe IllegalArgumentException for ExecutableValidator methods
-    * [BVAL-364] - Clarify whether or not the metadata API ignore the method enable/disable settings
+    * [BVAL-364] - Clarify whether or not the metadata API ignore the method enable/disable
+                   settings
     * [BVAL-365] - Clarifications around group conversion in hierarchies
-    * [BVAL-367] - Make clear whether methods/properties inherited from super types are reflected by the meta-data API
+    * [BVAL-367] - Make clear whether methods/properties inherited from super types are
+                   reflected by the meta-data API
     * [BVAL-373] - Move ConvertGroup to the groups subpackage
 
 ** New Feature
@@ -19026,13 +19140,16 @@ in case they provide the Bean Validation API as a module for the Java Platform M
 
 ** Task
     * [BVAL-338] - Clarify lifecycle of managed objects created by BV povider
-    * [BVAL-348] - Add example for illegal group conversion on a return value in an inheritance hierarchy
+    * [BVAL-348] - Add example for illegal group conversion on a return value in an
+                   inheritance hierarchy
     * [BVAL-349] - Mark spec sentences as TCK-relevant (1.0 assertions)
     * [BVAL-353] - Mark spec sentences as TCK-relevant (1.1 assertions)
     * [BVAL-354] - Describe tagging of TCK-relevant sentences in README.md
     * [BVAL-355] - Rename Validator#forMethods() to forExecutables()
-    * [BVAL-357] - Clarify that traversable resolver is not used on parameter and return values during method validation
-    * [BVAL-358] - Make ExecutableDescriptor#validateConstructorParameters() and validateConstructorReturnValue() more usable
+    * [BVAL-357] - Clarify that traversable resolver is not used on parameter and return
+                   values during method validation
+    * [BVAL-358] - Make ExecutableDescriptor#validateConstructorParameters() and
+                   validateConstructorReturnValue() more usable
     * [BVAL-374] - Clarify exceptional case in section 5.5.5 bootstrapping
     * [BVAL-376] - Remove @MethodValidated as it is not adding value to the CDI integration
 
@@ -19041,7 +19158,8 @@ in case they provide the Bean Validation API as a module for the Java Platform M
 ------------------------
 
 ** Sub-task
-    * [BVAL-331] - Establish common super-interface for MethodDescriptor and ConstructorDescriptor
+    * [BVAL-331] - Establish common super-interface for MethodDescriptor and
+                   ConstructorDescriptor
 
 ** Bug
     * [BVAL-335] - @ConvertGroup.List is missing target types and retention policy
@@ -19056,7 +19174,8 @@ in case they provide the Bean Validation API as a module for the Java Platform M
 
 ** Sub-task
     * [BVAL-232] - Support cross-parameter constraints
-    * [BVAL-274] - Extend the meta-data API with required convenience methods for method validation
+    * [BVAL-274] - Extend the meta-data API with required convenience methods for method
+                   validation
     * [BVAL-290] - Mark new method with @since annotation
     * [BVAL-300] - Clarify behavior of constructor validation in class hierachies
     * [BVAL-308] - Settle on approach for constraint refinement in sub-types
@@ -19066,25 +19185,32 @@ in case they provide the Bean Validation API as a module for the Java Platform M
 
 ** Bug
     * [BVAL-296] - Example using ConstraintValidatorContext is incorrect
-    * [BVAL-298] - DefaultValidationProviderResolver should check context and current class loader for service file
+    * [BVAL-298] - DefaultValidationProviderResolver should check context and current class
+                   loader for service file
     * [BVAL-304] - Add OSGi headers in the reference implementation
     * [BVAL-306] - Clarify interceptor order in method validation triggering
 
 ** Improvement
     * [BVAL-208] - Support groups translation during cascaded validations
-    * [BVAL-226] - Make clear whether the static or the runtime type should be considered when creating property paths in case of cascaded validations
+    * [BVAL-226] - Make clear whether the static or the runtime type should be considered when
+                   creating property paths in case of cascaded validations
     * [BVAL-230] - Add support for validating CharSequence types instead of just Strings
-    * [BVAL-259] - Evaluation of composed constraints should stops on first validation error in case of @ReportAsSingleViolation
-    * [BVAL-281] - Improve message when building a ValidatorFactory but no provider is available in the classpath
-    * [BVAL-292] - Clarify the behavior of ConfigurationSource methods when no configuration file is present
+    * [BVAL-259] - Evaluation of composed constraints should stops on first validation error
+                   in case of @ReportAsSingleViolation
+    * [BVAL-281] - Improve message when building a ValidatorFactory but no provider is
+                   available in the classpath
+    * [BVAL-292] - Clarify the behavior of ConfigurationSource methods when no configuration
+                   file is present
     * [BVAL-299] - Add note on required Java version
 
 ** New Feature
     * [BVAL-272] - Method validation support (II)
-    * [BVAL-295] - Should validation-configuration and validation-mapping xsds define a version attribute
+    * [BVAL-295] - Should validation-configuration and validation-mapping xsds define a
+                   version attribute
 
 ** Task
-    * [BVAL-280] - Decide whether DefaultValidationProviderResolver should not throw an exception when a specified provider cannot be loaded
+    * [BVAL-280] - Decide whether DefaultValidationProviderResolver should not throw an
+                   exception when a specified provider cannot be loaded
     * [BVAL-307] - Decide how CDI and Bean Validation is integrated
 
 
@@ -19099,25 +19225,30 @@ in case they provide the Bean Validation API as a module for the Java Platform M
 
 ** Bug
     * [BVAL-194] - Invalid license info
-    * [BVAL-196] - Missing &lt;/code&gt; element in Javadocs for ConstraintValidatorContext.ConstraintViolationBuilder.NodeContextBuilder
+    * [BVAL-196] - Missing &lt;/code&gt; element in Javadocs for
+                   ConstraintValidatorContext.ConstraintViolationBuilder.NodeContextBuilder
     * [BVAL-212] - Wrong closing &lt;/code&gt; element in javadocs of BeanDescriptor
-    * [BVAL-236] - Fails to load META-INF/services provider configuration files on non-ASCII platforms
+    * [BVAL-236] - Fails to load META-INF/services provider configuration files on non-ASCII
+                   platforms
 
 ** Improvement
     * [BVAL-201] - Fix typo in spec, chapter 4.4.3
-    * [BVAL-270] - Specify that Bean Validation 1.1 providers must support deployment descriptors version 1.0
+    * [BVAL-270] - Specify that Bean Validation 1.1 providers must support deployment
+                   descriptors version 1.0
 
 ** New Feature
     * [BVAL-238] - Support for container injection in ConstraintValidator
     * [BVAL-241] - Support for method validation
     * [BVAL-258] - Clean introduction section to reflect Bean Validation 1.1
     * [BVAL-263] - Add a close() method to ValidatorFactory
-    * [BVAL-265] - Expose settings defined in XML in the Configuration API (for ConstraintValidatorFactory, MessageInterpolator etc)
+    * [BVAL-265] - Expose settings defined in XML in the Configuration API
+                   (for ConstraintValidatorFactory, MessageInterpolator etc)
 
 ** Task
     * [BVAL-206] - Update pom to use the new distributationManagement information
     * [BVAL-228] - Prepare specification document and Git repository for public eyes
-    * [BVAL-279] - Update POM file for Bean Validation API to use latest Git repo urls and generally be ready for a release
+    * [BVAL-279] - Update POM file for Bean Validation API to use latest Git repo urls and
+                   generally be ready for a release
 
 
 1.0.0 final (2009-10-12)
@@ -19127,10 +19258,13 @@ in case they provide the Bean Validation API as a module for the Java Platform M
     * [BVAL-181] - Fix some namespace issues in validation-configuration-1.0.xsd
 
 ** Improvement
-    * [BVAL-182] - Add getDefaultTraversableResolver and getDefaultConstraintValidatorFactory to Configuration
-    * [BVAL-183] - Add getTraversableResolver and getConstraintValidatorFactory to ValidatorFactory
+    * [BVAL-182] - Add getDefaultTraversableResolver and getDefaultConstraintValidatorFactory
+                   to Configuration
+    * [BVAL-183] - Add getTraversableResolver and getConstraintValidatorFactory to
+                   ValidatorFactory
     * [BVAL-184] - Replace Red Hat Middleware LLC to Red Hat, Inc. and/or its affiliates
-    * [BVAL-186] - Clarify method names on the constraint violation builder DSL of ConstraintValidatorContext
+    * [BVAL-186] - Clarify method names on the constraint violation builder DSL of
+                   ConstraintValidatorContext
     * [BVAL-187] - Imply that ConstraintViolation is serializable if entities are serializable
 
 ** New Feature
@@ -19145,10 +19279,13 @@ in case they provide the Bean Validation API as a module for the Java Platform M
 --------------------
 
 ** Bug
-    * [BVAL-173] - Fix typo getUnorderdConstraintDescriptorsMatchingGroups =&gt; getUnorderedConstraintDescriptorsMatchingGroups
-    * [BVAL-177] - Payload of composed constraints are ignored, the main constraint payload is propagated
+    * [BVAL-173] - Fix typo getUnorderdConstraintDescriptorsMatchingGroups =&gt;
+                   getUnorderedConstraintDescriptorsMatchingGroups
+    * [BVAL-177] - Payload of composed constraints are ignored, the main constraint payload is
+                   propagated
     * [BVAL-178] - Add payload to the XML schema
-    * [BVAL-180] - ConstraintDescriptor.getPayload() should return Set&lt;Class&lt;? extends Payload&gt;&gt; not Set&lt;Class&lt;Payload&gt;&gt;
+    * [BVAL-180] - ConstraintDescriptor.getPayload() should return
+                   Set&lt;Class&lt;? extends Payload&gt;&gt; not Set&lt;Class&lt;Payload&gt;&gt;
 
 ** Improvement
     * [BVAL-174] - clearer default message for assertTrue and assertFalse
@@ -19163,28 +19300,36 @@ in case they provide the Bean Validation API as a module for the Java Platform M
 --------------------------------------------
 
 ** Bug
-    * [BVAL-144] - validation-configuration.xsd property element does not extend basic string type preventing Oxygen to be happy
+    * [BVAL-144] - validation-configuration.xsd property element does not extend basic string
+                   type preventing Oxygen to be happy
     * [BVAL-159] - Fix example 3.8 on object graph validation
 
 ** Improvement
     * [BVAL-143] - Describe path with an object model
     * [BVAL-147] - Support for unbounded wildcards in ConstraintValidator
-    * [BVAL-148] - Built-in constraints annotations now annotated with @Constraint(validatedBy={})
-    * [BVAL-151] - TraversableResolver#isTraversable can receive null traversableObject when valudateValue is called
+    * [BVAL-148] - Built-in constraints annotations now annotated with
+                   @Constraint(validatedBy={})
+    * [BVAL-151] - TraversableResolver#isTraversable can receive null traversableObject when
+                   valudateValue is called
     * [BVAL-152] - TraversableResolver should differentiate reachability and cascadability
     * [BVAL-153] - Generify ConstraintValidatorException
-    * [BVAL-154] - Iterable is a superclass of all collection, clarify it's interaction with @Valid
+    * [BVAL-154] - Iterable is a superclass of all collection, clarify it's interaction with
+                   @Valid
     * [BVAL-155] - ignore-annotation is not inherited hierarchically: make that explicit
     * [BVAL-156] - Pattern.Flag takes the JDK flag int at construction time
     * [BVAL-157] - Add [] to non-indexed iterable path
     * [BVAL-158] - Clarify that @Valid is orthogonal to the idea of group
     * [BVAL-160] - rename message template key as [f.q.c.n of the constraint].message
-    * [BVAL-162] - Move metadata classes to the metadata package (BeanDescriptor, ElementDescriptor, PropertyDescriptor, ConstraintDescriptor)
+    * [BVAL-162] - Move metadata classes to the metadata package
+                   (BeanDescriptor, ElementDescriptor, PropertyDescriptor,
+                   ConstraintDescriptor)
     * [BVAL-164] - Validation.byProvider now accept the provider implementation class
-    * [BVAL-166] - IllegalArgumentException raised on BeanDescriptor.getConstraintsForProperty and Validator.getConstraintsForClass
+    * [BVAL-166] - IllegalArgumentException raised on BeanDescriptor.getConstraintsForProperty
+                   and Validator.getConstraintsForClass
     * [BVAL-167] - Recommend f.q.c.n.message for resource bundle keys and migrate examples
     * [BVAL-169] - Rename ElementDescriptor.getType to getElementClass
-    * [BVAL-170] - Let built-in annotations to support ElementType.PARAMETER and ElementType.CONSTRUCTOR
+    * [BVAL-170] - Let built-in annotations to support ElementType.PARAMETER and
+                   ElementType.CONSTRUCTOR
 
 ** New Feature
     * [BVAL-149] - Provide access to the ValidationProviderResolver via BootstrapState
@@ -19203,33 +19348,39 @@ in case they provide the Bean Validation API as a module for the Java Platform M
 ------------------------------------------
 
 ** Bug
-    * [BVAL-118] - ConstraintDescriptor.getGroups() returns Default if no group is declared on the constraint
+    * [BVAL-118] - ConstraintDescriptor.getGroups() returns Default if no group is declared on
+                   the constraint
     * [BVAL-125] - @Size.min default value should be 0
 
 ** Improvement
     * [BVAL-32] - Describe what is happening when a composition is not consistent
     * [BVAL-50] - Be consistent in the spec, use @author or not
-    * [BVAL-54] - Specify that constraints on non getter methods are ignored (if BVAL-36 is not accepted)
+    * [BVAL-54] - Specify that constraints on non getter methods are ignored (if BVAL-36 is
+                  not accepted)
     * [BVAL-72] - Validating an object multiple times if in a different branch of the graph
     * [BVAL-86] - Default TraversableResolver is JPA aware
     * [BVAL-88] - Improvement on MessageInterpolator
     * [BVAL-91] - Rename Constraint related classes to improve readability
     * [BVAL-95] - @Size should support Map
     * [BVAL-96] - Support byte in @Min/@Max
-    * [BVAL-106] - Constraintdescriptor.getConstraintValidatorClasses() should return a List, not an array
+    * [BVAL-106] - Constraintdescriptor.getConstraintValidatorClasses() should return a List,
+                   not an array
     * [BVAL-114] - Relax property names in ConstraintValidatorContext
-    * [BVAL-120] - Rename ConstraintViolation getRawMessage=&gt;getMessageTemplate, getInterpolatedMessage=&gt;getMessage
+    * [BVAL-120] - Rename ConstraintViolation getRawMessage=&gt;getMessageTemplate,
+                   getInterpolatedMessage=&gt;getMessage
     * [BVAL-122] - Rename @GroupSequence.sequence to @GroupSequence.value
     * [BVAL-126] - Define group sequence logic more formally and eliminate corner cases
     * [BVAL-129] - Clarify ConstraintValidatorContext propertyPath generation
-    * [BVAL-130] - Make ConstraintDescriptor generic: ConstraintDescriptor&lt;T extends Annotation&gt;
+    * [BVAL-130] - Make ConstraintDescriptor generic:
+                   ConstraintDescriptor&lt;T extends Annotation&gt;
     * [BVAL-131] - Provide object graph navigation determinism
     * [BVAL-134] - @Valid accepts objects implementing Iterable
     * [BVAL-135] - Remove DefaultValidationProviderResolver from the public API
     * [BVAL-136] - Add Context object for MessageInterpolator
     * [BVAL-137] - prefix for message template key is constraint. instead of validator.
     * [BVAL-138] - Rename OverridesParameter to OverridesAttribute
-    * [BVAL-139] - Remove @OverridesParameters and use the inner class mode (OverridesAttribute.LIst)
+    * [BVAL-139] - Remove @OverridesParameters and use the inner class mode
+                   (OverridesAttribute.LIst)
     * [BVAL-140] - BeanDescriptor.getConstrainedProperties() returns Set&lt;PropertyDescriptor&gt;
     * [BVAL-141] - Rename ConstraintDescriptor.getParameters() to getAttributes()
 
@@ -19244,13 +19395,16 @@ in case they provide the Bean Validation API as a module for the Java Platform M
     * [BVAL-121] - Define built-in constraints plural forms
     * [BVAL-123] - Add ConstraintViolationException
     * [BVAL-124] - Introduce backslash as escaping character
-    * [BVAL-142] - @Min/@max no longer accept float/double and introduce @DecimalMin/@DecimalMax
+    * [BVAL-142] - @Min/@max no longer accept float/double and introduce
+                   @DecimalMin/@DecimalMax
 
 ** Task
     * [BVAL-24] - What should be done when multiple META-INF/validation.xml are found?
-    * [BVAL-117] - Specify behaviour of ConstraintValidator.initalize in the case of inconsistent values in constraint parameters
+    * [BVAL-117] - Specify behaviour of ConstraintValidator.initalize in the case of
+                   inconsistent values in constraint parameters
     * [BVAL-127] - Remove ConstraintViolation.getGroups()
-    * [BVAL-128] - Clarify invalid cases for validateProperty / validateValue on proeprtyName being empty or null
+    * [BVAL-128] - Clarify invalid cases for validateProperty / validateValue on proeprtyName
+                   being empty or null
     * [BVAL-133] - Remove JPA and JSF integration proposals
 
 
@@ -19259,21 +19413,25 @@ in case they provide the Bean Validation API as a module for the Java Platform M
 
 ** Bug
     * [BVAL-6] - Wrong example in validation methods section
-    * [BVAL-17] - Validator&lt;A&gt;.validate(b) where b:B and B extends A should validate B. Metadata APIs are specific to A
+    * [BVAL-17] - Validator&lt;A&gt;.validate(b) where b:B and B extends A should validate B.
+                  Metadata APIs are specific to A
     * [BVAL-42] - Names of message keys in spec inconsistent
     * [BVAL-45] - Typo at ConstraintDescriptor.getContstraintClass()
 
 ** Improvement
     * [BVAL-29] - Types should be determined at runtime
-    * [BVAL-33] - Should ConstraintDescriptor.getConstraintImplementation() replaced by .getConstraintImplementationClass()?
+    * [BVAL-33] - Should ConstraintDescriptor.getConstraintImplementation() replaced by
+                  .getConstraintImplementationClass()?
     * [BVAL-40] - Rename InvalidConstraint to ConstraintViolation
     * [BVAL-48] - Add a way to access the default message resolver
     * [BVAL-49] - Mark metadata classes as immutable
     * [BVAL-59] - Rethink the group sequence inheritance rules
     * [BVAL-60] - ConstraintViolation points to the corresponding ConstraintDescriptor
     * [BVAL-68] - Specify that static methods and fields are not validated
-    * [BVAL-73] - Rename ConstraintViolation.getBeanClass() to CV. getRootClass() or simply remove it
-    * [BVAL-78] - Forbid a Validation implementation to modify the state of the object being validated
+    * [BVAL-73] - Rename ConstraintViolation.getBeanClass() to CV. getRootClass() or simply
+                  remove it
+    * [BVAL-78] - Forbid a Validation implementation to modify the state of the object being
+                  validated
 
 ** New Feature
     * [BVAL-30] - Define validation Context to be passed to constraint implementation calls
@@ -19300,7 +19458,7 @@ in case they provide the Bean Validation API as a module for the Java Platform M
 <div id="footer">
 <div id="footer-text">
 Version 2.0.0-SNAPSHOT<br>
-Last updated 2017-06-15 15:52:57 UTC
+Last updated 2017-06-15 11:19:31 UTC
 </div>
 </div>
 <script>
