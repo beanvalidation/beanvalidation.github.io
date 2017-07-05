@@ -63,6 +63,85 @@
           <article class="post">
             <header>
               <h1 class="title">
+                <a href="/news/2013/02/15/bean-validation-1-1-beta4/">Bean Validation 1.1 Beta 4 - issue smashing edition</a>
+              </h1>
+              <span class="author">
+                by
+                <b>Emmanuel Bernard</b>
+              </span>
+              <span class="date">
+                on 15 Feb 2013
+              </span>
+              <span class="tags">
+                <a class="label label-info" href="/news/tags/release/">release</a>
+              </span>
+            </header>
+            <div class="body">
+              <p>Our proposed final draft is due soon but we did one last drop of the
+              specification and the API jar. We worked all over the board (and the
+              clock) but the most notable improvements are:</p>
+              
+              <h2>Improvements on the CDI integration section</h2>
+              
+              <p>We made it much more descriptive of the expected behavior instead of
+              imposing an implementation pattern.
+              We have also added the method and constructor interception priority
+              as defined in the Java EE specification and the interceptor specification
+              in particular.</p>
+              
+              <p>Thanks Pete for your help.</p>
+              
+              <h2>Remove the link between the Node API and the metadata API</h2>
+              
+              <p>This is something we could not make work, so we fall back into a more
+              redundant but we think cleaner design. We also made the node builder
+              API easier to use despite the increased number of node types.</p>
+              
+              <pre><code>//Cross-parameter constraint on a method&#x000A;//mergeAddresses(Map&lt;String,Address&gt; addresses, Map&lt;String,Address&gt; otherAddresses)&#x000A;//Build a constraint violation on the default path + "otherAddresses["home"]&#x000A;//ie. the Address bean hosted in the "home" key of the "otherAddresses" map parameter&#x000A;context.buildConstraintViolationWithTemplate(&#x000A;        "Map entry home present in both and does not match")&#x000A;                .addParameterNode(1)&#x000A;                .addBeanNode()&#x000A;                    .inIterable().atKey("home")&#x000A;                .addConstraintViolation();&#x000A;</code></pre>
+              
+              <h2>Clarification around method validation (metadata, cross-parameter, reports)</h2>
+              
+              <p>We now have an explicit cross-parameter concept materialized in the metadata
+              API. It makes for a more regular and easier to browse API.
+              <code>ConstraintViolation</code> has also seen some improvements and adaptations to make
+              it ready for prime - method validation - time.</p>
+              
+              <h2>Mark a method as (non) validated</h2>
+              
+              <p>We slightly improved <code>@ValidateExecutable</code> to be more friendly when
+              put on a specific method. To force a getter to be validated or to
+              force a method to not be validated is now more readable.</p>
+              
+              <pre><code>public class Operations {&#x000A;    @ValidateExecutable&#x000A;    @Status&#x000A;    public String getStatus() { ... }&#x000A;&#x000A;    @ValidateExecutable(ExecutableType.NONE)&#x000A;    public void apply(@Valid Operation operation) { ... }&#x000A;}&#x000A;</code></pre>
+              
+              <h2>Review</h2>
+              
+              <p>Let us know what you think.</p>
+              
+              <p>You can <a href="/1.1/spec/1.1.0.beta4/?utm_source=blog&amp;utm_medium=web&amp;utm_content=spec&amp;utm_campaign=1_1_beta4">access the specification here</a>.
+              All changes are marked with a different
+              color. <span style="background-color:#DDFFDD;">Green for additions</span>,
+              <span style="background-color:#FFFFDD;">yellow for changes</span> and
+              <span style="text-decoration: line-through;background-color: #FFDDDD;">struck through red for removals</span>
+              . This will help you see what has changed precisely.</p>
+              
+              <p>Please send us your remarks and comments:</p>
+              
+              <ul>
+              <li>on our <a href="https://lists.jboss.org/mailman/listinfo/beanvalidation-dev">mailing list</a></li>
+              <li>in our <a href="/issues">issue tracker</a></li>
+              <li>or on the Bean Validation <a href="https://forum.hibernate.org/viewforum.php?f=26">forum</a></li>
+              </ul>
+              
+              
+              <p>If you want to go to the next step and contribute, send us an email to
+              the mailing list and read <a href="/contribute/">how to contribute</a>.</p>
+               <a href="http://beanvalidation.org/news/2013/02/15/bean-validation-1-1-beta4/#disqus_thread">Comments</a>
+            </div>
+          </article>
+          <article class="post">
+            <header>
+              <h1 class="title">
                 <a href="/news/2013/02/05/javaspotlight-podcast-on-bean-validation-1-1/">Java Spotlight Podcast on Bean Validation 1.1</a>
               </h1>
               <span class="author">
@@ -368,33 +447,6 @@
                <a href="http://beanvalidation.org/news/2012/12/11/should-getters-be-considered-methods/#disqus_thread">Comments</a>
             </div>
           </article>
-          <article class="post">
-            <header>
-              <h1 class="title">
-                <a href="/news/2012/11/29/public-review-ballot/">Public review ballot favorable to Bean Validation 1.1</a>
-              </h1>
-              <span class="author">
-                by
-                <b>Emmanuel Bernard</b>
-              </span>
-              <span class="date">
-                on 29 Nov 2012
-              </span>
-              <span class="tags">
-                <a class="label label-info" href="/news/tags/jcp/">jcp</a>
-              </span>
-            </header>
-            <div class="body">
-              <p>The Java expert comity has <a href="http://jcp.org/en/jsr/results?id=5386">just approved</a>
-              the public review version of Bean Validation 1.1.</p>
-              
-              <p>What does that mean for the spec? We keep going and carry on our work
-              to finalize the specification.</p>
-              
-              <p>Onwards.</p>
-               <a href="http://beanvalidation.org/news/2012/11/29/public-review-ballot/#disqus_thread">Comments</a>
-            </div>
-          </article>
           <div class="pagination-links"><a href="/news/page/4/" class="previous-link">Previous</a> <a href="/news/" class="page-link">1</a> <a href="/news/page/2/" class="page-link">2</a> <span class="skip">...</span><a href="/news/page/4/" class="page-link">4</a> <span class="current-page">5</span> <a href="/news/page/6/" class="page-link">6</a> <span class="skip">...</span><a href="/news/page/8/" class="page-link">8</a> <a href="/news/page/9/" class="page-link">9</a> <a href="/news/page/6/" class="next-link">Next</a> </div>
         </div>
         <div class="sidebar sidebar-right col-sm-3 col-md-3 col-lg-3" id="sidebar" role="complementary">
@@ -409,6 +461,7 @@
               Stay up to date, subscribe to the&nbsp;<a href="/news/news.atom">news feed</a>.
             </div>
           </div>
+          <a class="news-link" href="/news/2017/07/05/bean-validation-2-0-cr2-is-out/">Bean Validation 2.0 CR 2 released</a>
           <a class="news-link" href="/news/2017/06/26/bean-validation-2-0-proposed-final-draft-released/">Proposed Final Draft of Bean Validation 2.0 released</a>
           <a class="news-link" href="/news/2017/05/24/bean-validation-2-0-public-review-update/">Update to the Bean Validation 2.0 Public Review Draft</a>
           <a class="news-link" href="/news/2017/05/12/feedback-on-positive-and-negative-constraints/">Survey - Behavior of @Positive and @Negative constraints</a>

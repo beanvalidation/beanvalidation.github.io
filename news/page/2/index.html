@@ -63,6 +63,120 @@
           <article class="post">
             <header>
               <h1 class="title">
+                <a href="/news/2017/03/31/bean-validation-2-0-alpha2-is-out/">Bean Validation 2.0 Alpha2 is out</a>
+              </h1>
+              <span class="author">
+                by
+                <b>Gunnar Morling</b>
+              </span>
+              <span class="date">
+                on 31 Mar 2017
+              </span>
+              <span class="tags">
+                <a class="label label-info" href="/news/tags/release/">release</a>
+              </span>
+            </header>
+            <div class="body">
+              <div id="preamble">
+              <div class="sectionbody">
+              <div class="paragraph">
+              <p>I&#8217;m happy to announce the release of the Alpha2 release of the Bean Validation 2 API and specification.</p>
+              </div>
+              <div class="paragraph">
+              <p>This release contains several improvements and clarifications around the <a href="http://beanvalidation.org/2.0/spec/2.0.0.alpha2/#appendix-value-extraction">validation of container elements</a> (think <code>List&lt;@Email String&gt;</code>):</p>
+              </div>
+              <div class="ulist">
+              <ul>
+              <li>
+              <p>Custom value extractors can now be passed in when bootstrapping a validator factory or validator (via API or XML)</p>
+              </li>
+              <li>
+              <p>Value extractors are detected via the Java service loader mechanism
+              (e.g. allowing libraries to ship their own extractors for custom collection types)</p>
+              </li>
+              <li>
+              <p>Property paths for constraint violations on container elements will now contain a node of the new type <code>CONTAINER_ELEMENT</code></p>
+              </li>
+              <li>
+              <p>Container element constraints can be specified in XML mapping descriptors</p>
+              </li>
+              </ul>
+              </div>
+              <div class="paragraph">
+              <p>There are also some new constraints, as per the community feedback on the <a href="/news/2016/09/15/which-constraints-to-add/">survey we did last year</a>:</p>
+              </div>
+              <div class="ulist">
+              <ul>
+              <li>
+              <p><code>@NotEmpty</code>, <code>@NotBlank</code></p>
+              </li>
+              <li>
+              <p><code>@Email</code></p>
+              </li>
+              <li>
+              <p><code>@Positive</code>, <code>@Negative</code></p>
+              </li>
+              </ul>
+              </div>
+              <div class="paragraph">
+              <p>The first three have been part of the reference implementation for a long time
+              and have been promoted to the spec due to their frequent usage.
+              The latter two are new constraints which address the very common use case of
+              mandating that a numeric value should be positive or negative.
+              It&#8217;s configurable via the <code>strict()</code> attribute whether 0 should be considered as valid or not.</p>
+              </div>
+              <div class="paragraph">
+              <p>You can find the complete list of addressed issues <a href="https://hibernate.atlassian.net/issues/?jql=project%20%3D%20BVAL%20AND%20fixVersion%20%3D%202.0.0.Alpha2">in JIRA</a>.
+              The spec text of the Alpha2 release is published <a href="http://beanvalidation.org/2.0/spec/2.0.0.alpha2/">here</a>.
+              The GAV coordinates of the API JAR are <a href="http://search.maven.org/#artifactdetails%7Cjavax.validation%7Cvalidation-api%7C2.0.0.Alpha2%7Cjar">javax.validation:validation-api:2.0.0.Alpha2</a>.</p>
+              </div>
+              </div>
+              </div>
+              <div class="sect1">
+              <h2 id="tck-update"><a class="anchor" href="#tck-update"></a>TCK update</h2>
+              <div class="sectionbody">
+              <div class="paragraph">
+              <p>Together with the spec we also released a new version of the Bean Validation TCK for testing the new features.
+              Its coordinates are <code>org.hibernate.beanvalidation.tck:beanvalidation-tck-tests:2.0.0.Alpha3</code> (it should be synced to Maven Central soon).</p>
+              </div>
+              <div class="paragraph">
+              <p>If you are wondering why the TCK is at Alpha3 already, that&#8217;s because of a glitch with the Alpha2 release which wouldn&#8217;t allow to run the TCK in a container.
+              Hence we released the Alpha3 version right after that.</p>
+              </div>
+              </div>
+              </div>
+              <div class="sect1">
+              <h2 id="trying-it-out-yourself"><a class="anchor" href="#trying-it-out-yourself"></a>Trying it out yourself</h2>
+              <div class="sectionbody">
+              <div class="paragraph">
+              <p>In order to try out the latest Bean Validation features, grab this week&#8217;s release of
+              the reference implementation, Hibernate Validator 6 Alpha2.</p>
+              </div>
+              <div class="paragraph">
+              <p>It supports the Alpha2 version of the spec and some things more.
+              Refer to the <a href="http://in.relation.to/2017/03/30/hibernate-validator-600-alpha2-out/">announcement post</a> for all the details.
+              Please give it a try and let us know about your thoughts on these changes as well as any other things related to Bean Validation.</p>
+              </div>
+              <div class="paragraph">
+              <p>We are now working towards the Public Draft of the spec (to be expected in April).
+              The Public Draft will mostly polish the work done so far.
+              Most prominently, the container element validation feature,
+              which currently is <a href="http://beanvalidation.org/2.0/spec/2.0.0.alpha2/#appendix-value-extraction">an appendix</a> to the spec,
+              will be incorporated in the actual specification sections.</p>
+              </div>
+              <div class="paragraph">
+              <p>We&#8217;ve also planned to address some other feature requests, like <a href="http://beanvalidation.org/2.0/spec/2.0.0.alpha2/#appendix-value-extraction">splitting up</a> the notion of message interpolation and retrieving message bundles.
+              If there are other things you&#8217;d like to see addressed in Bean Validation 2.0,
+              please <a href="http://lists.jboss.org/pipermail/beanvalidation-dev/">get in touch</a> quickly, the clock is ticking :)</p>
+              </div>
+              </div>
+              </div>
+               <a href="http://beanvalidation.org/news/2017/03/31/bean-validation-2-0-alpha2-is-out/#disqus_thread">Comments</a>
+            </div>
+          </article>
+          <article class="post">
+            <header>
+              <h1 class="title">
                 <a href="/news/2017/02/16/first-alpha-of-bean-validation-2-0-reference-implementation/">First Alpha of Bean Validation 2.0 Reference Implementation Available</a>
               </h1>
               <span class="author">
@@ -645,93 +759,6 @@
                <a href="http://beanvalidation.org/news/2017/01/19/bean-validation-2-0-progress-report/#disqus_thread">Comments</a>
             </div>
           </article>
-          <article class="post">
-            <header>
-              <h1 class="title">
-                <a href="/news/2016/11/23/survey-constraints-and-parameterized-type/">Survey - Where do you use constraints on parameterized type?</a>
-              </h1>
-              <span class="author">
-                by
-                <b>Emmanuel Bernard</b>
-              </span>
-              <span class="date">
-                on 23 Nov 2016
-              </span>
-              <span class="tags">
-                <a class="label label-info" href="/news/tags/feedback/">feedback</a>
-              </span>
-            </header>
-            <div class="body">
-              <div id="preamble">
-              <div class="sectionbody">
-              <div class="paragraph">
-              <p>For Bean Validation 2, we are working on the support for <code>Collection&lt;@Email String&gt;</code>, <code>Optional&lt;@Min(3) Integer&gt;</code> etc.
-              This has been a very common request and with Java 8 type use support, we can how achieve this.
-              However, we need your feedback on how you would use such feature.</p>
-              </div>
-              </div>
-              </div>
-              <div class="sect1">
-              <h2 id="some-context"><a class="anchor" href="#some-context"></a>Some context</h2>
-              <div class="sectionbody">
-              <div class="paragraph">
-              <p>We have support not only for collections, <code>Optional</code>, Java FX properties but also for what we call custom parameterized containers.
-              We are wondering a few things about custom parameterized containers, namely how common they are.
-              This will affect the trade-offs we want to make on the design of that feature.</p>
-              </div>
-              <div class="sect2">
-              <h3 id="what-is-a-em-container-em"><a class="anchor" href="#what-is-a-em-container-em"></a>What is a <em>container</em>?</h3>
-              <div class="paragraph">
-              <p>A container is a type that wraps and exposes one or several values.
-              The values is what you want to apply your constraints on.
-              And the container is parameterized because at use site, you can declare what type it actually contains.
-              For a <code>Set&lt;@Email String&gt;</code>, we want to make sure every string in the set is an email.</p>
-              </div>
-              <div class="paragraph">
-              <p>Another less obvious example is a tuple class.</p>
-              </div>
-              <div class="listingblock">
-              <div class="content">
-              <pre class="CodeRay highlight"><code data-lang="java"><span style="color:#088;font-weight:bold">public</span> <span style="color:#339;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">Pair</span>&lt;V1,V2&gt; {&#x000A;    V1 getV1() { ... }&#x000A;    V2 getV2(); { ... }&#x000A;}&#x000A;&#x000A;<span style="color:#088;font-weight:bold">public</span> <span style="color:#339;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">Address</span> {&#x000A;    <span style="color:#777">// street1 is mandatory, street2 is optional</span>&#x000A;    <span style="color:#777">// represented via a Pair object</span>&#x000A;    Pair&lt;<span style="color:#007">@NotNull</span> <span style="color:#007">@Size</span>(max=<span style="color:#00D">250</span>) <span style="color:#0a8;font-weight:bold">String</span>, <span style="color:#007">@Size</span>(max=<span style="color:#00D">250</span>) <span style="color:#0a8;font-weight:bold">String</span>&gt; streetFields;&#x000A;}</code></pre>
-              </div>
-              </div>
-              <div class="paragraph">
-              <p>Other examples are:</p>
-              </div>
-              <div class="ulist">
-              <ul>
-              <li>
-              <p>a tree structure containing specific object types</p>
-              </li>
-              <li>
-              <p>Guava&#8217;s Multimap (or any multimap for that matter)</p>
-              </li>
-              </ul>
-              </div>
-              </div>
-              </div>
-              </div>
-              <div class="sect1">
-              <h2 id="questions"><a class="anchor" href="#questions"></a>Questions</h2>
-              <div class="sectionbody">
-              <div class="paragraph">
-              <p>We are wondering which type of parameterized containers you have in your code base
-              and how likely you are going to apply constrains on their contained value.
-              The form is a list of short questions that will help us get a better picture.</p>
-              </div>
-              <div class="paragraph">
-              <p>Here is the <a href="https://docs.google.com/forms/d/e/1FAIpQLSc-s7fSYXiPSuZ0NaT0_-0jBx9TaxrZ-QiLRg_eVRxgrISjrw/viewform">link to the form in a separate page</a>
-              or use it directly embedded below.</p>
-              </div>
-              <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSc-s7fSYXiPSuZ0NaT0_-0jBx9TaxrZ-QiLRg_eVRxgrISjrw/viewform?embedded=true" width="760" height="2800" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
-              <div class="paragraph">
-              <p>Many thanks!</p>
-              </div>
-              </div>
-              </div>
-               <a href="http://beanvalidation.org/news/2016/11/23/survey-constraints-and-parameterized-type/#disqus_thread">Comments</a>
-            </div>
-          </article>
           <div class="pagination-links"><a href="/news/" class="previous-link">Previous</a> <a href="/news/" class="page-link">1</a> <span class="current-page">2</span> <a href="/news/page/3/" class="page-link">3</a> <span class="skip">...</span><a href="/news/page/8/" class="page-link">8</a> <a href="/news/page/9/" class="page-link">9</a> <a href="/news/page/3/" class="next-link">Next</a> </div>
         </div>
         <div class="sidebar sidebar-right col-sm-3 col-md-3 col-lg-3" id="sidebar" role="complementary">
@@ -746,6 +773,7 @@
               Stay up to date, subscribe to the&nbsp;<a href="/news/news.atom">news feed</a>.
             </div>
           </div>
+          <a class="news-link" href="/news/2017/07/05/bean-validation-2-0-cr2-is-out/">Bean Validation 2.0 CR 2 released</a>
           <a class="news-link" href="/news/2017/06/26/bean-validation-2-0-proposed-final-draft-released/">Proposed Final Draft of Bean Validation 2.0 released</a>
           <a class="news-link" href="/news/2017/05/24/bean-validation-2-0-public-review-update/">Update to the Bean Validation 2.0 Public Review Draft</a>
           <a class="news-link" href="/news/2017/05/12/feedback-on-positive-and-negative-constraints/">Survey - Behavior of @Positive and @Negative constraints</a>

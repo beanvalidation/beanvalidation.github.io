@@ -4,7 +4,7 @@
     <meta content="IE=Edge" http-equiv="X-UA-Compatible">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>
-      Bean Validation - Bean Validation in the press
+      Bean Validation - Bean Validation 2.0 CR 2 released
     </title>
     <link href="../../../../../stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
     <link href="../../../../../stylesheets/print.css" media="print" rel="stylesheet" type="text/css">
@@ -63,46 +63,119 @@
           <article class="post">
             <header>
               <h1 class="title">
-                Bean Validation in the press
+                Bean Validation 2.0 CR 2 released
               </h1>
               <span class="author">
                 by
                 <b>Gunnar Morling</b>
               </span>
               <span class="date">
-                on 18 Dec 2012
+                on 05 Jul 2017
               </span>
               <span class="tags">
-                <a class="label label-info" href="/news/tags/press/">press</a>
+                <a class="label label-info" href="/news/tags/release/">release</a>
               </span>
             </header>
             <div class="body">
-              <p>The German journal <a href="http://www.javamagazin.de/">Javamagazin</a> recently
-              published an article about the works on Bean Validation 1.1. The article
-              is full of praise for the new version in general and our open,
-              community-centered way of creating the spec in particular.</p>
-              
-              <p>The publisher and authors generously provided us with a PDF of the article
-              which you can download <a href="/downloads/javamagazin_2012_10_Einer_fuer_alle_alle_fuer_einen_Bean_Validation_1_1.pdf">here</a>.
-              Alternatively you can also read the article
-              <a href="http://it-republik.de/jaxenter/artikel/Einer-fuer-alle-%96-alle-fuer-einen-Bean-Validation-1.1-5372.html">online</a>.</p>
+              <div id="preamble">
+              <div class="sectionbody">
+              <div class="paragraph">
+              <p>I&#8217;m very happy to announce the CR 2 release of the Bean Validation 2.0 spec!</p>
+              </div>
+              <div class="paragraph">
+              <p>The CR 2 is an update to the Proposed Final Draft (CR 1), addressing remarks and comments from reviewing all the changes.
+              The updated spec document can be found <a href="/2.0/spec/2.0.0.cr2/">here</a>.
+              To see the changes applied since the CR 1, check out this <a href="/2.0/spec/2.0.0.cr2/diff/diff-to-2.0-cr1/">colored diff</a>. If you&#8217;d like to see all the changes since Bean Validation 1.1, take a look at <a href="/2.0/spec/2.0.0.cr2/diff/diff-to-1.1/">this diff</a>.
+              The updated API is available on Maven Central, using the GAV coordinates are <em>javax.validation:validation-api:2.0.0.CR2</em>.</p>
+              </div>
+              </div>
+              </div>
+              <div class="sect1">
+              <h2 id="what-s-new-since-cr-1"><a class="anchor" href="#what-s-new-since-cr-1"></a>What&#8217;s new since CR 1?</h2>
+              <div class="sectionbody">
+              <div class="paragraph">
+              <p>Given we are in the CR phase, most of the changes of this release naturally fall into the category of bug fixes, wording clarifications, formatting and other similar improvements.
+              Reviewing the work done so far, and also working on the reference implementation and the TCK, we&#8217;ve decided to include two improvements to the API, too:</p>
+              </div>
+              <div class="ulist">
+              <ul>
+              <li>
+              <p><code>ConstraintDescriptor#validateUnwrappedValue()</code> got renamed into <code>getValueUnwrapping()</code> (<a href="https://hibernate.atlassian.net/browse/BVAL-674">BVAL-674</a>).
+              The original method name sounded like a "command", whereas the new name makes clear it&#8217;s a "query" kind of method;
+              also the members of the returned enum have been adapted to be in sync with the corresponding <code>Unwrapping</code> payload type names.
+              We&#8217;ve also added a method <code>ConstraintDescriptor#unwrap(Class)</code>, which will let providers expose additional functionality via extension interfaces,
+              e.g. to explore new features which then can be standardized in a future spec revision.</p>
+              </li>
+              <li>
+              <p><code>@ConvertGroup#from()</code> has a default value of <code>Default.class</code> now (<a href="https://hibernate.atlassian.net/browse/BVAL-689">BVAL-689</a>).
+              This simplifies group conversions in the common case where the default group is converted into another group.</p>
+              </li>
+              </ul>
+              </div>
+              <div class="paragraph">
+              <p>Another interesting change is <a href="https://hibernate.atlassian.net/browse/BVAL-613">BVAL-613</a>:
+              when using the reference API JAR with the Java 9 module system, it will have the module name "java.validation" (following the recommendation in the <a href="/2.0/spec/2.0.0.cr2/#appendix-module-name">spec appendix</a>).
+              This is done using the <code>Automatic-Module-Name</code> manifest header defined by Java 9.</p>
+              </div>
+              <div class="paragraph">
+              <p>Other changes include JavaDoc improvements and more clearly separating API types from examples in the spec.
+              The complete list of all issues resolved for the CR 2 release can be found in the <a href="https://hibernate.atlassian.net/issues/?jql=project%20%3D%20BVAL%20AND%20fixVersion%20%3D%202.0.0.CR2">BVAL JIRA project</a>.
+              Corresponding releases of our reference implementation Hibernate Validator 6 and the TCK are also done today.</p>
+              </div>
+              </div>
+              </div>
+              <div class="sect1">
+              <h2 id="what-s-new-in-bean-validation-2-0"><a class="anchor" href="#what-s-new-in-bean-validation-2-0"></a>What&#8217;s new in Bean Validation 2.0?</h2>
+              <div class="sectionbody">
+              <div class="paragraph">
+              <p>The focus of Bean Validation 2.0 is supporting and taking advantage of Java SE 8.</p>
+              </div>
+              <div class="paragraph">
+              <p>For instance type annotations are used to validate the elements of generic containers: <code>List&lt;@NotNull @Email String&gt; emails</code>.
+              There are new built-in constraints (<code>@NotBlank</code>, <code>@NotEmpty</code>, <code>@Email</code>, <code>@FutureOrPresent</code>, <code>@PastOrPresent</code>, <code>@Positive</code>, <code>@PositiveOrZero</code>, <code>@Negative</code> and <code>@NegativeOrZero</code>) and all built-in constraints are repeatable annotations now.
+              Bean Validation 2.0 also supports the new Java 8 date and time types (JSR 310), the property types defined by JavaFX (<code>StringProperty</code> etc.) as well as <code>java.util.Optional</code>.</p>
+              </div>
+              <div class="paragraph">
+              <p>To learn more about all the new features in Bean Validation 2.0,
+              check out <a href="https://speakerdeck.com/gunnarmorling/keeping-your-data-sane-with-bean-validation-2-dot-0-jdk-dot-io">this presentation</a> which I recently gave at the jdk.io conference.</p>
+              </div>
+              </div>
+              </div>
+              <div class="sect1">
+              <h2 id="what-can-you-do-to-help"><a class="anchor" href="#what-can-you-do-to-help"></a>What can you do to help?</h2>
+              <div class="sectionbody">
+              <div class="paragraph">
+              <p>We&#8217;ll hand over the specification to the JCP for the Final Approval Ballot early next week.
+              For the FAB release, we don&#8217;t expect any significant changes over today&#8217;s CR 2.
+              If you&#8217;d like to help, reviewing the <a href="/2.0/spec/2.0.0.cr2/diff/diff-to-1.1/">specification changes</a> would be the best thing to do at this point.
+              Also it&#8217;d be of great help if you tried out the reference implementation in your applications and let us know how it works.
+              Any feedback is welcomed!</p>
+              </div>
+              <div class="paragraph">
+              <p>To post your feedback, just add a comment below, send a message to our <a href="http://lists.jboss.org/pipermail/beanvalidation-dev/">mailing list</a> or post in the <a href="https://forum.hibernate.org/viewforum.php?f=26">Bean Validation forum</a>.
+              If you find a bug or have a specific feature request, please raise it in the <a href="https://hibernate.atlassian.net/projects/BVAL/summary">issue tracker</a>.</p>
+              </div>
+              <div class="paragraph">
+              <p>Everything in Bean Validation is open source, so you also can send in actual patches: be it to the <a href="https://github.com/beanvalidation/beanvalidation-api">API</a>, the <a href="https://github.com/beanvalidation/beanvalidation-spec">spec document</a>, the <a href="https://github.com/beanvalidation/beanvalidation-tck">TCK</a> or the <a href="https://github.com/hibernate/hibernate-validator">reference implementation</a>.
+              If you are interested, you can find out all the details to get started in the <a href="/contribute">contribution guide</a>.</p>
+              </div>
+              </div>
+              </div>
             </div>
             <footer>
               <div id="post-navigation">
                 <div class="previous">
                   &laquo;
-                  <a href="../../11/should-getters-be-considered-methods">Should getters be validated when they are called?</a>
+                  <a href="../../../06/26/bean-validation-2-0-proposed-final-draft-released">Proposed Final Draft of Bean Validation 2.0 released</a>
                 </div>
                 <div class="next">
-                  &raquo;
-                  <a href="../../../../2013/02/01/bean-validation-1-1-beta3-last-line">Bean Validation 1.1 Beta 3 - the last line</a>
                 </div>
               </div>
               
                           <div id="disqus_thread"></div>
                           <script type="text/javascript">
                           var disqus_shortname = 'beanvalidation';
-                          var disqus_url = "http://beanvalidation.org/news/2012/12/18/bean-validation-in-the-press/";
+                          var disqus_url = "http://beanvalidation.org/news/2017/07/05/bean-validation-2-0-cr2-is-out/";
                           var disqus_developer = null;
                           var disqus_identifier = null;
                           (function() {
