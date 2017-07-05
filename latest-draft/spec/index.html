@@ -527,7 +527,7 @@ and re-render the HTML.
 <div class="details">
 <span id="author" class="author">Gunnar Morling</span><br>
 <span id="revnumber">version 2.0.0-SNAPSHOT,</span>
-<span id="revdate">2017-07-04</span>
+<span id="revdate">2017-07-05</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -1346,16 +1346,15 @@ fine-grained control over the current time and time zone used for validation (se
 <span class="directive">public</span> <span class="annotation">@interface</span> Constraint {
 
     <span class="comment">/**
-     * {@link ConstraintValidator} classes must reference distinct target types
-     * for a given {@link ValidationTarget}
-     * If two {@code ConstraintValidator}s refer to the same type,
-     * an exception will occur.
+     * {@link ConstraintValidator} classes implementing the constraint. The given classes
+     * must reference distinct target types for a given {@link ValidationTarget}. If two
+     * {@code ConstraintValidator}s refer to the same type, an exception will occur.
      * &lt;p&gt;
      * At most one {@code ConstraintValidator} targeting the array of parameters of
      * methods or constructors (aka cross-parameter) is accepted. If two or more
      * are present, an exception will occur.
      *
-     * @return array of (@code ConstraintValidator} classes implementing the constraint
+     * @return array of {@code ConstraintValidator} classes implementing the constraint
      */</span>
     <span class="predefined-type">Class</span>&lt;? <span class="directive">extends</span> ConstraintValidator&lt;?, ?&gt;&gt;<span class="type">[]</span> validatedBy();
 }</code></pre>
@@ -1520,7 +1519,8 @@ fine-grained control over the current time and time zone used for validation (se
  * Payloads are typically used to carry on metadata information
  * consumed by a validation client.
  * &lt;/p&gt;
- * Use of payloads is not considered portable.
+ * With the exception of the {@link Unwrapping} payload types, the use of payloads is not
+ * considered portable.
  *
  * @author Emmanuel Bernard
  * @author Gerhard Petracek
@@ -1733,8 +1733,8 @@ An exception are the <code>Unwrapping.Skip</code> and <code>Unwrapping.Unwrap</c
 <span class="keyword">package</span> <span class="namespace">com.acme.constraint</span>;
 
 <span class="comment">/**
- * EL expression to be validated. This constraint accepts any type and can validate both the annotated type or apply
- * restrictions across parameters.
+ * EL expression to be validated. This constraint accepts any type and can validate both the
+ * annotated type or apply restrictions across parameters.
  */</span>
 <span class="annotation">@Documented</span>
 <span class="annotation">@Constraint</span>(validatedBy = ELAssertValidator.class)
@@ -3995,7 +3995,7 @@ In this case, only one error report is returned at a given time but a constraint
 <h2 id="valueextractordefinition"><a class="anchor" href="#valueextractordefinition"></a>4. Value extractor definition</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Validation of container element constraints as well as cascaded validation of generic container types requires access to the values stored in the container.
+<p>Validation of container element constraints (see <a href="#constraintdeclarationvalidationprocess-containerelementconstraints">Container element constraints</a>) as well as cascaded validation of generic container types (see <a href="#constraintdeclarationvalidationprocess-requirements-graphvalidation">Graph validation</a>) requires access to the value(s) stored in the container.
 The retrieval of values stored in a container is handled via implementations of the <code>ValueExtractor</code> interface:</p>
 </div>
 <div class="exampleblock api">
@@ -4011,7 +4011,7 @@ The retrieval of values stored in a container is handled via implementations of 
  * A value extractor for a generic type such as {@link Optional}, {@link List} or {@link Map}
  * is tied to one specific type parameter of {@code T}. The {@link ExtractedValue} annotation
  * is used to mark that type parameter. A value extractor for a non-generic type such as
- * {@link OptionalInt} needs to declare the type of the wrapped element using
+ * {@link OptionalInt} needs to declare the type of the wrapped element(s) using
  * {@link ExtractedValue#type()}.
  * &lt;p&gt;
  * The extracted values are passed to the corresponding method of the {@link ValueReceiver}.
@@ -4037,6 +4037,7 @@ The retrieval of values stored in a container is handled via implementations of 
  * @author Guillaume Smet
  * @see ExtractedValue
  * @see UnwrapByDefault
+ * @since 2.0
  */</span>
 <span class="directive">public</span> <span class="type">interface</span> <span class="class">ValueExtractor</span>&lt;T&gt; {
 
@@ -4054,6 +4055,8 @@ The retrieval of values stored in a container is handled via implementations of 
      * &lt;p&gt;
      * The value has to be passed to the method corresponding best to the type of the
      * original value.
+     *
+     * @since 2.0
      */</span>
     <span class="type">interface</span> <span class="class">ValueReceiver</span> {
 
@@ -4061,7 +4064,8 @@ The retrieval of values stored in a container is handled via implementations of 
          * Receives the value extracted from an object.
          *
          * @param nodeName the name of the node representing the container element. If not
-         * {@code null}, a node with that name will be added to the {@link Path}
+         * {@code null}, the name will be used when adding a container element node to the
+         * {@link Path}
          * @param object the value to validate
          */</span>
         <span class="type">void</span> value(<span class="predefined-type">String</span> nodeName, <span class="predefined-type">Object</span> object);
@@ -4071,7 +4075,8 @@ The retrieval of values stored in a container is handled via implementations of 
          * a {@link Iterable}, {@link Set} or a {@link Map}).
          *
          * @param nodeName the name of the node representing the container element. If not
-         * {@code null}, a node with that name will be added to the {@link Path}
+         * {@code null}, the name will be used when adding a container element node to the
+         * {@link Path}
          * @param object the value to validate
          */</span>
         <span class="type">void</span> iterableValue(<span class="predefined-type">String</span> nodeName, <span class="predefined-type">Object</span> object);
@@ -4080,7 +4085,8 @@ The retrieval of values stored in a container is handled via implementations of 
          * Receives the value extracted from an indexed object (e.g. a {@link List}).
          *
          * @param nodeName the name of the node representing the container element. If not
-         * {@code null}, a node with that  name will be added to the {@link Path}
+         * {@code null}, the name will be used when adding a container element node to the
+         * {@link Path}
          * @param i the index of the value in the original object
          * @param object the value to validate
          */</span>
@@ -4090,7 +4096,8 @@ The retrieval of values stored in a container is handled via implementations of 
          * Receives the value extracted from a keyed object (e.g. a {@link Map}).
          *
          * @param nodeName the name of the node representing the container element. If not
-         * {@code null}, a node with that name will be added to the {@link Path}
+         * {@code null}, the name will be used when adding a container element node to the
+         * {@link Path}
          * @param key the key of the value in the original object
          * @param object the value to validate
          */</span>
@@ -4124,11 +4131,10 @@ When calling</p>
 </ul>
 </div>
 <div class="paragraph">
-<p><span class="tck-testable">When passing a non-null node name to any of the receiver methods and when the extractor is called in the course of container element validation (not during cascaded validation),
-a node of kind <code>CONTAINER_ELEMENT</code> will be appended to the property path, with <code>Node#getName()</code> returning the specified name.</span>
+<p><span class="tck-testable">When passing a non-null node name to any of the receiver methods, this node name will be used when adding a node of kind <code>CONTAINER_ELEMENT</code> to the property path (see <a href="#validationapi-constraintviolation">ConstraintViolation</a> for the property path construction rules).</span>
 <span class="tck-testable">If null is passed as node name, no node will be appended to the property path.
 The resulting property path will then be the same as if the constraint had been given on the container instead of a container element.
-That is desirable for pure wrapper types such as <code>Optional</code>, <code>OptionalInt</code> etc.</span></p>
+That is desirable for single-element wrapper types such as <code>Optional</code>, <code>OptionalInt</code> etc.</span></p>
 </div>
 <div class="paragraph">
 <p><span class="tck-testable">If an exception occurs during invocation of the <code>extractValues()</code> method, this exception is wrapped into a <code>ValidationException</code> by the Bean Validation engine.</span></p>
@@ -4138,10 +4144,15 @@ That is desirable for pure wrapper types such as <code>Optional</code>, <code>Op
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">private</span> <span class="predefined-type">Map</span>&lt;<span class="predefined-type">String</span>, <span class="annotation">@Valid</span> <span class="annotation">@RetailOrder</span> Order&gt; ordersByName;
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">Orders</span> {
 
-<span class="directive">public</span> <span class="predefined-type">Map</span>&lt;<span class="annotation">@NotNull</span> <span class="predefined-type">String</span>, Order&gt; getOrdersByName() {
-    <span class="keyword">return</span> ordersByName;
+    <span class="directive">private</span> <span class="predefined-type">Map</span>&lt;<span class="predefined-type">String</span>, <span class="annotation">@Valid</span> <span class="annotation">@RetailOrder</span> Order&gt; ordersByName;
+
+    <span class="directive">public</span> <span class="predefined-type">Map</span>&lt;<span class="annotation">@NotNull</span> <span class="predefined-type">String</span>, Order&gt; getOrdersByName() {
+        <span class="keyword">return</span> ordersByName;
+    }
+
+    [...]
 }</code></pre>
 </div>
 </div>
@@ -4172,6 +4183,7 @@ the map as obtained directly from the field will be passed to the map value extr
  * @author Guillaume Smet
  *
  * @see ValueExtractor
+ * @since 2.0
  */</span>
 <span class="annotation">@Retention</span>(<span class="predefined-type">RetentionPolicy</span>.RUNTIME)
 <span class="annotation">@Target</span>(<span class="predefined-type">ElementType</span>.TYPE_USE)
@@ -4179,21 +4191,19 @@ the map as obtained directly from the field will be passed to the map value extr
 <span class="directive">public</span> <span class="annotation">@interface</span> ExtractedValue {
 
     <span class="comment">/**
-     * Returns the type of the value extracted by the {@link ValueExtractor}. If not set,
-     * returns {@code void.class}, meaning the type will be automatically inferred from the
-     * type argument of the parameterized type.
+     * The type of the value extracted by the {@link ValueExtractor}. If not set, the type
+     * will be automatically inferred from the type argument of the parameterized type.
      * &lt;p&gt;
      * Used to define value extractors for non-generic wrapper types e.g.
      * {@link OptionalInt}.
      * &lt;p&gt;
      * May not be used when {@code ExtractedValue} is defined on the type parameter of
-     * a generic wrapper type. A {@code ValueExtractorDefinitionException} will be thrown in
-     * this case.
+     * a generic container type. A {@code ValueExtractorDefinitionException} will be thrown
+     * in this case.
      *
      * @return the type of the value extracted by the value extractor
      */</span>
     <span class="predefined-type">Class</span>&lt;?&gt; type() <span class="keyword">default</span> <span class="type">void</span>.class;
-
 }</code></pre>
 </div>
 </div>
@@ -4288,10 +4298,10 @@ The type of the wrapped element(s) must be specified using <code>@ExtractedValue
 <code>keyedValue()</code> must be invoked by the map value extractor for each contained value, passing the string literal <code>&lt;map value&gt;</code> as node name</span></p>
 </li>
 <li>
-<p><span class="tck-testable"><code>java.util.Optional</code>; <code>value()</code> must be invoked (passing the contained value or <code>null</code> if none is present), passing <code>null</code> as node name</span></p>
+<p><span class="tck-testable"><code>java.util.Optional</code>; <code>value()</code> must be invoked, passing <code>null</code> as node name and passing the contained object as value or <code>null</code> if none is present</span></p>
 </li>
 <li>
-<p><span class="tck-testable"><code>java.util.OptionalInt</code>, <code>java.util.OptionalLong</code> and <code>java.util.OptionalDouble</code>; the extracted value types must be <code>java.lang.Integer</code>, <code>java.lang.Long</code> and <code>java.lang.Double</code>, respectively. <code>value()</code> must be invoked (passing the contained value or <code>null</code> if none is present), passing <code>null</code> as node name. The extractors must be marked with <code>@UnwrapByDefault</code>.</span></p>
+<p><span class="tck-testable"><code>java.util.OptionalInt</code>, <code>java.util.OptionalLong</code> and <code>java.util.OptionalDouble</code>; the extracted value types must be <code>java.lang.Integer</code>, <code>java.lang.Long</code> and <code>java.lang.Double</code>, respectively. <code>value()</code> must be invoked, passing <code>null</code> as node name and passing the contained number as value or <code>null</code> if none is present. The extractors must be marked with <code>@UnwrapByDefault</code>.</span></p>
 </li>
 </ul>
 </div>
@@ -4381,7 +4391,9 @@ the resulting property path will be the same as if a constraint hosted on the <c
 <p>This extractor passes the <code>int</code> value wrapped by the given <code>OptionalInt</code> to the receiver object, if present.
 <code>null</code> is passed as a node name, causing no node to be appended to the resulting property path.
 As the extractor is marked with <code>@UnwrapByDefault</code>,
-any constraint declared on an element of type <code>OptionalInt</code> will implicitly be applied to the wrapped <code>int</code> value instead of the <code>OptionalInt</code> itself.</p>
+any constraint declared on an element of type <code>OptionalInt</code> will implicitly be applied to the wrapped <code>int</code> value instead of the <code>OptionalInt</code> itself.
+As <code>OptionalInt</code> is a non-generic type (i.e. it has no type parameters), <code>@ExtractedValue</code> is given on the container type as used within the value extractor definition,
+specifying the type of the wrapped element via <code>type()</code>.</p>
 </div>
 <div class="paragraph">
 <p><span class="tck-testable">The following extractor definition is illegal as it specifies <code>@ExtractedValue</code> more than once:</span></p>
@@ -4609,7 +4621,7 @@ Container element constraints are discussed in detail in <a href="#constraintdec
 <p><span class="tck-testable">Like regular references, its type is determined at runtime and the constraint definitions for this particular type are used.</span></p>
 </div>
 <div class="paragraph">
-<p><span class="tck-testable">As of Bean Validation 2.0, <code>@Valid</code> can be applied to the elements of any generic container by putting it to the type argument(s) of such container,
+<p><span class="tck-testable">As of Bean Validation 2.0, <code>@Valid</code> can be applied to the elements of any generic container by putting it to the type argument(s) when using such container (e.g. <code>MultiMap&lt;String, @Valid Address&gt; addressesByType</code>),
 provided a value extractor implementation (see <a href="#valueextractordefinition">Value extractor definition</a>) for that container type and the targeted type argument is present.</span>
 There are built-in value extractors for the generic collection types listed above.
 In addition, there is a built-in extractor for the key objects of maps.
@@ -8906,7 +8918,7 @@ executableValidator.validateConstructorParameters(constructor, <span class="keyw
 </div>
 <div class="paragraph">
 <p><span class="tck-testable">The <code class="methodname">getInvalidValue()</code> method returns the value (field, property, method/constructor parameter, method/constructor return value, container element or validated object) being passed to <code class="methodname">isValid()</code>.</span> <span class="tck-testable">For a cross-parameter constraint failure, an <code class="code">Object[]</code> representing the method/constructor invocation arguments is returned.</span>
-<span class="tck-testable">In case of a constraint given on a container is subject to implicit application to the container element(s) (see <a href="#constraintdeclarationvalidationprocess-containerelementconstraints-implicitunwrapping">Implicit unwrapping of containers</a>), <code>getInvalidValue()</code> returns the invalid container element value.</span></p>
+<span class="tck-testable">In case a constraint given on a container is subject to implicit application to the container element(s) (see <a href="#constraintdeclarationvalidationprocess-containerelementconstraints-implicitunwrapping">Implicit unwrapping of containers</a>), <code>getInvalidValue()</code> returns the invalid container element value.</span></p>
 </div>
 <div class="paragraph">
 <p><span class="tck-testable"><code class="methodname">getConstraintDescriptor()</code> provides access to the failing constraint metadata</span> (see <a href="#constraintmetadata-constraintdescriptor">ConstraintDescriptor</a>).</p>
@@ -9349,8 +9361,8 @@ specifically, when applying the default value extractor for iterable elements, l
 <div class="content">
 <div class="paragraph">
 <p><code>BeanNode</code>, <code>PropertyNode</code> and <code>ContainerElementNode</code> host <code>getContainerClass()</code> and <code>getTypeArgumentIndex()</code>.
-If the node represents an element that is contained in a generic container such as <code>Optional</code>, <code>List</code> or <code>Map</code>,
-the former returns the declared type of the container and the latter returns the index of the affected type argument.</p>
+If the node represents an element that is contained in a container such as <code>Optional</code>, <code>List</code> or <code>Map</code>,
+the former returns the declared type of the container and, if the container is of a generic type, the latter returns the index of the affected type argument.</p>
 </div>
 </div>
 </div>
@@ -9434,7 +9446,7 @@ the former returns the declared type of the container and the latter returns the
 <div class="ulist">
 <ul>
 <li>
-<p><span class="tck-testable">a <code>ContainerElementNode</code> object whose <code>name</code> equals the name produced by the value extractor of the outer container is added to <code>Path</code>. The <code>ElementKind</code> of the node is <code>ElementKind.CONTAINER_ELEMENT</code></span></p>
+<p><span class="tck-testable">if the value extractor of the outer container has provided a non-null node name, a <code>ContainerElementNode</code> object whose <code>name</code> equals that name is added to <code>Path</code>. The <code>ElementKind</code> of the node is <code>ElementKind.CONTAINER_ELEMENT</code></span></p>
 </li>
 <li>
 <p><span class="tck-testable">if the container is a <code>List</code>, the following <code>Node</code> object added contains the index value in <code>getIndex()</code></span></p>
@@ -11490,7 +11502,7 @@ acmeFactory.setSpecificConfiguration( [...] );</code></pre>
      * @param extractor value extractor implementation
      * @return self following the chaining method pattern
      * @throws ValueExtractorDeclarationException If more than one extractor for
-     *         the same type and type use is added
+     *         the same type and type parameter is added
      * @since 2.0
      */</span>
     ValidatorContext addValueExtractor(ValueExtractor&lt;?&gt; extractor);
@@ -16732,7 +16744,7 @@ containerElementTypeDescriptor = it.next();
 </div>
 <div class="paragraph">
 <p><span class="tck-testable">The <code>type-argument-index</code> is used to specify the index of the configured type argument.</span>
-<span class="tck-testable">The <code>type-argument-index</code> can be omitted, if the container element type has exactly one type argument.</span>
+<span class="tck-testable">The <code>type-argument-index</code> can be omitted, if the container type has exactly one type argument.</span>
 <span class="tck-testable">The <code>ignore-annotations</code> settings effectively applying to the encapsulating element (<code>field</code>, <code>getter</code> etc.) are applied to <code>container-element-type</code>, too.</span>
 <span class="tck-testable">The <code>container-element-type</code> element can be nested for configuring nested generic containers such as <code>List&lt;List&lt;String&gt;&gt;</code>.</span></p>
 </div>
@@ -16742,7 +16754,7 @@ containerElementTypeDescriptor = it.next();
 <span class="tck-testable">Group conversion rules for cascaded validation are specified using the <code>convert-group</code> element.</span></p>
 </div>
 <div class="paragraph">
-<p>If an invalid container type element configuration is detected, a <code>ValidationException</code> is raised.
+<p>If an invalid container element type configuration is detected, a <code>ValidationException</code> is raised.
 This includes the following configuration errors:</p>
 </div>
 <div class="ulist">
@@ -17856,42 +17868,8 @@ Reasons include:</p>
 </li>
 </ul>
 </div>
-<div class="exampleblock api">
-<div class="title">Listing 10.1: <code>ValueExtractorDefinitionException</code> exception</div>
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="java"><span class="keyword">package</span> <span class="namespace">javax.validation.valueextraction</span>;
-
-<span class="comment">/**
- * Raised if a {@link ValueExtractor} definition is illegal, e.g. because it doesn't declare
- * its extracted value using {@link ExtractedValue}.
- *
- * @author Gunnar Morling
- *
- * @since 2.0
- */</span>
-<span class="directive">public</span> <span class="type">class</span> <span class="class">ValueExtractorDefinitionException</span> <span class="directive">extends</span> ValidationException {
-
-    <span class="directive">public</span> ValueExtractorDefinitionException() {
-        <span class="local-variable">super</span>();
-    }
-
-    <span class="directive">public</span> ValueExtractorDefinitionException(<span class="predefined-type">String</span> message) {
-        <span class="local-variable">super</span>( message );
-    }
-
-    <span class="directive">public</span> ValueExtractorDefinitionException(<span class="predefined-type">Throwable</span> cause) {
-        <span class="local-variable">super</span>( cause );
-    }
-
-    <span class="directive">public</span> ValueExtractorDefinitionException(<span class="predefined-type">String</span> message, <span class="predefined-type">Throwable</span> cause) {
-        <span class="local-variable">super</span>( message, cause );
-    }
-}</code></pre>
-</div>
-</div>
-</div>
+<div class="paragraph">
+<p><code>ValueExtractorDefinitionException</code> is a subclass of <code>ValidationException</code>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -17900,43 +17878,8 @@ Reasons include:</p>
 <p><span class="tck-testable">When detecting an illegal configuration of value extractors, a <code>ValueExtractorDeclarationException</code> will be raised.</span>
 One example is the configuration of multiple extractors for the same container element type in <code>META-INF/validation.xml</code>.</p>
 </div>
-<div class="exampleblock api">
-<div class="title">Listing 10.2: <code>ValueExtractorDeclarationException</code> exception</div>
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="java"><span class="keyword">package</span> <span class="namespace">javax.validation.valueextraction</span>;
-
-<span class="comment">/**
- * Raised if the configuration of {@link ValueExtractor} is illegal, e.g. because multiple
- * extractors for the same type and type use have been configured in
- * {@code META-INF/validation.xml}.
- *
- * @author Gunnar Morling
- *
- * @since 2.0
- */</span>
-<span class="directive">public</span> <span class="type">class</span> <span class="class">ValueExtractorDeclarationException</span> <span class="directive">extends</span> ValidationException {
-
-    <span class="directive">public</span> ValueExtractorDeclarationException() {
-        <span class="local-variable">super</span>();
-    }
-
-    <span class="directive">public</span> ValueExtractorDeclarationException(<span class="predefined-type">String</span> message) {
-        <span class="local-variable">super</span>( message );
-    }
-
-    <span class="directive">public</span> ValueExtractorDeclarationException(<span class="predefined-type">Throwable</span> cause) {
-        <span class="local-variable">super</span>( cause );
-    }
-
-    <span class="directive">public</span> ValueExtractorDeclarationException(<span class="predefined-type">String</span> message, <span class="predefined-type">Throwable</span> cause) {
-        <span class="local-variable">super</span>( message, cause );
-    }
-}</code></pre>
-</div>
-</div>
-</div>
+<div class="paragraph">
+<p><code>ValueExtractorDeclarationException</code> is a subclass of <code>ValidationException</code>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -19498,7 +19441,7 @@ in case they provide the Bean Validation API as a module for the Java Platform M
 <div id="footer">
 <div id="footer-text">
 Version 2.0.0-SNAPSHOT<br>
-Last updated 2017-06-15 15:52:57 UTC
+Last updated 2017-06-15 11:19:31 UTC
 </div>
 </div>
 <script>
