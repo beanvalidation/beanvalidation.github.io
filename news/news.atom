@@ -2,9 +2,127 @@
 <feed xml:lang="en-US" xmlns="http://www.w3.org/2005/Atom">
   <id>http://beanvalidation.org/</id>
   <title>Bean Validation</title>
-  <updated>2017-07-11T13:55:03+00:00</updated>
+  <updated>2017-07-12T10:20:25+00:00</updated>
   <link href="http://beanvalidation.org/news/news.atom" rel="self" type="application/atom+xml" />
   <link href="http://beanvalidation.org/" rel="alternate" type="text/html" />
+  <entry>
+    <id>http://beanvalidation.org/news/2017/07/12/bean-validation-2-0-cr3-submitted-to-final-approval-ballot/</id>
+    <title>Bean Validation 2.0 CR 3 released and submitted to Final Approval Ballot</title>
+    <updated>2017-07-12T10:20:25+00:00</updated>
+    <published>2017-07-12T00:00:00+00:00</published>
+    <link href="http://beanvalidation.org/news/2017/07/12/bean-validation-2-0-cr3-submitted-to-final-approval-ballot/" rel="alternate" type="text/html" />
+    <author>
+      <name>Gunnar Morling</name>
+    </author>
+    <category term="release"></category>
+    <summary>
+      It&#8217;s my great pleasure to announce the CR 3 release of the Bean Validation 2.0 spec!
+      
+      
+      This release of the spec and the API as well as accompanying releases of the TCK and the reference implementation (release announcement) have been handed over to the JCP for the Final Approval Ballot last night.
+      It&#8217;s this ballot where the Executive Committee of the JCP will cast its final go/no-go vote on the Bean Validation 2.0 JSR.
+      
+      
+      Since the CR 2 release, only a few things have changed after reviewing the spec changes one more time:
+      
+      
+      
+      
+      Clarifying the semantics of ConstraintViolation#getLeafBean() in case a container element constraint...
+    </summary>
+    <content type="html">
+      &lt;div id=&quot;preamble&quot;&gt;
+      &lt;div class=&quot;sectionbody&quot;&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;It’s my great pleasure to announce the CR 3 release of the Bean Validation 2.0 spec!&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;This release of the spec and the API as well as accompanying releases of the TCK and the reference implementation (&lt;a href=&quot;http://in.relation.to/2017/07/11/hibernate-validator-600-cr3-out/&quot;&gt;release announcement&lt;/a&gt;) have been handed over to the JCP for the Final Approval Ballot last night.
+      It’s this ballot where the Executive Committee of the JCP will cast its final go/no-go vote on the Bean Validation 2.0 JSR.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Since the CR 2 release, only a few things have changed after reviewing the spec changes one more time:&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;ulist&quot;&gt;
+      &lt;ul&gt;
+      &lt;li&gt;
+      &lt;p&gt;Clarifying the semantics of &lt;code&gt;ConstraintViolation#getLeafBean()&lt;/code&gt; in case a container element constraint is violated (&lt;a href=&quot;https://hibernate.atlassian.net/browse/BVAL-690&quot;&gt;BVAL-690&lt;/a&gt;)&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+      &lt;p&gt;Making the order of the &lt;code&gt;&amp;lt;container-element-type&amp;gt;&lt;/code&gt; and &lt;code&gt;&amp;lt;constraint&amp;gt;&lt;/code&gt; elements consistent in the schema for XML constraint mapping files (&lt;a href=&quot;https://hibernate.atlassian.net/browse/BVAL-693&quot;&gt;BVAL-693&lt;/a&gt;)&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+      &lt;p&gt;Minor wording and JavaDoc improvements (&lt;a href=&quot;https://hibernate.atlassian.net/browse/BVAL-692&quot;&gt;BVAL-692&lt;/a&gt;)&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;/ul&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;The updated spec document can be found &lt;a href=&quot;http://beanvalidation.org/2.0/spec/2.0.0.cr3/&quot;&gt;here&lt;/a&gt;.
+      To see the changes applied since the CR 2, check out this &lt;a href=&quot;http://beanvalidation.org/2.0/spec/2.0.0.cr3/diff/diff-to-2.0-cr2/&quot;&gt;colored diff&lt;/a&gt;. If you’d like to see all the changes since Bean Validation 1.1, take a look at &lt;a href=&quot;http://beanvalidation.org/2.0/spec/2.0.0.cr3/diff/diff-to-1.1/&quot;&gt;this diff&lt;/a&gt;.
+      The updated API is available on Maven Central, using the GAV coordinates are &lt;em&gt;javax.validation:validation-api:2.0.0.CR3&lt;/em&gt;.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;sect1&quot;&gt;
+      &lt;h2 id=&quot;some-tck-stats&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#some-tck-stats&quot;&gt;&lt;/a&gt;Some TCK stats&lt;/h2&gt;
+      &lt;div class=&quot;sectionbody&quot;&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Thanks to Guillaume’s tireless work, the Bean Validation TCK has grown substantially since 1.1.
+      There are now &lt;strong&gt;685&lt;/strong&gt; assertions overall, out of which &lt;strong&gt;627&lt;/strong&gt; are testable. &lt;strong&gt;99.04%&lt;/strong&gt; of them are covered by &lt;strong&gt;2133&lt;/strong&gt; tests overall.
+      The added tests cover all the new Bean Validation 2.0 features, so we feel very confident that the TCK ensures correctness of implementations passing it.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Also the tooling for producing the TCK has been improved significantly:
+      sentences or phrases of the spec document can be marked as relevant for the TCK with the help of AsciiDoc roles.
+      A special Maven plug-in then is used to generate a report of all those marked assertions, allowing to link them to tests of the TCK and making it easy to identify assertions without corresponding tests yet.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;We’ll discuss the entire TCK tool chain in more depth in a separate blog post.
+      If you are interested in the TCK and would like to learn more about its development, the appeals process and other related things, check out the &lt;a href=&quot;http://docs.jboss.org/hibernate/beanvalidation/tck/2.0/reference/html_single/&quot;&gt;TCK reference guide&lt;/a&gt;.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;sect1&quot;&gt;
+      &lt;h2 id=&quot;what-s-new-in-bean-validation-2-0&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#what-s-new-in-bean-validation-2-0&quot;&gt;&lt;/a&gt;What’s new in Bean Validation 2.0?&lt;/h2&gt;
+      &lt;div class=&quot;sectionbody&quot;&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;The focus of Bean Validation 2.0 is supporting and taking advantage of Java SE 8.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;For instance type annotations are used to validate the elements of generic containers: &lt;code&gt;List&amp;lt;@NotNull @Email String&amp;gt; emails&lt;/code&gt;.
+      There are new built-in constraints (&lt;code&gt;@NotBlank&lt;/code&gt;, &lt;code&gt;@NotEmpty&lt;/code&gt;, &lt;code&gt;@Email&lt;/code&gt;, &lt;code&gt;@FutureOrPresent&lt;/code&gt;, &lt;code&gt;@PastOrPresent&lt;/code&gt;, &lt;code&gt;@Positive&lt;/code&gt;, &lt;code&gt;@PositiveOrZero&lt;/code&gt;, &lt;code&gt;@Negative&lt;/code&gt; and &lt;code&gt;@NegativeOrZero&lt;/code&gt;) and all built-in constraints are repeatable annotations now.
+      Bean Validation 2.0 also supports the new Java 8 date and time types (JSR 310), the property types defined by JavaFX (&lt;code&gt;StringProperty&lt;/code&gt; etc.) as well as &lt;code&gt;java.util.Optional&lt;/code&gt;.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;To learn more about all the new features in Bean Validation 2.0,
+      check out &lt;a href=&quot;https://speakerdeck.com/gunnarmorling/keeping-your-data-sane-with-bean-validation-2-dot-0-jdk-dot-io&quot;&gt;this presentation&lt;/a&gt; which I recently gave at the jdk.io conference.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;sect1&quot;&gt;
+      &lt;h2 id=&quot;what-can-you-do-to-help&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#what-can-you-do-to-help&quot;&gt;&lt;/a&gt;What can you do to help?&lt;/h2&gt;
+      &lt;div class=&quot;sectionbody&quot;&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;With the submission of the specification to the JCP for the Final Approval Ballot, the work on Bean Validation 2.0 is done more or less.
+      If you’d like to help, reviewing the &lt;a href=&quot;http://beanvalidation.org/2.0/spec/2.0.0.cr3/diff/diff-to-1.1/&quot;&gt;specification changes&lt;/a&gt; would be the best thing to do at this point.
+      You also could try out the reference implementation Hibernate Validator in your applications and let us know how it works.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Also tell us about ideas and wishes for a future 2.1 release of the spec.
+      We are eager to learn about your requirements, so we can explore any new features in the reference implementation.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;To post your feedback, just add a comment below, send a message to our &lt;a href=&quot;http://lists.jboss.org/pipermail/beanvalidation-dev/&quot;&gt;mailing list&lt;/a&gt; or post in the &lt;a href=&quot;https://forum.hibernate.org/viewforum.php?f=26&quot;&gt;Bean Validation forum&lt;/a&gt;.
+      If you find a bug or have a specific feature request, please raise it in the &lt;a href=&quot;https://hibernate.atlassian.net/projects/BVAL/summary&quot;&gt;issue tracker&lt;/a&gt;.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Everything in Bean Validation is open source, so you also can send in actual patches: be it to the &lt;a href=&quot;https://github.com/beanvalidation/beanvalidation-api&quot;&gt;API&lt;/a&gt;, the &lt;a href=&quot;https://github.com/beanvalidation/beanvalidation-spec&quot;&gt;spec document&lt;/a&gt;, the &lt;a href=&quot;https://github.com/beanvalidation/beanvalidation-tck&quot;&gt;TCK&lt;/a&gt; or the &lt;a href=&quot;https://github.com/hibernate/hibernate-validator&quot;&gt;reference implementation&lt;/a&gt;.
+      If you are interested, you can find out all the details to get started in the &lt;a href=&quot;http://beanvalidation.org/contribute&quot;&gt;contribution guide&lt;/a&gt;.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+    </content>
+  </entry>
   <entry>
     <id>http://beanvalidation.org/news/2017/07/05/bean-validation-2-0-cr2-is-out/</id>
     <title>Bean Validation 2.0 CR 2 released</title>

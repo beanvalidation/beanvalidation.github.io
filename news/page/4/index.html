@@ -63,6 +63,47 @@
           <article class="post">
             <header>
               <h1 class="title">
+                <a href="/news/2014/06/18/bean-validation-tcks-now-with-support-for-java-se-8/">Bean Validation TCKs now with signature files for Java SE 8</a>
+              </h1>
+              <span class="author">
+                by
+                <b>Gunnar Morling</b>
+              </span>
+              <span class="date">
+                on 18 Jun 2014
+              </span>
+              <span class="tags">
+                <a class="label label-info" href="/news/tags/tck/">tck</a>
+              </span>
+            </header>
+            <div class="body">
+              <p>Good news for those of you who want to certify the compatibility of a Bean Validation
+              implementation (and its API JAR) against Java SE 8.</p>
+              
+              <p>We have released updates to the Bean Validation TCK 1.0 and 1.1;
+              The versions are 1.0.7.GA and 1.1.3.Final, respectively.
+              Both TCK releases come now with a version of the API signature file which works with Java SE 8.
+              This signature file can be used to assert API compatibility with JSR 303/349 via
+              the <a href="https://wiki.openjdk.java.net/display/CodeTools/SigTest">SigTest</a> tool.
+              SigTest 3.0 needs to be used from now on. Note that the actual tests of the TCKs remain unchanged.</p>
+              
+              <p>You can get distribution bundles with the new signature file from SourceForge
+              (<a href="http://sourceforge.net/projects/hibernate/files/beanvalidation-tck/1.0.7.GA/">1.0</a>,
+              <a href="http://sourceforge.net/projects/hibernate/files/beanvalidation-tck/1.1.3.Final/">1.1</a>).</p>
+              
+              <p>More information about the Bean Validation TCK can be found <a href="http://beanvalidation.org/1.1/tck/">here</a>.
+              Refer to the TCK reference guide (<a href="https://docs.jboss.org/hibernate/beanvalidation/tck/1.0/reference/html_single/#sigtest">1.0</a>, <a href="https://docs.jboss.org/hibernate/beanvalidation/tck/1.1/reference/html_single/#sigtest">1.1</a>)
+              if you would like to learn more about the process of asserting API compatibility.</p>
+              
+              <p>Don't hesitate to <a href="https://lists.jboss.org/mailman/listinfo/beanvalidation-dev">contact us</a>
+              in case you have any questions around the Bean Validation specification in general or the TCK
+              in particular.</p>
+               <a href="http://beanvalidation.org/news/2014/06/18/bean-validation-tcks-now-with-support-for-java-se-8/#disqus_thread">Comments</a>
+            </div>
+          </article>
+          <article class="post">
+            <header>
+              <h1 class="title">
                 <a href="/news/2014/05/28/training-materials/">Training materials on Bean Validation 1.1</a>
               </h1>
               <span class="author">
@@ -246,97 +287,6 @@
                <a href="http://beanvalidation.org/news/2013/03/21/bean-validation-1-1-final-approval-ballot/#disqus_thread">Comments</a>
             </div>
           </article>
-          <article class="post">
-            <header>
-              <h1 class="title">
-                <a href="/news/2013/02/20/bean-validation-1-1-proposed-final-draft/">Bean Validation 1.1 CR1 - Proposed Final Draft</a>
-              </h1>
-              <span class="author">
-                by
-                <b>Emmanuel Bernard</b>
-              </span>
-              <span class="date">
-                on 20 Feb 2013
-              </span>
-              <span class="tags">
-                <a class="label label-info" href="/news/tags/release/">release</a>
-              </span>
-            </header>
-            <div class="body">
-              <p>Our Proposed Final Draft has been officially handed over to the JCP last night.</p>
-              
-              <p>After a frantic month of work culminating with two weeks of monomaniac focus, we
-              are finally handing over the Bean Validation 1.1 Proposed Final Draft to the
-              JCP. Of course everything is open source so you can get it too:</p>
-              
-              <ul>
-              <li><a href="/1.1/spec/1.1.0.cr1/?utm_source=blog&amp;utm_medium=web&amp;utm_content=spec&amp;utm_campaign=1_1_cr1">the spec</a></li>
-              <li><a href="http://docs.jboss.org/hibernate/beanvalidation/spec/1.1/api/">the JavaDoc</a></li>
-              <li>and the API JAR: maven coordinates <a href="https://repository.jboss.org/nexus/content/groups/public-jboss/javax/validation/validation-api/1.1.0.CR1/">javax.validation:validation-api:1.1.0.CR1</a></li>
-              </ul>
-              
-              
-              <h2>What's new in Bean Validation 1.1?</h2>
-              
-              <p>The specification
-              <a href="http://beanvalidation.org/1.1/spec/1.1.0.cr1/#whatsnew">highlights very well</a>
-              the main features of this version but to summarize them:</p>
-              
-              <ul>
-              <li>work done entirely in the open</li>
-              <li>support for dependency injection and better integration with CDI</li>
-              <li>support for method and constructor validation</li>
-              <li>support for group conversion when cascading</li>
-              <li>support for EL based message interpolation</li>
-              </ul>
-              
-              
-              <h2>What's different between Beta 4 and CR 1?</h2>
-              
-              <p>We did a lot of polishing and nailed a lot of remaining corner cases. Here is a
-              few of the tasks we worked on:</p>
-              
-              <ul>
-              <li>rework of the JavaDoc</li>
-              <li>move to <code>@SupportValidationTarget</code> on <code>ConstraintValidator</code> instead of the
-              additional <code>@CrossParameterConstraint</code> on the constraint to mark a constraint
-              as cross-parameter</li>
-              <li>many more examples in the specification</li>
-              <li>improve node creation logic when nodes are added programmatically</li>
-              <li>improve the creation logic of custom nodes when using the programmatic API of
-              <code>ConstraintViolationBuilder</code> in a <code>ConstraintValidator</code></li>
-              </ul>
-              
-              
-              <p>And of course many hours rereading the specification to find holes and fix them.</p>
-              
-              <h2>Review</h2>
-              
-              <p>Hibernate Validator 5.0.0.CR1 and the TCK should be here any minute. Help us
-              make this spec as good as possible by reviewing it and opening issues where it
-              itches you.</p>
-              
-              <p>You can <a href="/1.1/spec/1.1.0.cr1/?utm_source=blog&amp;utm_medium=web&amp;utm_content=spec&amp;utm_campaign=1_1_cr1">access the specification here</a>.
-              All changes are marked with a different
-              color. <span style="background-color:#DDFFDD;">Green for additions</span>,
-              <span style="background-color:#FFFFDD;">yellow for changes</span>.
-              This will help you see what has changed precisely.</p>
-              
-              <p>Please send us your remarks and comments:</p>
-              
-              <ul>
-              <li>on our <a href="https://lists.jboss.org/mailman/listinfo/beanvalidation-dev">mailing list</a></li>
-              <li>in our <a href="/issues">issue tracker</a></li>
-              <li>or on the Bean Validation <a href="https://forum.hibernate.org/viewforum.php?f=26">forum</a></li>
-              </ul>
-              
-              
-              <p>Many many thanks to my partners in crime Hardy and Gunnar that worked around the
-              clock with me to deliver this proposed final draft right on time but with no
-              compromise on quality.</p>
-               <a href="http://beanvalidation.org/news/2013/02/20/bean-validation-1-1-proposed-final-draft/#disqus_thread">Comments</a>
-            </div>
-          </article>
           <div class="pagination-links"><a href="/news/page/3/" class="previous-link">Previous</a> <a href="/news/" class="page-link">1</a> <a href="/news/page/2/" class="page-link">2</a> <a href="/news/page/3/" class="page-link">3</a> <span class="current-page">4</span> <a href="/news/page/5/" class="page-link">5</a> <span class="skip">...</span><a href="/news/page/8/" class="page-link">8</a> <a href="/news/page/9/" class="page-link">9</a> <a href="/news/page/5/" class="next-link">Next</a> </div>
         </div>
         <div class="sidebar sidebar-right col-sm-3 col-md-3 col-lg-3" id="sidebar" role="complementary">
@@ -351,6 +301,7 @@
               Stay up to date, subscribe to the&nbsp;<a href="/news/news.atom">news feed</a>.
             </div>
           </div>
+          <a class="news-link" href="/news/2017/07/12/bean-validation-2-0-cr3-submitted-to-final-approval-ballot/">Bean Validation 2.0 CR 3 released and submitted to Final Approval Ballot</a>
           <a class="news-link" href="/news/2017/07/05/bean-validation-2-0-cr2-is-out/">Bean Validation 2.0 CR 2 released</a>
           <a class="news-link" href="/news/2017/06/26/bean-validation-2-0-proposed-final-draft-released/">Proposed Final Draft of Bean Validation 2.0 released</a>
           <a class="news-link" href="/news/2017/05/24/bean-validation-2-0-public-review-update/">Update to the Bean Validation 2.0 Public Review Draft</a>
