@@ -527,7 +527,7 @@ and re-render the HTML.
 <div class="details">
 <span id="author" class="author">Gunnar Morling</span><br>
 <span id="revnumber">version 2.0.0-SNAPSHOT,</span>
-<span id="revdate">2017-07-11</span>
+<span id="revdate">2017-08-01</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -1086,6 +1086,9 @@ fine-grained control over the current time and time zone used for validation (se
 </li>
 <li>
 <p><code>ConstraintValidator#initialize()</code> is a default method (see <a href="#constraintsdefinitionimplementation-validationimplementation">Constraint validation implementation</a>)</p>
+</li>
+<li>
+<p>The namespace for Bean Validation XML descriptors has been changed to <code><a href="http://xmlns.jcp.org/xml/ns/validation/configuration" class="bare">http://xmlns.jcp.org/xml/ns/validation/configuration</a></code> for <code>META-INF/validation.xml</code> and <code><a href="http://xmlns.jcp.org/xml/ns/validation/mapping" class="bare">http://xmlns.jcp.org/xml/ns/validation/mapping</a></code> for constraint mapping files (see <a href="#validationapi-bootstrapping-xmlconfiguration">XML configuration: META-INF/validation.xml</a>)</p>
 </li>
 </ul>
 </div>
@@ -2925,9 +2928,9 @@ allowing to omit the implementation from validators that don&#8217;t need to acc
 
         <span class="comment">/**
          * Represents refinement choices for a node which is
-         * in an {@code Iterator} or {@code Map}.
+         * in an iterable, e.g. array, {@code Iterable} or {@code Map}.
          * &lt;p&gt;
-         * If the iterator is an indexed collection or a map,
+         * If the iterable is an indexed collection or a map,
          * the index or the key should be set.
          * &lt;p&gt;
          * The node is a leaf node (i.e. no subnode can be added).
@@ -3142,9 +3145,9 @@ allowing to omit the implementation from validators that don&#8217;t need to acc
 
         <span class="comment">/**
          * Represents refinement choices for a node which is
-         * in an {@code Iterator} or {@code Map}.
+         * in an iterable, e.g. array, {@code Iterable} or {@code Map}.
          * &lt;p&gt;
-         * If the iterator is an indexed collection or a map,
+         * If the iterable is an indexed collection or a map,
          * the index or the key should be set.
          * &lt;p&gt;
          * The node is not necessarily a leaf node (i.e. subnodes can
@@ -3211,7 +3214,6 @@ allowing to omit the implementation from validators that don&#8217;t need to acc
             <span class="comment">/**
              * Adds a container element node to the path the {@link ConstraintViolation}
              * will be associated to.
-             * Note that container element nodes are always leaf nodes.
              *
              * @param name the node name
              * @param containerType the type of the container
@@ -3366,10 +3368,9 @@ allowing to omit the implementation from validators that don&#8217;t need to acc
         }
 
         <span class="comment">/**
-         * Represents refinement choices for a container element node which is
-         * in an {@code Iterator} or {@code Map}.
+         * Represents refinement choices for a container element node.
          * &lt;p&gt;
-         * If the iterator is an indexed collection or a map,
+         * If the container is an indexed collection or a map,
          * the index or the key should be set.
          * &lt;p&gt;
          * The node is not necessarily a leaf node (i.e. subnodes can
@@ -4273,8 +4274,8 @@ using the literal <code>&lt;list element&gt;</code> as a node name.</p>
 <div class="paragraph">
 <p>This extractor passes the element wrapped by the given <code>Optional</code> to the receiver object, if present.
 <code>null</code> is passed as a node name, causing no node to be appended to the resulting property path.
-I.e. when the <code>@Size</code> constraint in <code>private Optional&lt;@Size(min=1) String name;</code> is violated,
-the resulting property path will be the same as if a constraint hosted on the <code>name</code> field itself was violated.</p>
+I.e. when the <code>@Size</code> constraint in <code>Optional&lt;@Size(min=1) String getName() { &#8230;&#8203; }</code> is violated,
+the resulting property path will be the same as if a constraint hosted on the <code>getName</code> getter itself was violated.</p>
 </div>
 <div class="paragraph">
 <p>A value extractor for <code>java.util.OptionalInt</code>:</p>
@@ -5730,7 +5731,7 @@ Examples for types being subject to implicit unwrapping are <code>java.util.Opti
 <div class="ulist">
 <ul>
 <li>
-<p>the container element if there is no value extractor marked with <code>@UnwrapByDefault</code> (by using <code>Unwrap</code>)</p>
+<p>the container element(s) if there is no value extractor marked with <code>@UnwrapByDefault</code> (by using <code>Unwrap</code>)</p>
 </li>
 <li>
 <p>the container itself in case there is a value extractor marked with <code>@UnwrapByDefault</code> (by using <code>Skip</code>)</p>
@@ -7281,7 +7282,7 @@ Note that <code>C'</code> is a subtype of <code>T</code> if <code>C'</code> = <c
 <td class="content">
 <div class="title">Implementation note</div>
 <div class="paragraph">
-<p>Extractor retrieval for cascaded validation is based on the runtime type of the elements marked with <code>@Valid</code>
+<p>Extractor retrieval for cascaded validation is based on the runtime type of the container hosting <code>@Valid</code>
 (this is to be consistent with the semantics of property paths for cascaded validation),
 hence it is not possible to perform the extractor resolution only once per usage of <code>@Valid</code> and cache the result.</p>
 </div>
@@ -7437,7 +7438,7 @@ hence it is not possible to perform the extractor resolution only once per usage
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>@Email StringProperty</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>PropertyValueExtractor</code>; the extractor is marked with <code>@UnwrapByDefault</code>, i.e. implicit unwrapping is performed</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>PropertyValueExtractor</code>; the extractor is marked with <code>@UnwrapByDefault</code>, i.e. implicit unwrapping is performed; <code>String</code> will be used for validator resolution as that&#8217;s the type captured for the type parameter handled by the applied value extractor</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>@Min(1) OptionalInt</code></p></td>
@@ -8961,7 +8962,7 @@ executableValidator.validateConstructorParameters(constructor, <span class="keyw
          *
          * @return this node narrowed down to the given type.
          *
-         * @throws ClassCastException If this node is not assignable to the type {@code T}
+         * @throws ClassCastException if this node is not assignable to the type {@code T}
          * @since 1.1
          */</span>
         &lt;T <span class="directive">extends</span> Node&gt; T as(<span class="predefined-type">Class</span>&lt;T&gt; nodeType);
@@ -11469,7 +11470,7 @@ acmeFactory.setSpecificConfiguration( [...] );</code></pre>
      *
      * @param extractor value extractor implementation
      * @return self following the chaining method pattern
-     * @throws ValueExtractorDeclarationException If more than one extractor for
+     * @throws ValueExtractorDeclarationException if more than one extractor for
      *         the same type and type parameter is added
      * @since 2.0
      */</span>
@@ -11722,8 +11723,8 @@ detected through the service loader or given in the XML configuration.</span>
      *
      * @param extractor value extractor implementation
      * @return {@code this} following the chaining method pattern.
-     * @throws ValueExtractorDeclarationException If more than one extractor for
-     *         the same type and type use is added
+     * @throws ValueExtractorDeclarationException if more than one extractor for
+     *         the same type and type parameter is added
      * @since 2.0
      */</span>
     T addValueExtractor(ValueExtractor&lt;?&gt; extractor);
@@ -14100,7 +14101,7 @@ In the context of properties and method return values, container element types o
 <span class="directive">public</span> <span class="type">interface</span> <span class="class">ContainerElementTypeDescriptor</span> <span class="directive">extends</span> ElementDescriptor, CascadableDescriptor, ContainerDescriptor {
 
     <span class="comment">/**
-     * Returns the index of the type argument corresponding to this container element type
+     * Returns the index of the type argument corresponding to this container element type.
      * @return the index of the type argument corresponding to this container element type
      */</span>
     <span class="predefined-type">Integer</span> getTypeArgumentIndex();
@@ -14549,7 +14550,7 @@ Using this method makes your code non portable.</p>
     }
 
     <span class="annotation">@Override</span>
-    <span class="directive">public</span> <span class="predefined-type">Map</span>&lt;<span class="annotation">@NotNull</span> <span class="predefined-type">String</span>, <span class="annotation">@Valid</span> Account&gt; getAccounts() {
+    <span class="directive">public</span> <span class="predefined-type">Map</span>&lt;<span class="predefined-type">String</span>, Account&gt; getAccounts() {
         <span class="comment">// [...]</span>
     }
 }</code></pre>
@@ -16705,7 +16706,7 @@ containerElementTypeDescriptor = it.next();
 <div class="sect4">
 <h5 id="xml-mapping-constraintdeclarationinxml-containerelementconstraints"><a class="anchor" href="#xml-mapping-constraintdeclarationinxml-containerelementconstraints"></a>9.1.1.6. Container-element overriding</h5>
 <div class="paragraph">
-<p><span class="tck-testable">To apply constraints to the elements of generic container types or marking them for cascaded validation, the <code>container-element-type</code> element is used.</span></p>
+<p><span class="tck-testable">To apply constraints to the elements of generic container types or to mark them for cascaded validation, the <code>container-element-type</code> element is used.</span></p>
 </div>
 <div class="paragraph">
 <p><span class="tck-testable"><code>container-element-type</code> can be used within the <code>field</code>, <code>getter</code>, <code>parameter</code> and <code>return-value</code> elements.</span></p>
@@ -17256,12 +17257,12 @@ This includes the following configuration errors:</p>
                         <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">convert-group</span><span class="delimiter">&quot;</span></span>
                         <span class="attribute-name">minOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">0</span><span class="delimiter">&quot;</span></span>
                         <span class="attribute-name">maxOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">unbounded</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
-            <span class="tag">&lt;xs:element</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">map:constraintType</span><span class="delimiter">&quot;</span></span>
-                        <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">constraint</span><span class="delimiter">&quot;</span></span>
-                        <span class="attribute-name">maxOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">unbounded</span><span class="delimiter">&quot;</span></span>
-                        <span class="attribute-name">minOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">0</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
             <span class="tag">&lt;xs:element</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">map:containerElementTypeType</span><span class="delimiter">&quot;</span></span>
                         <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">container-element-type</span><span class="delimiter">&quot;</span></span>
+                        <span class="attribute-name">maxOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">unbounded</span><span class="delimiter">&quot;</span></span>
+                        <span class="attribute-name">minOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">0</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+            <span class="tag">&lt;xs:element</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">map:constraintType</span><span class="delimiter">&quot;</span></span>
+                        <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">constraint</span><span class="delimiter">&quot;</span></span>
                         <span class="attribute-name">maxOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">unbounded</span><span class="delimiter">&quot;</span></span>
                         <span class="attribute-name">minOccurs</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">0</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
         <span class="tag">&lt;/xs:sequence&gt;</span>
@@ -18680,7 +18681,19 @@ in case they provide the Bean Validation API as a module for the Java Platform M
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code>2.0.0.CR2 (2017-07-05)
+<pre class="CodeRay highlight"><code>2.0.0.CR3 (Final Approval Ballot, 2017-07-11)
+---------------------------------------------
+
+** Improvement
+    * [BVAL-693] - Make order of &lt;constraint&gt; and &lt;container-element-type&gt; consistent in XSD
+    * [BVAL-692] - Misc. findings after review
+    * [BVAL-690] - Clarify getLeafBean() for container element constraints
+    * [BVAL-464] - Create CONTRIBUTING.md page
+
+** Task
+    * [BVAL-687] - Update license information for submission to Final Approval Ballot
+
+2.0.0.CR2 (2017-07-05)
 ----------------------
 
 ** Bug
@@ -19444,7 +19457,7 @@ in case they provide the Bean Validation API as a module for the Java Platform M
 <div id="footer">
 <div id="footer-text">
 Version 2.0.0-SNAPSHOT<br>
-Last updated 2017-07-11 08:00:24 UTC
+Last updated 2017-08-01 13:07:40 UTC
 </div>
 </div>
 <script>
