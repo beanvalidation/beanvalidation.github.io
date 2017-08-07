@@ -1,0 +1,175 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>
+      Bean Validation - Bean Validation 2.0 Specification
+    </title>
+    <link href="../stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="../stylesheets/print.css" media="print" rel="stylesheet" type="text/css">
+    <!--[if lt IE 8]>
+      <link href="../stylesheets/ie.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <![endif]-->
+    <link href="../news/news.atom" rel="alternate" type="application/atom+xml">
+    <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="/javascripts/patternfly.js"></script>
+    <script src="/javascripts/bootstrap.js"></script>
+  </head>
+  <body>
+    <header role="banner">
+      <nav class="navbar navbar-default navbar-pf" role="navigation">
+        <div class="navbar-header">
+          <button class="navbar-toggle" data-target=".navbar-collapse-1" data-toggle="collapse" type="button">
+            <span class="sr-only">Toggle Navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href=".." id="logo" title="Bean Validation">
+            Bean Validation
+          </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-primary navbar-right" id="meny-primary">
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="../news">News</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="../specification">Specification</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="../tck">TCK</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="../ri">RI</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="../certified">Certified</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="../contribute">Contribute</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="../licensing">Licensing</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <div class="container" id="overview">
+      <div class="clearfix row" id="content">
+        <div class="col-sm-12 col-md-12 col-lg-12 clearfix" id="main">
+          <h1>Bean Validation 2.0 Specification</h1>
+          <div class="paragraph">
+          <p>You can read the <a href="spec/">full Bean Validation 2.0 specification</a> or browse its
+          <a href="http://docs.jboss.org/hibernate/beanvalidation/spec/2.0/api/">API JavaDocs</a>.</p>
+          </div>
+          <div class="sect1">
+          <h2 id="changes-between-bean-validation-2-0-and-1-1"><a class="anchor" href="#changes-between-bean-validation-2-0-and-1-1"></a>Changes between Bean Validation 2.0 and 1.1</h2>
+          <div class="sectionbody">
+          <div class="paragraph">
+          <p>Bean Validation 2.0 focused on the following topics:</p>
+          </div>
+          <div class="ulist">
+          <ul>
+          <li>
+          <p>support for validating container elements by annotating type arguments of
+          parameterized types e.g. <code>List&lt;@Positive Integer&gt; positiveNumbers</code>. This also includes:</p>
+          <div class="ulist">
+          <ul>
+          <li>
+          <p>more flexible cascaded validation of container types</p>
+          </li>
+          <li>
+          <p>support for <code>java.util.Optional</code></p>
+          </li>
+          <li>
+          <p>support for the property types declared by JavaFX</p>
+          </li>
+          <li>
+          <p>support for custom container types</p>
+          </li>
+          </ul>
+          </div>
+          </li>
+          <li>
+          <p>support for the new date/time data types (JSR 310) for <code>@Past</code> and <code>@Future</code></p>
+          </li>
+          <li>
+          <p>new built-in constraints: <code>@Email</code>, <code>@NotEmpty</code>, <code>@NotBlank</code>, <code>@Positive</code>,
+          <code>@PositiveOrZero</code>, <code>@Negative</code>, <code>@NegativeOrZero</code>, <code>@PastOrPresent</code> and
+          <code>@FutureOrPresent</code></p>
+          </li>
+          <li>
+          <p>leverage the JDK 8 new features (built-in constraints are marked repeatable,
+          parameter names are retrieved via reflection)</p>
+          </li>
+          </ul>
+          </div>
+          <div class="paragraph">
+          <p>You can consult an HTML diff between the 1.1 specification and the 2.0 specification
+          <a href="spec/2.0.0.final/diff/diff-to-1.1/">here</a>.</p>
+          </div>
+          <div class="paragraph">
+          <p>For more information, check out the <a href="spec/#changelog">full list of changes</a>.</p>
+          </div>
+          </div>
+          </div>
+          <div class="sect1">
+          <h2 id="history"><a class="anchor" href="#history"></a>History</h2>
+          <div class="sectionbody">
+          <div class="paragraph">
+          <p>If you are interested in the various drafts that led to Bean Validation 2.0, check
+          out the <a href="history/">history page</a>.</p>
+          </div>
+          </div>
+          </div>
+          <div class="sect1">
+          <h2 id="feedback"><a class="anchor" href="#feedback"></a>Feedback</h2>
+          <div class="sectionbody">
+          <div class="paragraph">
+          <p>Do you have feedback? Talk to us:</p>
+          </div>
+          <div class="ulist">
+          <ul>
+          <li>
+          <p>on our <a href="https://lists.jboss.org/mailman/listinfo/beanvalidation-dev">mailing list</a></p>
+          </li>
+          <li>
+          <p>in our <a href="https://hibernate.atlassian.net/browse/BVAL">issue tracker</a></p>
+          </li>
+          <li>
+          <p>or on the <a href="https://forum.hibernate.org/viewforum.php?f=26">Bean Validation forum</a></p>
+          </li>
+          </ul>
+          </div>
+          <div class="paragraph">
+          <p>If you want to take the next step and contribute, read <a href="/contribute">how to contribute</a>.</p>
+          </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer class="container" id="widget-footer" role="contentinfo">
+    <hr>
+    <div class="row">
+      <div class="widget col-md-12 widget_text">
+        Copyright &copy; Red Hat, Inc., Emmanuel Bernard
+        <a href="http://redhat.com" id="logo-redhat">Red Hat</a>
+      </div>
+    </div>
+  </footer>
+  <script>
+   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+   
+  ga('create', 'UA-24703879-1', 'auto');
+  ga('send', 'pageview');
+  
+  </script>
+</html>

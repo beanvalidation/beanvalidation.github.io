@@ -1,0 +1,297 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>
+      Bean Validation - Bean Validation 2.0 is a spec!
+    </title>
+    <link href="../../../../../stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="../../../../../stylesheets/print.css" media="print" rel="stylesheet" type="text/css">
+    <!--[if lt IE 8]>
+      <link href="../../../../../stylesheets/ie.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <![endif]-->
+    <link href="../../../../news.atom" rel="alternate" type="application/atom+xml">
+    <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="/javascripts/patternfly.js"></script>
+    <script src="/javascripts/bootstrap.js"></script>
+  </head>
+  <body>
+    <header role="banner">
+      <nav class="navbar navbar-default navbar-pf" role="navigation">
+        <div class="navbar-header">
+          <button class="navbar-toggle" data-target=".navbar-collapse-1" data-toggle="collapse" type="button">
+            <span class="sr-only">Toggle Navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../../../../.." id="logo" title="Bean Validation">
+            Bean Validation
+          </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-primary navbar-right" id="meny-primary">
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="../../../..">News</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="../../../../../specification">Specification</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="../../../../../tck">TCK</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="../../../../../ri">RI</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="../../../../../certified">Certified</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="../../../../../contribute">Contribute</a>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page">
+              <a href="../../../../../licensing">Licensing</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <div class="container" id="overview">
+      <div class="clearfix row" id="content">
+        <div class="col-sm-9 col-md-9 col-lg-9 clearfix" id="main">
+          <article class="post">
+            <header>
+              <h1 class="title">
+                Bean Validation 2.0 is a spec!
+              </h1>
+              <span class="author">
+                by
+                <b>Gunnar Morling</b>
+              </span>
+              <span class="date">
+                on 07 Aug 2017
+              </span>
+              <span class="tags">
+                <a class="label label-info" href="/news/tags/release/">release</a>
+              </span>
+            </header>
+            <div class="body">
+              <div id="preamble">
+              <div class="sectionbody">
+              <div class="paragraph">
+              <p>It is done&#8201;&#8212;&#8201;after <a href="/news/2016/07/15/bean-validation-2-0-is-coming/">one year</a> of hard work, and a bit more than <a href="/news/2013/05/02/bean-validation-1-1-is-a-spec/">four years</a> after the previous revision,
+              the final release of Bean Validation 2.0 (<a href="https://www.jcp.org/en/jsr/detail?id=380">JSR 380</a>) is out!</p>
+              </div>
+              <div class="paragraph">
+              <p>Last week, the JSR <a href="https://jcp.org/en/jsr/results?id=6033">passed the Final Approval Ballot</a> by the executive committee of the JCP unanimously with 25 "Yes" votes.
+              After the ballot we&#8217;ve released version 2.0.0.Final of the specification, the API as well as the TCK. At the same time, the <a href="http://in.relation.to/2017/08/07/and-here-comes-hibernate-validator-60/">final version</a> of the reference implementation, Hibernate Validator 6, was released, too.</p>
+              </div>
+              <div class="paragraph">
+              <p>Within the next few days, the final specification will also be available on the <a href="https://jcp.org/en/jsr/detail?id=380">JSR 380 page</a> on jcp.org, after which the work on this JSR is complete and the expert group officially will disband.</p>
+              </div>
+              </div>
+              </div>
+              <div class="sect1">
+              <h2 id="what-s-new-in-bean-validation-2-0"><a class="anchor" href="#what-s-new-in-bean-validation-2-0"></a>What&#8217;s new in Bean Validation 2.0?</h2>
+              <div class="sectionbody">
+              <div class="paragraph">
+              <p>By now, you&#8217;ll probably have heard about all the new features added in Bean Validation 2.0.
+              Just in case you haven&#8217;t, here&#8217;s a quick summary:</p>
+              </div>
+              <div class="ulist">
+              <ul>
+              <li>
+              <p>Support for validating container elements by annotating type arguments of parameterized types, e.g. <code>List&lt;@Positive Integer&gt; positiveNumbers</code>; this also includes:</p>
+              <div class="ulist">
+              <ul>
+              <li>
+              <p>More flexible cascaded validation of collection types; e.g. values <em>and</em> keys of maps can be validated now: <code>Map&lt;@Valid CustomerType, @Valid Customer&gt; customersByType</code></p>
+              </li>
+              <li>
+              <p>Support for <code>java.util.Optional</code></p>
+              </li>
+              <li>
+              <p>Support for the property types declared by JavaFX</p>
+              </li>
+              <li>
+              <p>Support for custom container types by plugging in additional value extractors</p>
+              </li>
+              </ul>
+              </div>
+              </li>
+              <li>
+              <p>Support for the JSR 310 date/time types for <code>@Past</code> and <code>@Future</code>;
+              fine-grained control over the current time and time zone used for validation</p>
+              </li>
+              <li>
+              <p>New built-in constraints: <code>@Email</code>, <code>@NotEmpty</code>, <code>@NotBlank</code>, <code>@Positive</code>, <code>@PositiveOrZero</code>, <code>@Negative</code>, <code>@NegativeOrZero</code>, <code>@PastOrPresent</code> and <code>@FutureOrPresent</code></p>
+              </li>
+              <li>
+              <p>All built-in constraints are marked as repeatable</p>
+              </li>
+              <li>
+              <p>Parameter names are retrieved using reflection</p>
+              </li>
+              <li>
+              <p><code>ConstraintValidator#initialize()</code> is a default method</p>
+              </li>
+              </ul>
+              </div>
+              <div class="paragraph">
+              <p>Bean Validation 2.0 will also be part of the <a href="https://www.jcp.org/en/jsr/detail?id=366">Java EE 8 platform</a>, to be released later this summer.</p>
+              </div>
+              <div class="paragraph">
+              <p>To learn more about all the new features in Bean Validation 2.0,
+              check out <a href="https://speakerdeck.com/gunnarmorling/keeping-your-data-sane-with-bean-validation-2-dot-0-jdk-dot-io">this presentation</a> which I recently gave at the jdk.io conference.</p>
+              </div>
+              </div>
+              </div>
+              <div class="sect1">
+              <h2 id="thank-you"><a class="anchor" href="#thank-you"></a>Thank you!</h2>
+              <div class="sectionbody">
+              <div class="paragraph">
+              <p>I&#8217;d like to shout out a huge "Thank you" to everyone helping with the work on Bean Validation 2.0:</p>
+              </div>
+              <div class="ulist">
+              <ul>
+              <li>
+              <p>The fantastic <strong>JSR 380 expert group</strong> (thanks to Christian, Hendrik, Marco, Otavio and everyone else for their great input, proposals and much more) as well as the <strong>BV community at large</strong> (thanks to Hardy, Matt and everyone else for making themselves heard and providing feedback)</p>
+              </li>
+              <li>
+              <p>The former spec lead <strong>Emmanuel</strong> for his continued support with everything JCP-related and going through the details of container element validation again and again</p>
+              </li>
+              <li>
+              <p>My dear fellow <strong>Guillaume</strong> for his tireless work on the TCK, the reference implementation, the website and the spec; merci beaucoup!</p>
+              </li>
+              <li>
+              <p><strong>Everyone participating</strong> in our polls and surveys; your replies and comments helped very much to arrive on good decisions on the different options on the table</p>
+              </li>
+              <li>
+              <p>The friendly folks of Oracle&#8217;s <strong>GlassFish team</strong> for all their work on integrating Bean Validation 2.0 into the Java EE 8 reference implementation</p>
+              </li>
+              </ul>
+              </div>
+              <div class="paragraph">
+              <p>It has been a true pleasure and honor for me to make the new spec a reality together with such a fantastic community!</p>
+              </div>
+              </div>
+              </div>
+              <div class="sect1">
+              <h2 id="give-it-a-try"><a class="anchor" href="#give-it-a-try"></a>Give it a try</h2>
+              <div class="sectionbody">
+              <div class="paragraph">
+              <p>Don&#8217;t wait and try out the new release yourself!
+              Just <a href="http://hibernate.org/validator/downloads/">download</a> the reference implementation Hibernate Validator and read the <a href="http://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/#validator-gettingstarted">Getting started</a> section of its reference guide.
+              You also can read the <a href="/2.0/spec/">complete specification</a> as well as the <a href="http://docs.jboss.org/hibernate/beanvalidation/spec/2.0/api/">API docs</a>.</p>
+              </div>
+              </div>
+              </div>
+            </div>
+            <footer>
+              <div id="post-navigation">
+                <div class="previous">
+                  &laquo;
+                  <a href="../../../07/12/bean-validation-2-0-cr3-submitted-to-final-approval-ballot">Bean Validation 2.0 CR 3 released and submitted to Final Approval Ballot</a>
+                </div>
+                <div class="next">
+                </div>
+              </div>
+              
+                          <div id="disqus_thread"></div>
+                          <script type="text/javascript">
+                          var disqus_shortname = 'beanvalidation';
+                          var disqus_url = "http://beanvalidation.org/news/2017/08/07/bean-validation-2-0-is-a-spec/";
+                          var disqus_developer = null;
+                          var disqus_identifier = null;
+                          (function() {
+                            var dsq = document.createElement("script"); dsq.type = "text/javascript"; dsq.async = true;
+                            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                            (document.getElementsByTagName("head")[0] || document.getElementsByTagName("body")[0]).appendChild(dsq);
+                          })();
+                          </script>
+                          <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript=beanvalidation">comments powered by Disqus.</a></noscript>
+            </footer>
+          </article>
+        </div>
+        <div class="sidebar sidebar-right col-sm-3 col-md-3 col-lg-3" id="sidebar" role="complementary">
+          <div id="newsfeed">
+            <h2>
+              <a href="/news/news.atom"><img alt="atom feed" src="/images/feed-icon-28x28.png"></a>
+              <a href="/news/news.atom">
+                Latest news
+              </a>
+            </h2>
+            <div id="newsfeed-message">
+              Stay up to date, subscribe to the&nbsp;<a href="/news/news.atom">news feed</a>.
+            </div>
+          </div>
+          <a class="news-link" href="/news/2017/08/07/bean-validation-2-0-is-a-spec/">Bean Validation 2.0 is a spec!</a>
+          <a class="news-link" href="/news/2017/07/12/bean-validation-2-0-cr3-submitted-to-final-approval-ballot/">Bean Validation 2.0 CR 3 released and submitted to Final Approval Ballot</a>
+          <a class="news-link" href="/news/2017/07/05/bean-validation-2-0-cr2-is-out/">Bean Validation 2.0 CR 2 released</a>
+          <a class="news-link" href="/news/2017/06/26/bean-validation-2-0-proposed-final-draft-released/">Proposed Final Draft of Bean Validation 2.0 released</a>
+          <a class="news-link" href="/news/2017/05/24/bean-validation-2-0-public-review-update/">Update to the Bean Validation 2.0 Public Review Draft</a>
+          <a class="news-link" href="/news/2017/05/12/feedback-on-positive-and-negative-constraints/">Survey - Behavior of @Positive and @Negative constraints</a>
+          <a class="news-link" href="/news/2017/04/26/bean-validation-2-0-up-for-public-review/">Bean Validation 2.0 is up for Public Review</a>
+          <a class="news-link" href="/news/2017/03/31/bean-validation-2-0-alpha2-is-out/">Bean Validation 2.0 Alpha2 is out</a>
+          <a class="news-link" href="/news/2017/02/16/first-alpha-of-bean-validation-2-0-reference-implementation/">First Alpha of Bean Validation 2.0 Reference Implementation Available</a>
+          <a class="news-link" href="/news/2017/02/14/bean-validation-2-0-early-draft-released/">Bean Validation 2.0 Early Draft 1 is Out</a>
+          <a class="news-link" href="/news/2017/02/07/apache-bval-is-compatible-with-bean-validation-1-1/">Apache BVal certified as Bean Validation 1.1 implementation</a>
+          <a class="news-link" href="/news/2017/01/19/bean-validation-2-0-progress-report/">Bean Validation 2.0 Progress Report</a>
+          <a class="news-link" href="/news/2016/11/23/survey-constraints-and-parameterized-type/">Survey - Where do you use constraints on parameterized type?</a>
+          <a class="news-link" href="/news/2016/09/15/which-constraints-to-add/">Feedback needed - Which constraints should be added?</a>
+          <a class="news-link" href="/news/2016/07/15/bean-validation-2-0-is-coming/">Bean Validation 2.0 - A new JSR is born!</a>
+          <a class="news-link" href="/news/2015/06/18/bean-validation-tck-1-1-4-released/">Bean Validation TCK 1.1.4.Final released</a>
+          <a class="news-link" href="/news/2014/06/18/bean-validation-tcks-now-with-support-for-java-se-8/">Bean Validation TCKs now with signature files for Java SE 8</a>
+          <a class="news-link" href="/news/2014/05/28/training-materials/">Training materials on Bean Validation 1.1</a>
+          <a class="news-link" href="/news/2013/06/04/xml-namespace-and-jcp/">XML namespace and JCP</a>
+          <a class="news-link" href="/news/2013/05/02/bean-validation-1-1-is-a-spec/">Bean Validation 1.1 is a spec</a>
+          <a class="news-link" href="/news/2013/03/21/bean-validation-1-1-final-approval-ballot/">Bean Validation 1.1 CR3 - Final Approval Ballot</a>
+          <a class="news-link" href="/news/2013/02/20/bean-validation-1-1-proposed-final-draft/">Bean Validation 1.1 CR1 - Proposed Final Draft</a>
+          <a class="news-link" href="/news/2013/02/15/bean-validation-1-1-beta4/">Bean Validation 1.1 Beta 4 - issue smashing edition</a>
+          <a class="news-link" href="/news/2013/02/05/javaspotlight-podcast-on-bean-validation-1-1/">Java Spotlight Podcast on Bean Validation 1.1</a>
+          <a class="news-link" href="/news/2013/02/01/bean-validation-1-1-beta3-last-line/">Bean Validation 1.1 Beta 3 - the last line</a>
+          <a class="news-link" href="/news/2012/12/18/bean-validation-in-the-press/">Bean Validation in the press</a>
+          <a class="news-link" href="/news/2012/12/11/should-getters-be-considered-methods/">Should getters be validated when they are called?</a>
+          <a class="news-link" href="/news/2012/11/29/public-review-ballot/">Public review ballot favorable to Bean Validation 1.1</a>
+          <a class="news-link" href="/news/2012/11/27/1-1-beta2-is-out/">Bean Validation 1.1 Beta 2 is out</a>
+          <a class="news-link" href="/news/2012/10/22/release-1-1-public-review/">Public Review Draft for Bean Validation 1.1</a>
+          <a class="news-link" href="/news/2012/09/12/fine-control-over-method-validation/">Fine control over method validation in Bean Validation... or not!</a>
+          <a class="news-link" href="/news/2012/08/31/big-push-on-bean-validation/">Big push on Bean Validation 1.1</a>
+          <a class="news-link" href="/news/2012/08/29/methodvalidation-inheritance/">Method validation and inheritance - feedback needed!</a>
+          <a class="news-link" href="/news/2012/06/28/hibernate-validator-5-alpha/">Hibernate Validator 5 alpha for Bean Validation 1.1 is out</a>
+          <a class="news-link" href="/news/2012/06/06/continuous-publication-specification-snapshot/">Continuous publication of the specification snapshot</a>
+          <a class="news-link" href="/news/2012/03/28/jcp-release-1-1-edr1/">Bean Validation 1.1 officially reaches the JCP</a>
+          <a class="news-link" href="/news/2012/03/16/artifacts-1-1-edr1/">Code artifacts published for Bean Validation 1.1 early draft 1</a>
+          <a class="news-link" href="/news/2012/03/13/release-1-1-edr1/">Bean Validation 1.1 early draft 1 is out - time for feedback</a>
+          <a class="news-link" href="/news/2012/02/01/method-level-proposal/">Proposal for method validation added</a>
+          <a class="news-link" href="/news/2011/10/21/dependency-injection-proposal/">Adding proposal section and first proposal</a>
+          <a class="news-link" href="/news/2011/09/16/method-level-validation/">Work on method level validation</a>
+          <a class="news-link" href="/news/2011/09/01/spec-repository-out/">The specification repository is released</a>
+          <a class="news-link" href="/news/2011/07/23/voted-yes/">Bean Validation has been voted yes!</a>
+          <a class="news-link" href="/news/2011/07/22/review-ballot/">Bean Validation in review ballot</a>
+          <a class="news-link" href="/news/2011/07/21/Site-is-live/">The website is live!</a>
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer class="container" id="widget-footer" role="contentinfo">
+    <hr>
+    <div class="row">
+      <div class="widget col-md-12 widget_text">
+        Copyright &copy; Red Hat, Inc., Emmanuel Bernard
+        <a href="http://redhat.com" id="logo-redhat">Red Hat</a>
+      </div>
+    </div>
+  </footer>
+  <script>
+   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+   
+  ga('create', 'UA-24703879-1', 'auto');
+  ga('send', 'pageview');
+  
+  </script>
+</html>

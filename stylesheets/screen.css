@@ -16321,24 +16321,24 @@ table.datatable th:active {
   font-size: 24px;
 }
 
-.jumbotron .btn-spec-11 {
+.jumbotron .btn-spec-stable {
   background-color: #64ba5b;
   border-color: #63b55b;
   color: #fff;
 }
 
-.jumbotron .btn-spec-11:hover {
+.jumbotron .btn-spec-stable:hover {
   background-color: #3f9c35;
   border-color: #37892f;
 }
 
-.jumbotron .btn-spec-20 {
+.jumbotron .btn-spec-wip {
   background-color: #ee9c4a;
   border-color: #f6902a;
   color: #fff;
 }
 
-.jumbotron .btn-spec-20:hover {
+.jumbotron .btn-spec-wip:hover {
   background-color: #ec7a08;
   border-color: #d36d07;
 }

@@ -42,10 +42,10 @@
               <a href="../../../tck">TCK</a>
             </li>
             <li class="menu-item menu-item-type-post_type menu-item-object-page">
-              <a href="../../../1.1/ri">RI</a>
+              <a href="../../../ri">RI</a>
             </li>
             <li class="menu-item menu-item-type-post_type menu-item-object-page">
-              <a href="../../../1.1/certified">Certified</a>
+              <a href="../../../certified">Certified</a>
             </li>
             <li class="menu-item menu-item-type-post_type menu-item-object-page">
               <a href="../../../contribute">Contribute</a>
@@ -60,6 +60,52 @@
     <div class="container" id="overview">
       <div class="clearfix row" id="content">
         <div class="col-sm-9 col-md-9 col-lg-9 clearfix" id="main">
+          <article class="post">
+            <header>
+              <h1 class="title">
+                <a href="/news/2013/03/21/bean-validation-1-1-final-approval-ballot/">Bean Validation 1.1 CR3 - Final Approval Ballot</a>
+              </h1>
+              <span class="author">
+                by
+                <b>Emmanuel Bernard</b>
+              </span>
+              <span class="date">
+                on 21 Mar 2013
+              </span>
+              <span class="tags">
+                <a class="label label-info" href="/news/tags/release/">release</a>
+              </span>
+            </header>
+            <div class="body">
+              <p>Bean Validation, Hibernate Validator (its Reference Implementation) and the
+              Test Compatibility Kit have been handed over to the JCP for what is called the
+              Final Approval Ballot. That's when the expert committee votes for the go /
+              no-go of the specification going final as it is.</p>
+              
+              <p>We have found a few glitches when working on both the RI and the TCK in the
+              last month but everything is in order now. The biggest visible change for you
+              is that we renamed <code>@ValidateExecutable</code> into <code>@ValidateOnExecution</code> and we added a
+              way to disable method validation entirely via the XML deployment descriptor.</p>
+              
+              <p>We worked hard to make a stellar TCK. Let's speak numbers: the specification
+              has <strong>549 assertions</strong> including <strong>492 testable</strong>. We cover <strong>98,8%</strong> of them
+              with <strong>1500 tests</strong>. Good luck to all future Bean Validation 1.1 implementors
+              :)</p>
+              
+              <p>Everything is already available for you to use:</p>
+              
+              <ul>
+              <li><a href="http://beanvalidation.org/1.1/spec/1.1.0.cr3/">the specification</a></li>
+              <li><a href="http://www.hibernate.org/subprojects/validator/download">Hibernate Validator (the
+              RI)</a></li>
+              <li><a href="http://www.hibernate.org/subprojects/validator/download">the TCK</a></li>
+              </ul>
+              
+              
+              <p>Enjoy!</p>
+               <a href="http://beanvalidation.org/news/2013/03/21/bean-validation-1-1-final-approval-ballot/#disqus_thread">Comments</a>
+            </div>
+          </article>
           <article class="post">
             <header>
               <h1 class="title">
@@ -348,35 +394,6 @@
                <a href="http://beanvalidation.org/news/2013/02/01/bean-validation-1-1-beta3-last-line/#disqus_thread">Comments</a>
             </div>
           </article>
-          <article class="post">
-            <header>
-              <h1 class="title">
-                <a href="/news/2012/12/18/bean-validation-in-the-press/">Bean Validation in the press</a>
-              </h1>
-              <span class="author">
-                by
-                <b>Gunnar Morling</b>
-              </span>
-              <span class="date">
-                on 18 Dec 2012
-              </span>
-              <span class="tags">
-                <a class="label label-info" href="/news/tags/press/">press</a>
-              </span>
-            </header>
-            <div class="body">
-              <p>The German journal <a href="http://www.javamagazin.de/">Javamagazin</a> recently
-              published an article about the works on Bean Validation 1.1. The article
-              is full of praise for the new version in general and our open,
-              community-centered way of creating the spec in particular.</p>
-              
-              <p>The publisher and authors generously provided us with a PDF of the article
-              which you can download <a href="/downloads/javamagazin_2012_10_Einer_fuer_alle_alle_fuer_einen_Bean_Validation_1_1.pdf">here</a>.
-              Alternatively you can also read the article
-              <a href="http://it-republik.de/jaxenter/artikel/Einer-fuer-alle-%96-alle-fuer-einen-Bean-Validation-1.1-5372.html">online</a>.</p>
-               <a href="http://beanvalidation.org/news/2012/12/18/bean-validation-in-the-press/#disqus_thread">Comments</a>
-            </div>
-          </article>
           <div class="pagination-links"><a href="/news/page/4/" class="previous-link">Previous</a> <a href="/news/" class="page-link">1</a> <a href="/news/page/2/" class="page-link">2</a> <span class="skip">...</span><a href="/news/page/4/" class="page-link">4</a> <span class="current-page">5</span> <a href="/news/page/6/" class="page-link">6</a> <span class="skip">...</span><a href="/news/page/8/" class="page-link">8</a> <a href="/news/page/9/" class="page-link">9</a> <a href="/news/page/6/" class="next-link">Next</a> </div>
         </div>
         <div class="sidebar sidebar-right col-sm-3 col-md-3 col-lg-3" id="sidebar" role="complementary">
@@ -391,6 +408,7 @@
               Stay up to date, subscribe to the&nbsp;<a href="/news/news.atom">news feed</a>.
             </div>
           </div>
+          <a class="news-link" href="/news/2017/08/07/bean-validation-2-0-is-a-spec/">Bean Validation 2.0 is a spec!</a>
           <a class="news-link" href="/news/2017/07/12/bean-validation-2-0-cr3-submitted-to-final-approval-ballot/">Bean Validation 2.0 CR 3 released and submitted to Final Approval Ballot</a>
           <a class="news-link" href="/news/2017/07/05/bean-validation-2-0-cr2-is-out/">Bean Validation 2.0 CR 2 released</a>
           <a class="news-link" href="/news/2017/06/26/bean-validation-2-0-proposed-final-draft-released/">Proposed Final Draft of Bean Validation 2.0 released</a>
@@ -443,7 +461,7 @@
     <hr>
     <div class="row">
       <div class="widget col-md-12 widget_text">
-        Copyright (c) Red Hat, Inc., Emmanuel Bernard
+        Copyright &copy; Red Hat, Inc., Emmanuel Bernard
         <a href="http://redhat.com" id="logo-redhat">Red Hat</a>
       </div>
     </div>
