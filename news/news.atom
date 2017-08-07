@@ -2,13 +2,13 @@
 <feed xml:lang="en-US" xmlns="http://www.w3.org/2005/Atom">
   <id>http://beanvalidation.org/</id>
   <title>Bean Validation</title>
-  <updated>2017-08-07T16:33:58+00:00</updated>
+  <updated>2017-08-07T17:20:12+00:00</updated>
   <link href="http://beanvalidation.org/news/news.atom" rel="self" type="application/atom+xml" />
   <link href="http://beanvalidation.org/" rel="alternate" type="text/html" />
   <entry>
     <id>http://beanvalidation.org/news/2017/08/07/bean-validation-2-0-is-a-spec/</id>
     <title>Bean Validation 2.0 is a spec!</title>
-    <updated>2017-08-07T16:33:58+00:00</updated>
+    <updated>2017-08-07T17:20:12+00:00</updated>
     <published>2017-08-07T00:00:00+00:00</published>
     <link href="http://beanvalidation.org/news/2017/08/07/bean-validation-2-0-is-a-spec/" rel="alternate" type="text/html" />
     <author>
@@ -113,6 +113,9 @@
       &lt;/li&gt;
       &lt;li&gt;
       &lt;p&gt;My dear fellow &lt;strong&gt;Guillaume&lt;/strong&gt; for his tireless work on the TCK, the reference implementation, the website and the spec; merci beaucoup!&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+      &lt;p&gt;&lt;strong&gt;Marko Bekhta&lt;/strong&gt; who stepped up to work on the TCK which has been a very much appreciated contribution&lt;/p&gt;
       &lt;/li&gt;
       &lt;li&gt;
       &lt;p&gt;&lt;strong&gt;Everyone participating&lt;/strong&gt; in our polls and surveys; your replies and comments helped very much to arrive on good decisions on the different options on the table&lt;/p&gt;
