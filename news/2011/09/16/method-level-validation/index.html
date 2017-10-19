@@ -1,4 +1,5 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
     <meta charset="UTF-8">
     <meta content="IE=Edge" http-equiv="X-UA-Compatible">
@@ -6,77 +7,115 @@
     <title>
       Bean Validation - Work on method level validation
     </title>
-    <link href="../../../../../stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-    <link href="../../../../../stylesheets/print.css" media="print" rel="stylesheet" type="text/css">
-    <!--[if lt IE 8]>
-      <link href="../../../../../stylesheets/ie.css" media="screen, projection" rel="stylesheet" type="text/css">
-    <![endif]-->
-    <link href="../../../../news.atom" rel="alternate" type="application/atom+xml">
-    <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
-    <script src="/javascripts/patternfly.js"></script>
-    <script src="/javascripts/bootstrap.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.css" media="screen" rel="stylesheet">
+    <link href="/stylesheets/styles.css?t=1508409701" media="screen" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.js"></script>
+    <!-- / Unfortunately, matchHeight doesn't follow the same convention as the other minified files -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.2/jquery.matchHeight.js"></script>
+    <link href="/news/news.atom" rel="alternate" type="application/atom+xml">
   </head>
-  <body>
-    <header role="banner">
-      <nav class="navbar navbar-default navbar-pf" role="navigation">
-        <div class="navbar-header">
-          <button class="navbar-toggle" data-target=".navbar-collapse-1" data-toggle="collapse" type="button">
-            <span class="sr-only">Toggle Navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="../../../../.." id="logo" title="Bean Validation">
-            Bean Validation
+  <body class="pushable">
+    <div class="ui vertical menu inverted sidebar left print hidden" id="mobile-menu">
+      <a class="item" href="../../../../.." title="Home">
+        <i class="grid icon home"></i>
+        Home
+      </a>
+      <a class="item selected" href="../../../..">
+        <i class="grid icon newspaper"></i>
+        News
+      </a>
+      <a class="item" href="../../../../../2.0">
+        <i class="grid icon book"></i>
+        <strong>Bean Validation 2.0</strong>
+      </a>
+      <div class="item">
+        <i class="grid icon archive"></i>
+        Archives
+        <div class="menu">
+          <a class="item" href="../../../../../1.1">
+            <i class="grid icon book"></i>
+            Bean Validation 1.1
+          </a>
+          <a class="item" href="../../../../../1.0">
+            <i class="grid icon book"></i>
+            Bean Validation 1.0
           </a>
         </div>
-        <div class="collapse navbar-collapse navbar-collapse-1">
-          <ul class="nav navbar-nav navbar-primary navbar-right" id="meny-primary">
-            <li class="menu-item menu-item-type-post_type menu-item-object-page">
-              <a href="../../../..">News</a>
-            </li>
-            <li class="menu-item menu-item-type-post_type menu-item-object-page">
-              <a href="../../../../../specification">Specification</a>
-            </li>
-            <li class="menu-item menu-item-type-post_type menu-item-object-page">
-              <a href="../../../../../tck">TCK</a>
-            </li>
-            <li class="menu-item menu-item-type-post_type menu-item-object-page">
-              <a href="../../../../../ri">RI</a>
-            </li>
-            <li class="menu-item menu-item-type-post_type menu-item-object-page">
-              <a href="../../../../../certified">Certified</a>
-            </li>
-            <li class="menu-item menu-item-type-post_type menu-item-object-page">
-              <a href="../../../../../contribute">Contribute</a>
-            </li>
-            <li class="menu-item menu-item-type-post_type menu-item-object-page">
-              <a href="../../../../../licensing">Licensing</a>
-            </li>
-          </ul>
+      </div>
+      <a class="item" href="../../../../../licensing">
+        <i class="grid icon legal"></i>
+        Licensing
+      </a>
+      <a class="item" href="../../../../../contribute">
+        <i class="grid icon users"></i>
+        Contribute
+      </a>
+    </div>
+    <div class="pusher">
+      <div class="mobile-menu-button-bar mobile only print hidden">
+        <a class="item" id="mobile-menu-toggle">
+          <i class="sidebar icon"></i>
+          Menu
+        </a>
+      </div>
+      <header role="banner">
+        <div class="ui container banner">
+          <div class="ui stackable menu mobile hidden print hidden" id="nav">
+            <a class="item" href="../../../../.." title="Home">
+              <img alt="Bean Validation" src="/logo/logo.svg">
+            </a>
+            <a class="item selected" href="../../../..">News</a>
+            <a class="item" href="../../../../../2.0">
+              <strong>Bean Validation 2.0</strong>
+            </a>
+            <div class="dropdown item ui">
+              Archives
+              <i class="dropdown icon"></i>
+              <div class="menu">
+                <a class="item" href="../../../../../1.1">Bean Validation 1.1</a>
+                <a class="item" href="../../../../../1.0">Bean Validation 1.0</a>
+              </div>
+            </div>
+            <a class="item" href="../../../../../licensing">Licensing</a>
+            <a class="item" href="../../../../../contribute">Contribute</a>
+          </div>
         </div>
-      </nav>
-    </header>
-    <div class="container" id="overview">
-      <div class="clearfix row" id="content">
-        <div class="col-sm-9 col-md-9 col-lg-9 clearfix" id="main">
-          <article class="post">
-            <header>
-              <h1 class="title">
-                Work on method level validation
-              </h1>
-              <span class="author">
-                by
-                <b>Emmanuel Bernard</b>
-              </span>
-              <span class="date">
-                on 16 Sep 2011
-              </span>
-              <span class="tags">
-                <a class="label label-info" href="/news/tags/proposal/">proposal</a>
-              </span>
-            </header>
-            <div class="body">
+      </header>
+      <div class="jumbotron small">
+        <div class="ui container">
+          <h1>Bean Validation</h1>
+        </div>
+      </div>
+      <div class="page-title blog-title">
+        <div class="ui container">
+          <div class="blog-title-bar">
+            <div class="blog-title-caption">
+              <h2>
+                <a href="/news/2011/09/16/method-level-validation/">Work on method level validation</a>
+              </h2>
+              <div class="blog-author-bar">
+                Posted by
+                <strong>
+                  Emmanuel Bernard
+                </strong>
+                &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                16 Sep 2011
+                &nbsp;&nbsp;
+                <span class="blog-tags">
+                  <a class="ui label tag" href="/news/tags/proposal/">
+                    proposal
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ui container blog-article">
+        <div class="content" id="content">
+          <article>
+            <div class="blog-body" itemprop="articleBody">
               <p>The expert groups has begun its work on method-level validation. A feature that was drafted in the
               latest spec (appendix) but that we could nto finish in time.</p>
               
@@ -90,112 +129,75 @@
               
               <p>Want to know more? Join the expert group mailing list. <a href="/contribute">Learn how</a>.</p>
             </div>
-            <footer>
-              <div id="post-navigation">
-                <div class="previous">
-                  &laquo;
-                  <a href="../../01/spec-repository-out">The specification repository is released</a>
-                </div>
-                <div class="next">
-                  &raquo;
-                  <a href="../../../10/21/dependency-injection-proposal">Adding proposal section and first proposal</a>
-                </div>
-              </div>
-              
-                          <div id="disqus_thread"></div>
-                          <script type="text/javascript">
-                          var disqus_shortname = 'beanvalidation';
-                          var disqus_url = "http://beanvalidation.org/news/2011/09/16/method-level-validation/";
-                          var disqus_developer = null;
-                          var disqus_identifier = null;
-                          (function() {
-                            var dsq = document.createElement("script"); dsq.type = "text/javascript"; dsq.async = true;
-                            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                            (document.getElementsByTagName("head")[0] || document.getElementsByTagName("body")[0]).appendChild(dsq);
-                          })();
-                          </script>
-                          <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript=beanvalidation">comments powered by Disqus.</a></noscript>
-            </footer>
           </article>
-        </div>
-        <div class="sidebar sidebar-right col-sm-3 col-md-3 col-lg-3" id="sidebar" role="complementary">
-          <div id="newsfeed">
-            <h2>
-              <a href="/news/news.atom"><img alt="atom feed" src="/images/feed-icon-28x28.png"></a>
-              <a href="/news/news.atom">
-                Latest news
-              </a>
-            </h2>
-            <div id="newsfeed-message">
-              Stay up to date, subscribe to the&nbsp;<a href="/news/news.atom">news feed</a>.
+          <hr>
+          <div class="post-navigation">
+            <div class="ui grid two column stackable">
+              <div class="column">
+                &laquo;
+                <a href="../../01/spec-repository-out">The specification repository is released</a>
+              </div>
+              <div class="column text-right">
+                <a href="../../../10/21/dependency-injection-proposal">Adding proposal section and first proposal</a>
+                &raquo;
+              </div>
             </div>
           </div>
-          <a class="news-link" href="/news/2017/08/07/bean-validation-2-0-is-a-spec/">Bean Validation 2.0 is a spec!</a>
-          <a class="news-link" href="/news/2017/07/12/bean-validation-2-0-cr3-submitted-to-final-approval-ballot/">Bean Validation 2.0 CR 3 released and submitted to Final Approval Ballot</a>
-          <a class="news-link" href="/news/2017/07/05/bean-validation-2-0-cr2-is-out/">Bean Validation 2.0 CR 2 released</a>
-          <a class="news-link" href="/news/2017/06/26/bean-validation-2-0-proposed-final-draft-released/">Proposed Final Draft of Bean Validation 2.0 released</a>
-          <a class="news-link" href="/news/2017/05/24/bean-validation-2-0-public-review-update/">Update to the Bean Validation 2.0 Public Review Draft</a>
-          <a class="news-link" href="/news/2017/05/12/feedback-on-positive-and-negative-constraints/">Survey - Behavior of @Positive and @Negative constraints</a>
-          <a class="news-link" href="/news/2017/04/26/bean-validation-2-0-up-for-public-review/">Bean Validation 2.0 is up for Public Review</a>
-          <a class="news-link" href="/news/2017/03/31/bean-validation-2-0-alpha2-is-out/">Bean Validation 2.0 Alpha2 is out</a>
-          <a class="news-link" href="/news/2017/02/16/first-alpha-of-bean-validation-2-0-reference-implementation/">First Alpha of Bean Validation 2.0 Reference Implementation Available</a>
-          <a class="news-link" href="/news/2017/02/14/bean-validation-2-0-early-draft-released/">Bean Validation 2.0 Early Draft 1 is Out</a>
-          <a class="news-link" href="/news/2017/02/07/apache-bval-is-compatible-with-bean-validation-1-1/">Apache BVal certified as Bean Validation 1.1 implementation</a>
-          <a class="news-link" href="/news/2017/01/19/bean-validation-2-0-progress-report/">Bean Validation 2.0 Progress Report</a>
-          <a class="news-link" href="/news/2016/11/23/survey-constraints-and-parameterized-type/">Survey - Where do you use constraints on parameterized type?</a>
-          <a class="news-link" href="/news/2016/09/15/which-constraints-to-add/">Feedback needed - Which constraints should be added?</a>
-          <a class="news-link" href="/news/2016/07/15/bean-validation-2-0-is-coming/">Bean Validation 2.0 - A new JSR is born!</a>
-          <a class="news-link" href="/news/2015/06/18/bean-validation-tck-1-1-4-released/">Bean Validation TCK 1.1.4.Final released</a>
-          <a class="news-link" href="/news/2014/06/18/bean-validation-tcks-now-with-support-for-java-se-8/">Bean Validation TCKs now with signature files for Java SE 8</a>
-          <a class="news-link" href="/news/2014/05/28/training-materials/">Training materials on Bean Validation 1.1</a>
-          <a class="news-link" href="/news/2013/06/04/xml-namespace-and-jcp/">XML namespace and JCP</a>
-          <a class="news-link" href="/news/2013/05/02/bean-validation-1-1-is-a-spec/">Bean Validation 1.1 is a spec</a>
-          <a class="news-link" href="/news/2013/03/21/bean-validation-1-1-final-approval-ballot/">Bean Validation 1.1 CR3 - Final Approval Ballot</a>
-          <a class="news-link" href="/news/2013/02/20/bean-validation-1-1-proposed-final-draft/">Bean Validation 1.1 CR1 - Proposed Final Draft</a>
-          <a class="news-link" href="/news/2013/02/15/bean-validation-1-1-beta4/">Bean Validation 1.1 Beta 4 - issue smashing edition</a>
-          <a class="news-link" href="/news/2013/02/05/javaspotlight-podcast-on-bean-validation-1-1/">Java Spotlight Podcast on Bean Validation 1.1</a>
-          <a class="news-link" href="/news/2013/02/01/bean-validation-1-1-beta3-last-line/">Bean Validation 1.1 Beta 3 - the last line</a>
-          <a class="news-link" href="/news/2012/12/18/bean-validation-in-the-press/">Bean Validation in the press</a>
-          <a class="news-link" href="/news/2012/12/11/should-getters-be-considered-methods/">Should getters be validated when they are called?</a>
-          <a class="news-link" href="/news/2012/11/29/public-review-ballot/">Public review ballot favorable to Bean Validation 1.1</a>
-          <a class="news-link" href="/news/2012/11/27/1-1-beta2-is-out/">Bean Validation 1.1 Beta 2 is out</a>
-          <a class="news-link" href="/news/2012/10/22/release-1-1-public-review/">Public Review Draft for Bean Validation 1.1</a>
-          <a class="news-link" href="/news/2012/09/12/fine-control-over-method-validation/">Fine control over method validation in Bean Validation... or not!</a>
-          <a class="news-link" href="/news/2012/08/31/big-push-on-bean-validation/">Big push on Bean Validation 1.1</a>
-          <a class="news-link" href="/news/2012/08/29/methodvalidation-inheritance/">Method validation and inheritance - feedback needed!</a>
-          <a class="news-link" href="/news/2012/06/28/hibernate-validator-5-alpha/">Hibernate Validator 5 alpha for Bean Validation 1.1 is out</a>
-          <a class="news-link" href="/news/2012/06/06/continuous-publication-specification-snapshot/">Continuous publication of the specification snapshot</a>
-          <a class="news-link" href="/news/2012/03/28/jcp-release-1-1-edr1/">Bean Validation 1.1 officially reaches the JCP</a>
-          <a class="news-link" href="/news/2012/03/16/artifacts-1-1-edr1/">Code artifacts published for Bean Validation 1.1 early draft 1</a>
-          <a class="news-link" href="/news/2012/03/13/release-1-1-edr1/">Bean Validation 1.1 early draft 1 is out - time for feedback</a>
-          <a class="news-link" href="/news/2012/02/01/method-level-proposal/">Proposal for method validation added</a>
-          <a class="news-link" href="/news/2011/10/21/dependency-injection-proposal/">Adding proposal section and first proposal</a>
-          <a class="news-link" href="/news/2011/09/16/method-level-validation/">Work on method level validation</a>
-          <a class="news-link" href="/news/2011/09/01/spec-repository-out/">The specification repository is released</a>
-          <a class="news-link" href="/news/2011/07/23/voted-yes/">Bean Validation has been voted yes!</a>
-          <a class="news-link" href="/news/2011/07/22/review-ballot/">Bean Validation in review ballot</a>
-          <a class="news-link" href="/news/2011/07/21/Site-is-live/">The website is live!</a>
+          <hr>
+          
+                      <div id="disqus_thread"></div>
+                      <script type="text/javascript">
+                      var disqus_shortname = 'beanvalidation';
+                      var disqus_url = "http://beanvalidation.org/news/2011/09/16/method-level-validation/";
+                      var disqus_developer = null;
+                      var disqus_identifier = null;
+                      (function() {
+                        var dsq = document.createElement("script"); dsq.type = "text/javascript"; dsq.async = true;
+                        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                        (document.getElementsByTagName("head")[0] || document.getElementsByTagName("body")[0]).appendChild(dsq);
+                      })();
+                      </script>
+                      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript=beanvalidation">comments powered by Disqus.</a></noscript>
         </div>
       </div>
+      <footer class="print hidden">
+        <div class="ui inverted vertical footer segment">
+          <div class="ui container">
+            <div class="ui stackable grid">
+              <div class="eleven wide column middle aligned">
+                Copyright &copy; Red Hat, Inc.
+              </div>
+              <div class="five wide column sponsor">
+                <div class="logo">
+                  <a href="https://www.redhat.com/">
+                    <img height="48" src="/images/redhat.png" title="Red Hat" width="150">
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
+    <script>
+     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+     
+    ga('create', 'UA-24703879-1', 'auto');
+    ga('send', 'pageview');
+    
+    </script>
+    <script>
+      $(document).ready(function() {
+        $('#mobile-menu').sidebar('setting', {
+          transition: 'push'
+        });
+        $('#mobile-menu').sidebar('attach events', '#mobile-menu-toggle');
+      
+        $('.ui.menu .ui.dropdown').dropdown({ on: 'hover' });
+      });
+    </script>
   </body>
-  <footer class="container" id="widget-footer" role="contentinfo">
-    <hr>
-    <div class="row">
-      <div class="widget col-md-12 widget_text">
-        Copyright &copy; Red Hat, Inc., Emmanuel Bernard
-        <a href="http://redhat.com" id="logo-redhat">Red Hat</a>
-      </div>
-    </div>
-  </footer>
-  <script>
-   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-                      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-   
-  ga('create', 'UA-24703879-1', 'auto');
-  ga('send', 'pageview');
-  
-  </script>
 </html>
