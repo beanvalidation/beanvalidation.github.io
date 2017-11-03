@@ -192,6 +192,10 @@ a:hover {
   font-size: 1em;
 }
 
+#content li {
+  margin-bottom: 0.4em;
+}
+
 #content dl {
   margin: 0 3% 2%;
 }
