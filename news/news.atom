@@ -2,9 +2,87 @@
 <feed xml:lang="en-US" xmlns="http://www.w3.org/2005/Atom">
   <id>http://beanvalidation.org/</id>
   <title>Bean Validation</title>
-  <updated>2018-02-26T11:07:33+00:00</updated>
+  <updated>2018-02-26T12:14:04+00:00</updated>
   <link href="http://beanvalidation.org/news/news.atom" rel="self" type="application/atom+xml" />
   <link href="http://beanvalidation.org/" rel="alternate" type="text/html" />
+  <entry>
+    <id>http://beanvalidation.org/news/2018/02/26/bean-validation-2-0-whats-in-it/</id>
+    <title>Bean Validation 2.0 - What&#8217;s in it?</title>
+    <updated>2018-02-26T12:14:04+00:00</updated>
+    <published>2018-02-26T00:00:00+00:00</published>
+    <link href="http://beanvalidation.org/news/2018/02/26/bean-validation-2-0-whats-in-it/" rel="alternate" type="text/html" />
+    <author>
+      <name>Gunnar Morling</name>
+    </author>
+    <category term="presentations"></category>
+    <summary>
+      While a couple of months have passed since Bean Validation 2.0 got released, the info about what&#8217;s new in the spec may still not yet have reached everyone.
+      Here are two presentations which I wanted to share in order to help with that.
+      
+      
+      The first one is the slide set of the talk on Bean Validation 2.0 and JSR 380 which I did at JavaOne 2017:
+      
+      
+      
+      
+      
+      
+      
+      You can also download a PDF with these slides from Speaker Deck here.
+      
+      
+      While the JavaOne session was not recorded, my quickie session on the same topic at Devoxx 2017 luckily was.
+      In just 14:17 min you&#8217;ll get an...
+    </summary>
+    <content type="html">
+      &lt;div id=&quot;preamble&quot;&gt;
+      &lt;div class=&quot;sectionbody&quot;&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;While a couple of months have passed since &lt;a href=&quot;http://beanvalidation.org/news/2017/08/07/bean-validation-2-0-is-a-spec/&quot;&gt;Bean Validation 2.0 got released&lt;/a&gt;, the info about what’s new in the spec may still not yet have reached everyone.
+      Here are two presentations which I wanted to share in order to help with that.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;The first one is the slide set of the talk on Bean Validation 2.0 and JSR 380 which I did at &lt;a href=&quot;https://events.rainfocus.com/catalog/oracle/oow17/catalogjavaone17?search=%22keeping%20your%20data%20sane%20with%20bean%20validation%202.0%22&amp;amp;showEnrolled=false&quot;&gt;JavaOne 2017&lt;/a&gt;:&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;br /&gt;
+      &lt;div style=&quot;text-align-center&quot;&gt;
+      &lt;script async=&quot;&quot; class=&quot;speakerdeck-embed&quot; data-id=&quot;e3ad48be0eee487a8f1e1eac4d55ca18&quot; data-ratio=&quot;1.37081659973226&quot; src=&quot;//speakerdeck.com/assets/embed.js&quot;&gt;&lt;/script&gt;
+      &lt;/div&gt;
+      &lt;br /&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;You can also download a PDF with these slides from Speaker Deck &lt;a href=&quot;https://speakerdeck.com/gunnarmorling/keeping-your-data-sane-with-bean-validation-2-dot-3&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;While the JavaOne session was not recorded, my &lt;a href=&quot;https://cfp.devoxx.be/2017/talk/TKL-4941/Bean_Validation_2.0_-_you%E2%80%99ve_put_your_annotations_everywhere!&quot;&gt;quickie session&lt;/a&gt; on the same topic at Devoxx 2017 luckily was.
+      In just 14:17 min you’ll get an overview on the new spec revision.
+      It’s lots of contents for the short amount of time, but you can pause and rewind as often as you like ;)&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;br /&gt;
+      &lt;div class=&quot;responsive-video&quot;&gt;
+      &lt;iframe width=&quot;1600&quot; height=&quot;900&quot; src=&quot;https://www.youtube.com/embed/GdKuxmtA65I?rel=0&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+      &lt;/div&gt;
+      &lt;br /&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;sect1&quot;&gt;
+      &lt;h2 id=&quot;feedback&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#feedback&quot;&gt;&lt;/a&gt;Feedback&lt;/h2&gt;
+      &lt;div class=&quot;sectionbody&quot;&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;You got feedback on these presentations or just have a general question around Bean Validation?
+      Then let us know by adding a comment below or sending a message to the &lt;a href=&quot;mailto:beanvalidation-dev@lists.jboss.org&quot;&gt;Bean Validation mailing list&lt;/a&gt;.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;While at the moment no work on the spec itself is going on, we’re eager to explore new features in the &lt;a href=&quot;http://hibernate.org/validator/&quot;&gt;reference implementation&lt;/a&gt;.
+      So if there’s something which you think should be added in a future spec revision,
+      it’s the perfect time to get in touch so we can begin to experiment with these things.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;paragraph&quot;&gt;
+      &lt;p&gt;Your feature requests (and pull requests) will be highly welcomed!&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+    </content>
+  </entry>
   <entry>
     <id>http://beanvalidation.org/news/2017/10/19/new-website/</id>
     <title>Bean Validation has a new website!</title>

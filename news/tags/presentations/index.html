@@ -8,7 +8,7 @@
       Bean Validation - News
     </title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css" rel="stylesheet">
-    <link href="/stylesheets/styles.css?t=1519647351" rel="stylesheet">
+    <link href="/stylesheets/styles.css?t=1519647350" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
     <!-- / Unfortunately, matchHeight doesn't follow the same convention as the other minified files -->
@@ -101,19 +101,19 @@
                 <div class="blog-title-bar">
                   <div class="blog-title-caption">
                     <h2>
-                      <a href="/news/2014/05/28/training-materials/">Training materials on Bean Validation 1.1</a>
+                      <a href="/news/2018/02/26/bean-validation-2-0-whats-in-it/">Bean Validation 2.0 - What&#8217;s in it?</a>
                     </h2>
                     <div class="blog-author-bar">
                       Posted by
                       <strong>
-                        Emmanuel Bernard
+                        Gunnar Morling
                       </strong>
                       &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-                      28 May 2014
+                      26 Feb 2018
                       &nbsp;&nbsp;
                       <span class="blog-tags">
-                        <a class="ui label tag" href="/news/tags/training/">
-                          training
+                        <a class="ui label tag" href="/news/tags/presentations/">
+                          presentations
                         </a>
                       </span>
                     </div>
@@ -121,32 +121,56 @@
                 </div>
                 <div class="mobile hidden">
                   <div class="blog-body" itemprop="articleBody">
-                    <p>I have two good Bean Validation related content for you today.</p>
-                    
-                    <h2>Training slides (in French)</h2>
-                    
-                    <p>Laurent Guerin wrote a comprehensive training on Bean Validation (1.0 and 1.1) for French students.
-                    The <a href="http://fr.slideshare.net/lguerin/cours-javabean-validationv11">slides are available</a> under a Creative Commons license.
-                    I did review them and they are very good.</p>
-                    
-                    <p>The bad news is that they are in French.
-                    The good news is that they are in French!</p>
-                    
-                    <h2>Video training (in English)</h2>
-                    
-                    <p>Antonio Goncalves, my esteemed co-host of <a href="http://lescastcodeurs.com">Les Cast Codeurs</a> has published
-                    a <a href="http://pluralsight.com/training/Courses/Description/bean-validation">2 and a half hour video training</a> on Bean Validation.
-                    It is hosted on Pluralsight where packages start at $29 / month but you can get the first 10 days free.</p>
-                    
-                    <p>The good news is that Antonio has a Dr Love / French accent combo voice.
-                    The bad news? I'll let you find out ;)</p>
-                    
-                    <p>Let me know if you have found good materials on Bean Validation.
-                    We might start a dedicated page on the website.</p>
+                    <div id="preamble">
+                    <div class="sectionbody">
+                    <div class="paragraph">
+                    <p>While a couple of months have passed since <a href="/news/2017/08/07/bean-validation-2-0-is-a-spec/">Bean Validation 2.0 got released</a>, the info about what&#8217;s new in the spec may still not yet have reached everyone.
+                    Here are two presentations which I wanted to share in order to help with that.</p>
+                    </div>
+                    <div class="paragraph">
+                    <p>The first one is the slide set of the talk on Bean Validation 2.0 and JSR 380 which I did at <a href="https://events.rainfocus.com/catalog/oracle/oow17/catalogjavaone17?search=%22keeping%20your%20data%20sane%20with%20bean%20validation%202.0%22&amp;showEnrolled=false">JavaOne 2017</a>:</p>
+                    </div>
+                    <br />
+                    <div style="text-align-center">
+                    <script async class="speakerdeck-embed" data-id="e3ad48be0eee487a8f1e1eac4d55ca18" data-ratio="1.37081659973226" src="//speakerdeck.com/assets/embed.js"></script>
+                    </div>
+                    <br />
+                    <div class="paragraph">
+                    <p>You can also download a PDF with these slides from Speaker Deck <a href="https://speakerdeck.com/gunnarmorling/keeping-your-data-sane-with-bean-validation-2-dot-3">here</a>.</p>
+                    </div>
+                    <div class="paragraph">
+                    <p>While the JavaOne session was not recorded, my <a href="https://cfp.devoxx.be/2017/talk/TKL-4941/Bean_Validation_2.0_-_you%E2%80%99ve_put_your_annotations_everywhere!">quickie session</a> on the same topic at Devoxx 2017 luckily was.
+                    In just 14:17 min you&#8217;ll get an overview on the new spec revision.
+                    It&#8217;s lots of contents for the short amount of time, but you can pause and rewind as often as you like ;)</p>
+                    </div>
+                    <br />
+                    <div class="responsive-video">
+                    <iframe width="1600" height="900" src="https://www.youtube.com/embed/GdKuxmtA65I?rel=0" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <br />
+                    </div>
+                    </div>
+                    <div class="sect1">
+                    <h2 id="feedback"><a class="anchor" href="#feedback"></a>Feedback</h2>
+                    <div class="sectionbody">
+                    <div class="paragraph">
+                    <p>You got feedback on these presentations or just have a general question around Bean Validation?
+                    Then let us know by adding a comment below or sending a message to the <a href="mailto:beanvalidation-dev@lists.jboss.org">Bean Validation mailing list</a>.</p>
+                    </div>
+                    <div class="paragraph">
+                    <p>While at the moment no work on the spec itself is going on, we&#8217;re eager to explore new features in the <a href="http://hibernate.org/validator/">reference implementation</a>.
+                    So if there&#8217;s something which you think should be added in a future spec revision,
+                    it&#8217;s the perfect time to get in touch so we can begin to experiment with these things.</p>
+                    </div>
+                    <div class="paragraph">
+                    <p>Your feature requests (and pull requests) will be highly welcomed!</p>
+                    </div>
+                    </div>
+                    </div>
                   </div>
                 </div>
                 <div class="disqus-comments-link">
-                   <a href="http://beanvalidation.org/news/2014/05/28/training-materials/#disqus_thread">Comments</a>
+                   <a href="http://beanvalidation.org/news/2018/02/26/bean-validation-2-0-whats-in-it/#disqus_thread">Comments</a>
                 </div>
               </article>
               <div class="ui menu pagination"><a class="disabled item" href="#">&laquo;</a><a class="active item" href="#">1</a> <a class="disabled item" href="#">&raquo;</a> </div>
