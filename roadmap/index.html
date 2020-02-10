@@ -1,356 +1,365 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>
-      Bean Validation - Bean Validation roadmap
-    </title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css" rel="stylesheet">
-    <link href="/stylesheets/styles.css?t=1556802719" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
-    <!-- / Unfortunately, matchHeight doesn't follow the same convention as the other minified files -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.2/jquery.matchHeight-min.js"></script>
-    <link href="/news/news.atom" rel="alternate" type="application/atom+xml">
-  </head>
-  <body class="pushable">
-    <div class="ui vertical menu inverted sidebar left print hidden" id="mobile-menu">
-      <a class="item" href="/" title="Home">
-        <i class="grid icon home"></i>
-        Home
-      </a>
-      <a class="item" href="/news/">
-        <i class="grid icon newspaper"></i>
-        News
-      </a>
-      <a class="item" href="/2.0/">
-        <i class="grid icon book"></i>
-        <strong>Bean Validation 2.0</strong>
-      </a>
-      <div class="item">
-        <i class="grid icon archive"></i>
-        Archives
-        <div class="menu">
-          <a class="item" href="/1.1/">
-            <i class="grid icon book"></i>
-            Bean Validation 1.1
-          </a>
-          <a class="item" href="/1.0/">
-            <i class="grid icon book"></i>
-            Bean Validation 1.0
-          </a>
-        </div>
-      </div>
-      <a class="item" href="/resources/">
-        <i class="grid icon folder open"></i>
-        Additional resources
-      </a>
-      <a class="item" href="/licensing/">
-        <i class="grid icon legal"></i>
-        Licensing
-      </a>
-      <a class="item" href="/contribute/">
-        <i class="grid icon users"></i>
-        Contribute
-      </a>
-    </div>
-    <div class="pusher">
-      <div class="mobile-menu-button-bar mobile only print hidden">
-        <a class="item" id="mobile-menu-toggle">
-          <i class="sidebar icon"></i>
-          Menu
-        </a>
-      </div>
-      <header role="banner">
-        <div class="ui container banner">
-          <div class="ui stackable menu mobile hidden print hidden" id="nav">
-            <a class="item" href="/" title="Home">
-              <img alt="Bean Validation" src="/logo/logo.svg">
-            </a>
-            <a class="item" href="/news/">News</a>
-            <a class="item" href="/2.0/">
-              <strong>Bean Validation 2.0</strong>
-            </a>
-            <div class="dropdown item ui">
-              Archives
-              <i class="dropdown icon"></i>
-              <div class="menu">
-                <a class="item" href="/1.1/">Bean Validation 1.1</a>
-                <a class="item" href="/1.0/">Bean Validation 1.0</a>
-              </div>
-            </div>
-            <a class="item" href="/resources/">Resources</a>
-            <a class="item" href="/licensing/">Licensing</a>
-            <a class="item" href="/contribute/">Contribute</a>
-          </div>
-        </div>
-      </header>
-      <div class="jumbotron small">
-        <div class="ui container">
-          <h1>Bean Validation</h1>
-          <h2>Bean Validation roadmap</h2>
-        </div>
-      </div>
-      <div class="ui container page-content">
-        <div class="content" id="content">
-          <p>We have seriously reduced our stock of todos with the release of Bean
-          Validation 1.1 but we still have a few things we would like to put in the
-          specification eventually.  Most of them require some experimentation in
-          Hibernate Validator or the other Bean Validation implementations out there.
-          After feedback they will be ready to be folded back in the specification.</p>
-          
-          <p>We encourage you to follow the Hibernate Validator <a href="http://hibernate.org/validator/roadmap/">roadmap</a>. We
-          have also a left over from Bean Validation 1.1 described below.</p>
-          
-          <h3>Next revision  <a id="next"></a></h3>
-          
-          <table>
-          <thead>
-          <tr>
-          <th></th>
-          <th> Issue Id (JIRA)                                              </th>
-          <th> Done </th>
-          <th> Proposal </th>
-          <th> Description </th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-          <td></td>
-          <td> <a href="https://hibernate.atlassian.net/browse/BVAL-508">BVAL-508</a>  </td>
-          <td>  </td>
-          <td>  </td>
-          <td> Validating elements contained in a container (like collections)</td>
-          </tr>
-          <tr>
-          <td></td>
-          <td> <a href="https://hibernate.atlassian.net/browse/BVAL-499">BVAL-499</a>  </td>
-          <td>  </td>
-          <td>  </td>
-          <td> </td>
-          </tr>
-          <tr>
-          <td></td>
-          <td> <a href="https://hibernate.atlassian.net/browse/BVAL-202">BVAL-202</a>  </td>
-          <td>  </td>
-          <td>  </td>
-          <td> </td>
-          </tr>
-          <tr>
-          <td></td>
-          <td> <a href="https://hibernate.atlassian.net/browse/BVAL-467">BVAL-467</a>  </td>
-          <td>  </td>
-          <td>  </td>
-          <td> </td>
-          </tr>
-          </tbody>
-          </table>
-          
-          
-          <h3>(Archived) Next revision  <a id="archived"></a></h3>
-          
-          <table>
-          <thead>
-          <tr>
-          <th></th>
-          <th> Issue Id (JIRA)                                              </th>
-          <th> Done </th>
-          <th> Proposal </th>
-          <th> Description </th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-          <td></td>
-          <td> <a href="https://hibernate.atlassian.net/browse/BVAL-199">BVAL-199</a>  </td>
-          <td>  </td>
-          <td>  </td>
-          <td> Offer helper classes to build and potentially raise ConstraintViolationExceptions</td>
-          </tr>
-          <tr>
-          <td></td>
-          <td> <a href="https://hibernate.atlassian.net/browse/BVAL-202">BVAL-202</a>  </td>
-          <td>  </td>
-          <td>  </td>
-          <td> Apply constraints on the elements of an iterator</td>
-          </tr>
-          <tr>
-          <td></td>
-          <td> <a href="https://hibernate.atlassian.net/browse/BVAL-210">BVAL-210</a>  </td>
-          <td>  </td>
-          <td>  </td>
-          <td> Make sure JTA / Java EE plays well with Bean Validation + JPA when exceptions occurs (at least raise the concern upstairs ;) )</td>
-          </tr>
-          <tr>
-          <td></td>
-          <td> <a href="https://hibernate.atlassian.net/browse/BVAL-211">BVAL-211</a>  </td>
-          <td>  </td>
-          <td>  </td>
-          <td> Consider making javax.validation.ValidatorContext a self-referential generic type</td>
-          </tr>
-          <tr>
-          <td></td>
-          <td> <a href="https://hibernate.atlassian.net/browse/BVAL-213">BVAL-213</a>  </td>
-          <td>  </td>
-          <td>  </td>
-          <td> Convert persistence storage exception into Bean Validation exceptions</td>
-          </tr>
-          <tr>
-          <td></td>
-          <td> <a href="https://hibernate.atlassian.net/browse/BVAL-214">BVAL-214</a>  </td>
-          <td>  </td>
-          <td> <a href="/proposals/BVAL-214">214</a> </td>
-          <td> Ability to validate an object and a list of changes</td>
-          </tr>
-          <tr>
-          <td></td>
-          <td> <a href="https://hibernate.atlassian.net/browse/BVAL-215">BVAL-215</a>  </td>
-          <td>  </td>
-          <td>  </td>
-          <td> Make composition more flexible (OR support)</td>
-          </tr>
-          <tr>
-          <td></td>
-          <td> <a href="https://hibernate.atlassian.net/browse/BVAL-216">BVAL-216</a>  </td>
-          <td>  </td>
-          <td>  </td>
-          <td> Work with the JAXB EG to have a nice Bean Validation integration</td>
-          </tr>
-          <tr>
-          <td></td>
-          <td> <a href="https://hibernate.atlassian.net/browse/BVAL-217">BVAL-217</a>  </td>
-          <td>  </td>
-          <td>  </td>
-          <td> Separate the notion of message resolver vs message interpolator</td>
-          </tr>
-          <tr>
-          <td></td>
-          <td> <a href="https://hibernate.atlassian.net/browse/BVAL-220">BVAL-220</a>  </td>
-          <td>  </td>
-          <td>  </td>
-          <td> Offer stereotypes to skip validation on empty or null</td>
-          </tr>
-          <tr>
-          <td></td>
-          <td> <a href="https://hibernate.atlassian.net/browse/BVAL-225">BVAL-225</a>  </td>
-          <td>  </td>
-          <td>  </td>
-          <td> Propose ability to provide default resource bundles (for a constraint definition provider)</td>
-          </tr>
-          <tr>
-          <td></td>
-          <td> <a href="https://hibernate.atlassian.net/browse/BVAL-229">BVAL-229</a>  </td>
-          <td>  </td>
-          <td>  </td>
-          <td> Offer a programmatic API to declare constraints on a domain model</td>
-          </tr>
-          <tr>
-          <td></td>
-          <td> <a href="https://hibernate.atlassian.net/browse/BVAL-233">BVAL-233</a>  </td>
-          <td>  </td>
-          <td>  </td>
-          <td> Provide access to contextual info during message interpolation</td>
-          </tr>
-          <tr>
-          <td></td>
-          <td> <a href="https://hibernate.atlassian.net/browse/BVAL-234">BVAL-234</a>  </td>
-          <td>  </td>
-          <td> <a href="/proposals/BVAL-234">234</a> </td>
-          <td> Ignore @NotNull on JPA's @GeneratedValue properties for pre-persist operations</td>
-          </tr>
-          <tr>
-          <td></td>
-          <td> <a href="https://hibernate.atlassian.net/browse/BVAL-235">BVAL-235</a>  </td>
-          <td>  </td>
-          <td>  </td>
-          <td> Support parameterized payload attributes (additional string param on @Payload)</td>
-          </tr>
-          <tr>
-          <td></td>
-          <td> <a href="https://hibernate.atlassian.net/browse/BVAL-237">BVAL-237</a>  </td>
-          <td>  </td>
-          <td>  </td>
-          <td> Expose validated bean via ConstraintValidatorContext</td>
-          </tr>
-          <tr>
-          <td></td>
-          <td> <a href="https://hibernate.atlassian.net/browse/BVAL-240">BVAL-240</a>  </td>
-          <td>  </td>
-          <td>  </td>
-          <td> Revisit cross-field validation</td>
-          </tr>
-          <tr>
-          <td></td>
-          <td> <a href="https://hibernate.atlassian.net/browse/BVAL-248">BVAL-248</a>  </td>
-          <td>  </td>
-          <td> <a href="/proposals/BVAL-248">248</a> </td>
-          <td> Introduce an evaluation order for constraints on a single property</td>
-          </tr>
-          <tr>
-          <td></td>
-          <td> <a href="https://hibernate.atlassian.net/browse/BVAL-251">BVAL-251</a>  </td>
-          <td>  </td>
-          <td>  </td>
-          <td> Improve Bean Validation support for modularized environments</td>
-          </tr>
-          <tr>
-          <td></td>
-          <td> <a href="https://hibernate.atlassian.net/browse/BVAL-252">BVAL-252</a>  </td>
-          <td>  </td>
-          <td>  </td>
-          <td> Improve support for the creation of constraint libraries</td>
-          </tr>
-          <tr>
-          <td></td>
-          <td> <a href="https://hibernate.atlassian.net/browse/BVAL-268">BVAL-268</a>  </td>
-          <td>  </td>
-          <td>  </td>
-          <td> Align with the EE platform on where to find validation.xml</td>
-          </tr>
-          </tbody>
-          </table>
-        </div>
-      </div>
-      <footer class="print hidden">
-        <div class="ui inverted vertical footer segment">
-          <div class="ui container">
-            <div class="ui stackable grid">
-              <div class="eleven wide column middle aligned">
-                Copyright &copy; Red Hat, Inc.
-              </div>
-              <div class="five wide column sponsor">
-                <div class="logo">
-                  <a href="https://www.redhat.com/">
-                    <img src="/images/sponsored-by-redhat.svg" style="height: 40px" title="Red Hat">
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
-    </div>
-    <script>
-     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-                        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-     
-    ga('create', 'UA-24703879-1', 'auto');
-    ga('send', 'pageview');
-    
-    </script>
-    <script>
-      $(document).ready(function() {
-        $('#mobile-menu').sidebar('setting', {
-          transition: 'push'
-        });
-        $('#mobile-menu').sidebar('attach events', '#mobile-menu-toggle');
-      
-        $('.ui.menu .ui.dropdown').dropdown({ on: 'hover' });
-      });
-    </script>
-  </body>
+<head>
+<meta charset="UTF-8">
+<meta content="IE=Edge" http-equiv="X-UA-Compatible">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>
+Jakarta Bean Validation - Jakarta Bean Validation roadmap
+</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css" rel="stylesheet">
+<link href="/stylesheets/styles.css?t=1581357732" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
+<!-- / Unfortunately, matchHeight doesn't follow the same convention as the other minified files -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.2/jquery.matchHeight-min.js"></script>
+<link href="/news/news.atom" rel="alternate" type="application/atom+xml">
+</head>
+<body class="pushable">
+<div class="ui vertical menu inverted sidebar left print hidden" id="mobile-menu">
+<a class="item" href="/" title="Home">
+<i class="grid icon home"></i>
+Home
+</a>
+<a class="item" href="/news/">
+<i class="grid icon newspaper"></i>
+News
+</a>
+<a class="item" href="/2.0/">
+<i class="grid icon book"></i>
+<strong>Jakarta Bean Validation 2.0</strong>
+</a>
+<div class="item">
+<i class="grid icon archive"></i>
+Archives
+<div class="menu">
+<a class="item" href="/2.0-jsr380/">
+<i class="grid icon book"></i>
+Bean Validation 2.0 (JSR 380)
+</a>
+<a class="item" href="/1.1/">
+<i class="grid icon book"></i>
+Bean Validation 1.1 (JSR 349)
+</a>
+<a class="item" href="/1.0/">
+<i class="grid icon book"></i>
+Bean Validation 1.0 (JSR 303)
+</a>
+</div>
+</div>
+<a class="item" href="/resources/">
+<i class="grid icon folder open"></i>
+Additional resources
+</a>
+<a class="item" href="/licensing/">
+<i class="grid icon legal"></i>
+Licensing
+</a>
+<a class="item" href="/contribute/">
+<i class="grid icon users"></i>
+Contribute
+</a>
+</div>
+<div class="pusher">
+<div class="mobile-menu-button-bar mobile only print hidden">
+<a class="item" id="mobile-menu-toggle">
+<i class="sidebar icon"></i>
+Menu
+</a>
+</div>
+<header role="banner">
+<div class="ui container banner">
+<div class="ui stackable menu mobile hidden print hidden" id="nav">
+<a class="item" href="/" title="Home">
+<img alt="Bean Validation" src="/logo/logo.svg">
+</a>
+<a class="item" href="/news/">News</a>
+<a class="item" href="/2.0/">
+<strong>Jakarta Bean Validation 2.0</strong>
+</a>
+<div class="dropdown item ui">
+Archives
+<i class="dropdown icon"></i>
+<div class="menu">
+<a class="item" href="/2.0-jsr380/">Bean Validation 2.0 (JSR 380)</a>
+<a class="item" href="/1.1/">Bean Validation 1.1 (JSR 349)</a>
+<a class="item" href="/1.0/">Bean Validation 1.0 (JSR 303)</a>
+</div>
+</div>
+<a class="item" href="/resources/">Resources</a>
+<a class="item" href="/licensing/">Licensing</a>
+<a class="item" href="/contribute/">Contribute</a>
+</div>
+</div>
+</header>
+<div class="jumbotron small">
+<div class="ui container">
+<h1>Jakarta Bean Validation</h1>
+<h2>Jakarta Bean Validation roadmap</h2>
+</div>
+</div>
+<div class="ui container page-content">
+<div class="content" id="content">
+<p>We have seriously reduced our stock of todos with the release of Bean
+Validation 1.1 but we still have a few things we would like to put in the
+specification eventually.  Most of them require some experimentation in
+Hibernate Validator or the other Jakarta Bean Validation implementations out there.
+After feedback they will be ready to be folded back in the specification.</p>
+
+<p>We encourage you to follow the Hibernate Validator <a href="https://hibernate.org/validator/roadmap/">roadmap</a>. We
+have also a left over from Bean Validation 1.1 described below.</p>
+
+<h3>Next revision  <a id="next"></a></h3>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th> Issue Id (JIRA)                                              </th>
+<th> Done </th>
+<th> Proposal </th>
+<th> Description </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td> <a href="https://hibernate.atlassian.net/browse/BVAL-508">BVAL-508</a>  </td>
+<td>  </td>
+<td>  </td>
+<td> Validating elements contained in a container (like collections)</td>
+</tr>
+<tr>
+<td></td>
+<td> <a href="https://hibernate.atlassian.net/browse/BVAL-499">BVAL-499</a>  </td>
+<td>  </td>
+<td>  </td>
+<td> </td>
+</tr>
+<tr>
+<td></td>
+<td> <a href="https://hibernate.atlassian.net/browse/BVAL-202">BVAL-202</a>  </td>
+<td>  </td>
+<td>  </td>
+<td> </td>
+</tr>
+<tr>
+<td></td>
+<td> <a href="https://hibernate.atlassian.net/browse/BVAL-467">BVAL-467</a>  </td>
+<td>  </td>
+<td>  </td>
+<td> </td>
+</tr>
+</tbody>
+</table>
+
+
+<h3>(Archived) Next revision  <a id="archived"></a></h3>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th> Issue Id (JIRA)                                              </th>
+<th> Done </th>
+<th> Proposal </th>
+<th> Description </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td> <a href="https://hibernate.atlassian.net/browse/BVAL-199">BVAL-199</a>  </td>
+<td>  </td>
+<td>  </td>
+<td> Offer helper classes to build and potentially raise ConstraintViolationExceptions</td>
+</tr>
+<tr>
+<td></td>
+<td> <a href="https://hibernate.atlassian.net/browse/BVAL-202">BVAL-202</a>  </td>
+<td>  </td>
+<td>  </td>
+<td> Apply constraints on the elements of an iterator</td>
+</tr>
+<tr>
+<td></td>
+<td> <a href="https://hibernate.atlassian.net/browse/BVAL-210">BVAL-210</a>  </td>
+<td>  </td>
+<td>  </td>
+<td> Make sure JTA / Java EE plays well with Bean Validation + JPA when exceptions occurs (at least raise the concern upstairs ;) )</td>
+</tr>
+<tr>
+<td></td>
+<td> <a href="https://hibernate.atlassian.net/browse/BVAL-211">BVAL-211</a>  </td>
+<td>  </td>
+<td>  </td>
+<td> Consider making javax.validation.ValidatorContext a self-referential generic type</td>
+</tr>
+<tr>
+<td></td>
+<td> <a href="https://hibernate.atlassian.net/browse/BVAL-213">BVAL-213</a>  </td>
+<td>  </td>
+<td>  </td>
+<td> Convert persistence storage exception into Bean Validation exceptions</td>
+</tr>
+<tr>
+<td></td>
+<td> <a href="https://hibernate.atlassian.net/browse/BVAL-214">BVAL-214</a>  </td>
+<td>  </td>
+<td> <a href="/proposals/BVAL-214">214</a> </td>
+<td> Ability to validate an object and a list of changes</td>
+</tr>
+<tr>
+<td></td>
+<td> <a href="https://hibernate.atlassian.net/browse/BVAL-215">BVAL-215</a>  </td>
+<td>  </td>
+<td>  </td>
+<td> Make composition more flexible (OR support)</td>
+</tr>
+<tr>
+<td></td>
+<td> <a href="https://hibernate.atlassian.net/browse/BVAL-216">BVAL-216</a>  </td>
+<td>  </td>
+<td>  </td>
+<td> Work with the JAXB EG to have a nice Bean Validation integration</td>
+</tr>
+<tr>
+<td></td>
+<td> <a href="https://hibernate.atlassian.net/browse/BVAL-217">BVAL-217</a>  </td>
+<td>  </td>
+<td>  </td>
+<td> Separate the notion of message resolver vs message interpolator</td>
+</tr>
+<tr>
+<td></td>
+<td> <a href="https://hibernate.atlassian.net/browse/BVAL-220">BVAL-220</a>  </td>
+<td>  </td>
+<td>  </td>
+<td> Offer stereotypes to skip validation on empty or null</td>
+</tr>
+<tr>
+<td></td>
+<td> <a href="https://hibernate.atlassian.net/browse/BVAL-225">BVAL-225</a>  </td>
+<td>  </td>
+<td>  </td>
+<td> Propose ability to provide default resource bundles (for a constraint definition provider)</td>
+</tr>
+<tr>
+<td></td>
+<td> <a href="https://hibernate.atlassian.net/browse/BVAL-229">BVAL-229</a>  </td>
+<td>  </td>
+<td>  </td>
+<td> Offer a programmatic API to declare constraints on a domain model</td>
+</tr>
+<tr>
+<td></td>
+<td> <a href="https://hibernate.atlassian.net/browse/BVAL-233">BVAL-233</a>  </td>
+<td>  </td>
+<td>  </td>
+<td> Provide access to contextual info during message interpolation</td>
+</tr>
+<tr>
+<td></td>
+<td> <a href="https://hibernate.atlassian.net/browse/BVAL-234">BVAL-234</a>  </td>
+<td>  </td>
+<td> <a href="/proposals/BVAL-234">234</a> </td>
+<td> Ignore @NotNull on JPA's @GeneratedValue properties for pre-persist operations</td>
+</tr>
+<tr>
+<td></td>
+<td> <a href="https://hibernate.atlassian.net/browse/BVAL-235">BVAL-235</a>  </td>
+<td>  </td>
+<td>  </td>
+<td> Support parameterized payload attributes (additional string param on @Payload)</td>
+</tr>
+<tr>
+<td></td>
+<td> <a href="https://hibernate.atlassian.net/browse/BVAL-237">BVAL-237</a>  </td>
+<td>  </td>
+<td>  </td>
+<td> Expose validated bean via ConstraintValidatorContext</td>
+</tr>
+<tr>
+<td></td>
+<td> <a href="https://hibernate.atlassian.net/browse/BVAL-240">BVAL-240</a>  </td>
+<td>  </td>
+<td>  </td>
+<td> Revisit cross-field validation</td>
+</tr>
+<tr>
+<td></td>
+<td> <a href="https://hibernate.atlassian.net/browse/BVAL-248">BVAL-248</a>  </td>
+<td>  </td>
+<td> <a href="/proposals/BVAL-248">248</a> </td>
+<td> Introduce an evaluation order for constraints on a single property</td>
+</tr>
+<tr>
+<td></td>
+<td> <a href="https://hibernate.atlassian.net/browse/BVAL-251">BVAL-251</a>  </td>
+<td>  </td>
+<td>  </td>
+<td> Improve Bean Validation support for modularized environments</td>
+</tr>
+<tr>
+<td></td>
+<td> <a href="https://hibernate.atlassian.net/browse/BVAL-252">BVAL-252</a>  </td>
+<td>  </td>
+<td>  </td>
+<td> Improve support for the creation of constraint libraries</td>
+</tr>
+<tr>
+<td></td>
+<td> <a href="https://hibernate.atlassian.net/browse/BVAL-268">BVAL-268</a>  </td>
+<td>  </td>
+<td>  </td>
+<td> Align with the EE platform on where to find validation.xml</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+
+<footer class="print hidden">
+<div class="ui inverted vertical footer segment">
+<div class="ui container">
+<div class="ui stackable grid">
+<div class="eleven wide column middle aligned">
+Copyright &copy; Red Hat, Inc.
+</div>
+<div class="five wide column sponsor">
+<div class="logo">
+<a href="https://www.redhat.com/">
+<img src="/images/sponsored-by-redhat.svg" style="height: 40px" title="Red Hat">
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<script>
+ (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ 
+ga('create', 'UA-24703879-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+<script>
+  $(document).ready(function() {
+    $('#mobile-menu').sidebar('setting', {
+      transition: 'push'
+    });
+    $('#mobile-menu').sidebar('attach events', '#mobile-menu-toggle');
+  
+    $('.ui.menu .ui.dropdown').dropdown({ on: 'hover' });
+  });
+</script>
+</body>
 </html>

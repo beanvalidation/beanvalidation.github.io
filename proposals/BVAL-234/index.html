@@ -1,263 +1,271 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>
-      Bean Validation - Fix annoyance between JPA and Bean Validation when @Id @GeneratedValue and @NotNull are used
-    </title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css" rel="stylesheet">
-    <link href="/stylesheets/styles.css?t=1556802719" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
-    <!-- / Unfortunately, matchHeight doesn't follow the same convention as the other minified files -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.2/jquery.matchHeight-min.js"></script>
-    <link href="/news/news.atom" rel="alternate" type="application/atom+xml">
-  </head>
-  <body class="pushable">
-    <div class="ui vertical menu inverted sidebar left print hidden" id="mobile-menu">
-      <a class="item" href="/" title="Home">
-        <i class="grid icon home"></i>
-        Home
-      </a>
-      <a class="item" href="/news/">
-        <i class="grid icon newspaper"></i>
-        News
-      </a>
-      <a class="item" href="/2.0/">
-        <i class="grid icon book"></i>
-        <strong>Bean Validation 2.0</strong>
-      </a>
-      <div class="item">
-        <i class="grid icon archive"></i>
-        Archives
-        <div class="menu">
-          <a class="item" href="/1.1/">
-            <i class="grid icon book"></i>
-            Bean Validation 1.1
-          </a>
-          <a class="item" href="/1.0/">
-            <i class="grid icon book"></i>
-            Bean Validation 1.0
-          </a>
-        </div>
-      </div>
-      <a class="item" href="/resources/">
-        <i class="grid icon folder open"></i>
-        Additional resources
-      </a>
-      <a class="item" href="/licensing/">
-        <i class="grid icon legal"></i>
-        Licensing
-      </a>
-      <a class="item" href="/contribute/">
-        <i class="grid icon users"></i>
-        Contribute
-      </a>
-    </div>
-    <div class="pusher">
-      <div class="mobile-menu-button-bar mobile only print hidden">
-        <a class="item" id="mobile-menu-toggle">
-          <i class="sidebar icon"></i>
-          Menu
-        </a>
-      </div>
-      <header role="banner">
-        <div class="ui container banner">
-          <div class="ui stackable menu mobile hidden print hidden" id="nav">
-            <a class="item" href="/" title="Home">
-              <img alt="Bean Validation" src="/logo/logo.svg">
-            </a>
-            <a class="item" href="/news/">News</a>
-            <a class="item" href="/2.0/">
-              <strong>Bean Validation 2.0</strong>
-            </a>
-            <div class="dropdown item ui">
-              Archives
-              <i class="dropdown icon"></i>
-              <div class="menu">
-                <a class="item" href="/1.1/">Bean Validation 1.1</a>
-                <a class="item" href="/1.0/">Bean Validation 1.0</a>
-              </div>
-            </div>
-            <a class="item" href="/resources/">Resources</a>
-            <a class="item" href="/licensing/">Licensing</a>
-            <a class="item" href="/contribute/">Contribute</a>
-          </div>
-        </div>
-      </header>
-      <div class="jumbotron small">
-        <div class="ui container">
-          <h1>Bean Validation</h1>
-          <h2>Fix annoyance between JPA and Bean Validation when @Id @GeneratedValue and @NotNull are used</h2>
-        </div>
-      </div>
-      <div class="ui container page-content">
-        <div class="content" id="content">
-          <div id="toc" class="toc">
-          <div id="toctitle">Table of Contents</div>
-          <ul class="sectlevel1">
-          <li><a href="#problem-description">1. Problem description</a></li>
-          <li><a href="#solutions">2. Solutions</a>
-          <ul class="sectlevel2">
-          <li><a href="#1-user-adjusts">2.1. 1. User adjusts</a></li>
-          <li><a href="#2-user-adjusts-with-some-help">2.2. 2 User adjusts with some help</a></li>
-          <li><a href="#3-have-jpa-disable-validation-of-id-properties-at-pre-persist">2.3. 3. Have JPA disable validation of id properties at pre-persist</a></li>
-          <li><a href="#conclusions">2.4. Conclusions</a></li>
-          <li><a href="#questions-remaining">2.5. Questions remaining</a></li>
-          </ul>
-          </li>
-          </ul>
-          </div>
-          <div id="preamble">
-          <div class="sectionbody">
-          <div class="paragraph">
-          <p><a href="https://hibernate.atlassian.net/browse/BVAL-234">Link to JIRA ticket</a>
-          See also <a href="http://netbeans.org/bugzilla/show_bug.cgi?id=197845#c3">NetBeans issue</a></p>
-          </div>
-          </div>
-          </div>
-          <div class="sect1">
-          <h2 id="problem-description"><a class="anchor" href="#problem-description"></a>1. Problem description</h2>
-          <div class="sectionbody">
-          <div class="paragraph">
-          <p>Today when a property marked @Id @GeneratedValue is also marked @NotNull, it will fail if the identity generation is post-insert
-          in the database. This can be the case if the underlying table is using column id generation for example.</p>
-          </div>
-          <div class="paragraph">
-          <p>The id property is thus null when Bean Validation is executed during the pre-persist phase and a constraint
-          violation is raised.</p>
-          </div>
-          </div>
-          </div>
-          <div class="sect1">
-          <h2 id="solutions"><a class="anchor" href="#solutions"></a>2. Solutions</h2>
-          <div class="sectionbody">
-          <div class="sect2">
-          <h3 id="1-user-adjusts"><a class="anchor" href="#1-user-adjusts"></a>2.1. 1. User adjusts</h3>
-          <div class="paragraph">
-          <p>One option is to stay put and consider the behavior valid. The user can work around that by:</p>
-          </div>
-          <div class="ulist">
-          <ul>
-          <li>
-          <p>creating a <code>com.acme.groups.Created</code> group</p>
-          </li>
-          <li>
-          <p>marking the <code>@NotNull</code> annotation as belonging to the group</p>
-          </li>
-          <li>
-          <p>override the groups in <code>persistence.xml</code> to validate <code>Created</code> accordingly</p>
-          </li>
-          </ul>
-          </div>
-          <div class="paragraph">
-          <p>Here is the snipped of the <code>persistence.xml</code> file</p>
-          </div>
-          <div class="listingblock">
-          <div class="content">
-          <pre class="CodeRay highlight"><code>&lt;property name="javax.persistence.validation.group.pre-persist"&#x000A;          value="javax.validation.groups.Default"/&gt;&#x000A;&lt;property name="javax.persistence.validation.group.pre-update"&#x000A;          value="javax.validation.groups.Default,com.acme.groups.Created"/&gt;</code></pre>
-          </div>
-          </div>
-          </div>
-          <div class="sect2">
-          <h3 id="2-user-adjusts-with-some-help"><a class="anchor" href="#2-user-adjusts-with-some-help"></a>2.2. 2 User adjusts with some help</h3>
-          <div class="paragraph">
-          <p>We could use option 1 but have JPA provide the created group: <code>javax.persistence.validation.groups.Created</code></p>
-          </div>
-          </div>
-          <div class="sect2">
-          <h3 id="3-have-jpa-disable-validation-of-id-properties-at-pre-persist"><a class="anchor" href="#3-have-jpa-disable-validation-of-id-properties-at-pre-persist"></a>2.3. 3. Have JPA disable validation of id properties at pre-persist</h3>
-          <div class="paragraph">
-          <p>JPA could disable validation on id properties if in pre-persist and if the generated value is not created yet.
-          Note that we disable all validations - not simply <code>@NotNull</code> - as it does not make much sense to execute other
-          validations when a property is null.</p>
-          </div>
-          <div class="paragraph">
-          <p><code>TraversableResolver</code> can be used to solve the problem as <code>isReachable</code> can stop the processing of a property.</p>
-          </div>
-          </div>
-          <div class="sect2">
-          <h3 id="conclusions"><a class="anchor" href="#conclusions"></a>2.4. Conclusions</h3>
-          <div class="paragraph">
-          <p>Option 3 seems the most reasonable but it could be complicated at the JPA level.
-          Before going to the JPA EG, let&#8217;s discuss the situation here.</p>
-          </div>
-          </div>
-          <div class="sect2">
-          <h3 id="questions-remaining"><a class="anchor" href="#questions-remaining"></a>2.5. Questions remaining</h3>
-          <div class="ulist">
-          <ul>
-          <li>
-          <p>should the <code>Created</code> groups be renamed?</p>
-          </li>
-          <li>
-          <p>is that correct to sneakily disable @NotNull constraint validation?</p>
-          </li>
-          <li>
-          <p>could we as JPA to validate the object id property once the id has been set (flush time in this case)?</p>
-          </li>
-          </ul>
-          </div>
-          </div>
-          </div>
-          </div>
-          <hr>
+<head>
+<meta charset="UTF-8">
+<meta content="IE=Edge" http-equiv="X-UA-Compatible">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>
+Jakarta Bean Validation - Fix annoyance between JPA and Bean Validation when @Id @GeneratedValue and @NotNull are used
+</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css" rel="stylesheet">
+<link href="/stylesheets/styles.css?t=1581357732" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
+<!-- / Unfortunately, matchHeight doesn't follow the same convention as the other minified files -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.2/jquery.matchHeight-min.js"></script>
+<link href="/news/news.atom" rel="alternate" type="application/atom+xml">
+</head>
+<body class="pushable">
+<div class="ui vertical menu inverted sidebar left print hidden" id="mobile-menu">
+<a class="item" href="/" title="Home">
+<i class="grid icon home"></i>
+Home
+</a>
+<a class="item" href="/news/">
+<i class="grid icon newspaper"></i>
+News
+</a>
+<a class="item" href="/2.0/">
+<i class="grid icon book"></i>
+<strong>Jakarta Bean Validation 2.0</strong>
+</a>
+<div class="item">
+<i class="grid icon archive"></i>
+Archives
+<div class="menu">
+<a class="item" href="/2.0-jsr380/">
+<i class="grid icon book"></i>
+Bean Validation 2.0 (JSR 380)
+</a>
+<a class="item" href="/1.1/">
+<i class="grid icon book"></i>
+Bean Validation 1.1 (JSR 349)
+</a>
+<a class="item" href="/1.0/">
+<i class="grid icon book"></i>
+Bean Validation 1.0 (JSR 303)
+</a>
+</div>
+</div>
+<a class="item" href="/resources/">
+<i class="grid icon folder open"></i>
+Additional resources
+</a>
+<a class="item" href="/licensing/">
+<i class="grid icon legal"></i>
+Licensing
+</a>
+<a class="item" href="/contribute/">
+<i class="grid icon users"></i>
+Contribute
+</a>
+</div>
+<div class="pusher">
+<div class="mobile-menu-button-bar mobile only print hidden">
+<a class="item" id="mobile-menu-toggle">
+<i class="sidebar icon"></i>
+Menu
+</a>
+</div>
+<header role="banner">
+<div class="ui container banner">
+<div class="ui stackable menu mobile hidden print hidden" id="nav">
+<a class="item" href="/" title="Home">
+<img alt="Bean Validation" src="/logo/logo.svg">
+</a>
+<a class="item" href="/news/">News</a>
+<a class="item" href="/2.0/">
+<strong>Jakarta Bean Validation 2.0</strong>
+</a>
+<div class="dropdown item ui">
+Archives
+<i class="dropdown icon"></i>
+<div class="menu">
+<a class="item" href="/2.0-jsr380/">Bean Validation 2.0 (JSR 380)</a>
+<a class="item" href="/1.1/">Bean Validation 1.1 (JSR 349)</a>
+<a class="item" href="/1.0/">Bean Validation 1.0 (JSR 303)</a>
+</div>
+</div>
+<a class="item" href="/resources/">Resources</a>
+<a class="item" href="/licensing/">Licensing</a>
+<a class="item" href="/contribute/">Contribute</a>
+</div>
+</div>
+</header>
+<div class="jumbotron small">
+<div class="ui container">
+<h1>Jakarta Bean Validation</h1>
+<h2>Fix annoyance between JPA and Bean Validation when @Id @GeneratedValue and @NotNull are used</h2>
+</div>
+</div>
+<div class="ui container page-content">
+<div class="content" id="content">
+<div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#problem-description">1. Problem description</a></li>
+<li><a href="#solutions">2. Solutions</a>
+<ul class="sectlevel2">
+<li><a href="#1-user-adjusts">2.1. 1. User adjusts</a></li>
+<li><a href="#2-user-adjusts-with-some-help">2.2. 2 User adjusts with some help</a></li>
+<li><a href="#3-have-jpa-disable-validation-of-id-properties-at-pre-persist">2.3. 3. Have JPA disable validation of id properties at pre-persist</a></li>
+<li><a href="#conclusions">2.4. Conclusions</a></li>
+<li><a href="#questions-remaining">2.5. Questions remaining</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://hibernate.atlassian.net/browse/BVAL-234">Link to JIRA ticket</a>
+See also <a href="http://netbeans.org/bugzilla/show_bug.cgi?id=197845#c3">NetBeans issue</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="problem-description"><a class="anchor" href="#problem-description"></a>1. Problem description</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Today when a property marked @Id @GeneratedValue is also marked @NotNull, it will fail if the identity generation is post-insert
+in the database. This can be the case if the underlying table is using column id generation for example.</p>
+</div>
+<div class="paragraph">
+<p>The id property is thus null when Bean Validation is executed during the pre-persist phase and a constraint
+violation is raised.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="solutions"><a class="anchor" href="#solutions"></a>2. Solutions</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="1-user-adjusts"><a class="anchor" href="#1-user-adjusts"></a>2.1. 1. User adjusts</h3>
+<div class="paragraph">
+<p>One option is to stay put and consider the behavior valid. The user can work around that by:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>creating a <code>com.acme.groups.Created</code> group</p>
+</li>
+<li>
+<p>marking the <code>@NotNull</code> annotation as belonging to the group</p>
+</li>
+<li>
+<p>override the groups in <code>persistence.xml</code> to validate <code>Created</code> accordingly</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Here is the snipped of the <code>persistence.xml</code> file</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>&lt;property name="javax.persistence.validation.group.pre-persist"&#x000A;          value="javax.validation.groups.Default"/&gt;&#x000A;&lt;property name="javax.persistence.validation.group.pre-update"&#x000A;          value="javax.validation.groups.Default,com.acme.groups.Created"/&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="2-user-adjusts-with-some-help"><a class="anchor" href="#2-user-adjusts-with-some-help"></a>2.2. 2 User adjusts with some help</h3>
+<div class="paragraph">
+<p>We could use option 1 but have JPA provide the created group: <code>javax.persistence.validation.groups.Created</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="3-have-jpa-disable-validation-of-id-properties-at-pre-persist"><a class="anchor" href="#3-have-jpa-disable-validation-of-id-properties-at-pre-persist"></a>2.3. 3. Have JPA disable validation of id properties at pre-persist</h3>
+<div class="paragraph">
+<p>JPA could disable validation on id properties if in pre-persist and if the generated value is not created yet.
+Note that we disable all validations - not simply <code>@NotNull</code> - as it does not make much sense to execute other
+validations when a property is null.</p>
+</div>
+<div class="paragraph">
+<p><code>TraversableResolver</code> can be used to solve the problem as <code>isReachable</code> can stop the processing of a property.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="conclusions"><a class="anchor" href="#conclusions"></a>2.4. Conclusions</h3>
+<div class="paragraph">
+<p>Option 3 seems the most reasonable but it could be complicated at the JPA level.
+Before going to the JPA EG, let&#8217;s discuss the situation here.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="questions-remaining"><a class="anchor" href="#questions-remaining"></a>2.5. Questions remaining</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>should the <code>Created</code> groups be renamed?</p>
+</li>
+<li>
+<p>is that correct to sneakily disable @NotNull constraint validation?</p>
+</li>
+<li>
+<p>could we as JPA to validate the object id property once the id has been set (flush time in this case)?</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<hr>
+
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+            var disqus_shortname = 'beanvalidation';
+            var disqus_url = "http://beanvalidation.org/proposals/BVAL-234/";
+            var disqus_developer = null;
+            var disqus_identifier = null;
+            (function() {
+              var dsq = document.createElement("script"); dsq.type = "text/javascript"; dsq.async = true;
+              dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+              (document.getElementsByTagName("head")[0] || document.getElementsByTagName("body")[0]).appendChild(dsq);
+            })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript=beanvalidation">comments powered by Disqus.</a></noscript>
           
-                      <div id="disqus_thread"></div>
-                      <script type="text/javascript">
-                      var disqus_shortname = 'beanvalidation';
-                      var disqus_url = "http://beanvalidation.org/proposals/BVAL-234/";
-                      var disqus_developer = null;
-                      var disqus_identifier = null;
-                      (function() {
-                        var dsq = document.createElement("script"); dsq.type = "text/javascript"; dsq.async = true;
-                        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                        (document.getElementsByTagName("head")[0] || document.getElementsByTagName("body")[0]).appendChild(dsq);
-                      })();
-                      </script>
-                      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript=beanvalidation">comments powered by Disqus.</a></noscript>
-        </div>
-      </div>
-      <footer class="print hidden">
-        <div class="ui inverted vertical footer segment">
-          <div class="ui container">
-            <div class="ui stackable grid">
-              <div class="eleven wide column middle aligned">
-                Copyright &copy; Red Hat, Inc.
-              </div>
-              <div class="five wide column sponsor">
-                <div class="logo">
-                  <a href="https://www.redhat.com/">
-                    <img src="/images/sponsored-by-redhat.svg" style="height: 40px" title="Red Hat">
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
-    </div>
-    <script>
-     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-                        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-     
-    ga('create', 'UA-24703879-1', 'auto');
-    ga('send', 'pageview');
-    
-    </script>
-    <script>
-      $(document).ready(function() {
-        $('#mobile-menu').sidebar('setting', {
-          transition: 'push'
-        });
-        $('#mobile-menu').sidebar('attach events', '#mobile-menu-toggle');
-      
-        $('.ui.menu .ui.dropdown').dropdown({ on: 'hover' });
-      });
-    </script>
-  </body>
+</div>
+</div>
+
+<footer class="print hidden">
+<div class="ui inverted vertical footer segment">
+<div class="ui container">
+<div class="ui stackable grid">
+<div class="eleven wide column middle aligned">
+Copyright &copy; Red Hat, Inc.
+</div>
+<div class="five wide column sponsor">
+<div class="logo">
+<a href="https://www.redhat.com/">
+<img src="/images/sponsored-by-redhat.svg" style="height: 40px" title="Red Hat">
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<script>
+ (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ 
+ga('create', 'UA-24703879-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+<script>
+  $(document).ready(function() {
+    $('#mobile-menu').sidebar('setting', {
+      transition: 'push'
+    });
+    $('#mobile-menu').sidebar('attach events', '#mobile-menu-toggle');
+  
+    $('.ui.menu .ui.dropdown').dropdown({ on: 'hover' });
+  });
+</script>
+</body>
 </html>

@@ -1,290 +1,300 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>
-      Bean Validation - Bean Validation 2.0 Alpha2 is out
-    </title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css" rel="stylesheet">
-    <link href="/stylesheets/styles.css?t=1556802719" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
-    <!-- / Unfortunately, matchHeight doesn't follow the same convention as the other minified files -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.2/jquery.matchHeight-min.js"></script>
-    <link href="/news/news.atom" rel="alternate" type="application/atom+xml">
-  </head>
-  <body class="pushable">
-    <div class="ui vertical menu inverted sidebar left print hidden" id="mobile-menu">
-      <a class="item" href="/" title="Home">
-        <i class="grid icon home"></i>
-        Home
-      </a>
-      <a class="item selected" href="/news/">
-        <i class="grid icon newspaper"></i>
-        News
-      </a>
-      <a class="item" href="/2.0/">
-        <i class="grid icon book"></i>
-        <strong>Bean Validation 2.0</strong>
-      </a>
-      <div class="item">
-        <i class="grid icon archive"></i>
-        Archives
-        <div class="menu">
-          <a class="item" href="/1.1/">
-            <i class="grid icon book"></i>
-            Bean Validation 1.1
-          </a>
-          <a class="item" href="/1.0/">
-            <i class="grid icon book"></i>
-            Bean Validation 1.0
-          </a>
-        </div>
-      </div>
-      <a class="item" href="/resources/">
-        <i class="grid icon folder open"></i>
-        Additional resources
-      </a>
-      <a class="item" href="/licensing/">
-        <i class="grid icon legal"></i>
-        Licensing
-      </a>
-      <a class="item" href="/contribute/">
-        <i class="grid icon users"></i>
-        Contribute
-      </a>
-    </div>
-    <div class="pusher">
-      <div class="mobile-menu-button-bar mobile only print hidden">
-        <a class="item" id="mobile-menu-toggle">
-          <i class="sidebar icon"></i>
-          Menu
-        </a>
-      </div>
-      <header role="banner">
-        <div class="ui container banner">
-          <div class="ui stackable menu mobile hidden print hidden" id="nav">
-            <a class="item" href="/" title="Home">
-              <img alt="Bean Validation" src="/logo/logo.svg">
-            </a>
-            <a class="item selected" href="/news/">News</a>
-            <a class="item" href="/2.0/">
-              <strong>Bean Validation 2.0</strong>
-            </a>
-            <div class="dropdown item ui">
-              Archives
-              <i class="dropdown icon"></i>
-              <div class="menu">
-                <a class="item" href="/1.1/">Bean Validation 1.1</a>
-                <a class="item" href="/1.0/">Bean Validation 1.0</a>
-              </div>
-            </div>
-            <a class="item" href="/resources/">Resources</a>
-            <a class="item" href="/licensing/">Licensing</a>
-            <a class="item" href="/contribute/">Contribute</a>
-          </div>
-        </div>
-      </header>
-      <div class="jumbotron small">
-        <div class="ui container">
-          <h1>Bean Validation</h1>
-        </div>
-      </div>
-      <div class="page-title blog-title">
-        <div class="ui container">
-          <div class="blog-title-bar">
-            <div class="blog-title-caption">
-              <h2>
-                <a href="/news/2017/03/31/bean-validation-2-0-alpha2-is-out/">Bean Validation 2.0 Alpha2 is out</a>
-              </h2>
-              <div class="blog-author-bar">
-                Posted by
-                <strong>
-                  Gunnar Morling
-                </strong>
-                &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-                31 Mar 2017
-                &nbsp;&nbsp;
-                <span class="blog-tags">
-                  <a class="ui label tag" href="/news/tags/release/">
-                    release
-                  </a>
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="ui container blog-article">
-        <div class="content" id="content">
-          <article>
-            <div class="blog-body" itemprop="articleBody">
-              <div id="preamble">
-              <div class="sectionbody">
-              <div class="paragraph">
-              <p>I&#8217;m happy to announce the release of the Alpha2 release of the Bean Validation 2 API and specification.</p>
-              </div>
-              <div class="paragraph">
-              <p>This release contains several improvements and clarifications around the <a href="http://beanvalidation.org/2.0/spec/2.0.0.alpha2/#appendix-value-extraction">validation of container elements</a> (think <code>List&lt;@Email String&gt;</code>):</p>
-              </div>
-              <div class="ulist">
-              <ul>
-              <li>
-              <p>Custom value extractors can now be passed in when bootstrapping a validator factory or validator (via API or XML)</p>
-              </li>
-              <li>
-              <p>Value extractors are detected via the Java service loader mechanism
-              (e.g. allowing libraries to ship their own extractors for custom collection types)</p>
-              </li>
-              <li>
-              <p>Property paths for constraint violations on container elements will now contain a node of the new type <code>CONTAINER_ELEMENT</code></p>
-              </li>
-              <li>
-              <p>Container element constraints can be specified in XML mapping descriptors</p>
-              </li>
-              </ul>
-              </div>
-              <div class="paragraph">
-              <p>There are also some new constraints, as per the community feedback on the <a href="/news/2016/09/15/which-constraints-to-add/">survey we did last year</a>:</p>
-              </div>
-              <div class="ulist">
-              <ul>
-              <li>
-              <p><code>@NotEmpty</code>, <code>@NotBlank</code></p>
-              </li>
-              <li>
-              <p><code>@Email</code></p>
-              </li>
-              <li>
-              <p><code>@Positive</code>, <code>@Negative</code></p>
-              </li>
-              </ul>
-              </div>
-              <div class="paragraph">
-              <p>The first three have been part of the reference implementation for a long time
-              and have been promoted to the spec due to their frequent usage.
-              The latter two are new constraints which address the very common use case of
-              mandating that a numeric value should be positive or negative.
-              It&#8217;s configurable via the <code>strict()</code> attribute whether 0 should be considered as valid or not.</p>
-              </div>
-              <div class="paragraph">
-              <p>You can find the complete list of addressed issues <a href="https://hibernate.atlassian.net/issues/?jql=project%20%3D%20BVAL%20AND%20fixVersion%20%3D%202.0.0.Alpha2">in JIRA</a>.
-              The spec text of the Alpha2 release is published <a href="http://beanvalidation.org/2.0/spec/2.0.0.alpha2/">here</a>.
-              The GAV coordinates of the API JAR are <a href="http://search.maven.org/#artifactdetails%7Cjavax.validation%7Cvalidation-api%7C2.0.0.Alpha2%7Cjar">javax.validation:validation-api:2.0.0.Alpha2</a>.</p>
-              </div>
-              </div>
-              </div>
-              <div class="sect1">
-              <h2 id="tck-update"><a class="anchor" href="#tck-update"></a>TCK update</h2>
-              <div class="sectionbody">
-              <div class="paragraph">
-              <p>Together with the spec we also released a new version of the Bean Validation TCK for testing the new features.
-              Its coordinates are <code>org.hibernate.beanvalidation.tck:beanvalidation-tck-tests:2.0.0.Alpha3</code> (it should be synced to Maven Central soon).</p>
-              </div>
-              <div class="paragraph">
-              <p>If you are wondering why the TCK is at Alpha3 already, that&#8217;s because of a glitch with the Alpha2 release which wouldn&#8217;t allow to run the TCK in a container.
-              Hence we released the Alpha3 version right after that.</p>
-              </div>
-              </div>
-              </div>
-              <div class="sect1">
-              <h2 id="trying-it-out-yourself"><a class="anchor" href="#trying-it-out-yourself"></a>Trying it out yourself</h2>
-              <div class="sectionbody">
-              <div class="paragraph">
-              <p>In order to try out the latest Bean Validation features, grab this week&#8217;s release of
-              the reference implementation, Hibernate Validator 6 Alpha2.</p>
-              </div>
-              <div class="paragraph">
-              <p>It supports the Alpha2 version of the spec and some things more.
-              Refer to the <a href="http://in.relation.to/2017/03/30/hibernate-validator-600-alpha2-out/">announcement post</a> for all the details.
-              Please give it a try and let us know about your thoughts on these changes as well as any other things related to Bean Validation.</p>
-              </div>
-              <div class="paragraph">
-              <p>We are now working towards the Public Draft of the spec (to be expected in April).
-              The Public Draft will mostly polish the work done so far.
-              Most prominently, the container element validation feature,
-              which currently is <a href="http://beanvalidation.org/2.0/spec/2.0.0.alpha2/#appendix-value-extraction">an appendix</a> to the spec,
-              will be incorporated in the actual specification sections.</p>
-              </div>
-              <div class="paragraph">
-              <p>We&#8217;ve also planned to address some other feature requests, like <a href="http://beanvalidation.org/2.0/spec/2.0.0.alpha2/#appendix-value-extraction">splitting up</a> the notion of message interpolation and retrieving message bundles.
-              If there are other things you&#8217;d like to see addressed in Bean Validation 2.0,
-              please <a href="http://lists.jboss.org/pipermail/beanvalidation-dev/">get in touch</a> quickly, the clock is ticking :)</p>
-              </div>
-              </div>
-              </div>
-            </div>
-          </article>
-          <hr>
-          <div class="post-navigation">
-            <div class="ui grid two column stackable">
-              <div class="column">
-                &laquo;
-                <a href="../../../02/16/first-alpha-of-bean-validation-2-0-reference-implementation">First Alpha of Bean Validation 2.0 Reference Implementation Available</a>
-              </div>
-              <div class="column text-right">
-                <a href="../../../04/26/bean-validation-2-0-up-for-public-review">Bean Validation 2.0 is up for Public Review</a>
-                &raquo;
-              </div>
-            </div>
-          </div>
-          <hr>
+<head>
+<meta charset="UTF-8">
+<meta content="IE=Edge" http-equiv="X-UA-Compatible">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>
+Jakarta Bean Validation - Bean Validation 2.0 Alpha2 is out
+</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css" rel="stylesheet">
+<link href="/stylesheets/styles.css?t=1581357732" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
+<!-- / Unfortunately, matchHeight doesn't follow the same convention as the other minified files -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.2/jquery.matchHeight-min.js"></script>
+<link href="/news/news.atom" rel="alternate" type="application/atom+xml">
+</head>
+<body class="pushable">
+<div class="ui vertical menu inverted sidebar left print hidden" id="mobile-menu">
+<a class="item" href="/" title="Home">
+<i class="grid icon home"></i>
+Home
+</a>
+<a class="item selected" href="/news/">
+<i class="grid icon newspaper"></i>
+News
+</a>
+<a class="item" href="/2.0/">
+<i class="grid icon book"></i>
+<strong>Jakarta Bean Validation 2.0</strong>
+</a>
+<div class="item">
+<i class="grid icon archive"></i>
+Archives
+<div class="menu">
+<a class="item" href="/2.0-jsr380/">
+<i class="grid icon book"></i>
+Bean Validation 2.0 (JSR 380)
+</a>
+<a class="item" href="/1.1/">
+<i class="grid icon book"></i>
+Bean Validation 1.1 (JSR 349)
+</a>
+<a class="item" href="/1.0/">
+<i class="grid icon book"></i>
+Bean Validation 1.0 (JSR 303)
+</a>
+</div>
+</div>
+<a class="item" href="/resources/">
+<i class="grid icon folder open"></i>
+Additional resources
+</a>
+<a class="item" href="/licensing/">
+<i class="grid icon legal"></i>
+Licensing
+</a>
+<a class="item" href="/contribute/">
+<i class="grid icon users"></i>
+Contribute
+</a>
+</div>
+<div class="pusher">
+<div class="mobile-menu-button-bar mobile only print hidden">
+<a class="item" id="mobile-menu-toggle">
+<i class="sidebar icon"></i>
+Menu
+</a>
+</div>
+<header role="banner">
+<div class="ui container banner">
+<div class="ui stackable menu mobile hidden print hidden" id="nav">
+<a class="item" href="/" title="Home">
+<img alt="Bean Validation" src="/logo/logo.svg">
+</a>
+<a class="item selected" href="/news/">News</a>
+<a class="item" href="/2.0/">
+<strong>Jakarta Bean Validation 2.0</strong>
+</a>
+<div class="dropdown item ui">
+Archives
+<i class="dropdown icon"></i>
+<div class="menu">
+<a class="item" href="/2.0-jsr380/">Bean Validation 2.0 (JSR 380)</a>
+<a class="item" href="/1.1/">Bean Validation 1.1 (JSR 349)</a>
+<a class="item" href="/1.0/">Bean Validation 1.0 (JSR 303)</a>
+</div>
+</div>
+<a class="item" href="/resources/">Resources</a>
+<a class="item" href="/licensing/">Licensing</a>
+<a class="item" href="/contribute/">Contribute</a>
+</div>
+</div>
+</header>
+<div class="jumbotron small">
+<div class="ui container">
+<h1>Jakarta Bean Validation</h1>
+</div>
+</div>
+<div class="page-title blog-title">
+<div class="ui container">
+<div class="blog-title-bar">
+<div class="blog-title-caption">
+<h2>
+<a href="/news/2017/03/31/bean-validation-2-0-alpha2-is-out/">Bean Validation 2.0 Alpha2 is out</a>
+</h2>
+<div class="blog-author-bar">
+Posted by
+<strong>
+Gunnar Morling
+</strong>
+&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+31 Mar 2017
+&nbsp;&nbsp;
+<span class="blog-tags">
+<a class="ui label tag" href="/news/tags/release/">
+release
+</a>
+</span>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div class="ui container blog-article">
+<div class="content" id="content">
+<article>
+<div class="blog-body" itemprop="articleBody">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>I&#8217;m happy to announce the release of the Alpha2 release of the Bean Validation 2 API and specification.</p>
+</div>
+<div class="paragraph">
+<p>This release contains several improvements and clarifications around the <a href="http://beanvalidation.org/2.0/spec/2.0.0.alpha2/#appendix-value-extraction">validation of container elements</a> (think <code>List&lt;@Email String&gt;</code>):</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Custom value extractors can now be passed in when bootstrapping a validator factory or validator (via API or XML)</p>
+</li>
+<li>
+<p>Value extractors are detected via the Java service loader mechanism
+(e.g. allowing libraries to ship their own extractors for custom collection types)</p>
+</li>
+<li>
+<p>Property paths for constraint violations on container elements will now contain a node of the new type <code>CONTAINER_ELEMENT</code></p>
+</li>
+<li>
+<p>Container element constraints can be specified in XML mapping descriptors</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>There are also some new constraints, as per the community feedback on the <a href="/news/2016/09/15/which-constraints-to-add/">survey we did last year</a>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>@NotEmpty</code>, <code>@NotBlank</code></p>
+</li>
+<li>
+<p><code>@Email</code></p>
+</li>
+<li>
+<p><code>@Positive</code>, <code>@Negative</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The first three have been part of the reference implementation for a long time
+and have been promoted to the spec due to their frequent usage.
+The latter two are new constraints which address the very common use case of
+mandating that a numeric value should be positive or negative.
+It&#8217;s configurable via the <code>strict()</code> attribute whether 0 should be considered as valid or not.</p>
+</div>
+<div class="paragraph">
+<p>You can find the complete list of addressed issues <a href="https://hibernate.atlassian.net/issues/?jql=project%20%3D%20BVAL%20AND%20fixVersion%20%3D%202.0.0.Alpha2">in JIRA</a>.
+The spec text of the Alpha2 release is published <a href="http://beanvalidation.org/2.0/spec/2.0.0.alpha2/">here</a>.
+The GAV coordinates of the API JAR are <a href="http://search.maven.org/#artifactdetails%7Cjavax.validation%7Cvalidation-api%7C2.0.0.Alpha2%7Cjar">javax.validation:validation-api:2.0.0.Alpha2</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tck-update"><a class="anchor" href="#tck-update"></a>TCK update</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Together with the spec we also released a new version of the Bean Validation TCK for testing the new features.
+Its coordinates are <code>org.hibernate.beanvalidation.tck:beanvalidation-tck-tests:2.0.0.Alpha3</code> (it should be synced to Maven Central soon).</p>
+</div>
+<div class="paragraph">
+<p>If you are wondering why the TCK is at Alpha3 already, that&#8217;s because of a glitch with the Alpha2 release which wouldn&#8217;t allow to run the TCK in a container.
+Hence we released the Alpha3 version right after that.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="trying-it-out-yourself"><a class="anchor" href="#trying-it-out-yourself"></a>Trying it out yourself</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In order to try out the latest Bean Validation features, grab this week&#8217;s release of
+the reference implementation, Hibernate Validator 6 Alpha2.</p>
+</div>
+<div class="paragraph">
+<p>It supports the Alpha2 version of the spec and some things more.
+Refer to the <a href="http://in.relation.to/2017/03/30/hibernate-validator-600-alpha2-out/">announcement post</a> for all the details.
+Please give it a try and let us know about your thoughts on these changes as well as any other things related to Bean Validation.</p>
+</div>
+<div class="paragraph">
+<p>We are now working towards the Public Draft of the spec (to be expected in April).
+The Public Draft will mostly polish the work done so far.
+Most prominently, the container element validation feature,
+which currently is <a href="http://beanvalidation.org/2.0/spec/2.0.0.alpha2/#appendix-value-extraction">an appendix</a> to the spec,
+will be incorporated in the actual specification sections.</p>
+</div>
+<div class="paragraph">
+<p>We&#8217;ve also planned to address some other feature requests, like <a href="http://beanvalidation.org/2.0/spec/2.0.0.alpha2/#appendix-value-extraction">splitting up</a> the notion of message interpolation and retrieving message bundles.
+If there are other things you&#8217;d like to see addressed in Bean Validation 2.0,
+please <a href="http://lists.jboss.org/pipermail/beanvalidation-dev/">get in touch</a> quickly, the clock is ticking :)</p>
+</div>
+</div>
+</div>
+</div>
+
+</article>
+<hr>
+<div class="post-navigation">
+<div class="ui grid two column stackable">
+<div class="column">
+&laquo;
+<a href="../../../02/16/first-alpha-of-bean-validation-2-0-reference-implementation">First Alpha of Bean Validation 2.0 Reference Implementation Available</a>
+</div>
+<div class="column text-right">
+<a href="../../../04/26/bean-validation-2-0-up-for-public-review">Bean Validation 2.0 is up for Public Review</a>
+&raquo;
+</div>
+</div>
+</div>
+<hr>
+
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+            var disqus_shortname = 'beanvalidation';
+            var disqus_url = "http://beanvalidation.org/news/2017/03/31/bean-validation-2-0-alpha2-is-out/";
+            var disqus_developer = null;
+            var disqus_identifier = null;
+            (function() {
+              var dsq = document.createElement("script"); dsq.type = "text/javascript"; dsq.async = true;
+              dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+              (document.getElementsByTagName("head")[0] || document.getElementsByTagName("body")[0]).appendChild(dsq);
+            })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript=beanvalidation">comments powered by Disqus.</a></noscript>
           
-                      <div id="disqus_thread"></div>
-                      <script type="text/javascript">
-                      var disqus_shortname = 'beanvalidation';
-                      var disqus_url = "http://beanvalidation.org/news/2017/03/31/bean-validation-2-0-alpha2-is-out/";
-                      var disqus_developer = null;
-                      var disqus_identifier = null;
-                      (function() {
-                        var dsq = document.createElement("script"); dsq.type = "text/javascript"; dsq.async = true;
-                        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                        (document.getElementsByTagName("head")[0] || document.getElementsByTagName("body")[0]).appendChild(dsq);
-                      })();
-                      </script>
-                      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript=beanvalidation">comments powered by Disqus.</a></noscript>
-        </div>
-      </div>
-      <footer class="print hidden">
-        <div class="ui inverted vertical footer segment">
-          <div class="ui container">
-            <div class="ui stackable grid">
-              <div class="eleven wide column middle aligned">
-                Copyright &copy; Red Hat, Inc.
-              </div>
-              <div class="five wide column sponsor">
-                <div class="logo">
-                  <a href="https://www.redhat.com/">
-                    <img src="/images/sponsored-by-redhat.svg" style="height: 40px" title="Red Hat">
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
-    </div>
-    <script>
-     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-                        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-     
-    ga('create', 'UA-24703879-1', 'auto');
-    ga('send', 'pageview');
-    
-    </script>
-    <script>
-      $(document).ready(function() {
-        $('#mobile-menu').sidebar('setting', {
-          transition: 'push'
-        });
-        $('#mobile-menu').sidebar('attach events', '#mobile-menu-toggle');
-      
-        $('.ui.menu .ui.dropdown').dropdown({ on: 'hover' });
-      });
-    </script>
-  </body>
+</div>
+</div>
+
+<footer class="print hidden">
+<div class="ui inverted vertical footer segment">
+<div class="ui container">
+<div class="ui stackable grid">
+<div class="eleven wide column middle aligned">
+Copyright &copy; Red Hat, Inc.
+</div>
+<div class="five wide column sponsor">
+<div class="logo">
+<a href="https://www.redhat.com/">
+<img src="/images/sponsored-by-redhat.svg" style="height: 40px" title="Red Hat">
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<script>
+ (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ 
+ga('create', 'UA-24703879-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+<script>
+  $(document).ready(function() {
+    $('#mobile-menu').sidebar('setting', {
+      transition: 'push'
+    });
+    $('#mobile-menu').sidebar('attach events', '#mobile-menu-toggle');
+  
+    $('.ui.menu .ui.dropdown').dropdown({ on: 'hover' });
+  });
+</script>
+</body>
 </html>

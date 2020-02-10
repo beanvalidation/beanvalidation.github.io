@@ -1,258 +1,269 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>
-      Bean Validation - Bean Validation 2.0 - A new JSR is born!
-    </title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css" rel="stylesheet">
-    <link href="/stylesheets/styles.css?t=1556802719" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
-    <!-- / Unfortunately, matchHeight doesn't follow the same convention as the other minified files -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.2/jquery.matchHeight-min.js"></script>
-    <link href="/news/news.atom" rel="alternate" type="application/atom+xml">
-  </head>
-  <body class="pushable">
-    <div class="ui vertical menu inverted sidebar left print hidden" id="mobile-menu">
-      <a class="item" href="/" title="Home">
-        <i class="grid icon home"></i>
-        Home
-      </a>
-      <a class="item selected" href="/news/">
-        <i class="grid icon newspaper"></i>
-        News
-      </a>
-      <a class="item" href="/2.0/">
-        <i class="grid icon book"></i>
-        <strong>Bean Validation 2.0</strong>
-      </a>
-      <div class="item">
-        <i class="grid icon archive"></i>
-        Archives
-        <div class="menu">
-          <a class="item" href="/1.1/">
-            <i class="grid icon book"></i>
-            Bean Validation 1.1
-          </a>
-          <a class="item" href="/1.0/">
-            <i class="grid icon book"></i>
-            Bean Validation 1.0
-          </a>
-        </div>
-      </div>
-      <a class="item" href="/resources/">
-        <i class="grid icon folder open"></i>
-        Additional resources
-      </a>
-      <a class="item" href="/licensing/">
-        <i class="grid icon legal"></i>
-        Licensing
-      </a>
-      <a class="item" href="/contribute/">
-        <i class="grid icon users"></i>
-        Contribute
-      </a>
-    </div>
-    <div class="pusher">
-      <div class="mobile-menu-button-bar mobile only print hidden">
-        <a class="item" id="mobile-menu-toggle">
-          <i class="sidebar icon"></i>
-          Menu
-        </a>
-      </div>
-      <header role="banner">
-        <div class="ui container banner">
-          <div class="ui stackable menu mobile hidden print hidden" id="nav">
-            <a class="item" href="/" title="Home">
-              <img alt="Bean Validation" src="/logo/logo.svg">
-            </a>
-            <a class="item selected" href="/news/">News</a>
-            <a class="item" href="/2.0/">
-              <strong>Bean Validation 2.0</strong>
-            </a>
-            <div class="dropdown item ui">
-              Archives
-              <i class="dropdown icon"></i>
-              <div class="menu">
-                <a class="item" href="/1.1/">Bean Validation 1.1</a>
-                <a class="item" href="/1.0/">Bean Validation 1.0</a>
-              </div>
-            </div>
-            <a class="item" href="/resources/">Resources</a>
-            <a class="item" href="/licensing/">Licensing</a>
-            <a class="item" href="/contribute/">Contribute</a>
-          </div>
-        </div>
-      </header>
-      <div class="jumbotron small">
-        <div class="ui container">
-          <h1>Bean Validation</h1>
-        </div>
-      </div>
-      <div class="page-title blog-title">
-        <div class="ui container">
-          <div class="blog-title-bar">
-            <div class="blog-title-caption">
-              <h2>
-                <a href="/news/2016/07/15/bean-validation-2-0-is-coming/">Bean Validation 2.0 - A new JSR is born!</a>
-              </h2>
-              <div class="blog-author-bar">
-                Posted by
-                <strong>
-                  Gunnar Morling
-                </strong>
-                &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-                15 Jul 2016
-                &nbsp;&nbsp;
-                <span class="blog-tags">
-                  <a class="ui label tag" href="/news/tags/news/">
-                    news
-                  </a>
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="ui container blog-article">
-        <div class="content" id="content">
-          <article>
-            <div class="blog-body" itemprop="articleBody">
-              <p>Today I've got some great news to share with you: a new revision of the Bean Validation spec is about to be kicked off!</p>
-              
-              <p>Over the last weeks, we've been busy with preparing a proposal for this JSR and I've submitted it to the JCP (Java Community Process) last week.
-              You can find the proposal for "JSR 380: Bean Validation 2.0" on <a href="https://jcp.org/en/jsr/detail?id=380">jcp.org</a>.</p>
-              
-              <p>In the following, let's take a look at what we think should be part of Bean Validation 2.0 and what we've planned as the next steps.</p>
-              
-              <h2>Looking back...</h2>
-              
-              <p>Bean Validation 1.0 and 1.1 (JSRs 303/349) saw a huge adoption by the Java community and are integrated with a wide range of technologies, be it other Java standards (e.g. CDI, JPA, JAX-RS)
-              or 3rd party libraries and frameworks such as Spring, Vaadin and many, many more.</p>
-              
-              <p>The main contribution of Bean Validation 1.1 - the declarative validation of method-level constraints - has been integrated into techs such as CDI and Spring,
-              making it a breeze to write expressive API contracts with constraints which are automatically validated upon execution.</p>
-              
-              <p>Bean Validation 1.1 has been finalized <a href="http://beanvalidation.org/news/2013/05/02/bean-validation-1-1-is-a-spec/">three years ago</a> and Java continued to evolve since then.
-              Java 8 - released in 2014 - brings many very interesting language features to the table, but also adds a new time and date API and much more.</p>
-              
-              <h2>...and forward</h2>
-              
-              <p>So it's about time that Bean Validation supports new JDK types such as <code>LocalTime</code> or <code>Optional</code>, but also takes advantage of new (language) features such as type annotations, repeatable annotations, reflective parameter name retrieval, lambda expressions etc.</p>
-              
-              <p>To give just one example, let's consider the requirement of applying constraints to the elements of a specific collection.
-              This has been a <a href="https://hibernate.atlassian.net/browse/BVAL-202">long-standing feature request</a>, but we could never find a way to solve it generically in an acceptable manner.</p>
-              
-              <p>Java 8 finally provides the perfect tool to solve this issue: <a href="https://docs.oracle.com/javase/tutorial/java/annotations/type_annotations.html">type annotations</a>.
-              Annotating type parameters of collections is a very intuitive way to apply constraints to collection elements (and not the entire collection itself):</p>
-              
-              <pre><code>List&lt;@Email String&gt; emails;&#x000A;</code></pre>
-              
-              <p>Java 8 provides the required APIs to retrieve the constraint annotation from the type parameter and apply the validation accordingly.</p>
-              
-              <p>But it doesn't stop there.
-              Repeatable annotation types will make it less verbose to specify several constraints of the same type one and the same element.
-              Reflective parameter name retrieval will provide better validation messages out of the box when validating constraints on method parameters.
-              Lambda expressions might be a useful vehicle to express small ad-hoc validation routines.</p>
-              
-              <h2>What else?</h2>
-              
-              <p>While we envision supporting and leveraging Java 8 as the "main theme" of Bean Validation 2.0, we hope to address some other issues, too.
-              E.g. there may be support for more customized payloads of constraint violations.
-              Also a builder API for constraint violation exceptions might be useful.
-              As would an API for validating an object graph assuming a list of changes to be applied.
-              Check out the <a href="https://jcp.org/en/jsr/detail?id=380">JSR 380 proposal</a> for some more ideas we have.</p>
-              
-              <p>While the baseline for Bean Validation 2.0 will be Java 8, we'll also be tracking the ongoing work for Java 9 and work towards making Bean Validation ready for Java 9 and its module system as far as possible.</p>
-              
-              <p>As the time-line of Bean Validation 2.0 is quite compact, we are very eager to hear from you, the community of users, and learn what would be the things most useful to you.
-              For sure we won't be able to address all potential ideas out there. So if there are features close to your heart which you'd really love to see in the spec, be sure to speak up and let us know.</p>
-              
-              <h2>What's next?</h2>
-              
-              <p>As per <a href="https://jcp.org/en/procedures/jcp2#3.3">the rules</a> of the Java Community Process, the Bean Validation 2.0 JSR is currently up for review by the JCP executive committee.
-              After that, there will be an approval ballot and we will hopefully be ready to go and kick off the work on actual spec changes, prototyping new features in the reference implementation and so on.</p>
-              
-              <p>So if you ever wanted to contribute to a Java Specification Request - be it just by voting for issues, opening new feature requests or actually working on the specification, its reference implementation and the test compatability kit (TCK) - then this is the perfect time.
-              If you are a member of the JCP, you also can <a href="https://jcp.org/en/jsr/egnom?id=380">join the expert group</a>, we'd be very happy to have you aboard.</p>
-              
-              <p>Whether EG member or not, in order to get the discussion on this JSR proposal started, just drop a comment below, post to the <a href="https://discourse.hibernate.org/c/bean-validation">feedback forum</a>, shoot a message to the <a href="https://lists.jboss.org/mailman/listinfo/beanvalidation-dev">Bean Validation mailing list</a> or
-              comment on specific issues in <a href="https://hibernate.atlassian.net/projects/BVAL/summary">the tracker</a>.</p>
-              
-              <p>We are looking forward to hearing from you and get Bean Validation 2.0 rolling!</p>
-            </div>
-          </article>
-          <hr>
-          <div class="post-navigation">
-            <div class="ui grid two column stackable">
-              <div class="column">
-                &laquo;
-                <a href="../../../../2015/06/18/bean-validation-tck-1-1-4-released">Bean Validation TCK 1.1.4.Final released</a>
-              </div>
-              <div class="column text-right">
-                <a href="../../../09/15/which-constraints-to-add">Feedback needed - Which constraints should be added?</a>
-                &raquo;
-              </div>
-            </div>
-          </div>
-          <hr>
+<head>
+<meta charset="UTF-8">
+<meta content="IE=Edge" http-equiv="X-UA-Compatible">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>
+Jakarta Bean Validation - Bean Validation 2.0 - A new JSR is born!
+</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css" rel="stylesheet">
+<link href="/stylesheets/styles.css?t=1581357732" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
+<!-- / Unfortunately, matchHeight doesn't follow the same convention as the other minified files -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.2/jquery.matchHeight-min.js"></script>
+<link href="/news/news.atom" rel="alternate" type="application/atom+xml">
+</head>
+<body class="pushable">
+<div class="ui vertical menu inverted sidebar left print hidden" id="mobile-menu">
+<a class="item" href="/" title="Home">
+<i class="grid icon home"></i>
+Home
+</a>
+<a class="item selected" href="/news/">
+<i class="grid icon newspaper"></i>
+News
+</a>
+<a class="item" href="/2.0/">
+<i class="grid icon book"></i>
+<strong>Jakarta Bean Validation 2.0</strong>
+</a>
+<div class="item">
+<i class="grid icon archive"></i>
+Archives
+<div class="menu">
+<a class="item" href="/2.0-jsr380/">
+<i class="grid icon book"></i>
+Bean Validation 2.0 (JSR 380)
+</a>
+<a class="item" href="/1.1/">
+<i class="grid icon book"></i>
+Bean Validation 1.1 (JSR 349)
+</a>
+<a class="item" href="/1.0/">
+<i class="grid icon book"></i>
+Bean Validation 1.0 (JSR 303)
+</a>
+</div>
+</div>
+<a class="item" href="/resources/">
+<i class="grid icon folder open"></i>
+Additional resources
+</a>
+<a class="item" href="/licensing/">
+<i class="grid icon legal"></i>
+Licensing
+</a>
+<a class="item" href="/contribute/">
+<i class="grid icon users"></i>
+Contribute
+</a>
+</div>
+<div class="pusher">
+<div class="mobile-menu-button-bar mobile only print hidden">
+<a class="item" id="mobile-menu-toggle">
+<i class="sidebar icon"></i>
+Menu
+</a>
+</div>
+<header role="banner">
+<div class="ui container banner">
+<div class="ui stackable menu mobile hidden print hidden" id="nav">
+<a class="item" href="/" title="Home">
+<img alt="Bean Validation" src="/logo/logo.svg">
+</a>
+<a class="item selected" href="/news/">News</a>
+<a class="item" href="/2.0/">
+<strong>Jakarta Bean Validation 2.0</strong>
+</a>
+<div class="dropdown item ui">
+Archives
+<i class="dropdown icon"></i>
+<div class="menu">
+<a class="item" href="/2.0-jsr380/">Bean Validation 2.0 (JSR 380)</a>
+<a class="item" href="/1.1/">Bean Validation 1.1 (JSR 349)</a>
+<a class="item" href="/1.0/">Bean Validation 1.0 (JSR 303)</a>
+</div>
+</div>
+<a class="item" href="/resources/">Resources</a>
+<a class="item" href="/licensing/">Licensing</a>
+<a class="item" href="/contribute/">Contribute</a>
+</div>
+</div>
+</header>
+<div class="jumbotron small">
+<div class="ui container">
+<h1>Jakarta Bean Validation</h1>
+</div>
+</div>
+<div class="page-title blog-title">
+<div class="ui container">
+<div class="blog-title-bar">
+<div class="blog-title-caption">
+<h2>
+<a href="/news/2016/07/15/bean-validation-2-0-is-coming/">Bean Validation 2.0 - A new JSR is born!</a>
+</h2>
+<div class="blog-author-bar">
+Posted by
+<strong>
+Gunnar Morling
+</strong>
+&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+15 Jul 2016
+&nbsp;&nbsp;
+<span class="blog-tags">
+<a class="ui label tag" href="/news/tags/news/">
+news
+</a>
+</span>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div class="ui container blog-article">
+<div class="content" id="content">
+<article>
+<div class="blog-body" itemprop="articleBody">
+<p>Today I've got some great news to share with you: a new revision of the Bean Validation spec is about to be kicked off!</p>
+
+<p>Over the last weeks, we've been busy with preparing a proposal for this JSR and I've submitted it to the JCP (Java Community Process) last week.
+You can find the proposal for "JSR 380: Bean Validation 2.0" on <a href="https://jcp.org/en/jsr/detail?id=380">jcp.org</a>.</p>
+
+<p>In the following, let's take a look at what we think should be part of Bean Validation 2.0 and what we've planned as the next steps.</p>
+
+<h2>Looking back...</h2>
+
+<p>Bean Validation 1.0 and 1.1 (JSRs 303/349) saw a huge adoption by the Java community and are integrated with a wide range of technologies, be it other Java standards (e.g. CDI, JPA, JAX-RS)
+or 3rd party libraries and frameworks such as Spring, Vaadin and many, many more.</p>
+
+<p>The main contribution of Bean Validation 1.1 - the declarative validation of method-level constraints - has been integrated into techs such as CDI and Spring,
+making it a breeze to write expressive API contracts with constraints which are automatically validated upon execution.</p>
+
+<p>Bean Validation 1.1 has been finalized <a href="http://beanvalidation.org/news/2013/05/02/bean-validation-1-1-is-a-spec/">three years ago</a> and Java continued to evolve since then.
+Java 8 - released in 2014 - brings many very interesting language features to the table, but also adds a new time and date API and much more.</p>
+
+<h2>...and forward</h2>
+
+<p>So it's about time that Bean Validation supports new JDK types such as <code>LocalTime</code> or <code>Optional</code>, but also takes advantage of new (language) features such as type annotations, repeatable annotations, reflective parameter name retrieval, lambda expressions etc.</p>
+
+<p>To give just one example, let's consider the requirement of applying constraints to the elements of a specific collection.
+This has been a <a href="https://hibernate.atlassian.net/browse/BVAL-202">long-standing feature request</a>, but we could never find a way to solve it generically in an acceptable manner.</p>
+
+<p>Java 8 finally provides the perfect tool to solve this issue: <a href="https://docs.oracle.com/javase/tutorial/java/annotations/type_annotations.html">type annotations</a>.
+Annotating type parameters of collections is a very intuitive way to apply constraints to collection elements (and not the entire collection itself):</p>
+
+<pre><code>List&lt;@Email String&gt; emails;&#x000A;</code></pre>
+
+<p>Java 8 provides the required APIs to retrieve the constraint annotation from the type parameter and apply the validation accordingly.</p>
+
+<p>But it doesn't stop there.
+Repeatable annotation types will make it less verbose to specify several constraints of the same type one and the same element.
+Reflective parameter name retrieval will provide better validation messages out of the box when validating constraints on method parameters.
+Lambda expressions might be a useful vehicle to express small ad-hoc validation routines.</p>
+
+<h2>What else?</h2>
+
+<p>While we envision supporting and leveraging Java 8 as the "main theme" of Bean Validation 2.0, we hope to address some other issues, too.
+E.g. there may be support for more customized payloads of constraint violations.
+Also a builder API for constraint violation exceptions might be useful.
+As would an API for validating an object graph assuming a list of changes to be applied.
+Check out the <a href="https://jcp.org/en/jsr/detail?id=380">JSR 380 proposal</a> for some more ideas we have.</p>
+
+<p>While the baseline for Bean Validation 2.0 will be Java 8, we'll also be tracking the ongoing work for Java 9 and work towards making Bean Validation ready for Java 9 and its module system as far as possible.</p>
+
+<p>As the time-line of Bean Validation 2.0 is quite compact, we are very eager to hear from you, the community of users, and learn what would be the things most useful to you.
+For sure we won't be able to address all potential ideas out there. So if there are features close to your heart which you'd really love to see in the spec, be sure to speak up and let us know.</p>
+
+<h2>What's next?</h2>
+
+<p>As per <a href="https://jcp.org/en/procedures/jcp2#3.3">the rules</a> of the Java Community Process, the Bean Validation 2.0 JSR is currently up for review by the JCP executive committee.
+After that, there will be an approval ballot and we will hopefully be ready to go and kick off the work on actual spec changes, prototyping new features in the reference implementation and so on.</p>
+
+<p>So if you ever wanted to contribute to a Java Specification Request - be it just by voting for issues, opening new feature requests or actually working on the specification, its reference implementation and the test compatability kit (TCK) - then this is the perfect time.
+If you are a member of the JCP, you also can <a href="https://jcp.org/en/jsr/egnom?id=380">join the expert group</a>, we'd be very happy to have you aboard.</p>
+
+<p>Whether EG member or not, in order to get the discussion on this JSR proposal started, just drop a comment below, post to the <a href="https://discourse.hibernate.org/c/bean-validation">feedback forum</a>, shoot a message to the <a href="https://lists.jboss.org/mailman/listinfo/beanvalidation-dev">Bean Validation mailing list</a> or
+comment on specific issues in <a href="https://hibernate.atlassian.net/projects/BVAL/summary">the tracker</a>.</p>
+
+<p>We are looking forward to hearing from you and get Bean Validation 2.0 rolling!</p>
+
+</div>
+
+</article>
+<hr>
+<div class="post-navigation">
+<div class="ui grid two column stackable">
+<div class="column">
+&laquo;
+<a href="../../../../2015/06/18/bean-validation-tck-1-1-4-released">Bean Validation TCK 1.1.4.Final released</a>
+</div>
+<div class="column text-right">
+<a href="../../../09/15/which-constraints-to-add">Feedback needed - Which constraints should be added?</a>
+&raquo;
+</div>
+</div>
+</div>
+<hr>
+
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+            var disqus_shortname = 'beanvalidation';
+            var disqus_url = "http://beanvalidation.org/news/2016/07/15/bean-validation-2-0-is-coming/";
+            var disqus_developer = null;
+            var disqus_identifier = null;
+            (function() {
+              var dsq = document.createElement("script"); dsq.type = "text/javascript"; dsq.async = true;
+              dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+              (document.getElementsByTagName("head")[0] || document.getElementsByTagName("body")[0]).appendChild(dsq);
+            })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript=beanvalidation">comments powered by Disqus.</a></noscript>
           
-                      <div id="disqus_thread"></div>
-                      <script type="text/javascript">
-                      var disqus_shortname = 'beanvalidation';
-                      var disqus_url = "http://beanvalidation.org/news/2016/07/15/bean-validation-2-0-is-coming/";
-                      var disqus_developer = null;
-                      var disqus_identifier = null;
-                      (function() {
-                        var dsq = document.createElement("script"); dsq.type = "text/javascript"; dsq.async = true;
-                        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                        (document.getElementsByTagName("head")[0] || document.getElementsByTagName("body")[0]).appendChild(dsq);
-                      })();
-                      </script>
-                      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript=beanvalidation">comments powered by Disqus.</a></noscript>
-        </div>
-      </div>
-      <footer class="print hidden">
-        <div class="ui inverted vertical footer segment">
-          <div class="ui container">
-            <div class="ui stackable grid">
-              <div class="eleven wide column middle aligned">
-                Copyright &copy; Red Hat, Inc.
-              </div>
-              <div class="five wide column sponsor">
-                <div class="logo">
-                  <a href="https://www.redhat.com/">
-                    <img src="/images/sponsored-by-redhat.svg" style="height: 40px" title="Red Hat">
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
-    </div>
-    <script>
-     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-                        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-     
-    ga('create', 'UA-24703879-1', 'auto');
-    ga('send', 'pageview');
-    
-    </script>
-    <script>
-      $(document).ready(function() {
-        $('#mobile-menu').sidebar('setting', {
-          transition: 'push'
-        });
-        $('#mobile-menu').sidebar('attach events', '#mobile-menu-toggle');
-      
-        $('.ui.menu .ui.dropdown').dropdown({ on: 'hover' });
-      });
-    </script>
-  </body>
+</div>
+</div>
+
+<footer class="print hidden">
+<div class="ui inverted vertical footer segment">
+<div class="ui container">
+<div class="ui stackable grid">
+<div class="eleven wide column middle aligned">
+Copyright &copy; Red Hat, Inc.
+</div>
+<div class="five wide column sponsor">
+<div class="logo">
+<a href="https://www.redhat.com/">
+<img src="/images/sponsored-by-redhat.svg" style="height: 40px" title="Red Hat">
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<script>
+ (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ 
+ga('create', 'UA-24703879-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+<script>
+  $(document).ready(function() {
+    $('#mobile-menu').sidebar('setting', {
+      transition: 'push'
+    });
+    $('#mobile-menu').sidebar('attach events', '#mobile-menu-toggle');
+  
+    $('.ui.menu .ui.dropdown').dropdown({ on: 'hover' });
+  });
+</script>
+</body>
 </html>
