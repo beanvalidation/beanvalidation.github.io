@@ -436,7 +436,7 @@ pre {
 .admonitionblock table {
   background: #f8f8f9 none repeat scroll 0 0;
   border-radius: 0.285714rem;
-  box-shadow: 0 0 0 1px rgba(34, 36, 38, 0.22) inset, 0 0 0 0 transparent;
+  box-shadow: 0 0 0 1px rgba(34, 36, 38, 0.22) inset, 0 0 0 0 rgba(0, 0, 0, 0);
   color: rgba(0, 0, 0, 0.87);
   line-height: 1.4285em;
   margin: 1em 0;
@@ -488,7 +488,7 @@ pre {
 }
 
 .admonitionblock .fa::before {
-  background: transparent none repeat scroll 0 0;
+  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
 }
 
 .admonitionblock .fa.icon-note::before {
@@ -645,8 +645,8 @@ pre .comment .conum {
 }
 
 @media only screen and (max-width: 767px) {
-  .ui.stackable.divided:not(.vertically).grid > .column:not(.row),
-  .ui.stackable.divided:not(.vertically).grid > .row > .column {
+  .ui.stackable.divided.grid:not(.vertically) > .column:not(.row),
+.ui.stackable.divided.grid:not(.vertically) > .row > .column {
     padding-left: 1rem !important;
     padding-right: 1rem !important;
   }
@@ -655,9 +655,9 @@ pre .comment .conum {
 /* Mobile */
 @media only screen and (max-width: 767px) {
   [class*="mobile hidden"],
-  [class*="tablet only"]:not(.mobile),
-  [class*="computer only"]:not(.mobile),
-  [class*="or lower hidden"] {
+[class*="tablet only"]:not(.mobile),
+[class*="computer only"]:not(.mobile),
+[class*="or lower hidden"] {
     display: none !important;
   }
 }
@@ -665,9 +665,9 @@ pre .comment .conum {
 /* Tablet / iPad Portrait */
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   [class*="mobile only"]:not(.tablet),
-  [class*="tablet hidden"],
-  [class*="computer only"]:not(.tablet),
-  [class*="or lower hidden"]:not(.mobile) {
+[class*="tablet hidden"],
+[class*="computer only"]:not(.tablet),
+[class*="or lower hidden"]:not(.mobile) {
     display: none !important;
   }
 }
@@ -675,9 +675,9 @@ pre .comment .conum {
 /* Computer / Desktop / iPad Landscape */
 @media only screen and (min-width: 992px) {
   [class*="mobile only"]:not(.computer),
-  [class*="tablet only"]:not(.computer),
-  [class*="computer hidden"],
-  [class*="or lower hidden"]:not(.tablet):not(.mobile) {
+[class*="tablet only"]:not(.computer),
+[class*="computer hidden"],
+[class*="or lower hidden"]:not(.tablet):not(.mobile) {
     display: none !important;
   }
 }
@@ -751,11 +751,11 @@ pre .comment .conum {
   color: #DDD;
 }
 
-.ui.menu#mobile-menu {
+#mobile-menu.ui.menu {
   background-color: black;
 }
 
-.ui.menu#mobile-menu a.item:hover, .ui.menu#mobile-menu a.item.selected {
+#mobile-menu.ui.menu a.item:hover, #mobile-menu.ui.menu a.item.selected {
   background: rgba(255, 255, 255, 0.1);
   color: #ffffff;
 }

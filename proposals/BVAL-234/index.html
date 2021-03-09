@@ -8,7 +8,7 @@
 Jakarta Bean Validation - Fix annoyance between JPA and Bean Validation when @Id @GeneratedValue and @NotNull are used
 </title>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css" rel="stylesheet">
-<link href="/stylesheets/styles.css?t=1581357732" rel="stylesheet">
+<link href="/stylesheets/styles.css?t=1615312616" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
 <!-- / Unfortunately, matchHeight doesn't follow the same convention as the other minified files -->
@@ -77,7 +77,7 @@ Menu
 <a class="item" href="/2.0/">
 <strong>Jakarta Bean Validation 2.0</strong>
 </a>
-<div class="dropdown item ui">
+<div class="ui dropdown item">
 Archives
 <i class="dropdown icon"></i>
 <div class="menu">
@@ -162,7 +162,7 @@ violation is raised.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code>&lt;property name="javax.persistence.validation.group.pre-persist"&#x000A;          value="javax.validation.groups.Default"/&gt;&#x000A;&lt;property name="javax.persistence.validation.group.pre-update"&#x000A;          value="javax.validation.groups.Default,com.acme.groups.Created"/&gt;</code></pre>
+<pre class="CodeRay highlight"><code>&lt;property name=&quot;javax.persistence.validation.group.pre-persist&quot;&#x000A;          value=&quot;javax.validation.groups.Default&quot;/&gt;&#x000A;&lt;property name=&quot;javax.persistence.validation.group.pre-update&quot;&#x000A;          value=&quot;javax.validation.groups.Default,com.acme.groups.Created&quot;/&gt;</code></pre>
 </div>
 </div>
 </div>

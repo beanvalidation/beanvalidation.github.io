@@ -8,7 +8,7 @@
 Jakarta Bean Validation - Validate a list of changes without applying them to the actual object
 </title>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css" rel="stylesheet">
-<link href="/stylesheets/styles.css?t=1581357732" rel="stylesheet">
+<link href="/stylesheets/styles.css?t=1615312616" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
 <!-- / Unfortunately, matchHeight doesn't follow the same convention as the other minified files -->
@@ -77,7 +77,7 @@ Menu
 <a class="item" href="/2.0/">
 <strong>Jakarta Bean Validation 2.0</strong>
 </a>
-<div class="dropdown item ui">
+<div class="ui dropdown item">
 Archives
 <i class="dropdown icon"></i>
 <div class="menu">
@@ -184,7 +184,7 @@ For single properties there is <code>Validator#validateValue()</code> for this p
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code>ValidatedValues = new ValidatedValues.Builder()&#x000A;    .property( "name" ).set( "Bob ")&#x000A;    .list( "emails" ).add( "bob@example.com" )&#x000A;    .set( "nickNames" ).remove ("Bobster" )&#x000A;    .map( "addresses" ).key( "home" ).put( new Addres(...) )&#x000A;    .property( "phone" ).property( "areaCode" ).set( 040 )&#x000A;    .build();</code></pre>
+<pre class="CodeRay highlight"><code>ValidatedValues = new ValidatedValues.Builder()&#x000A;    .property( &quot;name&quot; ).set( &quot;Bob &quot;)&#x000A;    .list( &quot;emails&quot; ).add( &quot;bob@example.com&quot; )&#x000A;    .set( &quot;nickNames&quot; ).remove (&quot;Bobster&quot; )&#x000A;    .map( &quot;addresses&quot; ).key( &quot;home&quot; ).put( new Addres(...) )&#x000A;    .property( &quot;phone&quot; ).property( &quot;areaCode&quot; ).set( 040 )&#x000A;    .build();</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -284,7 +284,7 @@ For single properties there is <code>Validator#validateValue()</code> for this p
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code>@PasswordsMatch&#x000A;public class UserDataBean {&#x000A;    String name;&#x000A;    String password;&#x000A;    String passwordRepeat;&#x000A;}&#x000A;&#x000A;public class PasswordMatchValidator implements ConstraintValidator&lt;PasswordsMatch, UserDataBean&gt; {&#x000A;&#x000A;    void initialize(PasswordsMatch annotation) {&#x000A;    }&#x000A;&#x000A;    boolean isValid(UserDataBean value, ConstraintValidatorContext ctx) {&#x000A;        String password = null;&#x000A;        String passwordRepeat = null;&#x000A;&#x000A;        // value null can have two reasons here:&#x000A;        // a) a null reference / collection entry during cascaded validation&#x000A;        // b) validateValues(); In this case we can get the property values from the context&#x000A;        if ( value == null ) {&#x000A;            password = (String) ctx.property( "password" ).get();&#x000A;            passwordRepeat = (String) ctx.property( "passwordRepeat" ).get();&#x000A;        }&#x000A;        else {&#x000A;            password = value.password;&#x000A;            passwordRepeat = value.passwordRepeat;&#x000A;        }&#x000A;&#x000A;        // TODO Make null-safe&#x000A;        return password.equals( passwordRepeat );&#x000A;    }&#x000A;}</code></pre>
+<pre class="CodeRay highlight"><code>@PasswordsMatch&#x000A;public class UserDataBean {&#x000A;    String name;&#x000A;    String password;&#x000A;    String passwordRepeat;&#x000A;}&#x000A;&#x000A;public class PasswordMatchValidator implements ConstraintValidator&lt;PasswordsMatch, UserDataBean&gt; {&#x000A;&#x000A;    void initialize(PasswordsMatch annotation) {&#x000A;    }&#x000A;&#x000A;    boolean isValid(UserDataBean value, ConstraintValidatorContext ctx) {&#x000A;        String password = null;&#x000A;        String passwordRepeat = null;&#x000A;&#x000A;        // value null can have two reasons here:&#x000A;        // a) a null reference / collection entry during cascaded validation&#x000A;        // b) validateValues(); In this case we can get the property values from the context&#x000A;        if ( value == null ) {&#x000A;            password = (String) ctx.property( &quot;password&quot; ).get();&#x000A;            passwordRepeat = (String) ctx.property( &quot;passwordRepeat&quot; ).get();&#x000A;        }&#x000A;        else {&#x000A;            password = value.password;&#x000A;            passwordRepeat = value.passwordRepeat;&#x000A;        }&#x000A;&#x000A;        // TODO Make null-safe&#x000A;        return password.equals( passwordRepeat );&#x000A;    }&#x000A;}</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -292,7 +292,7 @@ For single properties there is <code>Validator#validateValue()</code> for this p
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code>ctx.property( "name" ).get();&#x000A;ctx.list( "emails" ).index( 1 ).get();&#x000A;ctx.map( "addresses" ).key( "home" ).get();&#x000A;ctx.property( "phone" ).property( "areaCode" ).get();&#x000A;ctx.map( "addresses" ).key( "home" ).property( "street" ).get();</code></pre>
+<pre class="CodeRay highlight"><code>ctx.property( &quot;name&quot; ).get();&#x000A;ctx.list( &quot;emails&quot; ).index( 1 ).get();&#x000A;ctx.map( &quot;addresses&quot; ).key( &quot;home&quot; ).get();&#x000A;ctx.property( &quot;phone&quot; ).property( &quot;areaCode&quot; ).get();&#x000A;ctx.map( &quot;addresses&quot; ).key( &quot;home&quot; ).property( &quot;street&quot; ).get();</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -326,7 +326,7 @@ For single properties there is <code>Validator#validateValue()</code> for this p
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code>public class UserDataBean {&#x000A;    String name;&#x000A;    String password;&#x000A;&#x000A;    @Equals("password")&#x000A;    String passwordRepeat;&#x000A;}&#x000A;&#x000A;public class EqualsValidator implements ConstraintValidator&lt;Equals, String&gt; {&#x000A;&#x000A;    private String compareTo;&#x000A;&#x000A;    void initialize(Equals annotation) {&#x000A;        this.compareTo = annotation.value();&#x000A;    }&#x000A;&#x000A;    boolean isValid(String value, ConstraintValidatorContext ctx) {&#x000A;        if  ( value == null ) {&#x000A;            return true;&#x000A;        }&#x000A;&#x000A;        String comparedValue = (String) ctx.property( compareTo ).get();&#x000A;        return value.equals( comparedValue );&#x000A;    }&#x000A;}</code></pre>
+<pre class="CodeRay highlight"><code>public class UserDataBean {&#x000A;    String name;&#x000A;    String password;&#x000A;&#x000A;    @Equals(&quot;password&quot;)&#x000A;    String passwordRepeat;&#x000A;}&#x000A;&#x000A;public class EqualsValidator implements ConstraintValidator&lt;Equals, String&gt; {&#x000A;&#x000A;    private String compareTo;&#x000A;&#x000A;    void initialize(Equals annotation) {&#x000A;        this.compareTo = annotation.value();&#x000A;    }&#x000A;&#x000A;    boolean isValid(String value, ConstraintValidatorContext ctx) {&#x000A;        if  ( value == null ) {&#x000A;            return true;&#x000A;        }&#x000A;&#x000A;        String comparedValue = (String) ctx.property( compareTo ).get();&#x000A;        return value.equals( comparedValue );&#x000A;    }&#x000A;}</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -399,7 +399,7 @@ For single properties there is <code>Validator#validateValue()</code> for this p
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code>BeanValidator&lt;ContactDataModel&gt; contactValidator = BeanValidator.build(ContactDataModel.class);&#x000A;contactValidator.withProperty("city", () -&gt; cityField.getText()).&#x000A;    withProperty("zipCode", () -&gt; zipCodeField.getText());</code></pre>
+<pre class="CodeRay highlight"><code>BeanValidator&lt;ContactDataModel&gt; contactValidator = BeanValidator.build(ContactDataModel.class);&#x000A;contactValidator.withProperty(&quot;city&quot;, () -&gt; cityField.getText()).&#x000A;    withProperty(&quot;zipCode&quot;, () -&gt; zipCodeField.getText());</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -433,7 +433,7 @@ For single properties there is <code>Validator#validateValue()</code> for this p
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code>BeanValidator&lt;ContactDataModel&gt; contactValidator = BeanValidator.build(ContactDataModel.class);&#x000A;    contactValidator.withProperty("city", () -&gt; cityField.getText()).&#x000A;            withProperty("zipCode", () -&gt; zipCodeField.getText());&#x000A;&#x000A;BeanValidator&lt;SampleDataModel&gt; validator = BeanValidator.build(SampleDataModel.class);&#x000A;    validator.withProperty("name", () -&gt; nameField.getText());&#x000A;    validator.withBeanValidator("contact", contactValidator);</code></pre>
+<pre class="CodeRay highlight"><code>BeanValidator&lt;ContactDataModel&gt; contactValidator = BeanValidator.build(ContactDataModel.class);&#x000A;    contactValidator.withProperty(&quot;city&quot;, () -&gt; cityField.getText()).&#x000A;            withProperty(&quot;zipCode&quot;, () -&gt; zipCodeField.getText());&#x000A;&#x000A;BeanValidator&lt;SampleDataModel&gt; validator = BeanValidator.build(SampleDataModel.class);&#x000A;    validator.withProperty(&quot;name&quot;, () -&gt; nameField.getText());&#x000A;    validator.withBeanValidator(&quot;contact&quot;, contactValidator);</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -441,7 +441,7 @@ For single properties there is <code>Validator#validateValue()</code> for this p
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code>contactValidator.withProperty("city", () -&gt; cityField.getText(), v -&gt; markCityField(v));</code></pre>
+<pre class="CodeRay highlight"><code>contactValidator.withProperty(&quot;city&quot;, () -&gt; cityField.getText(), v -&gt; markCityField(v));</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -452,7 +452,7 @@ For single properties there is <code>Validator#validateValue()</code> for this p
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code>private Supplier&lt;String&gt; provideText(final TextField textField) {&#x000A;     return () -&gt; textField.getText();&#x000A; }&#x000A;&#x000A; private Consumer&lt;Set&lt;ConstraintViolation&lt;String&gt;&gt;&gt; markTextField(final TextField field) {&#x000A;     return v -&gt; {&#x000A;         if (v.isEmpty()) {&#x000A;             field.getStyleClass().remove("error-class");&#x000A;         } else {&#x000A;             //TODO: show error at textfield based on violations&#x000A;             field.getStyleClass().add("error-class");&#x000A;         }&#x000A;     };&#x000A; }&#x000A;&#x000A; //Create BeanValidator:&#x000A; BeanValidator&lt;ContactDataModel&gt; contactValidator = BeanValidator.build(ContactDataModel.class);&#x000A;         contactValidator.withProperty("city", provideText(cityField), markTextField(cityField)).&#x000A;                 withProperty("zipCode", provideText(zipCodeField), markTextField(zipCodeField));&#x000A;&#x000A; BeanValidator&lt;SampleDataModel&gt; validator = BeanValidator.build(SampleDataModel.class);&#x000A;         validator.withProperty("name", provideText(nameField), markTextField(nameField));&#x000A;         validator.withBeanValidator("contact", contactValidator);</code></pre>
+<pre class="CodeRay highlight"><code>private Supplier&lt;String&gt; provideText(final TextField textField) {&#x000A;     return () -&gt; textField.getText();&#x000A; }&#x000A;&#x000A; private Consumer&lt;Set&lt;ConstraintViolation&lt;String&gt;&gt;&gt; markTextField(final TextField field) {&#x000A;     return v -&gt; {&#x000A;         if (v.isEmpty()) {&#x000A;             field.getStyleClass().remove(&quot;error-class&quot;);&#x000A;         } else {&#x000A;             //TODO: show error at textfield based on violations&#x000A;             field.getStyleClass().add(&quot;error-class&quot;);&#x000A;         }&#x000A;     };&#x000A; }&#x000A;&#x000A; //Create BeanValidator:&#x000A; BeanValidator&lt;ContactDataModel&gt; contactValidator = BeanValidator.build(ContactDataModel.class);&#x000A;         contactValidator.withProperty(&quot;city&quot;, provideText(cityField), markTextField(cityField)).&#x000A;                 withProperty(&quot;zipCode&quot;, provideText(zipCodeField), markTextField(zipCodeField));&#x000A;&#x000A; BeanValidator&lt;SampleDataModel&gt; validator = BeanValidator.build(SampleDataModel.class);&#x000A;         validator.withProperty(&quot;name&quot;, provideText(nameField), markTextField(nameField));&#x000A;         validator.withBeanValidator(&quot;contact&quot;, contactValidator);</code></pre>
 </div>
 </div>
 <div class="paragraph">
