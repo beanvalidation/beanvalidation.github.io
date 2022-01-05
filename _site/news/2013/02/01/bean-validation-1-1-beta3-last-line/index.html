@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta content="IE=Edge" http-equiv="X-UA-Compatible">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>
+Jakarta Bean Validation - Bean Validation 1.1 Beta 3 - the last line
+</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css" rel="stylesheet">
+<link href="/stylesheets/styles.css?t=1641371615" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
+<!-- / Unfortunately, matchHeight doesn't follow the same convention as the other minified files -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.2/jquery.matchHeight-min.js"></script>
+<link href="/news/news.atom" rel="alternate" type="application/atom+xml">
+</head>
+<body class="pushable">
+<div class="ui vertical menu inverted sidebar left print hidden" id="mobile-menu">
+<a class="item" href="/" title="Home">
+<i class="grid icon home"></i>
+Home
+</a>
+<a class="item selected" href="/news/">
+<i class="grid icon newspaper"></i>
+News
+</a>
+<a class="item" href="/2.0/">
+<i class="grid icon book"></i>
+<strong>Jakarta Bean Validation 2.0</strong>
+</a>
+<div class="item">
+<i class="grid icon archive"></i>
+Archives
+<div class="menu">
+<a class="item" href="/2.0-jsr380/">
+<i class="grid icon book"></i>
+Bean Validation 2.0 (JSR 380)
+</a>
+<a class="item" href="/1.1/">
+<i class="grid icon book"></i>
+Bean Validation 1.1 (JSR 349)
+</a>
+<a class="item" href="/1.0/">
+<i class="grid icon book"></i>
+Bean Validation 1.0 (JSR 303)
+</a>
+</div>
+</div>
+<a class="item" href="/resources/">
+<i class="grid icon folder open"></i>
+Additional resources
+</a>
+<a class="item" href="/licensing/">
+<i class="grid icon legal"></i>
+Licensing
+</a>
+<a class="item" href="/contribute/">
+<i class="grid icon users"></i>
+Contribute
+</a>
+</div>
+<div class="pusher">
+<div class="mobile-menu-button-bar mobile only print hidden">
+<a class="item" id="mobile-menu-toggle">
+<i class="sidebar icon"></i>
+Menu
+</a>
+</div>
+<header role="banner">
+<div class="ui container banner">
+<div class="ui stackable menu mobile hidden print hidden" id="nav">
+<a class="item" href="/" title="Home">
+<img alt="Bean Validation" src="/logo/logo.svg">
+</a>
+<a class="item selected" href="/news/">News</a>
+<a class="item" href="/2.0/">
+<strong>Jakarta Bean Validation 2.0</strong>
+</a>
+<div class="ui dropdown item">
+Archives
+<i class="dropdown icon"></i>
+<div class="menu">
+<a class="item" href="/2.0-jsr380/">Bean Validation 2.0 (JSR 380)</a>
+<a class="item" href="/1.1/">Bean Validation 1.1 (JSR 349)</a>
+<a class="item" href="/1.0/">Bean Validation 1.0 (JSR 303)</a>
+</div>
+</div>
+<a class="item" href="/resources/">Resources</a>
+<a class="item" href="/licensing/">Licensing</a>
+<a class="item" href="/contribute/">Contribute</a>
+</div>
+</div>
+</header>
+<div class="jumbotron small">
+<div class="ui container">
+<h1>Jakarta Bean Validation</h1>
+</div>
+</div>
+<div class="page-title blog-title">
+<div class="ui container">
+<div class="blog-title-bar">
+<div class="blog-title-caption">
+<h2>
+<a href="/news/2013/02/01/bean-validation-1-1-beta3-last-line/">Bean Validation 1.1 Beta 3 - the last line</a>
+</h2>
+<div class="blog-author-bar">
+Posted by
+<strong>
+Emmanuel Bernard
+</strong>
+&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+01 Feb 2013
+&nbsp;&nbsp;
+<span class="blog-tags">
+<a class="ui label tag" href="/news/tags/release/">
+release
+</a>
+</span>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div class="ui container blog-article">
+<div class="content" id="content">
+<article>
+<div class="blog-body" itemprop="articleBody">
+<p>With two months since the last release and more than 38 (non trivial)
+issues behind us, we felt that it was a good time to release a new version.
+We are less than 20 days from the proposed final draft so feedback time and
+polishing are going into overdrive.</p>
+
+<p>Expect a reference implementation and a much improved TCK aligned with this
+version in the next few days.</p>
+
+<h2>What's new</h2>
+
+<p>There are too many improvements so let's pick three.</p>
+
+<h3>Enable / disable method validation</h3>
+
+<p>We worked a lot on method validation and in particular how you can control
+whether or not a method or constructor is being validated. You can use
+<code>@ValidateExecutable</code> and the XML <code>validated-executables</code> element in
+<code>validation.xml</code> to do that.</p>
+
+<h3>Message interpolation with UEL</h3>
+
+<p>We have also greatly enhanced message interpolation. You can now use the unified
+expression language inside your messages. This elegantly solves a lot of feature
+requests we had in this area like:</p>
+
+<ul>
+<li>the ability to put the validated value in the message</li>
+<li>the ability to format numbers, dates etc according to the locale</li>
+</ul>
+
+
+<p>Here is an example from <code>@DecimalMin</code>. It uses the min boundary <code>value</code>, the
+<code>inclusive</code> parameter in an EL and use a formaatter to display the erroneous
+value:</p>
+
+<pre><code>${formatter.format("%1$2f", validatedValue} is incorrect ; must be greater than ${inclusive == true ? 'or equal to ' : ''}{value}&#x000A;</code></pre>
+
+<p>Which will be interpolated into</p>
+
+<pre><code>324.32 is incorrect ; must be greater than or equal to 500&#x000A;</code></pre>
+
+<h3>Generic and cross-parameter constraints</h3>
+
+<p>Finally we have introduce the ability to make constraints both generic and
+cross-parameter aware. This is useful for constraints like <code>@ScriptAssert</code> that
+are very flexible.</p>
+
+<h2>Review</h2>
+
+<p>Please, please, please go and review the specification and tell us if something
+needs to be fixed.</p>
+
+<p>You can <a href="/1.1/spec/1.1.0.beta3/?utm_source=blog&amp;utm_medium=web&amp;utm_content=spec&amp;utm_campaign=1_1_beta3">access the specification here</a>.
+All changes are marked with a different
+color. <span style="background-color:#DDFFDD;">Green for additions</span>,
+<span style="background-color:#FFFFDD;">yellow for changes</span> and
+<span style="text-decoration: line-through;background-color: #FFDDDD;">struck through red for removals</span>
+. This will help you see what has changed precisely.</p>
+
+<p>Please send us your remarks and comments:</p>
+
+<ul>
+<li>on our <a href="https://lists.jboss.org/mailman/listinfo/beanvalidation-dev">mailing list</a></li>
+<li>in our <a href="/issues">issue tracker</a></li>
+<li>or on the Bean Validation <a href="https://discourse.hibernate.org/c/bean-validation">forum</a></li>
+</ul>
+
+
+<p>If you want to go to the next step and contribute, send us an email to
+the mailing list and read <a href="/contribute/">how to contribute</a>.</p>
+
+</div>
+
+</article>
+<hr>
+<div class="post-navigation">
+<div class="ui grid two column stackable">
+<div class="column">
+&laquo;
+<a href="../../../../2012/12/18/bean-validation-in-the-press">Bean Validation in the press</a>
+</div>
+<div class="column text-right">
+<a href="../../05/javaspotlight-podcast-on-bean-validation-1-1">Java Spotlight Podcast on Bean Validation 1.1</a>
+&raquo;
+</div>
+</div>
+</div>
+<hr>
+
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+            var disqus_shortname = 'beanvalidation';
+            var disqus_url = "http://beanvalidation.org/news/2013/02/01/bean-validation-1-1-beta3-last-line/";
+            var disqus_developer = null;
+            var disqus_identifier = null;
+            (function() {
+              var dsq = document.createElement("script"); dsq.type = "text/javascript"; dsq.async = true;
+              dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+              (document.getElementsByTagName("head")[0] || document.getElementsByTagName("body")[0]).appendChild(dsq);
+            })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript=beanvalidation">comments powered by Disqus.</a></noscript>
+          
+</div>
+</div>
+
+<footer class="print hidden">
+<div class="ui inverted vertical footer segment">
+<div class="ui container">
+<div class="ui stackable grid">
+<div class="eleven wide column middle aligned">
+Copyright &copy; Red Hat, Inc.
+</div>
+<div class="five wide column sponsor">
+<div class="logo">
+<a href="https://www.redhat.com/">
+<img src="/images/sponsored-by-redhat.svg" style="height: 40px" title="Red Hat">
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<script>
+ (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ 
+ga('create', 'UA-24703879-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+<script>
+  $(document).ready(function() {
+    $('#mobile-menu').sidebar('setting', {
+      transition: 'push'
+    });
+    $('#mobile-menu').sidebar('attach events', '#mobile-menu-toggle');
+  
+    $('.ui.menu .ui.dropdown').dropdown({ on: 'hover' });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta content="IE=Edge" http-equiv="X-UA-Compatible">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>
+Jakarta Bean Validation - Bean Validation 1.1 (JSR 349)
+</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css" rel="stylesheet">
+<link href="/stylesheets/styles.css?t=1641371614" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
+<!-- / Unfortunately, matchHeight doesn't follow the same convention as the other minified files -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.2/jquery.matchHeight-min.js"></script>
+<link href="/news/news.atom" rel="alternate" type="application/atom+xml">
+</head>
+<body class="pushable">
+<div class="ui vertical menu inverted sidebar left print hidden" id="mobile-menu">
+<a class="item" href="/" title="Home">
+<i class="grid icon home"></i>
+Home
+</a>
+<a class="item" href="/news/">
+<i class="grid icon newspaper"></i>
+News
+</a>
+<a class="item" href="/2.0/">
+<i class="grid icon book"></i>
+<strong>Jakarta Bean Validation 2.0</strong>
+</a>
+<div class="item">
+<i class="grid icon archive"></i>
+Archives
+<div class="menu">
+<a class="item" href="/2.0-jsr380/">
+<i class="grid icon book"></i>
+Bean Validation 2.0 (JSR 380)
+</a>
+<a class="item selected" href="/1.1/">
+<i class="grid icon book"></i>
+Bean Validation 1.1 (JSR 349)
+</a>
+<a class="item" href="/1.0/">
+<i class="grid icon book"></i>
+Bean Validation 1.0 (JSR 303)
+</a>
+</div>
+</div>
+<a class="item" href="/resources/">
+<i class="grid icon folder open"></i>
+Additional resources
+</a>
+<a class="item" href="/licensing/">
+<i class="grid icon legal"></i>
+Licensing
+</a>
+<a class="item" href="/contribute/">
+<i class="grid icon users"></i>
+Contribute
+</a>
+</div>
+<div class="pusher">
+<div class="mobile-menu-button-bar mobile only print hidden">
+<a class="item" id="mobile-menu-toggle">
+<i class="sidebar icon"></i>
+Menu
+</a>
+</div>
+<header role="banner">
+<div class="ui container banner">
+<div class="ui stackable menu mobile hidden print hidden" id="nav">
+<a class="item" href="/" title="Home">
+<img alt="Bean Validation" src="/logo/logo.svg">
+</a>
+<a class="item" href="/news/">News</a>
+<a class="item" href="/2.0/">
+<strong>Jakarta Bean Validation 2.0</strong>
+</a>
+<div class="ui dropdown item selected">
+Archives
+<i class="dropdown icon"></i>
+<div class="menu">
+<a class="item" href="/2.0-jsr380/">Bean Validation 2.0 (JSR 380)</a>
+<a class="item selected" href="/1.1/">Bean Validation 1.1 (JSR 349)</a>
+<a class="item" href="/1.0/">Bean Validation 1.0 (JSR 303)</a>
+</div>
+</div>
+<a class="item" href="/resources/">Resources</a>
+<a class="item" href="/licensing/">Licensing</a>
+<a class="item" href="/contribute/">Contribute</a>
+</div>
+</div>
+</header>
+<div class="jumbotron small">
+<div class="ui container grid stackable">
+<div class="column ten wide">
+<h1>Bean Validation</h1>
+<h2>Bean Validation 1.1 (JSR 349)</h2>
+</div>
+<div class="column six wide">
+<div class="ui segment">
+<p>
+Bean Validation 1.1 (<a href="https://www.jcp.org/en/jsr/detail?id=349">JSR 349</a>) was finished in 2013.
+</p>
+<p>
+It is part of Java EE 7.
+</p>
+</div>
+</div>
+</div>
+</div>
+<div class="ui container page-content">
+<div class="spec-buttons text-center">
+<a class="ui button labeled icon green large" href="/1.1/spec/">
+<i class="icon book"></i>
+Bean Validation 1.1 specification
+</a>
+<a class="ui button labeled icon green large" href="https://docs.jboss.org/hibernate/beanvalidation/spec/1.1/api/">
+<i class="icon code"></i>
+API JavaDocs
+</a>
+</div>
+</div>
+<div class="content-banner">
+<div class="ui container grid divided stackable">
+<div class="twelve wide column">
+<h2>Certified implementations</h2>
+<table class="ui table celled striped unstackable">
+<thead>
+<tr>
+<th colspan="2">Name</th>
+<th>Version</th>
+<th>RI</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td width="30">
+<img src="/images/hibernate.png">
+</td>
+<td>
+<a href="http://hibernate.org/validator/">Hibernate Validator</a>
+</td>
+<td>
+<a href="http://hibernate.org/validator/releases/">5.1.1.Final</a>
+</td>
+<td class="text-center" width="30">
+<i class="icon check circle green large"></i>
+</td>
+</tr>
+<tr>
+<td width="30">
+<img src="/images/bval-bean-small.png">
+</td>
+<td>
+<a href="http://bval.apache.org/">Apache BVal</a>
+</td>
+<td>
+<a href="http://bval.apache.org/downloads.html">1.1.2</a>
+</td>
+<td class="text-center" width="30">
+&nbsp;
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="four wide column">
+<h2>TCK</h2>
+<div class="ui segment">
+<p>
+The TCK for Bean Validation 1.1 can be found
+<a href="/1.1/tck/">here</a>
+.
+</p>
+</div>
+</div>
+</div>
+</div>
+<div class="ui container" id="content">
+<div class="sect1">
+<h2 id="changes-between-bean-validation-1-0-and-1-1"><a class="anchor" href="#changes-between-bean-validation-1-0-and-1-1"></a>Changes between Bean Validation 1.0 and 1.1</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Bean Validation 1.1 focused on the following topics:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>openness of the specification and its process</p>
+</li>
+<li>
+<p>method-level validation (validation of parameters or return values)</p>
+</li>
+<li>
+<p>dependency injection for Bean Validation components</p>
+</li>
+<li>
+<p>integration with Context and Dependency Injection (CDI)</p>
+</li>
+<li>
+<p>group conversion</p>
+</li>
+<li>
+<p>error message interpolation using EL expressions</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For more information, check out the <a href="changes/">full list of goals and changes</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="history"><a class="anchor" href="#history"></a>History</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you are interested in the various drafts that led to Bean Validation 1.1, check
+out the <a href="history/">history page</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="feedback"><a class="anchor" href="#feedback"></a>Feedback</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Do you have feedback? Talk to us:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>on our <a href="https://lists.jboss.org/mailman/listinfo/beanvalidation-dev">mailing list</a></p>
+</li>
+<li>
+<p>in our <a href="https://hibernate.atlassian.net/browse/BVAL">issue tracker</a></p>
+</li>
+<li>
+<p>or on the <a href="https://discourse.hibernate.org/c/bean-validation">Bean Validation forum</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If you want to take the next step and contribute, read <a href="/contribute">how to contribute</a>.</p>
+</div>
+</div>
+</div>
+</div>
+
+<footer class="print hidden">
+<div class="ui inverted vertical footer segment">
+<div class="ui container">
+<div class="ui stackable grid">
+<div class="eleven wide column middle aligned">
+Copyright &copy; Red Hat, Inc.
+</div>
+<div class="five wide column sponsor">
+<div class="logo">
+<a href="https://www.redhat.com/">
+<img src="/images/sponsored-by-redhat.svg" style="height: 40px" title="Red Hat">
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<script>
+ (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ 
+ga('create', 'UA-24703879-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+<script>
+  $(document).ready(function() {
+    $('#mobile-menu').sidebar('setting', {
+      transition: 'push'
+    });
+    $('#mobile-menu').sidebar('attach events', '#mobile-menu-toggle');
+  
+    $('.ui.menu .ui.dropdown').dropdown({ on: 'hover' });
+  });
+</script>
+</body>
+</html>

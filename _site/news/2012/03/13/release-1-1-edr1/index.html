@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta content="IE=Edge" http-equiv="X-UA-Compatible">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>
+Jakarta Bean Validation - Bean Validation 1.1 early draft 1 is out - time for feedback
+</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css" rel="stylesheet">
+<link href="/stylesheets/styles.css?t=1641371615" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
+<!-- / Unfortunately, matchHeight doesn't follow the same convention as the other minified files -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.2/jquery.matchHeight-min.js"></script>
+<link href="/news/news.atom" rel="alternate" type="application/atom+xml">
+</head>
+<body class="pushable">
+<div class="ui vertical menu inverted sidebar left print hidden" id="mobile-menu">
+<a class="item" href="/" title="Home">
+<i class="grid icon home"></i>
+Home
+</a>
+<a class="item selected" href="/news/">
+<i class="grid icon newspaper"></i>
+News
+</a>
+<a class="item" href="/2.0/">
+<i class="grid icon book"></i>
+<strong>Jakarta Bean Validation 2.0</strong>
+</a>
+<div class="item">
+<i class="grid icon archive"></i>
+Archives
+<div class="menu">
+<a class="item" href="/2.0-jsr380/">
+<i class="grid icon book"></i>
+Bean Validation 2.0 (JSR 380)
+</a>
+<a class="item" href="/1.1/">
+<i class="grid icon book"></i>
+Bean Validation 1.1 (JSR 349)
+</a>
+<a class="item" href="/1.0/">
+<i class="grid icon book"></i>
+Bean Validation 1.0 (JSR 303)
+</a>
+</div>
+</div>
+<a class="item" href="/resources/">
+<i class="grid icon folder open"></i>
+Additional resources
+</a>
+<a class="item" href="/licensing/">
+<i class="grid icon legal"></i>
+Licensing
+</a>
+<a class="item" href="/contribute/">
+<i class="grid icon users"></i>
+Contribute
+</a>
+</div>
+<div class="pusher">
+<div class="mobile-menu-button-bar mobile only print hidden">
+<a class="item" id="mobile-menu-toggle">
+<i class="sidebar icon"></i>
+Menu
+</a>
+</div>
+<header role="banner">
+<div class="ui container banner">
+<div class="ui stackable menu mobile hidden print hidden" id="nav">
+<a class="item" href="/" title="Home">
+<img alt="Bean Validation" src="/logo/logo.svg">
+</a>
+<a class="item selected" href="/news/">News</a>
+<a class="item" href="/2.0/">
+<strong>Jakarta Bean Validation 2.0</strong>
+</a>
+<div class="ui dropdown item">
+Archives
+<i class="dropdown icon"></i>
+<div class="menu">
+<a class="item" href="/2.0-jsr380/">Bean Validation 2.0 (JSR 380)</a>
+<a class="item" href="/1.1/">Bean Validation 1.1 (JSR 349)</a>
+<a class="item" href="/1.0/">Bean Validation 1.0 (JSR 303)</a>
+</div>
+</div>
+<a class="item" href="/resources/">Resources</a>
+<a class="item" href="/licensing/">Licensing</a>
+<a class="item" href="/contribute/">Contribute</a>
+</div>
+</div>
+</header>
+<div class="jumbotron small">
+<div class="ui container">
+<h1>Jakarta Bean Validation</h1>
+</div>
+</div>
+<div class="page-title blog-title">
+<div class="ui container">
+<div class="blog-title-bar">
+<div class="blog-title-caption">
+<h2>
+<a href="/news/2012/03/13/release-1-1-edr1/">Bean Validation 1.1 early draft 1 is out - time for feedback</a>
+</h2>
+<div class="blog-author-bar">
+Posted by
+<strong>
+Emmanuel Bernard
+</strong>
+&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+13 Mar 2012
+&nbsp;&nbsp;
+<span class="blog-tags">
+<a class="ui label tag" href="/news/tags/release/">
+release
+</a>
+</span>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div class="ui container blog-article">
+<div class="content" id="content">
+<article>
+<div class="blog-body" itemprop="articleBody">
+<p>After a long time in the shadows of open work... Ahem, take two. After a long time at work,
+I am very pleased to announce Bean Validation 1.1 early draft 1.
+This is our first big milestone since the release of 1.0.</p>
+
+<p>The draft is making its way through the official channels of the JCP but
+we also wanted to release it in full openned. For people in a hurry,
+<a href="/1.1/spec/1.0.0.alpha1/?utm_source=blog&amp;utm_medium=web&amp;utm_content=spec&amp;utm_campaign=1_1_edr1">the spec draft is here</a>.</p>
+
+<h2>What's new</h2>
+
+<p>We worked on three major areas:</p>
+
+<ul>
+<li>openess</li>
+<li>method level validation</li>
+<li>dependency injection</li>
+</ul>
+
+
+<h3>Openess</h3>
+
+<p>The specification, the reference implementation, the TCK, this website... everything is open sourced.
+All work done on Bean Validation 1.1 is done in the open either on the mailing list, the issue tracker
+or via GitHub pull requests. Check out more in the <a href="/contribute">how to contribute section</a>.</p>
+
+<h3>Method-level validation</h3>
+
+<p>You can now put constraints declarations on parameters and return values of methods and constructors.</p>
+
+<pre><code>@MethodValidated &#x000A;public class OrderService {&#x000A;&#x000A;    public OrderService(@NotNull CreditCardProcessor creditCardProcessor) {&#x000A;        //...&#x000A;    }&#x000A;&#x000A;    public void placeOrder(&#x000A;        @NotNull @Size(min=3, max=20) String customerCode,&#x000A;        @NotNull @Valid Item item,&#x000A;        @Min(1) int quantity) {&#x000A;&#x000A;        //...&#x000A;    }&#x000A;}&#x000A;</code></pre>
+
+<p>Interception frameworks like CDI will check these constraints upon method calls thanks to the
+<code>@MethodValidated</code> annotation. Read more in the spec.</p>
+
+<h3>Dependency injection</h3>
+
+<p>Bean Validation uses a few components <code>MessageInterpolator</code>, <code>TraversableResolver</code>, <code>ConstraintValidatorFactory</code>
+and most importantly <code>ConstraintValidator</code>. We have standardized how these objects are managed by a container
+and how these objects can benefit from container services.</p>
+
+<p>That means that your constraint validator implementation will be able to get resources injected automatically.</p>
+
+<p>While we go into details on how it will fit in CDI and Java EE, we have worked hard to make it container
+agnostic. If you write or use other containers (Guice, Spring Framework, Avalon :) ), check out
+if it fits properly.</p>
+
+<h2>Contributions</h2>
+
+<p>We have had tremendous help from the Bean Validation community at large but I would
+like to give a massive thank you to <a href="http://musingsofaprogrammingaddict.blogspot.com/">Gunnar Morling</a> who stepped
+up and lead the work on method-level validation. This is by far the biggest new
+feature of Bean Validation 1.1.</p>
+
+<h2>How to read the spec and provide feedback</h2>
+
+<p>The draft has been published <a href="/1.1/spec/1.0.0.alpha1/?utm_source=blog&amp;utm_medium=web&amp;utm_content=spec&amp;utm_campaign=1_1_edr1">here</a> and all changes are marked with a different
+color. <span style="background-color:#DDFFDD;">Green for additions</span>,
+<span style="background-color:#FFFFDD;">yellow for changes</span> and
+<span style="text-decoration: line-through;background-color: #FFDDDD;">struck through red for removals</span>
+. This will help you see what has changed precisely.</p>
+
+<p>Have feedback? Please talk to us either:</p>
+
+<ul>
+<li>on our <a href="https://lists.jboss.org/mailman/listinfo/beanvalidation-dev">mailing list</a></li>
+<li>in our <a href="/issues">issue tracker</a></li>
+<li>or on the Bean Validation <a href="https://discourse.hibernate.org/c/bean-validation">forum</a></li>
+</ul>
+
+
+<p>If you want to go to the next step and contribute, send us an email to the mailing list and read
+<a href="/contribute">how to contribute</a>.</p>
+
+</div>
+
+</article>
+<hr>
+<div class="post-navigation">
+<div class="ui grid two column stackable">
+<div class="column">
+&laquo;
+<a href="../../../02/01/method-level-proposal">Proposal for method validation added</a>
+</div>
+<div class="column text-right">
+<a href="../../16/artifacts-1-1-edr1">Code artifacts published for Bean Validation 1.1 early draft 1</a>
+&raquo;
+</div>
+</div>
+</div>
+<hr>
+
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+            var disqus_shortname = 'beanvalidation';
+            var disqus_url = "http://beanvalidation.org/news/2012/03/13/release-1-1-edr1/";
+            var disqus_developer = null;
+            var disqus_identifier = null;
+            (function() {
+              var dsq = document.createElement("script"); dsq.type = "text/javascript"; dsq.async = true;
+              dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+              (document.getElementsByTagName("head")[0] || document.getElementsByTagName("body")[0]).appendChild(dsq);
+            })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript=beanvalidation">comments powered by Disqus.</a></noscript>
+          
+</div>
+</div>
+
+<footer class="print hidden">
+<div class="ui inverted vertical footer segment">
+<div class="ui container">
+<div class="ui stackable grid">
+<div class="eleven wide column middle aligned">
+Copyright &copy; Red Hat, Inc.
+</div>
+<div class="five wide column sponsor">
+<div class="logo">
+<a href="https://www.redhat.com/">
+<img src="/images/sponsored-by-redhat.svg" style="height: 40px" title="Red Hat">
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<script>
+ (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ 
+ga('create', 'UA-24703879-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+<script>
+  $(document).ready(function() {
+    $('#mobile-menu').sidebar('setting', {
+      transition: 'push'
+    });
+    $('#mobile-menu').sidebar('attach events', '#mobile-menu-toggle');
+  
+    $('.ui.menu .ui.dropdown').dropdown({ on: 'hover' });
+  });
+</script>
+</body>
+</html>

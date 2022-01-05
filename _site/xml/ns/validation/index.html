@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta content="IE=Edge" http-equiv="X-UA-Compatible">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>
+Jakarta Bean Validation - Bean Validation XML Schemas
+</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css" rel="stylesheet">
+<link href="/stylesheets/styles.css?t=1641371616" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
+<!-- / Unfortunately, matchHeight doesn't follow the same convention as the other minified files -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.2/jquery.matchHeight-min.js"></script>
+<link href="/news/news.atom" rel="alternate" type="application/atom+xml">
+</head>
+<body class="pushable">
+<div class="ui vertical menu inverted sidebar left print hidden" id="mobile-menu">
+<a class="item" href="/" title="Home">
+<i class="grid icon home"></i>
+Home
+</a>
+<a class="item" href="/news/">
+<i class="grid icon newspaper"></i>
+News
+</a>
+<a class="item" href="/2.0/">
+<i class="grid icon book"></i>
+<strong>Jakarta Bean Validation 2.0</strong>
+</a>
+<div class="item">
+<i class="grid icon archive"></i>
+Archives
+<div class="menu">
+<a class="item" href="/2.0-jsr380/">
+<i class="grid icon book"></i>
+Bean Validation 2.0 (JSR 380)
+</a>
+<a class="item" href="/1.1/">
+<i class="grid icon book"></i>
+Bean Validation 1.1 (JSR 349)
+</a>
+<a class="item" href="/1.0/">
+<i class="grid icon book"></i>
+Bean Validation 1.0 (JSR 303)
+</a>
+</div>
+</div>
+<a class="item" href="/resources/">
+<i class="grid icon folder open"></i>
+Additional resources
+</a>
+<a class="item" href="/licensing/">
+<i class="grid icon legal"></i>
+Licensing
+</a>
+<a class="item" href="/contribute/">
+<i class="grid icon users"></i>
+Contribute
+</a>
+</div>
+<div class="pusher">
+<div class="mobile-menu-button-bar mobile only print hidden">
+<a class="item" id="mobile-menu-toggle">
+<i class="sidebar icon"></i>
+Menu
+</a>
+</div>
+<header role="banner">
+<div class="ui container banner">
+<div class="ui stackable menu mobile hidden print hidden" id="nav">
+<a class="item" href="/" title="Home">
+<img alt="Bean Validation" src="/logo/logo.svg">
+</a>
+<a class="item" href="/news/">News</a>
+<a class="item" href="/2.0/">
+<strong>Jakarta Bean Validation 2.0</strong>
+</a>
+<div class="ui dropdown item">
+Archives
+<i class="dropdown icon"></i>
+<div class="menu">
+<a class="item" href="/2.0-jsr380/">Bean Validation 2.0 (JSR 380)</a>
+<a class="item" href="/1.1/">Bean Validation 1.1 (JSR 349)</a>
+<a class="item" href="/1.0/">Bean Validation 1.0 (JSR 303)</a>
+</div>
+</div>
+<a class="item" href="/resources/">Resources</a>
+<a class="item" href="/licensing/">Licensing</a>
+<a class="item" href="/contribute/">Contribute</a>
+</div>
+</div>
+</header>
+<div class="jumbotron small">
+<div class="ui container">
+<h1>Jakarta Bean Validation</h1>
+<h2>Bean Validation XML Schemas</h2>
+</div>
+</div>
+<div class="ui container page-content">
+<div class="content" id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This page describes the XML schemas used to validate the XML descriptors of Bean Validation.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="xml-namespaces"><a class="anchor" href="#xml-namespaces"></a>XML Namespaces</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>As of Bean Validation 2.0, the XML namespaces of the descriptors are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code><a href="http://xmlns.jcp.org/xml/ns/validation/configuration" class="bare">http://xmlns.jcp.org/xml/ns/validation/configuration</a></code> for <em>META-INF/validation.xml</em></p>
+</li>
+<li>
+<p><code><a href="http://xmlns.jcp.org/xml/ns/validation/mapping" class="bare">http://xmlns.jcp.org/xml/ns/validation/mapping</a></code> for constraint mapping XML files</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For Bean Validation 1.x the XML namespaces are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code><a href="http://jboss.org/xml/ns/javax/validation/configuration" class="bare">http://jboss.org/xml/ns/javax/validation/configuration</a></code> for <em>META-INF/validation.xml</em></p>
+</li>
+<li>
+<p><code><a href="http://jboss.org/xml/ns/javax/validation/mapping" class="bare">http://jboss.org/xml/ns/javax/validation/mapping</a></code> for constraint mapping XML files</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="using-the-bean-validation-xml-schemas"><a class="anchor" href="#using-the-bean-validation-xml-schemas"></a>Using the Bean Validation XML Schemas</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>XML descriptors for Bean Validation 1.1 and later must specify the used schema version using the <code>version</code> attribute in the root element, e.g. like so:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="XML"><span style="color:#579">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>&#x000A;<span style="color:#070;font-weight:bold">&lt;validation-config</span>&#x000A;        <span style="color:#b48">xmlns</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">http://xmlns.jcp.org/xml/ns/validation/configuration</span><span style="color:#710">&quot;</span></span>&#x000A;        <span style="color:#b48">xmlns:xsi</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">http://www.w3.org/2001/XMLSchema-instance</span><span style="color:#710">&quot;</span></span>&#x000A;        <span style="color:#b48">xsi:schemaLocation</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">http://xmlns.jcp.org/xml/ns/validation/configuration validation-configuration-2.0.xsd</span><span style="color:#710">&quot;</span></span>&#x000A;        <span style="color:#b48">version</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">2.0</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">&gt;</span>&#x000A;&#x000A;        [...]&#x000A;&#x000A;<span style="color:#070;font-weight:bold">&lt;/validation-config&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This allows XML descriptor processors to use the version information to choose the appropriate version of the schema document(s) to process XML descriptor instances.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="bean-validation-2-0-schema-resources"><a class="anchor" href="#bean-validation-2-0-schema-resources"></a>Bean Validation 2.0 Schema Resources</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. XML schemas for Bean Validation 2.0</caption>
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Date Published</th>
+<th class="tableblock halign-left valign-top">File Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Specification Section</th>
+<th class="tableblock halign-left valign-top">Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">July 11 2017</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="validation-configuration-2.0.xsd">validation-configuration-2.0.xsd</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bean Validation configuration schema</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="/2.0/spec/2.0.0.cr1/#validationapi-bootstrapping-xmlconfiguration">6.5.6</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Submitted to Final Approval Ballot</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">July 11 2017</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="validation-mapping-2.0.xsd">validation-mapping-2.0.xsd</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bean Validation constraint mapping schema</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="/2.0/spec/2.0.0.cr1/#xml">9</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Submitted to Final Approval Ballot</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="bean-validation-1-1-schema-resources"><a class="anchor" href="#bean-validation-1-1-schema-resources"></a>Bean Validation 1.1 Schema Resources</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 2. XML schemas for Bean Validation 1.1</caption>
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Date Published</th>
+<th class="tableblock halign-left valign-top">File Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Specification Section</th>
+<th class="tableblock halign-left valign-top">Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">May 24 2013</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="validation-configuration-1.1.xsd">validation-configuration-1.1.xsd</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bean Validation configuration schema</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="/1.1/spec/#xml-config">5.5.6</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Final Release</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">May 24 2013</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="validation-mapping-1.1.xsd">validation-mapping-1.1.xsd</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bean Validation constraint mapping schema</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="/1.1/spec/#xml">8</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Final Release</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="bean-validation-1-0-schema-resources"><a class="anchor" href="#bean-validation-1-0-schema-resources"></a>Bean Validation 1.0 Schema Resources</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 3. XML schemas for Bean Validation 1.0</caption>
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Date Published</th>
+<th class="tableblock halign-left valign-top">File Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Specification Section</th>
+<th class="tableblock halign-left valign-top">Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">November 16 2009</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="validation-configuration-1.0.xsd">validation-configuration-1.0.xsd</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bean Validation configuration schema</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="/1.0/spec/#xml-config">5.5.6</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Final Release</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">November 16 2009</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="validation-mapping-1.0.xsd">validation-mapping-1.0.xsd</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bean Validation constraint mapping schema</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="/1.0/spec/#xml">8</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Final Release</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+<footer class="print hidden">
+<div class="ui inverted vertical footer segment">
+<div class="ui container">
+<div class="ui stackable grid">
+<div class="eleven wide column middle aligned">
+Copyright &copy; Red Hat, Inc.
+</div>
+<div class="five wide column sponsor">
+<div class="logo">
+<a href="https://www.redhat.com/">
+<img src="/images/sponsored-by-redhat.svg" style="height: 40px" title="Red Hat">
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<script>
+ (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ 
+ga('create', 'UA-24703879-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+<script>
+  $(document).ready(function() {
+    $('#mobile-menu').sidebar('setting', {
+      transition: 'push'
+    });
+    $('#mobile-menu').sidebar('attach events', '#mobile-menu-toggle');
+  
+    $('.ui.menu .ui.dropdown').dropdown({ on: 'hover' });
+  });
+</script>
+</body>
+</html>

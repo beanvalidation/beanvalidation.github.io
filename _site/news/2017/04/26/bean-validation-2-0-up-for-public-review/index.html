@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta content="IE=Edge" http-equiv="X-UA-Compatible">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>
+Jakarta Bean Validation - Bean Validation 2.0 is up for Public Review
+</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css" rel="stylesheet">
+<link href="/stylesheets/styles.css?t=1641371616" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
+<!-- / Unfortunately, matchHeight doesn't follow the same convention as the other minified files -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.2/jquery.matchHeight-min.js"></script>
+<link href="/news/news.atom" rel="alternate" type="application/atom+xml">
+</head>
+<body class="pushable">
+<div class="ui vertical menu inverted sidebar left print hidden" id="mobile-menu">
+<a class="item" href="/" title="Home">
+<i class="grid icon home"></i>
+Home
+</a>
+<a class="item selected" href="/news/">
+<i class="grid icon newspaper"></i>
+News
+</a>
+<a class="item" href="/2.0/">
+<i class="grid icon book"></i>
+<strong>Jakarta Bean Validation 2.0</strong>
+</a>
+<div class="item">
+<i class="grid icon archive"></i>
+Archives
+<div class="menu">
+<a class="item" href="/2.0-jsr380/">
+<i class="grid icon book"></i>
+Bean Validation 2.0 (JSR 380)
+</a>
+<a class="item" href="/1.1/">
+<i class="grid icon book"></i>
+Bean Validation 1.1 (JSR 349)
+</a>
+<a class="item" href="/1.0/">
+<i class="grid icon book"></i>
+Bean Validation 1.0 (JSR 303)
+</a>
+</div>
+</div>
+<a class="item" href="/resources/">
+<i class="grid icon folder open"></i>
+Additional resources
+</a>
+<a class="item" href="/licensing/">
+<i class="grid icon legal"></i>
+Licensing
+</a>
+<a class="item" href="/contribute/">
+<i class="grid icon users"></i>
+Contribute
+</a>
+</div>
+<div class="pusher">
+<div class="mobile-menu-button-bar mobile only print hidden">
+<a class="item" id="mobile-menu-toggle">
+<i class="sidebar icon"></i>
+Menu
+</a>
+</div>
+<header role="banner">
+<div class="ui container banner">
+<div class="ui stackable menu mobile hidden print hidden" id="nav">
+<a class="item" href="/" title="Home">
+<img alt="Bean Validation" src="/logo/logo.svg">
+</a>
+<a class="item selected" href="/news/">News</a>
+<a class="item" href="/2.0/">
+<strong>Jakarta Bean Validation 2.0</strong>
+</a>
+<div class="ui dropdown item">
+Archives
+<i class="dropdown icon"></i>
+<div class="menu">
+<a class="item" href="/2.0-jsr380/">Bean Validation 2.0 (JSR 380)</a>
+<a class="item" href="/1.1/">Bean Validation 1.1 (JSR 349)</a>
+<a class="item" href="/1.0/">Bean Validation 1.0 (JSR 303)</a>
+</div>
+</div>
+<a class="item" href="/resources/">Resources</a>
+<a class="item" href="/licensing/">Licensing</a>
+<a class="item" href="/contribute/">Contribute</a>
+</div>
+</div>
+</header>
+<div class="jumbotron small">
+<div class="ui container">
+<h1>Jakarta Bean Validation</h1>
+</div>
+</div>
+<div class="page-title blog-title">
+<div class="ui container">
+<div class="blog-title-bar">
+<div class="blog-title-caption">
+<h2>
+<a href="/news/2017/04/26/bean-validation-2-0-up-for-public-review/">Bean Validation 2.0 is up for Public Review</a>
+</h2>
+<div class="blog-author-bar">
+Posted by
+<strong>
+Gunnar Morling
+</strong>
+&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+26 Apr 2017
+&nbsp;&nbsp;
+<span class="blog-tags">
+<a class="ui label tag" href="/news/tags/release/">
+release
+</a>
+</span>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div class="ui container blog-article">
+<div class="content" id="content">
+<article>
+<div class="blog-body" itemprop="articleBody">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>It&#8217;s with great pleasure that I&#8217;m announcing that Bean Validation 2.0 (<a href="https://www.jcp.org/en/jsr/detail?id=380">JSR 380</a>) is entering the Public Review phase!</p>
+</div>
+<div class="paragraph">
+<p>You can read the Public Review Draft right here <a href="/2.0/spec/2.0.0.beta1/">on this website</a> or download it <a href="https://jcp.org/aboutJava/communityprocess/pr/jsr380/index.html">from jcp.org</a>.
+We are also publishing HTML diffs, making it very easy for you to track the changes <a href="/2.0/spec/2.0.0.beta1/diff/diff-to-1.1/">since Bean Validation 1.1</a> and <a href="/2.0/spec/2.0.0.beta1/diff/diff-to-2.0-alpha2/">since the previous 2.0 release</a> (Alpha2).</p>
+</div>
+<div class="paragraph">
+<p>The updated API is deployed to Maven Central, its coordinates are <em>javax.validation:validation-api:2.0.0.Beta1</em>.
+Alternatively, it&#8217;s part of the ZIP that can be downloaded from <a href="https://jcp.org/aboutJava/communityprocess/pr/jsr380/index.html">from jcp.org</a>.</p>
+</div>
+<div class="paragraph">
+<p>A huge thank you goes to everyone in the expert group and in the wider community who helped to make this release happen!
+Whether it&#8217;s discussions on the mailing list, reviewing pull requests, sending in your own patches or lobbying for the new spec revision - it&#8217;s your contributions that make the difference.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="whats-new"><a class="anchor" href="#whats-new"></a>What&#8217;s New?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Since the Alpha2 release, we&#8217;ve mainly focused on consolidating the container element validation feature (think <code>List&lt;@Email String&gt; emails</code>);
+the previous appendix describing this feature has been removed and its contents have been merged into the actual specification chapters.</p>
+</div>
+<div class="paragraph">
+<p>The related chapters and sections in the spec are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>4. <a href="/2.0/spec/2.0.0.beta1/#valueextractordefinition">Value extractor definition</a></p>
+</li>
+<li>
+<p>5.5. <a href="/2.0/spec/2.0.0.beta1/#constraintdeclarationvalidationprocess-containerelementconstraints">Container element constraints</a></p>
+</li>
+<li>
+<p>5.7.5. <a href="/2.0/spec/2.0.0.beta1/#constraintdeclarationvalidationprocess-validationroutine-valueextractorresolution">Value extractor resolution</a></p>
+</li>
+<li>
+<p>6.2. <a href="/2.0/spec/2.0.0.beta1/#validationapi-constraintviolation">ConstraintViolation</a> (changes around property paths in <code>ConstraintViolation</code> objects)</p>
+</li>
+<li>
+<p>7.11. <a href="/2.0/spec/2.0.0.beta1/#constraintmetadata-containerdescriptor">ContainerDescriptor and ContainerElementTypeDescriptor</a> (metadata API extensions)</p>
+</li>
+<li>
+<p>9.1.1. <a href="/2.0/spec/2.0.0.beta1/#xml-mapping-constraintdeclarationinxml">Constraint declaration in XML</a></p>
+</li>
+<li>
+<p>10.5. <a href="/2.0/spec/2.0.0.beta1/#exception-valueextractordefinition">ValueExtractorDefinitionException</a></p>
+</li>
+<li>
+<p>10.6. <a href="/2.0/spec/2.0.0.beta1/#exception-valueextractordeclaration">ValueExtractorDeclarationException</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Note that we have decided to remove the support for container element validation of arrays which had been part of the previous proposal.</p>
+</div>
+<div class="paragraph">
+<p><a href="http://lists.jboss.org/pipermail/beanvalidation-dev/2017-April/001273.html">As we found out</a>, there&#8217;s an ambiguity when type annotations are used on an element like a field of a Java bean:
+in this case it isn&#8217;t clear whether the annotation applies to the declaration itself (i.e. the array) or the component type of the array (i.e. the array elements).
+We felt that it is better to play it safe and let Bean Validation implementations experiment with this first and bring back array support later on.
+The names and semantics used in the spec and API should be generic enough so that they should suit for the array case, too, should we decide to add it down the road.</p>
+</div>
+<div class="paragraph">
+<p>Together with the Java EE expert group we&#8217;ve also worked on a clarification regarding the location of the Bean Validation deployment descriptor.
+The Bean Validation spec only ever meant to support <em>META-INF/validation.xml</em> for this, but the Java EE spec unfortunately mentioned <em>WEB-INF/validation.xml</em> for web modules.
+While this has never been supported by the Bean Validation reference implementation and most application servers,
+a community member thankfully brought the inconsistency between the specs to our attention recently.
+The issue has been fixed by having the Java EE spec refer to Bean Validation for the descriptor location, which clearly says that it always is <em>META-INF/validation.xml</em>.
+Servers which happen to support the alternative location, should phase out support for this, e.g. by raising a warning when detecting its usage and recommending to use the standardized location.</p>
+</div>
+<div class="paragraph">
+<p>The complete list of changes in the Beta1 release can be found in the <a href="/2.0/spec/2.0.0.beta1/diff/diff-to-2.0-alpha2/#changelog">change log</a>.</p>
+</div>
+<div class="paragraph">
+<p>To learn more about all the new features we&#8217;ve added to Bean Validation 2 so far, check out the <a href="/news/2017/01/19/bean-validation-2-0-progress-report/">previous posts</a> <a href="/news/2017/02/14/bean-validation-2-0-early-draft-released/">in this blog</a>,
+the <a href="/2.0/spec/2.0.0.alpha1/#_what_s_new_in_2_0">What&#8217;s new</a> section in the spec draft or simply the <a href="/2.0/spec/2.0.0.beta1/diff/diff-to-1.1/">full HTML diff</a> with all the changes.</p>
+</div>
+<div class="paragraph">
+<p>Another helpful resource may be <a href="https://speakerdeck.com/gunnarmorling/bean-validation-2-dot-0-support-fur-java-8-und-mehr">the slides</a> of a (German) presentation on Bean Validation 2.0 I recently did at JavaLand.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="whats-next"><a class="anchor" href="#whats-next"></a>What&#8217;s next?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Currently we&#8217;re focusing on updating the reference implementation to the latest spec changes.
+You can expect a new release of <a href="http://hibernate.org/validator/">Hibernate Validator 6</a> some time next week.
+This will let you experiment with all the new features and explore them in more depth.</p>
+</div>
+<div class="paragraph">
+<p>We are also planning to pick up some remaining loose ends around container element validation and - if we get to it -
+the separation of the message interpolation algorithm from the retrieval of messages from resource bundles (<a href="https://hibernate.atlassian.net/projects/BVAL/issues/BVAL-217">BVAL-217</a>).</p>
+</div>
+<div class="paragraph">
+<p>There is a <a href="https://hibernate.atlassian.net/issues/?jql=statusCategory%20%3D%20new%20AND%20project%20%3D%2010090%20AND%20fixVersion%20%3D%2028800%20ORDER%20BY%20priority%20DESC%2C%20key%20ASC">couple of issues</a> assigned to the Beta2 release already.
+If you think something else should really be in there, please let us know as soon as possible!</p>
+</div>
+<div class="paragraph">
+<p>Apart from work on the spec itself and the reference implementation there is also the TCK
+(the test suite all implementations need to run in order to ensure their compatibility).
+There are quite a few tests to add for the recently added features.
+We already got many within the Hibernate Validator&#8217;s test suite, so we can simply move over those.
+But there also some new tests to be written.</p>
+</div>
+<div class="paragraph">
+<p>The Public Review runs until May 27th, followed by Public Review Ballot (the voting by the JCP executive committee) until June 12th.
+If all goes well, we&#8217;ll release the Proposed Final Draft soon after that, followed by the submission to the Final Approval Ballot in July, aligning with the overall schedule for <a href="https://www.jcp.org/en/jsr/detail?id=366">Java EE 8</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="what-can-you-do-to-help"><a class="anchor" href="#what-can-you-do-to-help"></a>What can you do to help?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Reviewing the spec changes (all or part of them) would be super-awesome!
+There is a very handy <a href="/2.0/spec/2.0.0.beta1/diff/diff-to-1.1/">HTML diff</a> (did I mention it before?) which makes it easy to spot all the changes since Bean Validation 1.1.</p>
+</div>
+<div class="paragraph">
+<p>Another thing you can do is to try out the reference implementation in your applications (ideally the new version to be released next week).
+Do the new features work as intended? Is anything missing, not behaving as described in the spec or generally just not working as you think it should?
+Then please tell us.
+The more feedback we get, the better.</p>
+</div>
+<div class="paragraph">
+<p>To post your feedback, just add a comment below, send a message to our <a href="http://lists.jboss.org/pipermail/beanvalidation-dev/">mailing list</a> or post in the <a href="https://discourse.hibernate.org/c/bean-validation">Bean Validation forum</a>.
+If you find a bug or have a specific feature request, please raise it in the <a href="https://hibernate.atlassian.net/projects/BVAL/summary">issue tracker</a>.</p>
+</div>
+<div class="paragraph">
+<p>Everything in Bean Validation is open source, so you also can send in actual patches: to the API, the spec document or the TCK.
+If you are interested, you can find out all the details to get started in the <a href="/contribute">contribution guide</a>.</p>
+</div>
+</div>
+</div>
+</div>
+
+</article>
+<hr>
+<div class="post-navigation">
+<div class="ui grid two column stackable">
+<div class="column">
+&laquo;
+<a href="../../../03/31/bean-validation-2-0-alpha2-is-out">Bean Validation 2.0 Alpha2 is out</a>
+</div>
+<div class="column text-right">
+<a href="../../../05/12/feedback-on-positive-and-negative-constraints">Survey - Behavior of @Positive and @Negative constraints</a>
+&raquo;
+</div>
+</div>
+</div>
+<hr>
+
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+            var disqus_shortname = 'beanvalidation';
+            var disqus_url = "http://beanvalidation.org/news/2017/04/26/bean-validation-2-0-up-for-public-review/";
+            var disqus_developer = null;
+            var disqus_identifier = null;
+            (function() {
+              var dsq = document.createElement("script"); dsq.type = "text/javascript"; dsq.async = true;
+              dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+              (document.getElementsByTagName("head")[0] || document.getElementsByTagName("body")[0]).appendChild(dsq);
+            })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript=beanvalidation">comments powered by Disqus.</a></noscript>
+          
+</div>
+</div>
+
+<footer class="print hidden">
+<div class="ui inverted vertical footer segment">
+<div class="ui container">
+<div class="ui stackable grid">
+<div class="eleven wide column middle aligned">
+Copyright &copy; Red Hat, Inc.
+</div>
+<div class="five wide column sponsor">
+<div class="logo">
+<a href="https://www.redhat.com/">
+<img src="/images/sponsored-by-redhat.svg" style="height: 40px" title="Red Hat">
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<script>
+ (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ 
+ga('create', 'UA-24703879-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+<script>
+  $(document).ready(function() {
+    $('#mobile-menu').sidebar('setting', {
+      transition: 'push'
+    });
+    $('#mobile-menu').sidebar('attach events', '#mobile-menu-toggle');
+  
+    $('.ui.menu .ui.dropdown').dropdown({ on: 'hover' });
+  });
+</script>
+</body>
+</html>

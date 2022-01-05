@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta content="IE=Edge" http-equiv="X-UA-Compatible">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>
+Jakarta Bean Validation - Validate a list of changes without applying them to the actual object
+</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css" rel="stylesheet">
+<link href="/stylesheets/styles.css?t=1641371616" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
+<!-- / Unfortunately, matchHeight doesn't follow the same convention as the other minified files -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.2/jquery.matchHeight-min.js"></script>
+<link href="/news/news.atom" rel="alternate" type="application/atom+xml">
+</head>
+<body class="pushable">
+<div class="ui vertical menu inverted sidebar left print hidden" id="mobile-menu">
+<a class="item" href="/" title="Home">
+<i class="grid icon home"></i>
+Home
+</a>
+<a class="item" href="/news/">
+<i class="grid icon newspaper"></i>
+News
+</a>
+<a class="item" href="/2.0/">
+<i class="grid icon book"></i>
+<strong>Jakarta Bean Validation 2.0</strong>
+</a>
+<div class="item">
+<i class="grid icon archive"></i>
+Archives
+<div class="menu">
+<a class="item" href="/2.0-jsr380/">
+<i class="grid icon book"></i>
+Bean Validation 2.0 (JSR 380)
+</a>
+<a class="item" href="/1.1/">
+<i class="grid icon book"></i>
+Bean Validation 1.1 (JSR 349)
+</a>
+<a class="item" href="/1.0/">
+<i class="grid icon book"></i>
+Bean Validation 1.0 (JSR 303)
+</a>
+</div>
+</div>
+<a class="item" href="/resources/">
+<i class="grid icon folder open"></i>
+Additional resources
+</a>
+<a class="item" href="/licensing/">
+<i class="grid icon legal"></i>
+Licensing
+</a>
+<a class="item" href="/contribute/">
+<i class="grid icon users"></i>
+Contribute
+</a>
+</div>
+<div class="pusher">
+<div class="mobile-menu-button-bar mobile only print hidden">
+<a class="item" id="mobile-menu-toggle">
+<i class="sidebar icon"></i>
+Menu
+</a>
+</div>
+<header role="banner">
+<div class="ui container banner">
+<div class="ui stackable menu mobile hidden print hidden" id="nav">
+<a class="item" href="/" title="Home">
+<img alt="Bean Validation" src="/logo/logo.svg">
+</a>
+<a class="item" href="/news/">News</a>
+<a class="item" href="/2.0/">
+<strong>Jakarta Bean Validation 2.0</strong>
+</a>
+<div class="ui dropdown item">
+Archives
+<i class="dropdown icon"></i>
+<div class="menu">
+<a class="item" href="/2.0-jsr380/">Bean Validation 2.0 (JSR 380)</a>
+<a class="item" href="/1.1/">Bean Validation 1.1 (JSR 349)</a>
+<a class="item" href="/1.0/">Bean Validation 1.0 (JSR 303)</a>
+</div>
+</div>
+<a class="item" href="/resources/">Resources</a>
+<a class="item" href="/licensing/">Licensing</a>
+<a class="item" href="/contribute/">Contribute</a>
+</div>
+</div>
+</header>
+<div class="jumbotron small">
+<div class="ui container">
+<h1>Jakarta Bean Validation</h1>
+<h2>Validate a list of changes without applying them to the actual object</h2>
+</div>
+</div>
+<div class="ui container page-content">
+<div class="content" id="content">
+<div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#problem">1. Problem</a></li>
+<li><a href="#proposition-1">2. Proposition 1</a>
+<ul class="sectlevel2">
+<li><a href="#how-to-pass-in-the-values">2.1. How to pass in the values?</a></li>
+<li><a href="#how-to-represent-the-given-values-to-constraint-validators">2.2. How to represent the given values to constraint validators?</a></li>
+<li><a href="#misc-questions">2.3. Misc. questions</a></li>
+</ul>
+</li>
+<li><a href="#proposition-2">3. Proposition 2</a></li>
+</ul>
+</div>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://hibernate.atlassian.net/browse/BVAL-214">Related JIRA</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="problem"><a class="anchor" href="#problem"></a>1. Problem</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When validating user input from a UI which is bound to the data model it is desirable to do the validation <em>before</em> propagating the values into the model.
+This prevents the model from being tainted with invalid values.
+For single properties there is <code>Validator#validateValue()</code> for this purpose, but an equivalent solution for class-level constraints is lacking today.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="proposition-1"><a class="anchor" href="#proposition-1"></a>2. Proposition 1</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Provide a new method <code>Validator#validateValues()</code> similar to the existing <code>validateValue()</code> which takes several property values and validates them as if they were the actual values of the given bean types.</p>
+</div>
+<div class="paragraph">
+<p><strong>TL;DR:</strong> My preference is <code>validateValues(Class&lt;T&gt; bean, ValidatedValues values, Class&lt;?&gt;&#8230;&#8203; groups)</code> and exposing values through the generic property retrieval API. I like that it doesn&#8217;t require cloning and enables nice cross-field validation. I think the compatability issue with existing class-level validators is acceptable, people using that feature are very likely in control of that validator implementation and can adapt it.</p>
+</div>
+<div class="paragraph">
+<p>The problem comprises two orthogonal challenges: How to pass in the values to be validated and how to expose these to constraint validators. Solutions for both are discussed below.</p>
+</div>
+<div class="sect2">
+<h3 id="how-to-pass-in-the-values"><a class="anchor" href="#how-to-pass-in-the-values"></a>2.1. How to pass in the values?</h3>
+<div class="sect3">
+<h4 id="using-a-map"><a class="anchor" href="#using-a-map"></a>2.1.1. Using a map</h4>
+<div class="paragraph">
+<p>Simply a <code>Map&lt;String, Object&gt; values</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Pro:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Similar to <code>validateValue()</code></p>
+</li>
+<li>
+<p>Conceptually simple</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Cons:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Requires complete values for nested properties/collections</p>
+</li>
+<li>
+<p>Cannot distinguish between field/property level constraints</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="using-a-builder-api"><a class="anchor" href="#using-a-builder-api"></a>2.1.2. Using a builder API</h4>
+<div class="paragraph">
+<p>E.g. some like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>ValidatedValues = new ValidatedValues.Builder()&#x000A;    .property( &quot;name&quot; ).set( &quot;Bob &quot;)&#x000A;    .list( &quot;emails&quot; ).add( &quot;bob@example.com&quot; )&#x000A;    .set( &quot;nickNames&quot; ).remove (&quot;Bobster&quot; )&#x000A;    .map( &quot;addresses&quot; ).key( &quot;home&quot; ).put( new Addres(...) )&#x000A;    .property( &quot;phone&quot; ).property( &quot;areaCode&quot; ).set( 040 )&#x000A;    .build();</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>validateValues()</code> would take the built container.</p>
+</div>
+<div class="paragraph">
+<p><strong>Pro:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Need only to pass changed values</p>
+</li>
+<li>
+<p>Can address single properties of nested elements</p>
+</li>
+<li>
+<p>Could use <code>ElementType</code> to express something is field vs. property value</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Cons:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>API tough to get right?</p>
+</li>
+<li>
+<p>How much will "automated" / generic callers such as JSF benefit from it?</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For identifying properties, method literals (for getters) could be used. Or the JPA metamodel? Or a new bean metamodel?</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="how-to-represent-the-given-values-to-constraint-validators"><a class="anchor" href="#how-to-represent-the-given-values-to-constraint-validators"></a>2.2. How to represent the given values to constraint validators?</h3>
+<div class="paragraph">
+<p>Orthogonal to the question how values are passed in we need to decide how to expose these to constraint validators.</p>
+</div>
+<div class="sect3">
+<h4 id="by-cloning-a-bean"><a class="anchor" href="#by-cloning-a-bean"></a>2.2.1. By cloning a bean</h4>
+<div class="paragraph">
+<p><code>validateValue()</code> would take a bean <em>instance</em> and the values (assuming the builder approach for the sake of discussion for now):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>&lt;T&gt; Set&lt;ConstraintViolation&lt;T&gt;&gt; Validator#validateValues(T bean, ValidatedValues values, Class&lt;?&gt;... groups)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The values will be applied to a <em>clone</em> of the given object which then is validated.</p>
+</div>
+<div class="paragraph">
+<p><strong>Pro:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The solution is transparent to existing class-level constraints, they&#8217;d see the validated bean as if it had the given property values</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Con:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Requires validated bean types to be clonable; That&#8217;s a nasty requirement, esp. when it comes to JPA entities with lazy props etc.</p>
+</li>
+<li>
+<p>Need a bean <em>instance</em> which might not be present, esp. given the use case is up-front validation, so you might want to delay instantation until validation passed</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The requirement for clonability could possibly be mitigated by introducing a cloning SPI. By default, BV providers would resort to expecting beans to implement <code>Cloneable</code>. But alternative implementations could be based on less intrusive cloning approaches such as resorting to copy constructors or libraries such as <a href="https://github.com/kostaskougios/cloning">https://github.com/kostaskougios/cloning</a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="through-a-generic-api-from-constraint-validator-context"><a class="anchor" href="#through-a-generic-api-from-constraint-validator-context"></a>2.2.2. Through a generic API from constraint validator context</h4>
+<div class="paragraph">
+<p><code>validateValue()</code> would take a bean <em>type</em> and the values:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>&lt;T&gt; Set&lt;ConstraintViolation&lt;T&gt;&gt; Validator#validateValues(Class&lt;T&gt; bean, ValidatedValues values, Class&lt;?&gt;... groups)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The values will be exposed through a generic property retrieval API:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>@PasswordsMatch&#x000A;public class UserDataBean {&#x000A;    String name;&#x000A;    String password;&#x000A;    String passwordRepeat;&#x000A;}&#x000A;&#x000A;public class PasswordMatchValidator implements ConstraintValidator&lt;PasswordsMatch, UserDataBean&gt; {&#x000A;&#x000A;    void initialize(PasswordsMatch annotation) {&#x000A;    }&#x000A;&#x000A;    boolean isValid(UserDataBean value, ConstraintValidatorContext ctx) {&#x000A;        String password = null;&#x000A;        String passwordRepeat = null;&#x000A;&#x000A;        // value null can have two reasons here:&#x000A;        // a) a null reference / collection entry during cascaded validation&#x000A;        // b) validateValues(); In this case we can get the property values from the context&#x000A;        if ( value == null ) {&#x000A;            password = (String) ctx.property( &quot;password&quot; ).get();&#x000A;            passwordRepeat = (String) ctx.property( &quot;passwordRepeat&quot; ).get();&#x000A;        }&#x000A;        else {&#x000A;            password = value.password;&#x000A;            passwordRepeat = value.passwordRepeat;&#x000A;        }&#x000A;&#x000A;        // TODO Make null-safe&#x000A;        return password.equals( passwordRepeat );&#x000A;    }&#x000A;}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The values would be exposed through the constraint validator context. The API would mirror the one using for passing values:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>ctx.property( &quot;name&quot; ).get();&#x000A;ctx.list( &quot;emails&quot; ).index( 1 ).get();&#x000A;ctx.map( &quot;addresses&quot; ).key( &quot;home&quot; ).get();&#x000A;ctx.property( &quot;phone&quot; ).property( &quot;areaCode&quot; ).get();&#x000A;ctx.map( &quot;addresses&quot; ).key( &quot;home&quot; ).property( &quot;street&quot; ).get();</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Pro:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>No requirement for clonability towards validated bean types</p>
+</li>
+<li>
+<p>No bean instance needed, resembles more closely the current <code>validateValue()</code> method</p>
+</li>
+<li>
+<p>Enables much simpler cross-field constraints (see below)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Cons:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Solution is not transparent to class-level constraint validators, they must account for the fact that values are to be obtained through the context; I think it&#8217;s ok, but existing validators need updating.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This proposal enables cross-field constraints nicely:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>public class UserDataBean {&#x000A;    String name;&#x000A;    String password;&#x000A;&#x000A;    @Equals(&quot;password&quot;)&#x000A;    String passwordRepeat;&#x000A;}&#x000A;&#x000A;public class EqualsValidator implements ConstraintValidator&lt;Equals, String&gt; {&#x000A;&#x000A;    private String compareTo;&#x000A;&#x000A;    void initialize(Equals annotation) {&#x000A;        this.compareTo = annotation.value();&#x000A;    }&#x000A;&#x000A;    boolean isValid(String value, ConstraintValidatorContext ctx) {&#x000A;        if  ( value == null ) {&#x000A;            return true;&#x000A;        }&#x000A;&#x000A;        String comparedValue = (String) ctx.property( compareTo ).get();&#x000A;        return value.equals( comparedValue );&#x000A;    }&#x000A;}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>That&#8217;s nicer than the traditional class-level constraint. The good thing is that it&#8217;d work automatically in both cases:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>validate()</code> (provided we expose all the properties of the bean instance)</p>
+</li>
+<li>
+<p><code>validateValues()</code> - here we&#8217;d take the values passed by the user</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="through-a-proxy"><a class="anchor" href="#through-a-proxy"></a>2.2.3. Through a proxy</h4>
+<div class="paragraph">
+<p>Values passed to <code>validateValues()</code> could also be exposed through a proxy, but its disadvantages make it unattractive:</p>
+</div>
+<div class="paragraph">
+<p><strong>Pros:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Requirement for proxyability is less intrusive then for clonability</p>
+</li>
+<li>
+<p>No bean instance needed</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Cons:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Not all beans can be proxied</p>
+</li>
+<li>
+<p>Solution is not transparent to class-level constraint validators, they must not access fields directly, so we&#8217;d still need a vehicle for field constraints</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="misc-questions"><a class="anchor" href="#misc-questions"></a>2.3. Misc. questions</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Should cascaded validation be supported? We don&#8217;t know the runtime type of an associated element prior to its instantiation, hence we cannot determine the constraints to apply.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="proposition-2"><a class="anchor" href="#proposition-2"></a>3. Proposition 2</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This proposition is based on <strong>Proposition 1</strong> but changes some parts of the API.</p>
+</div>
+<div class="paragraph">
+<p>Since we depend on java 8 I think it would make sense to use <code>Supplier</code> to create the bean mocks for validation. This can look like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>BeanValidator&lt;ContactDataModel&gt; contactValidator = BeanValidator.build(ContactDataModel.class);&#x000A;contactValidator.withProperty(&quot;city&quot;, () -&gt; cityField.getText()).&#x000A;    withProperty(&quot;zipCode&quot;, () -&gt; zipCodeField.getText());</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this example the <code>contactValidator</code> can use several times to validate the input in the UI since the values are not definied at creation of the <code>BeanValidator</code> instance but a <code>Supplier</code> is used to provide the value at runtime. By doing so the <code>BeanValidator</code> can be defined as:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>public interface BeanValidator&lt;T&gt; {&#x000A;&#x000A;    &lt;V&gt; BeanValidator&lt;T&gt; withProperty(String propertyName, Supplier&lt;V&gt; valueSupplier);&#x000A;&#x000A;    Set&lt;ConstraintViolation&lt;T&gt;&gt; validate(Class&lt;?&gt;... groups);&#x000A;&#x000A;    Set&lt;ConstraintViolation&lt;T&gt;&gt; validate(T baseBean, Class&lt;?&gt;... groups);&#x000A;&#x000A;    static &lt;U&gt; BeanValidator&lt;U&gt; build(Class&lt;U&gt; beanClass) {&#x000A;        return ...;&#x000A;    }&#x000A;}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As you can see the interface provides 2 methods to validate a bean. In the second method a predefined bean can be passed. This bean will be mutated / cloned based on the configuration of the <code>BeanValidator</code>.</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>GM: After talking to Hendrik, I realize the reasoning behind using <code>Supplier</code>: It allows to instantiate the <code>BeanValidator</code> object once for a given bean (and thus doing validation of bound fields only once) and then invoke it several times.</p>
+</div>
+</blockquote>
+</div>
+<div class="paragraph">
+<p>If you want to define a hierarchy of beans and validate them you need at least one additional method:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>&lt;U&gt; BeanValidator&lt;T&gt; withBeanValidator(String propertyName, BeanValidator&lt;U&gt; propertyValidator);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>By using this methods it will be quite easy to provide a structured mock for a bean type:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>BeanValidator&lt;ContactDataModel&gt; contactValidator = BeanValidator.build(ContactDataModel.class);&#x000A;    contactValidator.withProperty(&quot;city&quot;, () -&gt; cityField.getText()).&#x000A;            withProperty(&quot;zipCode&quot;, () -&gt; zipCodeField.getText());&#x000A;&#x000A;BeanValidator&lt;SampleDataModel&gt; validator = BeanValidator.build(SampleDataModel.class);&#x000A;    validator.withProperty(&quot;name&quot;, () -&gt; nameField.getText());&#x000A;    validator.withBeanValidator(&quot;contact&quot;, contactValidator);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In addition I think that it will be important to have a better feedback for the violations that are based on a UI field. If you have a violation based on the text of the <code>cityField</code> you normally want to mark that field in the UI. I think a <code>Consumer</code> can really help here:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>contactValidator.withProperty(&quot;city&quot;, () -&gt; cityField.getText(), v -&gt; markCityField(v));</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>By doing so you will always get the set of violations that is based on the value in the city field. The 3 param of the method is defined as a <code>Consumer&lt;Set&lt;ConstraintViolation&lt;String&gt;&gt;&gt;</code> that will automatically called after each validation. If no violation was created based on the constraints of the <code>city</code> property an empty set will be passed to the <code>Consumer</code>. Otherwise the set will contain all the <code>ConstraintViolation</code> instances that were created based on the constraints of the <code>city</code> property.</p>
+</div>
+<div class="paragraph">
+<p>It&#8217;s quite easy to create helper methods for the consumer and the supplier in application code:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>private Supplier&lt;String&gt; provideText(final TextField textField) {&#x000A;     return () -&gt; textField.getText();&#x000A; }&#x000A;&#x000A; private Consumer&lt;Set&lt;ConstraintViolation&lt;String&gt;&gt;&gt; markTextField(final TextField field) {&#x000A;     return v -&gt; {&#x000A;         if (v.isEmpty()) {&#x000A;             field.getStyleClass().remove(&quot;error-class&quot;);&#x000A;         } else {&#x000A;             //TODO: show error at textfield based on violations&#x000A;             field.getStyleClass().add(&quot;error-class&quot;);&#x000A;         }&#x000A;     };&#x000A; }&#x000A;&#x000A; //Create BeanValidator:&#x000A; BeanValidator&lt;ContactDataModel&gt; contactValidator = BeanValidator.build(ContactDataModel.class);&#x000A;         contactValidator.withProperty(&quot;city&quot;, provideText(cityField), markTextField(cityField)).&#x000A;                 withProperty(&quot;zipCode&quot;, provideText(zipCodeField), markTextField(zipCodeField));&#x000A;&#x000A; BeanValidator&lt;SampleDataModel&gt; validator = BeanValidator.build(SampleDataModel.class);&#x000A;         validator.withProperty(&quot;name&quot;, provideText(nameField), markTextField(nameField));&#x000A;         validator.withBeanValidator(&quot;contact&quot;, contactValidator);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After all this changes the <code>BeanValidator</code> interface might look like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>public interface BeanValidator&lt;T&gt; {&#x000A;&#x000A;    &lt;V&gt; BeanValidator&lt;T&gt; withProperty(String propertyName, Supplier&lt;V&gt; valueSupplier);&#x000A;&#x000A;    &lt;V&gt; BeanValidator&lt;T&gt; withProperty(String propertyName, Supplier&lt;V&gt; valueSupplier, Consumer&lt;Set&lt;ConstraintViolation&lt;V&gt;&gt;&gt; propertyViolationConsumer);&#x000A;&#x000A;    &lt;U&gt; BeanValidator&lt;T&gt; withBeanValidator(String propertyName, BeanValidator&lt;U&gt; propertyValidator);&#x000A;&#x000A;    Set&lt;ConstraintViolation&lt;T&gt;&gt; validate(Class&lt;?&gt;... groups);&#x000A;&#x000A;    Set&lt;ConstraintViolation&lt;T&gt;&gt; validate(T baseBean, Class&lt;?&gt;... groups);&#x000A;&#x000A;    static &lt;U&gt; BeanValidator&lt;U&gt; build(Class&lt;U&gt; beanClass) {&#x000A;        return null;&#x000A;    }&#x000A;}</code></pre>
+</div>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>GM: The motivation for using <code>Consumer</code> is to have easy access to the violations of a single property instead of having to iterate the set of violations and match corresponding UI fields.</p>
+</div>
+</blockquote>
+</div>
+<div class="paragraph">
+<p>You can find a first idea of such an interface and 2 view controller examples here: <a href="https://github.com/guigarage/validation-playground/tree/master/src/main/java/com/guigarage/dynamicvalidation" class="bare">https://github.com/guigarage/validation-playground/tree/master/src/main/java/com/guigarage/dynamicvalidation</a></p>
+</div>
+</div>
+</div>
+<hr>
+
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+            var disqus_shortname = 'beanvalidation';
+            var disqus_url = "http://beanvalidation.org/proposals/BVAL-214/";
+            var disqus_developer = null;
+            var disqus_identifier = null;
+            (function() {
+              var dsq = document.createElement("script"); dsq.type = "text/javascript"; dsq.async = true;
+              dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+              (document.getElementsByTagName("head")[0] || document.getElementsByTagName("body")[0]).appendChild(dsq);
+            })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript=beanvalidation">comments powered by Disqus.</a></noscript>
+          
+</div>
+</div>
+
+<footer class="print hidden">
+<div class="ui inverted vertical footer segment">
+<div class="ui container">
+<div class="ui stackable grid">
+<div class="eleven wide column middle aligned">
+Copyright &copy; Red Hat, Inc.
+</div>
+<div class="five wide column sponsor">
+<div class="logo">
+<a href="https://www.redhat.com/">
+<img src="/images/sponsored-by-redhat.svg" style="height: 40px" title="Red Hat">
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<script>
+ (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ 
+ga('create', 'UA-24703879-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+<script>
+  $(document).ready(function() {
+    $('#mobile-menu').sidebar('setting', {
+      transition: 'push'
+    });
+    $('#mobile-menu').sidebar('attach events', '#mobile-menu-toggle');
+  
+    $('.ui.menu .ui.dropdown').dropdown({ on: 'hover' });
+  });
+</script>
+</body>
+</html>

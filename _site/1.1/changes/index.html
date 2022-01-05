@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta content="IE=Edge" http-equiv="X-UA-Compatible">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>
+Jakarta Bean Validation - Bean Validation 1.1 goals
+</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css" rel="stylesheet">
+<link href="/stylesheets/styles.css?t=1641371614" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
+<!-- / Unfortunately, matchHeight doesn't follow the same convention as the other minified files -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.2/jquery.matchHeight-min.js"></script>
+<link href="/news/news.atom" rel="alternate" type="application/atom+xml">
+</head>
+<body class="pushable">
+<div class="ui vertical menu inverted sidebar left print hidden" id="mobile-menu">
+<a class="item" href="/" title="Home">
+<i class="grid icon home"></i>
+Home
+</a>
+<a class="item" href="/news/">
+<i class="grid icon newspaper"></i>
+News
+</a>
+<a class="item" href="/2.0/">
+<i class="grid icon book"></i>
+<strong>Jakarta Bean Validation 2.0</strong>
+</a>
+<div class="item">
+<i class="grid icon archive"></i>
+Archives
+<div class="menu">
+<a class="item" href="/2.0-jsr380/">
+<i class="grid icon book"></i>
+Bean Validation 2.0 (JSR 380)
+</a>
+<a class="item selected" href="/1.1/">
+<i class="grid icon book"></i>
+Bean Validation 1.1 (JSR 349)
+</a>
+<a class="item" href="/1.0/">
+<i class="grid icon book"></i>
+Bean Validation 1.0 (JSR 303)
+</a>
+</div>
+</div>
+<a class="item" href="/resources/">
+<i class="grid icon folder open"></i>
+Additional resources
+</a>
+<a class="item" href="/licensing/">
+<i class="grid icon legal"></i>
+Licensing
+</a>
+<a class="item" href="/contribute/">
+<i class="grid icon users"></i>
+Contribute
+</a>
+</div>
+<div class="pusher">
+<div class="mobile-menu-button-bar mobile only print hidden">
+<a class="item" id="mobile-menu-toggle">
+<i class="sidebar icon"></i>
+Menu
+</a>
+</div>
+<header role="banner">
+<div class="ui container banner">
+<div class="ui stackable menu mobile hidden print hidden" id="nav">
+<a class="item" href="/" title="Home">
+<img alt="Bean Validation" src="/logo/logo.svg">
+</a>
+<a class="item" href="/news/">News</a>
+<a class="item" href="/2.0/">
+<strong>Jakarta Bean Validation 2.0</strong>
+</a>
+<div class="ui dropdown item selected">
+Archives
+<i class="dropdown icon"></i>
+<div class="menu">
+<a class="item" href="/2.0-jsr380/">Bean Validation 2.0 (JSR 380)</a>
+<a class="item selected" href="/1.1/">Bean Validation 1.1 (JSR 349)</a>
+<a class="item" href="/1.0/">Bean Validation 1.0 (JSR 303)</a>
+</div>
+</div>
+<a class="item" href="/resources/">Resources</a>
+<a class="item" href="/licensing/">Licensing</a>
+<a class="item" href="/contribute/">Contribute</a>
+</div>
+</div>
+</header>
+<div class="jumbotron small">
+<div class="ui container">
+<h1>Jakarta Bean Validation</h1>
+<h2>Bean Validation 1.1 goals</h2>
+</div>
+</div>
+<div class="ui container page-content">
+<div class="content" id="content">
+<p>The expert group and the community focused on a few key goals as well as smaller issues.</p>
+
+<ul>
+<li><a href="#goals">Main goals</a>
+
+<ul>
+<li><a href="#openness">Openness</a></li>
+<li><a href="#dependency-injection">Dependency injection and CDI</a></li>
+<li><a href="#method-validation">Method validation</a></li>
+<li><a href="#group-conversion">Group conversion</a></li>
+<li><a href="#message-interpolation">Message interpolation using EL</a></li>
+<li><a href="#integration">Integration with other specifications</a></li>
+</ul>
+</li>
+<li><a href="#changelog">Detailed changelog</a></li>
+</ul>
+
+
+<h2>Main goals <a id="goals"></a></h2>
+
+<h3>Openness <a id="openness"></a></h3>
+
+<p>All of Bean Validation 1.1 work has been done in the open and in an open source
+way. Source code for the
+<a href="https://github.com/eclipse-ee4j/beanvalidation-api/">API</a>, <a href="https://github.com/hibernate/hibernate-validator/">reference
+implementation</a>, <a href="https://github.com/eclipse-ee4j/beanvalidation-tck/">test
+compatibility kit</a> as
+well as the
+<a href="https://github.com/eclipse-ee4j/beanvalidation-spec/">specification</a> and the
+<a href="https://github.com/beanvalidation/beanvalidation.org/">website sources</a> are
+available in the open.  All discussions are done in the open in the publicly
+available development mailing list. Road map and proposals are also published
+on the website.</p>
+
+<p>In short, everything is available at <a href="http://beanvalidation.org">http://beanvalidation.org</a>.</p>
+
+<h3>Dependency injection and CDI integration <a id="dependency-injection"></a></h3>
+
+<p>Bean Validation uses a few components: <code>MessageInterpolator</code>, <code>TraversableResolver</code>,
+<code>ParameterNameProvider</code>, <code>ConstraintValidatorFactory</code> and <code>ConstraintValidator</code>. We
+have standardized how these objects are managed by a container and how these
+objects can benefit from container services. In particular, CDI support within
+Java EE is defined. Note that CDI integration also encompasses support for method
+validation.</p>
+
+<p>An example of the most common use case is using CDI injection in constraint validator
+implementations:</p>
+
+<pre><code>class ZipCodeValidator implements ConstraintValidator&lt;ZipCode, String&gt; {&#x000A;&#x000A;    @Inject @France&#x000A;    private ZipCodeChecker checker;&#x000A;&#x000A;    public void initialize(ZipCode zipCode) {}&#x000A;&#x000A;    public boolean isValid(String value, ConstraintValidationContext context) {&#x000A;        if (value==null) return true;&#x000A;        return checker.isZipCodeValid(value);&#x000A;    }&#x000A;}&#x000A;</code></pre>
+
+<h3>Method validation <a id="method-validation"></a></h3>
+
+<p>Bean Validation 1.1 allows to apply constraints on parameters and return
+values of methods and constructors. That way the Bean Validation API
+can be used to describe and validate the contract applying to a given method or
+constructor, that is:</p>
+
+<ul>
+<li>the preconditions that must be met by the caller before the method or
+constructor may be invoked and</li>
+<li>the postconditions that are guaranteed to the caller after a method or
+constructor invocation returns.</li>
+</ul>
+
+
+<p>This enables a programming style known as "Programming by Contract" (PbC).
+Compared to traditional means of checking the sanity of argument and return
+values this approach has several advantages:</p>
+
+<ul>
+<li>These checks are expressed declaratively and don't have to be performed
+manually, which results in less code to write, read and maintain.</li>
+<li>The pre- and postconditions applying for a method or constructor don't have
+to be expressed again in the documentation, since any of its annotations will
+automatically be included in the generated JavaDoc. This reduces redundancies,
+thus avoiding efforts and inconsistencies between implementation and
+documentation.</li>
+</ul>
+
+
+<p>Here is an example:</p>
+
+<pre><code>@RequestScope class Client {&#x000A;    @Inject AccountService service;&#x000A;    public void createClient() { service.createUser(...); }&#x000A;}&#x000A;&#x000A;@Dependent class AccountService {&#x000A;    public User createUser(&#x000A;            @NotEmpty String username,&#x000A;            String firstname,&#x000A;            String lastname,&#x000A;            @NotNull @Email String email,&#x000A;            @Past Date birthDate) {&#x000A;        // parameters are automatically validated and an exception&#x000A;        // is raised upon failure&#x000A;        // Method code focuses on the business logic&#x000A;    }&#x000A;}&#x000A;</code></pre>
+
+<h3>Group conversion <a id="group-conversion"></a></h3>
+
+<p>The specification offers a way to alter the targeted group when validation
+cascading is happening. This feature is particularly useful to reuse a given
+object (graph) and to avoid leaking groups between various object subgraphs. It
+also makes for more readable constraints.</p>
+
+<pre><code>public class User {&#x000A;    @Email String email;&#x000A;    @Strength(group=Complete.class)&#x000A;    String password;&#x000A;    @Valid&#x000A;    @ConvertGroup.List( {&#x000A;        @ConvertGroup(from=Default.class, to=BasicPostal.class),&#x000A;        @ConvertGroup(from=Complete.class, to=FullPostal.class)&#x000A;    } )&#x000A;    Address homeAddress;&#x000A;}&#x000A;&#x000A;class Address {&#x000A;    @NotNull(group=BasicPostal.class) String street1;&#x000A;     String street2;&#x000A;     @ZipCode(group=BasicPostal.class)&#x000A;     String zipCode;&#x000A;     @CodeChecker(group=FullPostal.class)&#x000A;     String doorCode;&#x000A;}&#x000A;</code></pre>
+
+<h3>Message interpolation via the unified expression language <a id="message-interpolation"></a></h3>
+
+<p>Constraint violation messages can now use EL expressions for a much more
+flexible rendering and string formatting. In particular a formatter object is
+injected in the EL context to convert numbers, dates etc. into the locale
+specific string representation. Likewise, the validated value is also available
+in the EL context.</p>
+
+<pre><code>javax.validation.constraints.DecimalMax.message=\&#x000A;    must be less than ${inclusive == true ? 'or equal to ' : ''}{value}&#x000A;</code></pre>
+
+<h3>Integration with other specifications <a id="integration"></a></h3>
+
+<p>A lot of the work produced is not in this specification but in others. In
+particular, validation of JAX-RS components is supported and reuses the Bean
+Validation method validation.</p>
+
+<h2>Detailed changelog <a id="changelog"></a></h2>
+
+<p>This list shows a detailed set of changes done in the specification. It does not
+cover everything (check the changelog appendix in the spec for this) but shows a
+detailed and feature centric view. It also references the issue ticket as well as
+the design discussions.</p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th> Issue Id (JIRA)                                              </th>
+<th> Done </th>
+<th> Proposal </th>
+<th> Description </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td> <a href="https://hibernate.atlassian.net/browse/BVAL-241">BVAL-241</a>  </td>
+<td> <img src="/images/completed.png" alt="" /> </td>
+<td>  <a href="/proposals/BVAL-241">241</a> </td>
+<td> Method level validation</td>
+</tr>
+<tr>
+<td></td>
+<td> <a href="https://hibernate.atlassian.net/browse/BVAL-272">BVAL-272</a>  </td>
+<td> <img src="/images/completed.png" alt="" /> </td>
+<td>  </td>
+<td> Close remaining loops in method validation support</td>
+</tr>
+<tr>
+<td></td>
+<td> <a href="https://hibernate.atlassian.net/browse/BVAL-232">BVAL-232</a>  </td>
+<td> <img src="/images/completed.png" alt="" /> </td>
+<td> <a href="/proposals/BVAL-232">232</a> </td>
+<td> Solve cross-parameter validation</td>
+</tr>
+<tr>
+<td></td>
+<td> <a href="https://hibernate.atlassian.net/browse/BVAL-274">BVAL-274</a>  </td>
+<td> <img src="/images/completed.png" alt="" /> </td>
+<td> <a href="/proposals/BVAL-274">274</a> </td>
+<td> Extend the meta-data API with required convenience methods for method validation</td>
+</tr>
+<tr>
+<td></td>
+<td>                                                              </td>
+<td> <img src="/images/completed.png" alt="" /> </td>
+<td>  </td>
+<td> Should method validation methods be defined on j.v.Validator or a dedicated new interface?</td>
+</tr>
+<tr>
+<td></td>
+<td> <a href="https://hibernate.atlassian.net/browse/BVAL-306">BVAL-306</a>  </td>
+<td> <img src="/images/completed.png" alt="" /> </td>
+<td>  </td>
+<td> Clarify interceptor order in method validation triggering</td>
+</tr>
+<tr>
+<td></td>
+<td> <a href="https://hibernate.atlassian.net/browse/BVAL-314">BVAL-314</a>  </td>
+<td> <img src="/images/completed.png" alt="" /> </td>
+<td> <a href="/proposals/BVAL-314/">314</a> </td>
+<td> Provide ability to disable validation for method/constructor</td>
+</tr>
+<tr>
+<td></td>
+<td> <a href="https://hibernate.atlassian.net/browse/BVAL-238">BVAL-238</a>  </td>
+<td> <img src="/images/completed.png" alt="" /> </td>
+<td> <a href="/proposals/BVAL-238">238</a>  </td>
+<td> Support for container injection in ConstraintValidator</td>
+</tr>
+<tr>
+<td></td>
+<td>                                                              </td>
+<td> <img src="/images/completed.png" alt="" /> </td>
+<td>  </td>
+<td> Discuss and clarify vf.close() and the usage expectation (ie when to close a VF)</td>
+</tr>
+<tr>
+<td></td>
+<td>                                                              </td>
+<td> <img src="/images/completed.png" alt="" /> </td>
+<td>  </td>
+<td> Bring back interaction descriptions with Java EE and CDI in the Bean Validation specification</td>
+</tr>
+<tr>
+<td></td>
+<td> <a href="https://hibernate.atlassian.net/browse/BVAL-307">BVAL-307</a>  </td>
+<td> <img src="/images/completed.png" alt="" /> </td>
+<td>  </td>
+<td> Decide how CDI and Bean Validation is integrated</td>
+</tr>
+<tr>
+<td></td>
+<td> <a href="https://hibernate.atlassian.net/browse/BVAL-265">BVAL-265</a>  </td>
+<td> <img src="/images/completed.png" alt="" /> </td>
+<td> <a href="/proposals/BVAL-265">265</a> </td>
+<td> Expose settings defined in XML in the Configuration API</td>
+</tr>
+<tr>
+<td></td>
+<td> <a href="https://hibernate.atlassian.net/browse/BVAL-293">BVAL-293</a>  </td>
+<td> <img src="/images/completed.png" alt="" /> </td>
+<td>  </td>
+<td> Finish renaming of <code>ConfigurationSource</code></td>
+</tr>
+<tr>
+<td></td>
+<td> <a href="https://hibernate.atlassian.net/browse/BVAL-226">BVAL-226</a>  </td>
+<td> <img src="/images/completed.png" alt="" /> </td>
+<td>  </td>
+<td> Clarify whether the static or the runtime type should be considered when creating property paths in case of cascaded validations</td>
+</tr>
+<tr>
+<td></td>
+<td> <a href="https://hibernate.atlassian.net/browse/BVAL-221">BVAL-221</a>  </td>
+<td> <img src="/images/completed.png" alt="" /> </td>
+<td> <a href="/proposals/BVAL-221">221</a> </td>
+<td> The constraint violation builder cannot put constraint on a top level map key</td>
+</tr>
+<tr>
+<td></td>
+<td> <a href="https://hibernate.atlassian.net/browse/BVAL-208">BVAL-208</a>  </td>
+<td> <img src="/images/completed.png" alt="" /> </td>
+<td> <a href="/proposals/BVAL-208">208</a> </td>
+<td> Support groups translation when cascading operations (hosted on @Valid or not)</td>
+</tr>
+<tr>
+<td></td>
+<td> <a href="https://hibernate.atlassian.net/browse/BVAL-259">BVAL-259</a>  </td>
+<td> <img src="/images/completed.png" alt="" /> </td>
+<td> <a href="/proposals/BVAL-259">259</a> </td>
+<td> Stop validation of composed constraints at first failing constraint</td>
+</tr>
+<tr>
+<td></td>
+<td> <a href="https://hibernate.atlassian.net/browse/BVAL-327">BVAL-327</a>  </td>
+<td> <img src="/images/completed.png" alt="" /> </td>
+<td> <a href="/proposals/BVAL-327">327</a> </td>
+<td> Discuss whether or not getter should be considered constrained methods</td>
+</tr>
+<tr>
+<td></td>
+<td> <a href="https://hibernate.atlassian.net/browse/BVAL-259">BVAL-259</a>  </td>
+<td> <img src="/images/completed.png" alt="" /> </td>
+<td> </td>
+<td> Enforce in the spec that @ReportAsSingleViolation does apply validators once one is reporting a failure</td>
+</tr>
+<tr>
+<td></td>
+<td> <a href="https://hibernate.atlassian.net/browse/BVAL-219">BVAL-219</a>  </td>
+<td> <img src="/images/completed.png" alt="" /> </td>
+<td>  </td>
+<td> Consider interpolating the value in error messages</td>
+</tr>
+<tr>
+<td></td>
+<td> <a href="https://hibernate.atlassian.net/browse/BVAL-223">BVAL-223</a>  </td>
+<td> <img src="/images/completed.png" alt="" />  </td>
+<td>  </td>
+<td> Add formatter syntax for interpolated messages</td>
+</tr>
+<tr>
+<td></td>
+<td> <a href="https://hibernate.atlassian.net/browse/BVAL-198">BVAL-198</a>  </td>
+<td> <img src="/images/completed.png" alt="" /> </td>
+<td>  </td>
+<td> Simplify creation of ConstraintViolationExceptions</td>
+</tr>
+<tr>
+<td></td>
+<td> <a href="https://hibernate.atlassian.net/browse/BVAL-192">BVAL-192</a>  </td>
+<td> <img src="/images/completed.png" alt="" /> </td>
+<td>  </td>
+<td> Add 'exclusive' boolean attribute to @DecimalMin/@DecimalMax constraints</td>
+</tr>
+<tr>
+<td></td>
+<td> <a href="https://hibernate.atlassian.net/browse/BVAL-230">BVAL-230</a>  </td>
+<td> <img src="/images/completed.png" alt="" /> </td>
+<td>  </td>
+<td> Add support for validating CharSequence types instead of just Strings</td>
+</tr>
+<tr>
+<td></td>
+<td> <a href="https://hibernate.atlassian.net/browse/BVAL-249">BVAL-249</a>  </td>
+<td> <img src="/images/completed.png" alt="" /> </td>
+<td>  </td>
+<td> Add unwrap method to ConstraintValidatorContext for provider extension</td>
+</tr>
+<tr>
+<td></td>
+<td> <a href="https://hibernate.atlassian.net/browse/BVAL-282">BVAL-282</a>  </td>
+<td> <img src="/images/completed.png" alt="" /> </td>
+<td>  </td>
+<td> Make clear whether it's legal to invoke Configuration#buildValidatorFactory() several times</td>
+</tr>
+<tr>
+<td></td>
+<td> <a href="https://hibernate.atlassian.net/browse/BVAL-191">BVAL-191</a>  </td>
+<td> <img src="/images/completed.png" alt="" /> </td>
+<td>  </td>
+<td> Introduce a addEntityNode() method to the fluent node builder API</td>
+</tr>
+<tr>
+<td></td>
+<td> <a href="https://hibernate.atlassian.net/browse/BVAL-304">BVAL-304</a>  </td>
+<td> <img src="/images/completed.png" alt="" /> </td>
+<td>  </td>
+<td> Add OSGi headers in the reference implementation</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+
+<footer class="print hidden">
+<div class="ui inverted vertical footer segment">
+<div class="ui container">
+<div class="ui stackable grid">
+<div class="eleven wide column middle aligned">
+Copyright &copy; Red Hat, Inc.
+</div>
+<div class="five wide column sponsor">
+<div class="logo">
+<a href="https://www.redhat.com/">
+<img src="/images/sponsored-by-redhat.svg" style="height: 40px" title="Red Hat">
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<script>
+ (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ 
+ga('create', 'UA-24703879-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+<script>
+  $(document).ready(function() {
+    $('#mobile-menu').sidebar('setting', {
+      transition: 'push'
+    });
+    $('#mobile-menu').sidebar('attach events', '#mobile-menu-toggle');
+  
+    $('.ui.menu .ui.dropdown').dropdown({ on: 'hover' });
+  });
+</script>
+</body>
+</html>

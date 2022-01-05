@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta content="IE=Edge" http-equiv="X-UA-Compatible">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>
+Jakarta Bean Validation - Introduce an evaluation order for constraints defined on a single property
+</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css" rel="stylesheet">
+<link href="/stylesheets/styles.css?t=1641371616" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
+<!-- / Unfortunately, matchHeight doesn't follow the same convention as the other minified files -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.2/jquery.matchHeight-min.js"></script>
+<link href="/news/news.atom" rel="alternate" type="application/atom+xml">
+</head>
+<body class="pushable">
+<div class="ui vertical menu inverted sidebar left print hidden" id="mobile-menu">
+<a class="item" href="/" title="Home">
+<i class="grid icon home"></i>
+Home
+</a>
+<a class="item" href="/news/">
+<i class="grid icon newspaper"></i>
+News
+</a>
+<a class="item" href="/2.0/">
+<i class="grid icon book"></i>
+<strong>Jakarta Bean Validation 2.0</strong>
+</a>
+<div class="item">
+<i class="grid icon archive"></i>
+Archives
+<div class="menu">
+<a class="item" href="/2.0-jsr380/">
+<i class="grid icon book"></i>
+Bean Validation 2.0 (JSR 380)
+</a>
+<a class="item" href="/1.1/">
+<i class="grid icon book"></i>
+Bean Validation 1.1 (JSR 349)
+</a>
+<a class="item" href="/1.0/">
+<i class="grid icon book"></i>
+Bean Validation 1.0 (JSR 303)
+</a>
+</div>
+</div>
+<a class="item" href="/resources/">
+<i class="grid icon folder open"></i>
+Additional resources
+</a>
+<a class="item" href="/licensing/">
+<i class="grid icon legal"></i>
+Licensing
+</a>
+<a class="item" href="/contribute/">
+<i class="grid icon users"></i>
+Contribute
+</a>
+</div>
+<div class="pusher">
+<div class="mobile-menu-button-bar mobile only print hidden">
+<a class="item" id="mobile-menu-toggle">
+<i class="sidebar icon"></i>
+Menu
+</a>
+</div>
+<header role="banner">
+<div class="ui container banner">
+<div class="ui stackable menu mobile hidden print hidden" id="nav">
+<a class="item" href="/" title="Home">
+<img alt="Bean Validation" src="/logo/logo.svg">
+</a>
+<a class="item" href="/news/">News</a>
+<a class="item" href="/2.0/">
+<strong>Jakarta Bean Validation 2.0</strong>
+</a>
+<div class="ui dropdown item">
+Archives
+<i class="dropdown icon"></i>
+<div class="menu">
+<a class="item" href="/2.0-jsr380/">Bean Validation 2.0 (JSR 380)</a>
+<a class="item" href="/1.1/">Bean Validation 1.1 (JSR 349)</a>
+<a class="item" href="/1.0/">Bean Validation 1.0 (JSR 303)</a>
+</div>
+</div>
+<a class="item" href="/resources/">Resources</a>
+<a class="item" href="/licensing/">Licensing</a>
+<a class="item" href="/contribute/">Contribute</a>
+</div>
+</div>
+</header>
+<div class="jumbotron small">
+<div class="ui container">
+<h1>Jakarta Bean Validation</h1>
+<h2>Introduce an evaluation order for constraints defined on a single property</h2>
+</div>
+</div>
+<div class="ui container page-content">
+<div class="content" id="content">
+<div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#goals">1. Goals</a></li>
+<li><a href="#related-issues">2. Related issues</a></li>
+<li><a href="#solutions">3. Solutions</a>
+<ul class="sectlevel2">
+<li><a href="#option-1-groupsequence-with-ordering-scope">3.1. Option 1: <code>@GroupSequence</code> with ordering scope</a></li>
+<li><a href="#option-2-add-explicit-order-parameter-to-constraints">3.2. Option 2: Add explicit <em>order</em> parameter to constraints</a></li>
+<li><a href="#option-3-constraintsequence">3.3. Option 3: <code>@ConstraintSequence</code></a></li>
+<li><a href="#number-groups">3.4. Number groups</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://hibernate.atlassian.net/browse/BVAL-248">Link to JIRA ticket</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="goals"><a class="anchor" href="#goals"></a>1. Goals</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A popular use case requires to:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>avoid running expensive/complex constraints before cheap/simple ones</p>
+</li>
+<li>
+<p>still return at least one constraint failure per target (eg property)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Group sequence as defined in 1.0 does not let you do that as it stops validation
+globally for the subsequent groups if a failure is found.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="related-issues"><a class="anchor" href="#related-issues"></a>2. Related issues</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A partial solution for this could be provided by making sure <code>@ReportAsSingleViolation</code> does not
+validate the composing constraint if a composed constraint fails. See <a href="https://hibernate.atlassian.net/browse/BVAL-259">BVAL-259</a> and
+<a href="https://hibernate.atlassian.net/browse/BVAL-220">BVAL-220</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="solutions"><a class="anchor" href="#solutions"></a>3. Solutions</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="option-1-groupsequence-with-ordering-scope"><a class="anchor" href="#option-1-groupsequence-with-ordering-scope"></a>3.1. Option 1: <code>@GroupSequence</code> with ordering scope</h3>
+<div class="paragraph">
+<p>We can reuse group sequence but refine the scope of their execution from global to per target.
+A target is a property (field, getter) or a class.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>interface Cheap {}&#x000A;interface Expensive {}&#x000A;&#x000A;@GroupSequence(value={Cheap.class,Expensive.class}, scope=PER_TARGET)&#x000A;public class DomainObject {&#x000A;&#x000A;    @Size(max=50, groups=Cheap.class) // constraint 1a&#x000A;    @Pattern(regexp=&quot;[a-z]*&quot;, groups=Expensive.class)  // constraint 1b&#x000A;    private String name;&#x000A;&#x000A;    @Size(max=20, groups=Cheap.class) // constraint 2a&#x000A;    @URL(groups=Expensive.class) // constraint 2b&#x000A;    private String email;&#x000A;&#x000A;    @Size(max=100, groups=Cheap.class) // constraint 3a&#x000A;    @Pattern(regexp=&quot;[0-9]*&quot;, groups=Expensive.class) // constraint 3b&#x000A;    private String password;&#x000A;}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The default <code>@GroupSequence.scope</code> would be <code>GLOBAL</code> which is the current behavior. <code>PER_TARGET</code> would mean that sequences are
+applied per target. We stop validating a specific target (property or class) for subsequent groups
+of this sequence if a constraint fails on the target itself.</p>
+</div>
+<div class="paragraph">
+<p>In our example we could get the following constraint failures:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>name: size beyond 50</p>
+</li>
+<li>
+<p>email: not a url</p>
+</li>
+<li>
+<p>password: too long</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This solution is not technically as orthogonal than a true salience model (see below).
+In particular, to mix that with partial validation, one has to create one group sequence
+per partial group. Is that a problem in practice? It already reduces the number of
+interfaces to create by a whole lot.</p>
+</div>
+<div class="paragraph">
+<p>Also, one could write a preset of <code>PER_TARGET</code> group sequence and reuse it across all the project.</p>
+</div>
+<div class="paragraph">
+<p>We can apply the same kind of ordering solution on <code>@ReportAsSingleViolation</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="option-2-add-explicit-order-parameter-to-constraints"><a class="anchor" href="#option-2-add-explicit-order-parameter-to-constraints"></a>3.2. Option 2: Add explicit <em>order</em> parameter to constraints</h3>
+<div class="paragraph">
+<p>We can&#8217;t rely on the order annotations are declared in the source file as Java compilers and runtime do not
+guarantee that. We might work around that with annotation processors or ways to read data from the bytecode
+but I&#8217;d see that as overkill. <strong>Thoughts?</strong> So we need explicit order numbers defining a proper ordering.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>public class DomainObject {&#x000A;&#x000A;   @ConstraintSequence(value={PER_TARGET))&#x000A;   @Size(max=50, ordering=1) // constraint 1a&#x000A;   @Pattern(regexp=&quot;[a-z]*&quot;, ordering=2)  // constraint 1b&#x000A;   private String name;&#x000A;&#x000A;   @ConstraintSequence(value={PER_TARGET))&#x000A;   @Size(max=20,  ordering=1) // constraint 2a&#x000A;   @URL(ordering=2) // constraint 2b&#x000A;   private String email;&#x000A;&#x000A;   @ConstraintSequence(value={PER_TARGET))&#x000A;   @Size(max=100, ordering=1) // constraint 3a&#x000A;   @Pattern(regexp=&quot;[0-9]*&quot;, ordering=2) // constraint 3b&#x000A;   private String password;&#x000A;}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Constraints with lower numbers would be executed before constraints with higher numbers.</p>
+</div>
+<div class="paragraph">
+<p>Ordering would be an orthogonal concern to groups entirely which is a plus compared to Option 1.
+But numbers are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>inelegant</p>
+</li>
+<li>
+<p>meaningless per se and not self documented</p>
+</li>
+<li>
+<p>error prone: it&#8217;s easy to have strange behaviors because someone changes one of the numbers</p>
+</li>
+<li>
+<p>hard to reorder or insert if not properly anticipated - think Basic line numbers (10, 20, 30, 35, 37, 38, 40, 50) :)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This solution will only work on constraints written for Bean Validation 1.1 and above as we would require
+to add an <code>order</code> parameter to the constraint. There are two options, use an annotation on the param definition
+or use the <code>valid</code> prefix.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>@Constraint(validatedBy = {})&#x000A;@interface Size {&#x000A;    ...&#x000A;    @javax.validation.constraint.param.Order int order default 0;&#x000A;}&#x000A;&#x000A;//or&#x000A;&#x000A;@Constraint(validatedBy = {})&#x000A;@interface Size {&#x000A;    ...&#x000A;    int validOrder default 0;&#x000A;}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Older constraints not defining order will be executed before the other ones.</p>
+</div>
+<div class="paragraph">
+<p>Questions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>should number ordering be honored per target only? Or globally? Or should it be configurable?
+What about inheritance? If per target, that would probably reduce some of the candidates for bugs.
+Inheritance would still be a problem.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Note that global ordering might reduce performance of Bean Validation engines.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="option-3-constraintsequence"><a class="anchor" href="#option-3-constraintsequence"></a>3.3. Option 3: <code>@ConstraintSequence</code></h3>
+<div class="paragraph">
+<p>The general idea is to define the sequence of constraints as it should be applied</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>@NotEmpty()&#x000A;@IsValidBinCodeNumber()&#x000A;@IsCardBannedNumber()&#x000A;@IsValidCardNumber()&#x000A;@ConstraintSequence(value={NotEmpty.class, IsValidBinCodeNumber.class,IsCardBannedNumber.class, IsValidCardNumber.class},&#x000A;shortCirtcuit=true)&#x000A;private String creditCard;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It suffers a few drawbacks:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>does not accept parameters</p>
+</li>
+<li>
+<p>does not accept multiple constraints of the same type</p>
+</li>
+<li>
+<p>cannot do parallel reports (ie all errors of order=1) but that&#8217;s a lesser concern</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>So in its current form is not usable.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="number-groups"><a class="anchor" href="#number-groups"></a>3.4. Number groups</h3>
+<div class="paragraph">
+<p>We can offer number groups to reduce the number of groups a user has to declare.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>package javax.validation.groups;&#x000A;&#x000A;@GroupSequence({Level1.class, Level2.class, Level3.class, Level4.class, Level5.class, Level6.class, Level7.class, Level8.class, Level9.class, Level10.class})&#x000A;interface Order {&#x000A;    interface Level1 {}&#x000A;    interface Level2 {}&#x000A;    interface Level3 {}&#x000A;    ...&#x000A;    interface Level10 {}&#x000A;}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>I am not a big fan of this solution though.</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+            var disqus_shortname = 'beanvalidation';
+            var disqus_url = "http://beanvalidation.org/proposals/BVAL-248/";
+            var disqus_developer = null;
+            var disqus_identifier = null;
+            (function() {
+              var dsq = document.createElement("script"); dsq.type = "text/javascript"; dsq.async = true;
+              dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+              (document.getElementsByTagName("head")[0] || document.getElementsByTagName("body")[0]).appendChild(dsq);
+            })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript=beanvalidation">comments powered by Disqus.</a></noscript>
+          
+</div>
+</div>
+
+<footer class="print hidden">
+<div class="ui inverted vertical footer segment">
+<div class="ui container">
+<div class="ui stackable grid">
+<div class="eleven wide column middle aligned">
+Copyright &copy; Red Hat, Inc.
+</div>
+<div class="five wide column sponsor">
+<div class="logo">
+<a href="https://www.redhat.com/">
+<img src="/images/sponsored-by-redhat.svg" style="height: 40px" title="Red Hat">
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<script>
+ (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ 
+ga('create', 'UA-24703879-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+<script>
+  $(document).ready(function() {
+    $('#mobile-menu').sidebar('setting', {
+      transition: 'push'
+    });
+    $('#mobile-menu').sidebar('attach events', '#mobile-menu-toggle');
+  
+    $('.ui.menu .ui.dropdown').dropdown({ on: 'hover' });
+  });
+</script>
+</body>
+</html>

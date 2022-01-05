@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta content="IE=Edge" http-equiv="X-UA-Compatible">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>
+Jakarta Bean Validation - BVAL-496 Support for new date/time types (JSR 310)
+</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css" rel="stylesheet">
+<link href="/stylesheets/styles.css?t=1641371616" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
+<!-- / Unfortunately, matchHeight doesn't follow the same convention as the other minified files -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.2/jquery.matchHeight-min.js"></script>
+<link href="/news/news.atom" rel="alternate" type="application/atom+xml">
+</head>
+<body class="pushable">
+<div class="ui vertical menu inverted sidebar left print hidden" id="mobile-menu">
+<a class="item" href="/" title="Home">
+<i class="grid icon home"></i>
+Home
+</a>
+<a class="item" href="/news/">
+<i class="grid icon newspaper"></i>
+News
+</a>
+<a class="item" href="/2.0/">
+<i class="grid icon book"></i>
+<strong>Jakarta Bean Validation 2.0</strong>
+</a>
+<div class="item">
+<i class="grid icon archive"></i>
+Archives
+<div class="menu">
+<a class="item" href="/2.0-jsr380/">
+<i class="grid icon book"></i>
+Bean Validation 2.0 (JSR 380)
+</a>
+<a class="item" href="/1.1/">
+<i class="grid icon book"></i>
+Bean Validation 1.1 (JSR 349)
+</a>
+<a class="item" href="/1.0/">
+<i class="grid icon book"></i>
+Bean Validation 1.0 (JSR 303)
+</a>
+</div>
+</div>
+<a class="item" href="/resources/">
+<i class="grid icon folder open"></i>
+Additional resources
+</a>
+<a class="item" href="/licensing/">
+<i class="grid icon legal"></i>
+Licensing
+</a>
+<a class="item" href="/contribute/">
+<i class="grid icon users"></i>
+Contribute
+</a>
+</div>
+<div class="pusher">
+<div class="mobile-menu-button-bar mobile only print hidden">
+<a class="item" id="mobile-menu-toggle">
+<i class="sidebar icon"></i>
+Menu
+</a>
+</div>
+<header role="banner">
+<div class="ui container banner">
+<div class="ui stackable menu mobile hidden print hidden" id="nav">
+<a class="item" href="/" title="Home">
+<img alt="Bean Validation" src="/logo/logo.svg">
+</a>
+<a class="item" href="/news/">News</a>
+<a class="item" href="/2.0/">
+<strong>Jakarta Bean Validation 2.0</strong>
+</a>
+<div class="ui dropdown item">
+Archives
+<i class="dropdown icon"></i>
+<div class="menu">
+<a class="item" href="/2.0-jsr380/">Bean Validation 2.0 (JSR 380)</a>
+<a class="item" href="/1.1/">Bean Validation 1.1 (JSR 349)</a>
+<a class="item" href="/1.0/">Bean Validation 1.0 (JSR 303)</a>
+</div>
+</div>
+<a class="item" href="/resources/">Resources</a>
+<a class="item" href="/licensing/">Licensing</a>
+<a class="item" href="/contribute/">Contribute</a>
+</div>
+</div>
+</header>
+<div class="jumbotron small">
+<div class="ui container">
+<h1>Jakarta Bean Validation</h1>
+<h2>BVAL-496 Support for new date/time types (JSR 310)</h2>
+</div>
+</div>
+<div class="ui container page-content">
+<div class="content" id="content">
+<div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#problem">1. Problem</a></li>
+<li><a href="#proposition">2. Proposition</a>
+<ul class="sectlevel2">
+<li><a href="#mandate-pastfuture-support-for-temporalaccessors">2.1. Mandate <code>@Past</code>/<code>@Future</code> support for <code>TemporalAccessors</code></a></li>
+<li><a href="#make-current-instant-customizable">2.2. Make current instant customizable</a></li>
+<li><a href="#extending-pastfuture-to-support-nowisvalid">2.3. Extending <code>@Past</code>/<code>@Future</code> to support <code>nowIsValid</code></a></li>
+<li><a href="#simple-temporalamount-implementations-support">2.4. "Simple" <code>TemporalAmount</code> implementations support</a></li>
+<li><a href="#duration-support">2.5. <code>Duration</code> support</a></li>
+<li><a href="#period-support">2.6. <code>Period</code> support</a></li>
+</ul>
+</li>
+<li><a href="#questions">3. Questions</a></li>
+</ul>
+</div>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://hibernate.atlassian.net/browse/BVAL-496">Related JIRA</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="problem"><a class="anchor" href="#problem"></a>1. Problem</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Java 8 comes with a whole new set of date/time related types, located in the <a href="https://docs.oracle.com/javase/8/docs/api/index.html?java/time/package-summary.html">java.time</a> package. Those should be supported with <code>@Past</code> and <code>@Future</code>.</p>
+</li>
+<li>
+<p>The time and time zone to compare to during validation are currently fixed to the JVM&#8217;s (default) values. This should be made more flexible, so validation can be done for another time and/or time zone than the JVM&#8217;s values.
+Use cases: use a different time for testing, obtain the TZ from the currently logged in user, use the logical time of a batch job</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="proposition"><a class="anchor" href="#proposition"></a>2. Proposition</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="mandate-pastfuture-support-for-temporalaccessors"><a class="anchor" href="#mandate-pastfuture-support-for-temporalaccessors"></a>2.1. Mandate <code>@Past</code>/<code>@Future</code> support for <code>TemporalAccessors</code></h3>
+<div class="paragraph">
+<p>JSR-310 design intentionally encouraged end users to choose concrete types for every day programming, but ensured there were  interfaces and classes that allowed third-party implementations to be  treated as first-class citizens within the framework. Building on that premise and the different use cases that lead to the creation of the several <code>java.time.temporal.TemporalAccessor</code> implementations in Java SE itself (and some in related projects such as <a href="https://github.com/ThreeTen/threeten-extra">ThreeTen-Extra</a>), basic support should be designed around the following requirements for the type:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>It implements <code>java.time.temporal.TemporalAccessor</code></p>
+</li>
+<li>
+<p>It implements <code>java.lang.Comparable</code> using a parameter <code>T</code> for which the type is assignable</p>
+</li>
+<li>
+<p>It has a static method called <code>now</code> with a sole parameter whose type is <code>java.time.Clock</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>So, for any type <code>TA</code> that matches the above rules, <code>@Past</code> can be validated with code similar to:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>//ClockProvider is documented below&#x000A;Clock clock = clockProvider.getClock();&#x000A;//TA is TemporalAccessor &amp; Comparable&#x000A;//Code for obtaining now static factory omitted&#x000A;TA now = now.invoke(clock);&#x000A;return t.compareTo(now) &lt; 0;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This set of requirements makes the following Java SE types supported:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Specific points in the timeline: <code>java.time.Instant</code>, <code>java.time.OffsetDateTime</code>, <code>java.time.ZonedDateTime</code></p>
+</li>
+<li>
+<p>Wall-clock-like types: <code>java.time.LocalDate</code>, <code>java.time.LocalDateTime</code>, <code>java.time.LocalTime</code></p>
+</li>
+<li>
+<p>Other partial types: <code>java.time.MonthDay</code>, <code>java.time.OffsetTime</code>, <code>java.time.Year</code>, <code>java.time.YearMonth</code></p>
+</li>
+<li>
+<p>Non-ISO calendar types: <code>java.time.chrono.HirajDate</code>, <code>java.time.chrono.JapaneseDate</code>, <code>java.time.chrono.MinguoDate</code>, <code>java.time.chrono.ThaiBuddhistDate</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>These rules would make the following Threeten-Extra types supported:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Partial types: <code>org.threeten.extra.DayOfMonth</code>, <code>org.threeten.extra.DayOfYear</code>, <code>org.threeten.extra.YearWeek</code>, <code>org.threeten.extra.YearQuarter</code></p>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="working-around-limitations-in-constraintvalidator-that-prevent-the-above-strategy"><a class="anchor" href="#working-around-limitations-in-constraintvalidator-that-prevent-the-above-strategy"></a>2.1.1. Working around limitations in <code>ConstraintValidator</code> that prevent the above strategy</h4>
+
+</div>
+</div>
+<div class="sect2">
+<h3 id="make-current-instant-customizable"><a class="anchor" href="#make-current-instant-customizable"></a>2.2. Make current instant customizable</h3>
+<div class="paragraph">
+<p>To make the current instant customizable, a new SPI which returns <code>java.time.Clock</code> to be used by the validation engine for validating <code>@Past</code> and <code>@Future</code> constraints should be added:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">    <span style="color:#080;font-weight:bold">package</span> <span style="color:#707;font-weight:bold">javax.validation.spi</span>;&#x000A;&#x000A;    <span style="color:#080;font-weight:bold">import</span> <span style="color:#B44;font-weight:bold">java.time.Clock</span>;&#x000A;&#x000A;    <span style="color:#088;font-weight:bold">public</span> <span style="color:#339;font-weight:bold">interface</span> <span style="color:#B06;font-weight:bold">ClockProvider</span> {&#x000A;        Clock getClock();&#x000A;    }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>BV implementations must use a default <code>ClockProvider</code> which always returns <code>java.time.Clock.systemDefault()</code>.</p>
+</div>
+<div class="paragraph">
+<p>When bootstrapping a validator factory or validator, an alternative clock provider can be passed</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>via <code>Configuration</code> (also exposes the default clock provider)</p>
+</li>
+<li>
+<p>via <code>ValidatorContext</code></p>
+</li>
+<li>
+<p>using XML</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>E.g.</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Validator validator = Validation.byDefaultProvider()&#x000A;    .configure()&#x000A;    .clockProvider( myClockProvider() )&#x000A;    .buildValidatorFactory()&#x000A;    .getValidator();</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Similar to message interpolators etc., custom clock providers are CDI-enabled if CDI is present, allowing to inject needed contextual information such as the current requests locale.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="extending-pastfuture-to-support-nowisvalid"><a class="anchor" href="#extending-pastfuture-to-support-nowisvalid"></a>2.3. Extending <code>@Past</code>/<code>@Future</code> to support <code>nowIsValid</code></h3>
+<div class="paragraph">
+<p>In many valid use cases, these constraints should consider the current date/time, called now in JSR-310, as valid, especially when it comes to <code>@Future</code>. Therefore, both annotations should be changed to include a new attribute, <code>nowIsValid</code> (maybe <code>nowAsValid</code>), whose default is <code>false</code> in order to maintain backwards compatibility.</p>
+</div>
+<div class="paragraph">
+<p>If the attribute is <code>true</code>, a return equals to <code>0</code> from <code>compareTo</code> will cause the constraint to be considered satisfied.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="simple-temporalamount-implementations-support"><a class="anchor" href="#simple-temporalamount-implementations-support"></a>2.4. "Simple" <code>TemporalAmount</code> implementations support</h3>
+
+</div>
+<div class="sect2">
+<h3 id="duration-support"><a class="anchor" href="#duration-support"></a>2.5. <code>Duration</code> support</h3>
+
+</div>
+<div class="sect2">
+<h3 id="period-support"><a class="anchor" href="#period-support"></a>2.6. <code>Period</code> support</h3>
+
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="questions"><a class="anchor" href="#questions"></a>3. Questions</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Proposal 2. assumes that the current time + TZ can be obtained in a rather global fashion, i.e. the logical time of a currently running batch job or the TZ from the currently logged in user&#8217;s profile etc.
+Is there need to make this more contextual, i.e. expose the validated bean or similar? I can&#8217;t see a use case for this atm.</p>
+</li>
+<li>
+<p>One of the most common scenarios with date/time types (applies to ranges of all types though) is to have a start and end property for which start must be (sometimes equal or) greater than now and end must be (sometimes equal or) greater than start. Are we not supporting this somehow?</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<hr>
+
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+            var disqus_shortname = 'beanvalidation';
+            var disqus_url = "http://beanvalidation.org/proposals/BVAL-496/";
+            var disqus_developer = null;
+            var disqus_identifier = null;
+            (function() {
+              var dsq = document.createElement("script"); dsq.type = "text/javascript"; dsq.async = true;
+              dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+              (document.getElementsByTagName("head")[0] || document.getElementsByTagName("body")[0]).appendChild(dsq);
+            })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript=beanvalidation">comments powered by Disqus.</a></noscript>
+          
+</div>
+</div>
+
+<footer class="print hidden">
+<div class="ui inverted vertical footer segment">
+<div class="ui container">
+<div class="ui stackable grid">
+<div class="eleven wide column middle aligned">
+Copyright &copy; Red Hat, Inc.
+</div>
+<div class="five wide column sponsor">
+<div class="logo">
+<a href="https://www.redhat.com/">
+<img src="/images/sponsored-by-redhat.svg" style="height: 40px" title="Red Hat">
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<script>
+ (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ 
+ga('create', 'UA-24703879-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+<script>
+  $(document).ready(function() {
+    $('#mobile-menu').sidebar('setting', {
+      transition: 'push'
+    });
+    $('#mobile-menu').sidebar('attach events', '#mobile-menu-toggle');
+  
+    $('.ui.menu .ui.dropdown').dropdown({ on: 'hover' });
+  });
+</script>
+</body>
+</html>
