@@ -188,7 +188,7 @@ a:hover {
   font-size: 1.1em;
 }
 
-#content table td p, #content ul ul, #content ul p {
+#content table td p, #content table td ul, #content ul ul, #content ul p {
   font-size: 1em;
 }
 
