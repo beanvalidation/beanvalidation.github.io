@@ -5,7 +5,7 @@
 <meta content="IE=Edge" http-equiv="X-UA-Compatible">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>
-Jakarta Bean Validation - Working with the API and TCK sources
+Jakarta Bean Validation - Jakarta Bean Validation 3.0 TCK
 </title>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css" rel="stylesheet">
 <link href="/stylesheets/styles.css?t=1646662047" rel="stylesheet">
@@ -25,7 +25,7 @@ Home
 <i class="grid icon newspaper"></i>
 News
 </a>
-<a class="item" href="/3.0/">
+<a class="item selected" href="/3.0/">
 <i class="grid icon book"></i>
 <strong>Jakarta Bean Validation 3.0</strong>
 </a>
@@ -59,7 +59,7 @@ Additional resources
 <i class="grid icon legal"></i>
 Licensing
 </a>
-<a class="item selected" href="/contribute/">
+<a class="item" href="/contribute/">
 <i class="grid icon users"></i>
 Contribute
 </a>
@@ -78,7 +78,7 @@ Menu
 <img alt="Bean Validation" src="/logo/logo.svg">
 </a>
 <a class="item" href="/news/">News</a>
-<a class="item" href="/3.0/">
+<a class="item selected" href="/3.0/">
 <strong>Jakarta Bean Validation 3.0</strong>
 </a>
 <div class="ui dropdown item">
@@ -93,59 +93,39 @@ Archives
 </div>
 <a class="item" href="/resources/">Resources</a>
 <a class="item" href="/licensing/">Licensing</a>
-<a class="item selected" href="/contribute/">Contribute</a>
+<a class="item" href="/contribute/">Contribute</a>
 </div>
 </div>
 </header>
 <div class="jumbotron small">
 <div class="ui container">
 <h1>Jakarta Bean Validation</h1>
-<h2>Working with the API and TCK sources</h2>
+<h2>Jakarta Bean Validation 3.0 TCK</h2>
 </div>
 </div>
 <div class="ui container page-content">
 <div class="content" id="content">
-<h2>API</h2>
+<p>A TCK, or Technology Compatibility Kit, is one of the three required pieces for any Jakarta EE specification
+(the other two being the specification document and the reference implementation). The TCK is a set
+of tools and tests to verify that an implementation of the technology conforms to the specification.</p>
 
-<h3>Pull requests</h3>
+<p>The Jakarta Bean Validation 3.0 TCK is licensed under the Apache Software License 2.0 and hosted in a GitHub
+<a href="https://github.com/eclipse-ee4j/beanvalidation-tck">repository</a>.
+The repository consists of multiple artifacts, containing tooling, documentation and most importantly
+a set of <a href="http://arquillian.org/">Arquillian</a> tests. There are also two
+<a href="https://github.com/eclipse-ee4j/beanvalidation-tck/tree/master/setup-examples">setup examples</a>,
+demonstrating the setup of the test harness using Maven and Ant.</p>
 
-<p>Changes to the Jakarta Bean Validation API are realized using <a href="http://help.github.com/send-pull-requests/">pull requests</a>
-against the <a href="https://github.com/eclipse-ee4j/beanvalidation-api">API repository</a> on GitHub.
-Use the <a href="/contribute/specification">same rules</a> than for submitting a specification change to the spec repository.</p>
+<p>The latest version used to test Jakarta Bean Validation 3.0 is 3.0.0.</p>
 
-<h3>Coding guidelines</h3>
+<p>Distribution bundles are available on the
+<a href="https://download.eclipse.org/jakartaee/bean-validation/3.0/">Eclipse download infrastructure</a> and come as
+<a href="https://download.eclipse.org/jakartaee/bean-validation/3.0/beanvalidation-tck-dist-3.0.0.zip">ZIP</a>
+or <a href="https://download.eclipse.org/jakartaee/bean-validation/3.0/beanvalidation-tck-dist-3.0.0.tar.gz">TGZ</a>
+archive.
+They contain JARs, documentation, source code, et al.</p>
 
-<p>Obey to the following rules when working on the API sources:</p>
-
-<ul>
-<li><p>JavaDoc</p>
-
-<ul>
-<li>Make sure each member is completely documented</li>
-<li>Provide package-level documentation when adding new packages</li>
-<li>Use <code>{@code}</code> instead of <code>&lt;code&gt;</code>, because it is more readable and <code>{@code}</code> also escapes meta characters</li>
-<li><code>@param</code>, <code>@return</code> and <code>@throw</code> don't end with a '.'</li>
-<li>If referring to other classes and methods use <code>{@link}</code>. Use <code>{@link}</code> only once in a block. For additional
-references to the same source use <code>{@code}</code> instead of <code>{@link}</code>.</li>
-<li>Use <code>&lt;ul/&gt;</code> instead of '-' for enumerations</li>
-<li>Use <code>@since</code> to document in which spec revision a type/member was added to the API</li>
-<li>Refer to <a href="http://www.oracle.com/technetwork/java/javase/documentation/index-137868.html">How to Write Doc Comments</a> and Joshua Bloch's "Effective Java" for more information on writing good comments.</li>
-</ul>
-</li>
-<li><p>Use the IntelliJ <a href="https://community.jboss.org/wiki/ContributingToHibernateValidator#Coding_Guidelines">code style template</a>
- from the reference implementation to format API sources</p></li>
-</ul>
-
-
-<h2>TCK</h2>
-
-<p>Information on how to work with the TCK, running it against a given implementation etc. can be found in</p>
-
-<ul>
-<li>the TCK <a href="http://docs.jboss.org/hibernate/stable/beanvalidation/tck/reference/html_single/">reference guide</a></li>
-<li>the <a href="https://community.jboss.org/wiki/BeanValidationTCK">wiki</a> of the reference implementation</li>
-</ul>
-
+<p>To report a bug or challenge a test use our <a href="https://github.com/eclipse-ee4j/beanvalidation-tck/issues">issue tracker</a>.</p>
 
 </div>
 </div>
