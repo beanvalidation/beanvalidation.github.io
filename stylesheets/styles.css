@@ -3,139 +3,125 @@
  * Title font
  */
 @import url("https://fonts.googleapis.com/css?family=Roboto");
+/* line 7, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 h1, h2, h3, h4, h5 {
-  font-family: 'Roboto', 'Helvetica Neue', Arial, Helvetica, sans-serif;
-}
+  font-family: 'Roboto', 'Helvetica Neue', Arial, Helvetica, sans-serif; }
 
 /**
  * Banner
  */
+/* line 15, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .banner {
-  margin-top: 20px;
-}
-
+  margin-top: 20px; }
+/* line 18, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .banner .logo {
   margin-top: 15px;
-  float: left;
-}
-
+  float: left; }
+/* line 23, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .banner .ui.menu {
   margin-top: 0px;
-  margin-bottom: 20px;
-}
-
+  margin-bottom: 20px; }
+/* line 28, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .banner .dropup {
   float: right;
-  position: relative;
-}
+  position: relative; }
 
 /**
  * Jumbotron
  */
+/* line 38, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .jumbotron {
   background-color: #FAFAFA;
   border-bottom: 1px solid #EEE;
   border-top: 1px solid #EEE;
-  padding: 45px;
-}
-
+  padding: 45px; }
+/* line 44, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .jumbotron h1 {
   color: #666;
   font-size: 3rem;
-  letter-spacing: 2px;
-}
-
+  letter-spacing: 2px; }
+/* line 50, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .jumbotron h2 {
   font-size: 2rem;
   color: #888;
   margin-top: 20px;
   margin-bottom: 40px;
-  letter-spacing: 1px;
-}
-
+  letter-spacing: 1px; }
+/* line 58, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .jumbotron .logo img {
   width: 180px;
-  height: 180px;
-}
-
+  height: 180px; }
+/* line 63, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .jumbotron.small {
-  padding: 20px;
-}
-
+  padding: 20px; }
+/* line 66, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .jumbotron.small h1 {
-  font-size: 2.3rem;
-}
-
+  font-size: 2.3rem; }
+/* line 70, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .jumbotron.small h2 {
   font-size: 1.7rem;
-  margin-bottom: 0px;
-}
-
+  margin-bottom: 0px; }
+/* line 76, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .jumbotron .jumbotron-button:not(:first-child) {
-  margin-top: 10px;
-}
+  margin-top: 10px; }
 
 @media only screen and (max-width: 767px) {
+  /* line 82, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
   .jumbotron {
-    padding: 25px;
-  }
+    padding: 25px; }
+  /* line 85, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
   .jumbotron h1 {
     font-size: 2.3rem;
-    letter-spacing: 1px;
-  }
+    letter-spacing: 1px; }
+  /* line 90, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
   .jumbotron h2 {
     font-size: 1.7rem;
     margin-top: 15px;
-    margin-bottom: 25px;
-  }
+    margin-bottom: 25px; }
+  /* line 96, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
   .jumbotron .logo img {
     width: 128px;
-    height: 128px;
-  }
-}
-
+    height: 128px; } }
 /**
  * Hero
  */
+/* line 107, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .page-title {
   background-color: #EEE;
   border-bottom: 2px solid #DDD;
   padding-bottom: 20px;
   padding-top: 20px;
-  margin-bottom: 5px;
-}
-
+  margin-bottom: 5px; }
+/* line 114, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .page-title.small {
   padding-bottom: 15px;
-  padding-top: 15px;
-}
-
+  padding-top: 15px; }
+/* line 119, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .page-title h1 {
   color: #59666c;
   letter-spacing: 2px;
   text-transform: uppercase;
   display: inline-block;
-  padding-bottom: 3px;
-}
-
+  padding-bottom: 3px; }
+/* line 127, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .page-title h4 {
   color: #777;
   line-height: 1.5em;
-  font-size: 1.2em;
-}
+  font-size: 1.2em; }
 
+/* line 136, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .ui.menu .selected.item {
   background: rgba(0, 0, 0, 0.05) none repeat scroll 0 0;
-  box-shadow: none;
-}
+  box-shadow: none; }
 
 /**
  * Content
  */
+/* line 145, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .page-content {
-  margin-top: 30px;
-}
+  margin-top: 30px; }
 
+/* line 149, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .content-banner {
   background-color: #f5fdf9;
   border-bottom: 1px solid #EEE;
@@ -143,166 +129,140 @@ h1, h2, h3, h4, h5 {
   margin-top: 25px;
   margin-bottom: 25px;
   padding-bottom: 30px;
-  padding-top: 30px;
-}
-
+  padding-top: 30px; }
+/* line 158, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .content-banner h2 {
   color: #888;
-  letter-spacing: 1px;
-}
-
+  letter-spacing: 1px; }
+/* line 162, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .content-banner h2 small {
   color: #999;
   font-weight: normal;
   letter-spacing: 0px;
-  font-size: 70%;
-}
-
+  font-size: 70%; }
+/* line 170, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .content-banner .news {
-  margin-bottom: 10px;
-}
-
+  margin-bottom: 10px; }
+/* line 173, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .content-banner .news h3 {
   border-bottom: 0px;
-  margin-bottom: 3px;
-}
-
+  margin-bottom: 3px; }
+/* line 178, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .content-banner .news .date {
   color: #999;
-  margin-bottom: 3px;
-}
+  margin-bottom: 3px; }
 
+/* line 185, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 a {
-  color: #18A33C;
-}
-
+  color: #18A33C; }
+/* line 188, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 a:hover {
-  color: #0A952E;
-}
+  color: #0A952E; }
 
+/* line 193, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 #content {
-  min-height: 350px;
-}
-
+  min-height: 350px; }
+/* line 196, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 #content p, #content table td, #content table th, #content ul {
-  font-size: 1.1em;
-}
-
+  font-size: 1.1em; }
+/* line 200, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 #content table td p, #content table td ul, #content ul ul, #content ul p {
-  font-size: 1em;
-}
-
+  font-size: 1em; }
+/* line 204, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 #content li {
-  margin-bottom: 0.4em;
-}
-
+  margin-bottom: 0.4em; }
+/* line 208, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 #content dl {
-  margin: 0 3% 2%;
-}
-
+  margin: 0 3% 2%; }
+/* line 212, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 #content dt {
   font-size: 1.1em;
   font-weight: bold;
-  margin-bottom: 0.3em;
-}
-
+  margin-bottom: 0.3em; }
+/* line 218, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 #content h2 {
-  font-size: 1.7rem;
-}
-
+  font-size: 1.7rem; }
+/* line 222, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 #content p {
-  margin: 0 0 10px;
-}
-
+  margin: 0 0 10px; }
+/* line 226, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 #content h2 {
   margin-top: 10px !important;
   color: #666;
   border-bottom: 3px solid #18A33C;
   display: inline-block;
   letter-spacing: 1px;
-  padding-bottom: 3px;
-}
-
+  padding-bottom: 3px; }
+/* line 235, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 #content .left-column h2:first-child {
-  margin-top: 0 !important;
-}
-
+  margin-top: 0 !important; }
+/* line 239, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 #content .feature-block:first-child > .sect1:first-child h2:first-of-type {
-  margin-top: 0 !important;
-}
-
+  margin-top: 0 !important; }
+/* line 243, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 #content h3 {
   margin-top: 10px !important;
   color: #666;
   font-size: 1.5em;
-  margin-bottom: 15px;
-}
-
+  margin-bottom: 15px; }
+/* line 250, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 #content h4 {
   margin-top: 15px !important;
   color: #888;
-  font-size: 1.3em;
-}
-
+  font-size: 1.3em; }
+/* line 256, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 #content .sect1:not(:last-child) {
-  margin-bottom: 20px;
-}
-
+  margin-bottom: 20px; }
+/* line 260, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 #content .sect2:not(:last-child) {
-  margin-bottom: 30px;
-}
-
+  margin-bottom: 30px; }
+/* line 264, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 #content .sect3:not(:last-child) {
-  margin-bottom: 20px;
-}
-
+  margin-bottom: 20px; }
+/* line 268, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 #content :not(pre) > code {
   font-size: 0.9em;
   background-color: #F4F4F4;
   padding: .1em .5ex;
   padding-right: 3px;
-  border-radius: 3px;
-}
-
+  border-radius: 3px; }
+/* line 277, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 #content dl.sparse dt {
-  margin-top: 7px;
-}
-
+  margin-top: 7px; }
+/* line 283, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 #content .ui.message .header {
-  margin-bottom: 4px;
-}
-
+  margin-bottom: 4px; }
+/* line 287, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 #content .ui.message p:last-child {
-  margin: 0;
-}
+  margin: 0; }
 
+/* line 293, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .spec-buttons {
   margin-top: 50px;
-  margin-bottom: 20px;
-}
-
+  margin-bottom: 20px; }
+/* line 297, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .spec-buttons a.ui.button {
-  margin-bottom: 20px;
-}
+  margin-bottom: 20px; }
 
+/* line 302, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .news h3, #toc #toctitle {
   color: #59666c;
   border-bottom: 2px solid #bcae79;
   display: inline-block;
   letter-spacing: 1px;
-  padding-bottom: 3px;
-}
+  padding-bottom: 3px; }
 
+/* line 310, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .news h3 {
-  margin-top: 10px !important;
-}
+  margin-top: 10px !important; }
 
+/* line 314, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 hr {
   border: 0;
   border-top: 1px dotted #888;
-  background-color: #fff;
-}
+  background-color: #fff; }
 
+/* line 320, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 pre {
   background: #f8f8f8 none repeat scroll 0 0;
   border: 1px solid #d5d5d5;
@@ -310,9 +270,9 @@ pre {
   overflow: auto;
   padding: 1%;
   white-space: pre;
-  border-radius: 0.3rem;
-}
+  border-radius: 0.3rem; }
 
+/* line 330, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .page-title {
   background-color: #f5fdf9;
   border-bottom: 1px solid #EEE;
@@ -320,18 +280,16 @@ pre {
   margin-top: 25px;
   padding-bottom: 18px;
   padding-top: 18px;
-  margin-bottom: 30px;
-}
-
+  margin-bottom: 30px; }
+/* line 339, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .page-title .blog-title-bar {
-  margin-bottom: 0px;
-}
-
+  margin-bottom: 0px; }
+/* line 342, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .page-title .blog-title-bar .blog-author-bar {
   margin-top: -5px;
-  margin-bottom: 0;
-}
+  margin-bottom: 0; }
 
+/* line 351, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 #toc {
   float: right;
   margin-bottom: 1em;
@@ -343,96 +301,86 @@ pre {
   padding: 1em;
   border: 1px solid rgba(34, 36, 38, 0.15);
   border-radius: 0.3rem;
-  box-shadow: 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
-}
-
+  box-shadow: 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15); }
+/* line 364, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 #toc #toctitle {
-  margin-top: 0px;
-}
-
+  margin-top: 0px; }
+/* line 368, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 #toc ul {
-  padding-left: 1em;
-}
-
+  padding-left: 1em; }
+/* line 372, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 #toc > ul {
-  margin-bottom: 5px;
-}
-
+  margin-bottom: 5px; }
+/* line 376, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 #toc li {
-  margin-bottom: 0.3em;
-}
-
+  margin-bottom: 0.3em; }
+/* line 380, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 #toc > ul > li > ul > li {
-  margin-left: 0.5em;
-}
+  margin-left: 0.5em; }
 
 @media only screen and (max-width: 767px) {
+  /* line 387, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
   #toc {
-    display: none;
-  }
-}
-
+    display: none; } }
 /**
  * Blog
  */
+/* line 396, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .blog-title-bar {
   overflow: hidden;
-  margin-bottom: 15px;
-}
-
+  margin-bottom: 15px; }
+/* line 400, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .blog-title-bar .blog-title-caption {
-  overflow: hidden;
-}
-
+  overflow: hidden; }
+/* line 404, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .blog-title-bar .blog-author-bar {
   color: #858585;
   padding-top: 3px;
   margin-top: -15px;
-  line-height: 2.1em;
-}
+  line-height: 2.1em; }
 
+/* line 413, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .blogpost {
   padding-bottom: 15px;
   margin-bottom: 30px;
-  border-bottom: 1px dotted #888;
-}
+  border-bottom: 1px dotted #888; }
 
+/* line 420, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .blog-title-bar h2 {
   font-size: 2em !important;
   border-bottom: 0 !important;
-  margin-top: 0 !important;
-}
+  margin-top: 0 !important; }
 
+/* line 426, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .post-navigation {
   margin-top: 20px;
-  margin-bottom: 20px;
-}
+  margin-bottom: 20px; }
 
+/* line 431, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .pagination {
   margin-bottom: 20px;
-  margin-top: -10px;
-}
+  margin-top: -10px; }
 
+/* line 436, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .disqus-comments-link {
-  text-align: center;
-}
+  text-align: center; }
 
+/* line 440, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 #disqus_thread {
-  margin-top: 40px;
-}
+  margin-top: 40px; }
 
+/* line 445, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .blog-article .content {
   max-width: 860px;
-  margin: auto;
-}
-
+  margin: auto; }
+/* line 450, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .blog-article .blog-body {
-  margin-bottom: 20px;
-}
+  margin-bottom: 20px; }
 
 /**
  * Asciidoctor styles
  */
+/* line 459, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .admonitionblock table {
   background: #f8f8f9 none repeat scroll 0 0;
   border-radius: 0.285714rem;
@@ -441,36 +389,30 @@ pre {
   line-height: 1.4285em;
   margin: 1em 0;
   min-height: 1em;
-  padding: 1em 1.5em;
-}
-
+  padding: 1em 1.5em; }
+/* line 470, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .admonitionblock.note table, .admonitionblock.tip table {
   box-shadow: 0 0 0 1px #a9d5de inset, 0 0 0 0 transparent;
   background-color: #f8ffff;
-  color: #276f86;
-}
-
+  color: #276f86; }
+/* line 476, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .admonitionblock.warning table {
   box-shadow: 0 0 0 1px #c9ba9b inset, 0 0 0 0 transparent;
   background-color: #fffaf3;
-  color: #573a08;
-}
-
+  color: #573a08; }
+/* line 482, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .admonitionblock.important table, .admonitionblock.caution table {
   box-shadow: 0 0 0 1px #e0b4b4 inset, 0 0 0 0 transparent;
   background-color: #fff6f6;
-  color: #9f3a38;
-}
-
+  color: #9f3a38; }
+/* line 488, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .admonitionblock .title {
   font-weight: bold;
-  margin-bottom: .5em;
-}
-
+  margin-bottom: .5em; }
+/* line 493, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .admonitionblock p {
-  margin-bottom: 0px;
-}
-
+  margin-bottom: 0px; }
+/* line 497, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .admonitionblock .fa {
   display: block;
   font-size: 2em;
@@ -484,47 +426,39 @@ pre {
   margin-right: 0.6em;
   text-align: center;
   text-decoration: inherit;
-  height: 1em;
-}
-
+  height: 1em; }
+/* line 513, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .admonitionblock .fa::before {
-  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
-}
-
+  background: rgba(0, 0, 0, 0) none repeat scroll 0 0; }
+/* line 517, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .admonitionblock .fa.icon-note::before {
-  content: "";
-}
-
+  content: ""; }
+/* line 521, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .admonitionblock .fa.icon-tip::before {
-  content: "";
-}
-
+  content: ""; }
+/* line 525, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .admonitionblock .fa.icon-warning::before {
-  content: "";
-}
-
+  content: ""; }
+/* line 529, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .admonitionblock .fa.icon-caution::before {
-  content: "";
-}
-
+  content: ""; }
+/* line 533, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .admonitionblock .fa.icon-important::before {
-  content: "";
-}
+  content: ""; }
 
+/* line 538, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .quoteblock {
   margin-top: 20px;
   margin-bottom: 20px;
-  color: #656565;
-}
-
+  color: #656565; }
+/* line 543, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .quoteblock blockquote {
   border-left: 5px solid #e6e7e8;
   position: relative;
   margin-left: 20px;
   margin: 1.5em 10px;
-  padding: 0.5em 10px;
-}
-
+  padding: 0.5em 10px; }
+/* line 551, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .quoteblock blockquote:before {
   color: #ccc;
   font-size: 3em;
@@ -532,17 +466,15 @@ pre {
   display: block;
   font-family: "Icons";
   content: "\f10e";
-  margin-bottom: 15px;
-}
-
+  margin-bottom: 15px; }
+/* line 562, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .quoteblock .paragraph p:not(:last-child) {
-  margin-bottom: 20px;
-}
-
+  margin-bottom: 20px; }
+/* line 567, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .quoteblock .attribution {
-  text-align: right;
-}
+  text-align: right; }
 
+/* line 574, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .conum {
   display: inline-block;
   color: white !important;
@@ -557,149 +489,116 @@ pre {
   font-style: normal;
   position: relative;
   top: -2px;
-  letter-spacing: -1px;
-}
-
+  letter-spacing: -1px; }
+/* line 590, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .conum * {
-  color: white !important;
-}
-
+  color: white !important; }
+/* line 595, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .conum:empty {
-  display: none;
-}
+  display: none; }
 
+/* line 600, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 pre .comment .conum {
-  left: -20px;
-}
+  left: -20px; }
 
 /**
  * News
  */
+/* line 609, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .ui.segment.news {
-  background-color: #FAFAFA;
-}
-
+  background-color: #FAFAFA; }
+/* line 612, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .ui.segment.news h4 {
-  margin-bottom: 5px;
-}
-
+  margin-bottom: 5px; }
+/* line 615, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .ui.segment.news h4:not(:first-child) {
-  margin-top: 10px;
-}
-
+  margin-top: 10px; }
+/* line 620, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .ui.segment.news small {
-  color: #999;
-}
+  color: #999; }
 
 /**
  * Series overview
  */
+/* line 630, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 #content .version h3.ui.header {
   margin-top: 0;
-  font-size: 3em;
-}
-
+  font-size: 3em; }
+/* line 634, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 #content .version h3.ui.header small {
   font-size: 0.3em;
-  color: #AAA;
-}
+  color: #AAA; }
 
 /**
  * Footer
  */
+/* line 645, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .footer {
-  margin-top: 70px !important;
-}
-
+  margin-top: 70px !important; }
+/* line 648, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .footer.segment {
-  padding: 3em 0em;
-}
-
-.footer .ui.inverted.divided.grid:not([class*="vertically divided"]) > .sponsor.column:not(.row),
-.footer .ui.inverted.divided.grid:not([class*="vertically divided"]) > .row > .sponsor.column {
+  padding: 3em 0em; }
+/* line 652, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
+.footer .ui.inverted.divided.grid:not([class*="vertically divided"]) > .sponsor.column:not(.row), .footer .ui.inverted.divided.grid:not([class*="vertically divided"]) > .row > .sponsor.column {
   box-shadow: none;
-  text-align: right;
-}
-
+  text-align: right; }
+/* line 658, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .footer .sponsor {
-  text-align: right;
-}
-
+  text-align: right; }
+/* line 661, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .footer .sponsor .logo:not(:last-child) {
-  margin-bottom: 20px;
-}
+  margin-bottom: 20px; }
 
 /**
  * Semantic UI adjustments
  */
+/* line 670, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .ui.table thead th {
-  background-color: #f4f4f4;
-}
+  background-color: #f4f4f4; }
 
+/* line 674, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .ui.buttons .disabled.button, .ui.disabled.button, .ui.button:disabled, .ui.disabled.button:hover, .ui.disabled.active.button {
-  opacity: 0.7 !important;
-}
+  opacity: 0.7 !important; }
 
+/* line 678, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .ui.grid .column.divided {
-  border-left: 1px solid #CCC;
-}
+  border-left: 1px solid #CCC; }
 
 @media only screen and (max-width: 767px) {
-  .ui.stackable.divided.grid:not(.vertically) > .column:not(.row),
-.ui.stackable.divided.grid:not(.vertically) > .row > .column {
+  /* line 683, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
+  .ui.stackable.divided:not(.vertically).grid > .column:not(.row), .ui.stackable.divided:not(.vertically).grid > .row > .column {
     padding-left: 1rem !important;
-    padding-right: 1rem !important;
-  }
-}
-
+    padding-right: 1rem !important; } }
 /* Mobile */
 @media only screen and (max-width: 767px) {
-  [class*="mobile hidden"],
-[class*="tablet only"]:not(.mobile),
-[class*="computer only"]:not(.mobile),
-[class*="or lower hidden"] {
-    display: none !important;
-  }
-}
-
+  /* line 700, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
+  [class*="mobile hidden"], [class*="tablet only"]:not(.mobile), [class*="computer only"]:not(.mobile), [class*="or lower hidden"] {
+    display: none !important; } }
 /* Tablet / iPad Portrait */
 @media only screen and (min-width: 768px) and (max-width: 991px) {
-  [class*="mobile only"]:not(.tablet),
-[class*="tablet hidden"],
-[class*="computer only"]:not(.tablet),
-[class*="or lower hidden"]:not(.mobile) {
-    display: none !important;
-  }
-}
-
+  /* line 710, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
+  [class*="mobile only"]:not(.tablet), [class*="tablet hidden"], [class*="computer only"]:not(.tablet), [class*="or lower hidden"]:not(.mobile) {
+    display: none !important; } }
 /* Computer / Desktop / iPad Landscape */
 @media only screen and (min-width: 992px) {
-  [class*="mobile only"]:not(.computer),
-[class*="tablet only"]:not(.computer),
-[class*="computer hidden"],
-[class*="or lower hidden"]:not(.tablet):not(.mobile) {
-    display: none !important;
-  }
-}
-
+  /* line 720, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
+  [class*="mobile only"]:not(.computer), [class*="tablet only"]:not(.computer), [class*="computer hidden"], [class*="or lower hidden"]:not(.tablet):not(.mobile) {
+    display: none !important; } }
 /**
  * Some simple print utilities
  */
 @media only print {
+  /* line 733, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
   [class*="print hidden"] {
-    display: none !important;
-  }
-}
-
+    display: none !important; } }
 @media only screen {
+  /* line 739, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
   [class*="print only"] {
-    display: none !important;
-  }
-}
-
+    display: none !important; } }
 /**
  * Bootstrap utilities
  */
+/* line 747, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .sr-only {
   position: absolute;
   width: 1px;
@@ -708,61 +607,58 @@ pre .comment .conum {
   margin: -1px;
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
-  border: 0;
-}
+  border: 0; }
 
+/* line 758, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .text-center {
-  text-align: center !important;
-}
+  text-align: center !important; }
 
+/* line 762, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .text-right {
-  text-align: right !important;
-}
+  text-align: right !important; }
 
+/* line 766, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .text-left {
-  text-align: left !important;
-}
+  text-align: left !important; }
 
+/* line 770, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .text-justify {
-  text-align: justify !important;
-}
+  text-align: justify !important; }
 
+/* line 775, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .clearfix::after {
   display: block;
   clear: both;
-  content: "";
-}
+  content: ""; }
 
 /**
  * Mobile menu
  */
+/* line 786, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .mobile-menu-button-bar {
   background-color: #444;
   border-bottom: 1px solid black;
-  padding: 10px;
-}
-
+  padding: 10px; }
+/* line 791, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .mobile-menu-button-bar a.item {
   cursor: pointer;
-  color: white;
-}
-
+  color: white; }
+/* line 795, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .mobile-menu-button-bar a.item:hover {
-  color: #DDD;
-}
+  color: #DDD; }
 
-#mobile-menu.ui.menu {
-  background-color: black;
-}
-
-#mobile-menu.ui.menu a.item:hover, #mobile-menu.ui.menu a.item.selected {
+/* line 801, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
+.ui.menu#mobile-menu {
+  background-color: black; }
+/* line 804, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
+.ui.menu#mobile-menu a.item:hover, .ui.menu#mobile-menu a.item.selected {
   background: rgba(255, 255, 255, 0.1);
-  color: #ffffff;
-}
+  color: #ffffff; }
 
 /**
  * YouTube video embeds
  */
+/* line 814, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .responsive-video {
   position: relative;
   padding-bottom: 56.25%;
@@ -770,21 +666,20 @@ pre .comment .conum {
   padding-top: 0px;
   margin-bottom: 10px;
   height: 0;
-  overflow: hidden;
-}
-
+  overflow: hidden; }
+/* line 822, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/styles.scss */
 .responsive-video iframe {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
-}
+  height: 100%; }
 
 /*******************************
              Table
 *******************************/
 /* Prototype */
+/* line 8, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/_table.scss */
 table.tableblock {
   width: 100%;
   background: #FFFFFF;
@@ -795,37 +690,36 @@ table.tableblock {
   text-align: left;
   color: rgba(0, 0, 0, 0.87);
   border-collapse: separate;
-  border-spacing: 0px;
-}
+  border-spacing: 0px; }
 
+/* line 20, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/_table.scss */
 table.tableblock:first-child {
-  margin-top: 0em;
-}
+  margin-top: 0em; }
 
+/* line 23, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/_table.scss */
 table.tableblock:last-child {
-  margin-bottom: 0em;
-}
+  margin-bottom: 0em; }
 
 /*******************************
              Parts
 *******************************/
+/* line 31, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/_table.scss */
 table.tableblock caption {
   padding-bottom: 10px;
-  padding-top: 10px;
-}
+  padding-top: 10px; }
 
 /* Table Content */
-table.tableblock th,
-table.tableblock td {
+/* line 37, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/_table.scss */
+table.tableblock th, table.tableblock td {
   -webkit-transition: background 0.1s ease, color 0.1s ease;
-  transition: background 0.1s ease, color 0.1s ease;
-}
+  transition: background 0.1s ease, color 0.1s ease; }
 
 /* Headers */
+/* line 44, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/_table.scss */
 table.tableblock thead {
-  box-shadow: none;
-}
+  box-shadow: none; }
 
+/* line 47, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/_table.scss */
 table.tableblock thead th {
   cursor: auto;
   background: #F9FAFB;
@@ -837,30 +731,30 @@ table.tableblock thead th {
   font-weight: bold;
   text-transform: none;
   border-bottom: 1px solid rgba(34, 36, 38, 0.1);
-  border-left: none;
-}
+  border-left: none; }
 
+/* line 60, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/_table.scss */
 table.tableblock thead tr > th:first-child {
-  border-left: none;
-}
+  border-left: none; }
 
+/* line 63, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/_table.scss */
 table.tableblock thead tr:first-child > th:first-child {
-  border-radius: 0.28571429rem 0em 0em 0em;
-}
+  border-radius: 0.28571429rem 0em 0em 0em; }
 
+/* line 66, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/_table.scss */
 table.tableblock thead tr:first-child > th:last-child {
-  border-radius: 0em 0.28571429rem 0em 0em;
-}
+  border-radius: 0em 0.28571429rem 0em 0em; }
 
+/* line 69, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/_table.scss */
 table.tableblock thead tr:first-child > th:only-child {
-  border-radius: 0.28571429rem 0.28571429rem 0em 0em;
-}
+  border-radius: 0.28571429rem 0.28571429rem 0em 0em; }
 
 /* Footer */
+/* line 74, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/_table.scss */
 table.tableblock tfoot {
-  box-shadow: none;
-}
+  box-shadow: none; }
 
+/* line 77, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/_table.scss */
 table.tableblock tfoot th {
   cursor: auto;
   border-top: 1px solid rgba(34, 36, 38, 0.15);
@@ -871,59 +765,55 @@ table.tableblock tfoot th {
   vertical-align: middle;
   font-style: normal;
   font-weight: normal;
-  text-transform: none;
-}
+  text-transform: none; }
 
+/* line 89, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/_table.scss */
 table.tableblock tfoot tr > th:first-child {
-  border-left: none;
-}
+  border-left: none; }
 
+/* line 92, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/_table.scss */
 table.tableblock tfoot tr:first-child > th:first-child {
-  border-radius: 0em 0em 0em 0.28571429rem;
-}
+  border-radius: 0em 0em 0em 0.28571429rem; }
 
+/* line 95, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/_table.scss */
 table.tableblock tfoot tr:first-child > th:last-child {
-  border-radius: 0em 0em 0.28571429rem 0em;
-}
+  border-radius: 0em 0em 0.28571429rem 0em; }
 
+/* line 98, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/_table.scss */
 table.tableblock tfoot tr:first-child > th:only-child {
-  border-radius: 0em 0em 0.28571429rem 0.28571429rem;
-}
+  border-radius: 0em 0em 0.28571429rem 0.28571429rem; }
 
 /* Table Row */
+/* line 103, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/_table.scss */
 table.tableblock tr td {
-  border-top: 1px solid rgba(34, 36, 38, 0.1);
-}
+  border-top: 1px solid rgba(34, 36, 38, 0.1); }
 
+/* line 106, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/_table.scss */
 table.tableblock tr:first-child td {
-  border-top: none;
-}
+  border-top: none; }
 
 /* Table Cells */
+/* line 111, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/_table.scss */
 table.tableblock td {
   padding: 0.78571429em 0.78571429em;
-  text-align: inherit;
-}
+  text-align: inherit; }
 
 /* Icons */
+/* line 117, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/_table.scss */
 table.tableblock > .icon {
-  vertical-align: baseline;
-}
+  vertical-align: baseline; }
 
+/* line 120, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/_table.scss */
 table.tableblock > .icon:only-child {
-  margin: 0em;
-}
+  margin: 0em; }
 
 /*******************************
             Coupling
 *******************************/
 /* UI Image */
-table.tableblock th .image,
-table.tableblock th .image img,
-table.tableblock td .image,
-table.tableblock td .image img {
-  max-width: none;
-}
+/* line 130, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/_table.scss */
+table.tableblock th .image, table.tableblock th .image img, table.tableblock td .image, table.tableblock td .image img {
+  max-width: none; }
 
 /*******************************
              Types
@@ -932,20 +822,17 @@ table.tableblock td .image img {
      Striped
 ---------------*/
 /* Table Striping */
-table.tableblock > tr:nth-child(2n),
-table.tableblock tbody tr:nth-child(2n) {
-  background-color: rgba(0, 0, 50, 0.02);
-}
+/* line 147, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/_table.scss */
+table.tableblock > tr:nth-child(2n), table.tableblock tbody tr:nth-child(2n) {
+  background-color: rgba(0, 0, 50, 0.02); }
 
 /*--------------
      Celled
 ---------------*/
-table.tableblock tr th,
-table.tableblock tr td {
-  border-left: 1px solid rgba(34, 36, 38, 0.1);
-}
+/* line 156, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/_table.scss */
+table.tableblock tr th, table.tableblock tr td {
+  border-left: 1px solid rgba(34, 36, 38, 0.1); }
 
-table.tableblock tr th:first-child,
-table.tableblock tr td:first-child {
-  border-left: none;
-}
+/* line 160, /var/lib/jenkins/workspace/beanvalidation.org_production/stylesheets/_table.scss */
+table.tableblock tr th:first-child, table.tableblock tr td:first-child {
+  border-left: none; }
