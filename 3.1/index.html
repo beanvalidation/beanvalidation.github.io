@@ -5,10 +5,10 @@
 <meta content="IE=Edge" http-equiv="X-UA-Compatible">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>
-Jakarta Validation - 404
+Jakarta Validation - Jakarta Validation 3.1
 </title>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css" rel="stylesheet">
-<link href="/stylesheets/styles.css?t=1740991883" rel="stylesheet">
+<link href="/stylesheets/styles.css?t=1740991882" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
 <!-- / Unfortunately, matchHeight doesn't follow the same convention as the other minified files -->
@@ -25,7 +25,7 @@ Home
 <i class="grid icon newspaper"></i>
 News
 </a>
-<a class="item" href="/3.1/">
+<a class="item selected" href="/3.1/">
 <i class="grid icon book"></i>
 <strong>Jakarta Validation 3.1</strong>
 </a>
@@ -82,7 +82,7 @@ Menu
 <img alt="Bean Validation" src="/logo/logo.svg">
 </a>
 <a class="item" href="/news/">News</a>
-<a class="item" href="/3.1/">
+<a class="item selected" href="/3.1/">
 <strong>Jakarta Validation 3.1</strong>
 </a>
 <div class="ui dropdown item">
@@ -103,21 +103,127 @@ Archives
 </div>
 </header>
 <div class="jumbotron small">
-<div class="ui container">
+<div class="ui container grid stackable">
+<div class="column ten wide">
 <h1>Jakarta Validation</h1>
-<h2>404</h2>
+<h2>Jakarta Validation 3.1</h2>
+</div>
+<div class="column six wide">
+<div class="ui segment">
+<p>
+Jakarta Validation 3.1 was published in April 2024.
+</p>
+<p>It is part of Jakarta EE 11 (but can of course be used with plain Java SE as the previous releases).</p>
+</div>
+</div>
 </div>
 </div>
 <div class="ui container page-content">
-<div class="content" id="content">
-<div id="error-404">
-<h2>Oh no!</h2>
-
-<p>We can't seem to find that page.  Things may have shifted around during
-shipping, so it might be best to just start back at the <a href="/">top of the site</a>
-and poke around for whatever it is you're looking for.</p>
+<div class="spec-buttons text-center">
+<a class="ui button labeled icon green large" href="https://jakarta.ee/specifications/bean-validation/3.1/jakarta-validation-spec-3.1.html">
+<i class="icon book"></i>
+Jakarta Validation 3.1 specification
+</a>
+<a class="ui button labeled icon green large" href="https://search.maven.org/search?q=g:jakarta.validation%20AND%20a:jakarta.validation-api&amp;core=gav">
+<i class="icon cube"></i>
+API Artifact
+</a>
+<a class="ui button labeled icon green large" href="https://jakarta.ee/specifications/bean-validation/3.1/apidocs/">
+<i class="icon code"></i>
+API JavaDocs
+</a>
 </div>
-
+</div>
+<div class="content-banner">
+<div class="ui container grid divided stackable">
+<div class="twelve wide column">
+<h2>Implementations</h2>
+<table class="ui table celled striped unstackable">
+<thead>
+<tr>
+<th colspan="2">Name</th>
+<th>Version</th>
+<th>Jakarta EE</th>
+<!-- / %th RI -->
+</tr>
+</thead>
+<tbody>
+<tr>
+<td width="30">
+<img src="/images/hibernate.png">
+</td>
+<td>
+<a href="http://hibernate.org/validator/">Hibernate Validator</a>
+</td>
+<td>
+<a href="http://hibernate.org/validator/releases/">9.0.0.CR1</a>
+</td>
+<td>
+Jakarta EE 11
+</td>
+<!-- / %td.text-center(width='30') -->
+<!-- /   %i.icon.check.circle.green.large -->
+</tr>
+</tbody>
+</table>
+</div>
+<div class="four wide column">
+<h2>TCK</h2>
+<div class="ui segment">
+<p>
+The TCK for Jakarta Validation 3.1 can be found
+<a href="/3.1/tck/">here</a>
+.
+</p>
+</div>
+</div>
+</div>
+</div>
+<div class="ui container" id="content">
+<div class="sect1">
+<h2 id="changes-between-jakarta-validation-3-1-and-jakarta-bean-validation-3-0"><a class="anchor" href="#changes-between-jakarta-validation-3-1-and-jakarta-bean-validation-3-0"></a>Changes between Jakarta Validation 3.1 and Jakarta Bean Validation 3.0</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>The minimum required Java version is set to 17.</p>
+</li>
+<li>
+<p>The rename of the specification from Jakarta Bean Validation to Jakarta Validation.</p>
+</li>
+<li>
+<p>The clarification on the record validation.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="feedback"><a class="anchor" href="#feedback"></a>Feedback</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Do you have feedback? Talk to us:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>on our <a href="https://accounts.eclipse.org/mailing-list/bean-validation-dev">mailing list</a></p>
+</li>
+<li>
+<p>in the <a href="https://github.com/jakartaee/validation/issues">API issue tracker</a> for API related issues</p>
+</li>
+<li>
+<p>in the <a href="https://github.com/jakartaee/validation-spec/issues">Specification issue tracker</a> for specification related issues</p>
+</li>
+<li>
+<p>in the <a href="https://github.com/jakartaee/validation-tck/issues">TCK issue tracker</a> for TCK related issues</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If you want to take the next step and contribute, read <a href="/contribute">how to contribute</a>.</p>
+</div>
+</div>
 </div>
 </div>
 

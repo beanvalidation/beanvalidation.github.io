@@ -5,10 +5,10 @@
 <meta content="IE=Edge" http-equiv="X-UA-Compatible">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>
-Jakarta Validation - 404
+Jakarta Validation - Jakarta Validation 3.1 TCK
 </title>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css" rel="stylesheet">
-<link href="/stylesheets/styles.css?t=1740991883" rel="stylesheet">
+<link href="/stylesheets/styles.css?t=1740991882" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
 <!-- / Unfortunately, matchHeight doesn't follow the same convention as the other minified files -->
@@ -25,7 +25,7 @@ Home
 <i class="grid icon newspaper"></i>
 News
 </a>
-<a class="item" href="/3.1/">
+<a class="item selected" href="/3.1/">
 <i class="grid icon book"></i>
 <strong>Jakarta Validation 3.1</strong>
 </a>
@@ -82,7 +82,7 @@ Menu
 <img alt="Bean Validation" src="/logo/logo.svg">
 </a>
 <a class="item" href="/news/">News</a>
-<a class="item" href="/3.1/">
+<a class="item selected" href="/3.1/">
 <strong>Jakarta Validation 3.1</strong>
 </a>
 <div class="ui dropdown item">
@@ -105,18 +105,32 @@ Archives
 <div class="jumbotron small">
 <div class="ui container">
 <h1>Jakarta Validation</h1>
-<h2>404</h2>
+<h2>Jakarta Validation 3.1 TCK</h2>
 </div>
 </div>
 <div class="ui container page-content">
 <div class="content" id="content">
-<div id="error-404">
-<h2>Oh no!</h2>
+<p>A TCK, or Technology Compatibility Kit, is one of the three required pieces for any Jakarta EE specification
+(the other two being the specification document and the reference implementation). The TCK is a set
+of tools and tests to verify that an implementation of the technology conforms to the specification.</p>
 
-<p>We can't seem to find that page.  Things may have shifted around during
-shipping, so it might be best to just start back at the <a href="/">top of the site</a>
-and poke around for whatever it is you're looking for.</p>
-</div>
+<p>The Jakarta Validation 3.1 TCK is licensed under the Apache Software License 2.0 and hosted in a GitHub
+<a href="https://github.com/jakartaee/validation-tck">repository</a>.
+The repository consists of multiple artifacts, containing tooling, documentation and most importantly
+a set of <a href="http://arquillian.org/">Arquillian</a> tests. There are also two
+<a href="https://github.com/jakartaee/validation-tck/tree/main/setup-examples">setup examples</a>,
+demonstrating the setup of the test harness using Maven and Ant.</p>
+
+<p>The latest version used to test Jakarta Validation 3.1 is 3.1.1.</p>
+
+<p>Distribution bundles are available on the
+<a href="https://download.eclipse.org/jakartaee/bean-validation/3.1/">Eclipse download infrastructure</a> and come as
+<a href="https://download.eclipse.org/ee4j/bean-validation/3.1/validation-tck-dist-3.1.1.zip">ZIP</a>
+or <a href="https://download.eclipse.org/ee4j/bean-validation/3.1/validation-tck-dist-3.1.1.tar.gz">TGZ</a>
+archive.
+They contain JARs, documentation, source code, et al.</p>
+
+<p>To report a bug or challenge a test use our <a href="https://github.com/jakartaee/validation-tck/issues">issue tracker</a>.</p>
 
 </div>
 </div>
