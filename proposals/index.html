@@ -5,10 +5,10 @@
 <meta content="IE=Edge" http-equiv="X-UA-Compatible">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>
-Jakarta Validation - Jakarta Bean Validation Next proposals
+Jakarta Validation - Jakarta Validation Next proposals
 </title>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css" rel="stylesheet">
-<link href="/stylesheets/styles.css?t=1746810001" rel="stylesheet">
+<link href="/stylesheets/styles.css?t=1749223706" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
 <!-- / Unfortunately, matchHeight doesn't follow the same convention as the other minified files -->
@@ -105,52 +105,77 @@ Archives
 <div class="jumbotron small">
 <div class="ui container">
 <h1>Jakarta Validation</h1>
-<h2>Jakarta Bean Validation Next proposals</h2>
+<h2>Jakarta Validation Next proposals</h2>
 </div>
 </div>
 <div class="ui container page-content">
 <div class="content" id="content">
 <div class="paragraph">
 <p>This page contains a list of proposals of changes that could be included into the next Jakarta Validation specification.
-Feedback is very welcome on our <a href="https://accounts.eclipse.org/mailing-list/bean-validation-dev">mailing list</a>.
-Also check out the <a href="https://github.com/jakartaee/validation/issues">GitHub issues</a> for things which are considered for inclusion.</p>
+Feedback is very welcome on our <a href="https://accounts.eclipse.org/mailing-list/bean-validation-dev">mailing list</a>.</p>
 </div>
-<table class="tableblock frame-all grid-all stretch">
+<div class="paragraph">
+<p>Check out the following issues on GitHub to learn more on what is currently discussed and considered for Jakarta Validation:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/jakartaee/validation/validation-spec">Jakarta Validation specification issues</a></p>
+</li>
+<li>
+<p><a href="https://github.com/jakartaee/validation/issues">Jakarta Validation API issues</a></p>
+</li>
+<li>
+<p><a href="https://github.com/jakartaee/validation-tck/issues">Jakarta Validation TCK issues</a></p>
+</li>
+</ul>
+</div>
+<table id="proposal-table" class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
+<col style="width: 75%;">
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Issue Id (JIRA)</th>
-<th class="tableblock halign-left valign-top">Done</th>
-<th class="tableblock halign-left valign-top">Proposal</th>
+<th class="tableblock halign-left valign-top">Issue Id (GitHub)</th>
 <th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://hibernate.atlassian.net/projects/BVAL/issues/BVAL-214">BVAL-214</a></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="/proposals/BVAL-214">214</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Ability to validate an object and a list of changes</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://hibernate.atlassian.net/projects/BVAL/issues/BVAL-234">BVAL-234</a></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="/proposals/BVAL-234">234</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Fix annoyance between JPA and Bean Validation when @Id @GeneratedValue and @NotNull are used</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://hibernate.atlassian.net/projects/BVAL/issues/BVAL-248">BVAL-248</a></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="/proposals/BVAL-248">248</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Introduce an evaluation order for constraints defined on a single property</p></td>
-</tr>
-</tbody>
 </table>
+<div class="paragraph">
+<p>
+<script>
+    const table = document.querySelector('#proposal-table');
+    const issues = document.createElement('tbody');
+    table.append(issues);
+    fetch(`https://api.github.com/repos/jakartaee/validation-spec/issues`)
+      .then(res => res.json())
+      .then(data => {
+        data.forEach(issue => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="${issue.html_url}">Spec: ${issue.number}</a></p></td><td class="tableblock halign-left valign-top"><p class="tableblock">${issue.title}</p></td>`;
+          issues.appendChild(tr);
+        });
+        fetch(`https://api.github.com/repos/jakartaee/validation/issues`)
+            .then(res => res.json())
+            .then(data => {
+                data.forEach(issue => {
+                const tr = document.createElement("tr");
+                tr.innerHTML = `<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="${issue.html_url}">API: ${issue.number}</a></p></td><td class="tableblock halign-left valign-top"><p class="tableblock">${issue.title}</p></td>`;
+                issues.appendChild(tr);
+            });
+        })
+        .catch(err => {
+            console.error(err);
+        });
+      })
+      .catch(err => {
+        console.error(err);
+        issues.innerHTML = "Failed to load issues.";
+      });
+  </script>
+</p>
+</div>
 </div>
 </div>
 

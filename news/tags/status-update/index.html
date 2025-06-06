@@ -8,7 +8,7 @@
 Jakarta Validation - News
 </title>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css" rel="stylesheet">
-<link href="/stylesheets/styles.css?t=1746810002" rel="stylesheet">
+<link href="/stylesheets/styles.css?t=1749223706" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
 <!-- / Unfortunately, matchHeight doesn't follow the same convention as the other minified files -->
@@ -116,6 +116,91 @@ Archives
 <div class="blog-title-bar">
 <div class="blog-title-caption">
 <h2>
+<a href="/news/2025/06/06/bean-validation-4-0/">Upcoming Jakarta Validation 4.0</a>
+</h2>
+<div class="blog-author-bar">
+Posted by
+<strong>
+Marko Bekhta
+</strong>
+&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+06 Jun 2025
+&nbsp;&nbsp;
+<span class="blog-tags">
+<a class="ui label tag" href="/news/tags/status-update/">
+status-update
+</a>
+</span>
+</div>
+</div>
+</div>
+
+<div class="mobile hidden">
+<div class="blog-body" itemprop="articleBody">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Jakarta Validation 4.0 is <a href="https://projects.eclipse.org/projects/ee4j.validation/releases/4.0">on its way</a>,
+as the release plan for this version was approved exactly one month ago on May 6!</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="what-to-expect-from-jakarta-validation-4-0"><a class="anchor" href="#what-to-expect-from-jakarta-validation-4-0"></a>What to expect from Jakarta Validation 4.0?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The highlights of this release plan are as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>This version of the specification will require Java SE 21 or higher.</p>
+</li>
+<li>
+<p>Prepare for removal of the legacy approach to mark container elements for cascading validation, i.e. <code>@Valid List&lt;MyBean&gt; list;</code>.
+The next major version will consider such code to be requesting the cascading validation of the <code>List</code>, and not its elements.
+It&#8217;s time to finally switch any remaining code using this approach to the much more encouraged and cleaner <code>List&lt;@Valid MyBean&gt; list;</code>
+If you have a particular use case where you think that you won&#8217;t be able to express your constraints
+without relying on the legacy approach&#8201;&#8212;&#8201;please reach out on the <a href="https://github.com/jakartaee/validation/issues/266">corresponding issue</a>.</p>
+</li>
+<li>
+<p>Introduce an alternative initialization method <code>ConstraintValidator#initialize</code> to provide more context than just the annotation
+so that it would be possible to use a more eager approach to initializing the constraint validator.</p>
+</li>
+<li>
+<p>Relax element order in the XSD where it doesn&#8217;t matter.</p>
+</li>
+<li>
+<p>Add support for <code>ConstraintValidator</code> declaration via service loader.</p>
+</li>
+<li>
+<p>Remove any uses of the <code>SecurityManager</code> as it&#8217;s being deprecated without an alternative for some time now.</p>
+</li>
+<li>
+<p>Reevaluate the value extraction for <code>Optional</code> and whether <code>null</code> should be passed as an extracted value for empty optionals.</p>
+</li>
+<li>
+<p>Other more minor clarifications, cleanups and improvements.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Join the discussions at the <a href="https://github.com/jakartaee/validation-spec/issues">issue tracker</a>, or bring your proposals for future consideration.</p>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="disqus-comments-link">
+ <a href="http://beanvalidation.org/news/2025/06/06/bean-validation-4-0/#disqus_thread">Comments</a> 
+</div>
+</article>
+<article class="blogpost">
+<div class="blog-title-bar">
+<div class="blog-title-caption">
+<h2>
 <a href="/news/2012/08/31/big-push-on-bean-validation/">Big push on Bean Validation 1.1</a>
 </h2>
 <div class="blog-author-bar">
@@ -185,6 +270,7 @@ come and help us identify it and build it.</p>
 Stay up to date, subscribe to the&nbsp;<a href="/news/news.atom">news feed</a>.
 </p>
 <div class="ui menu vertical fluid">
+<a class="item news-link" href="/news/2025/06/06/bean-validation-4-0/">Upcoming Jakarta Validation 4.0</a>
 <a class="item news-link" href="/news/2025/02/17/bean-validation-3-1/">Jakarta Validation 3.1 specification</a>
 <a class="item news-link" href="/news/2018/02/26/bean-validation-2-0-whats-in-it/">Bean Validation 2.0 - What&#8217;s in it?</a>
 <a class="item news-link" href="/news/2017/10/19/new-website/">Bean Validation has a new website!</a>

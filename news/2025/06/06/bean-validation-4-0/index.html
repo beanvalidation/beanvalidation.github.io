@@ -5,10 +5,10 @@
 <meta content="IE=Edge" http-equiv="X-UA-Compatible">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>
-Jakarta Validation - The specification repository is released
+Jakarta Validation - Upcoming Jakarta Validation 4.0
 </title>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css" rel="stylesheet">
-<link href="/stylesheets/styles.css?t=1749223704" rel="stylesheet">
+<link href="/stylesheets/styles.css?t=1749223705" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
 <!-- / Unfortunately, matchHeight doesn't follow the same convention as the other minified files -->
@@ -112,19 +112,19 @@ Archives
 <div class="blog-title-bar">
 <div class="blog-title-caption">
 <h2>
-<a href="/news/2011/09/01/spec-repository-out/">The specification repository is released</a>
+<a href="/news/2025/06/06/bean-validation-4-0/">Upcoming Jakarta Validation 4.0</a>
 </h2>
 <div class="blog-author-bar">
 Posted by
 <strong>
-Emmanuel Bernard
+Marko Bekhta
 </strong>
 &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-01 Sep 2011
+06 Jun 2025
 &nbsp;&nbsp;
 <span class="blog-tags">
-<a class="ui label tag" href="/news/tags/open/">
-open
+<a class="ui label tag" href="/news/tags/status-update/">
+status-update
 </a>
 </span>
 </div>
@@ -137,21 +137,58 @@ open
 <div class="content" id="content">
 <article>
 <div class="blog-body" itemprop="articleBody">
-<p>The last piece of the puzzle is now in the open. I have just released the specification repository on GitHub.</p>
-
-<p>The list of repositories for the spec are</p>
-
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Jakarta Validation 4.0 is <a href="https://projects.eclipse.org/projects/ee4j.validation/releases/4.0">on its way</a>,
+as the release plan for this version was approved exactly one month ago on May 6!</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="what-to-expect-from-jakarta-validation-4-0"><a class="anchor" href="#what-to-expect-from-jakarta-validation-4-0"></a>What to expect from Jakarta Validation 4.0?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The highlights of this release plan are as follows:</p>
+</div>
+<div class="ulist">
 <ul>
-<li><a href="https://github.com/beanvalidation/beanvalidation-spec">Specification repository</a></li>
-<li><a href="https://github.com/hibernate/hibernate-validator">Reference implementation repository</a></li>
-<li><a href="https://github.com/beanvalidation/beanvalidation-api">API repository</a></li>
-<li><a href="https://github.com/beanvalidation/beanvalidation-tck">TCK repository</a></li>
-<li><a href="https://github.com/beanvalidation/beanvalidation.org">This website source</a></li>
+<li>
+<p>This version of the specification will require Java SE 21 or higher.</p>
+</li>
+<li>
+<p>Prepare for removal of the legacy approach to mark container elements for cascading validation, i.e. <code>@Valid List&lt;MyBean&gt; list;</code>.
+The next major version will consider such code to be requesting the cascading validation of the <code>List</code>, and not its elements.
+It&#8217;s time to finally switch any remaining code using this approach to the much more encouraged and cleaner <code>List&lt;@Valid MyBean&gt; list;</code>
+If you have a particular use case where you think that you won&#8217;t be able to express your constraints
+without relying on the legacy approach&#8201;&#8212;&#8201;please reach out on the <a href="https://github.com/jakartaee/validation/issues/266">corresponding issue</a>.</p>
+</li>
+<li>
+<p>Introduce an alternative initialization method <code>ConstraintValidator#initialize</code> to provide more context than just the annotation
+so that it would be possible to use a more eager approach to initializing the constraint validator.</p>
+</li>
+<li>
+<p>Relax element order in the XSD where it doesn&#8217;t matter.</p>
+</li>
+<li>
+<p>Add support for <code>ConstraintValidator</code> declaration via service loader.</p>
+</li>
+<li>
+<p>Remove any uses of the <code>SecurityManager</code> as it&#8217;s being deprecated without an alternative for some time now.</p>
+</li>
+<li>
+<p>Reevaluate the value extraction for <code>Optional</code> and whether <code>null</code> should be passed as an extracted value for empty optionals.</p>
+</li>
+<li>
+<p>Other more minor clarifications, cleanups and improvements.</p>
+</li>
 </ul>
-
-
-<p>Want to contribute? <a href="/contribute">Learn how</a>.</p>
-
+</div>
+<div class="paragraph">
+<p>Join the discussions at the <a href="https://github.com/jakartaee/validation-spec/issues">issue tracker</a>, or bring your proposals for future consideration.</p>
+</div>
+</div>
+</div>
 </div>
 
 </article>
@@ -160,11 +197,9 @@ open
 <div class="ui grid two column stackable">
 <div class="column">
 &laquo;
-<a href="../../../07/23/voted-yes">Bean Validation has been voted yes!</a>
+<a href="../../../02/17/bean-validation-3-1">Jakarta Validation 3.1 specification</a>
 </div>
 <div class="column text-right">
-<a href="../../16/method-level-validation">Work on method level validation</a>
-&raquo;
 </div>
 </div>
 </div>
@@ -173,7 +208,7 @@ open
             <div id="disqus_thread"></div>
             <script type="text/javascript">
             var disqus_shortname = 'beanvalidation';
-            var disqus_url = "http://beanvalidation.org/news/2011/09/01/spec-repository-out/";
+            var disqus_url = "http://beanvalidation.org/news/2025/06/06/bean-validation-4-0/";
             var disqus_developer = null;
             var disqus_identifier = null;
             (function() {

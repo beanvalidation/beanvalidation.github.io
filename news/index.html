@@ -8,7 +8,7 @@
 Jakarta Validation - News
 </title>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css" rel="stylesheet">
-<link href="/stylesheets/styles.css?t=1746810002" rel="stylesheet">
+<link href="/stylesheets/styles.css?t=1749223706" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
 <!-- / Unfortunately, matchHeight doesn't follow the same convention as the other minified files -->
@@ -112,6 +112,91 @@ Archives
 <div class="ui grid stackable">
 <div class="column twelve wide">
 <div class="content">
+<article class="blogpost">
+<div class="blog-title-bar">
+<div class="blog-title-caption">
+<h2>
+<a href="/news/2025/06/06/bean-validation-4-0/">Upcoming Jakarta Validation 4.0</a>
+</h2>
+<div class="blog-author-bar">
+Posted by
+<strong>
+Marko Bekhta
+</strong>
+&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+06 Jun 2025
+&nbsp;&nbsp;
+<span class="blog-tags">
+<a class="ui label tag" href="/news/tags/status-update/">
+status-update
+</a>
+</span>
+</div>
+</div>
+</div>
+
+<div class="mobile hidden">
+<div class="blog-body" itemprop="articleBody">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Jakarta Validation 4.0 is <a href="https://projects.eclipse.org/projects/ee4j.validation/releases/4.0">on its way</a>,
+as the release plan for this version was approved exactly one month ago on May 6!</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="what-to-expect-from-jakarta-validation-4-0"><a class="anchor" href="#what-to-expect-from-jakarta-validation-4-0"></a>What to expect from Jakarta Validation 4.0?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The highlights of this release plan are as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>This version of the specification will require Java SE 21 or higher.</p>
+</li>
+<li>
+<p>Prepare for removal of the legacy approach to mark container elements for cascading validation, i.e. <code>@Valid List&lt;MyBean&gt; list;</code>.
+The next major version will consider such code to be requesting the cascading validation of the <code>List</code>, and not its elements.
+It&#8217;s time to finally switch any remaining code using this approach to the much more encouraged and cleaner <code>List&lt;@Valid MyBean&gt; list;</code>
+If you have a particular use case where you think that you won&#8217;t be able to express your constraints
+without relying on the legacy approach&#8201;&#8212;&#8201;please reach out on the <a href="https://github.com/jakartaee/validation/issues/266">corresponding issue</a>.</p>
+</li>
+<li>
+<p>Introduce an alternative initialization method <code>ConstraintValidator#initialize</code> to provide more context than just the annotation
+so that it would be possible to use a more eager approach to initializing the constraint validator.</p>
+</li>
+<li>
+<p>Relax element order in the XSD where it doesn&#8217;t matter.</p>
+</li>
+<li>
+<p>Add support for <code>ConstraintValidator</code> declaration via service loader.</p>
+</li>
+<li>
+<p>Remove any uses of the <code>SecurityManager</code> as it&#8217;s being deprecated without an alternative for some time now.</p>
+</li>
+<li>
+<p>Reevaluate the value extraction for <code>Optional</code> and whether <code>null</code> should be passed as an extracted value for empty optionals.</p>
+</li>
+<li>
+<p>Other more minor clarifications, cleanups and improvements.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Join the discussions at the <a href="https://github.com/jakartaee/validation-spec/issues">issue tracker</a>, or bring your proposals for future consideration.</p>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="disqus-comments-link">
+ <a href="http://beanvalidation.org/news/2025/06/06/bean-validation-4-0/#disqus_thread">Comments</a> 
+</div>
+</article>
 <article class="blogpost">
 <div class="blog-title-bar">
 <div class="blog-title-caption">
@@ -511,129 +596,6 @@ You also can read the <a href="/2.0/spec/">complete specification</a> as well as
  <a href="http://beanvalidation.org/news/2017/08/07/bean-validation-2-0-is-a-spec/#disqus_thread">Comments</a> 
 </div>
 </article>
-<article class="blogpost">
-<div class="blog-title-bar">
-<div class="blog-title-caption">
-<h2>
-<a href="/news/2017/07/12/bean-validation-2-0-cr3-submitted-to-final-approval-ballot/">Bean Validation 2.0 CR 3 released and submitted to Final Approval Ballot</a>
-</h2>
-<div class="blog-author-bar">
-Posted by
-<strong>
-Gunnar Morling
-</strong>
-&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-12 Jul 2017
-&nbsp;&nbsp;
-<span class="blog-tags">
-<a class="ui label tag" href="/news/tags/release/">
-release
-</a>
-</span>
-</div>
-</div>
-</div>
-
-<div class="mobile hidden">
-<div class="blog-body" itemprop="articleBody">
-<div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>It&#8217;s my great pleasure to announce the CR 3 release of the Bean Validation 2.0 spec!</p>
-</div>
-<div class="paragraph">
-<p>This release of the spec and the API as well as accompanying releases of the TCK and the reference implementation (<a href="http://in.relation.to/2017/07/11/hibernate-validator-600-cr3-out/">release announcement</a>) have been handed over to the JCP for the Final Approval Ballot last night.
-It&#8217;s this ballot where the Executive Committee of the JCP will cast its final go/no-go vote on the Bean Validation 2.0 JSR.</p>
-</div>
-<div class="paragraph">
-<p>Since the CR 2 release, only a few things have changed after reviewing the spec changes one more time:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Clarifying the semantics of <code>ConstraintViolation#getLeafBean()</code> in case a container element constraint is violated (<a href="https://hibernate.atlassian.net/browse/BVAL-690">BVAL-690</a>)</p>
-</li>
-<li>
-<p>Making the order of the <code>&lt;container-element-type&gt;</code> and <code>&lt;constraint&gt;</code> elements consistent in the schema for XML constraint mapping files (<a href="https://hibernate.atlassian.net/browse/BVAL-693">BVAL-693</a>)</p>
-</li>
-<li>
-<p>Minor wording and JavaDoc improvements (<a href="https://hibernate.atlassian.net/browse/BVAL-692">BVAL-692</a>)</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>The updated spec document can be found <a href="/2.0/spec/2.0.0.cr3/">here</a>.
-To see the changes applied since the CR 2, check out this <a href="/2.0/spec/2.0.0.cr3/diff/diff-to-2.0-cr2/">colored diff</a>. If you&#8217;d like to see all the changes since Bean Validation 1.1, take a look at <a href="/2.0/spec/2.0.0.cr3/diff/diff-to-1.1/">this diff</a>.
-The updated API is available on Maven Central, using the GAV coordinates are <em>javax.validation:validation-api:2.0.0.CR3</em>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="some-tck-stats"><a class="anchor" href="#some-tck-stats"></a>Some TCK stats</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Thanks to Guillaume&#8217;s tireless work, the Bean Validation TCK has grown substantially since 1.1.
-There are now <strong>685</strong> assertions overall, out of which <strong>627</strong> are testable. <strong>99.04%</strong> of them are covered by <strong>2133</strong> tests overall.
-The added tests cover all the new Bean Validation 2.0 features, so we feel very confident that the TCK ensures correctness of implementations passing it.</p>
-</div>
-<div class="paragraph">
-<p>Also the tooling for producing the TCK has been improved significantly:
-sentences or phrases of the spec document can be marked as relevant for the TCK with the help of AsciiDoc roles.
-A special Maven plug-in then is used to generate a report of all those marked assertions, allowing to link them to tests of the TCK and making it easy to identify assertions without corresponding tests yet.</p>
-</div>
-<div class="paragraph">
-<p>We&#8217;ll discuss the entire TCK tool chain in more depth in a separate blog post.
-If you are interested in the TCK and would like to learn more about its development, the appeals process and other related things, check out the <a href="http://docs.jboss.org/hibernate/beanvalidation/tck/2.0/reference/html_single/">TCK reference guide</a>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="whats-new-in-bean-validation-2-0"><a class="anchor" href="#whats-new-in-bean-validation-2-0"></a>What&#8217;s new in Bean Validation 2.0?</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The focus of Bean Validation 2.0 is supporting and taking advantage of Java SE 8.</p>
-</div>
-<div class="paragraph">
-<p>For instance type annotations are used to validate the elements of generic containers: <code>List&lt;@NotNull @Email String&gt; emails</code>.
-There are new built-in constraints (<code>@NotBlank</code>, <code>@NotEmpty</code>, <code>@Email</code>, <code>@FutureOrPresent</code>, <code>@PastOrPresent</code>, <code>@Positive</code>, <code>@PositiveOrZero</code>, <code>@Negative</code> and <code>@NegativeOrZero</code>) and all built-in constraints are repeatable annotations now.
-Bean Validation 2.0 also supports the new Java 8 date and time types (JSR 310), the property types defined by JavaFX (<code>StringProperty</code> etc.) as well as <code>java.util.Optional</code>.</p>
-</div>
-<div class="paragraph">
-<p>To learn more about all the new features in Bean Validation 2.0,
-check out <a href="https://speakerdeck.com/gunnarmorling/keeping-your-data-sane-with-bean-validation-2-dot-0-jdk-dot-io">this presentation</a> which I recently gave at the jdk.io conference.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="what-can-you-do-to-help"><a class="anchor" href="#what-can-you-do-to-help"></a>What can you do to help?</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>With the submission of the specification to the JCP for the Final Approval Ballot, the work on Bean Validation 2.0 is done more or less.
-If you&#8217;d like to help, reviewing the <a href="/2.0/spec/2.0.0.cr3/diff/diff-to-1.1/">specification changes</a> would be the best thing to do at this point.
-You also could try out the reference implementation Hibernate Validator in your applications and let us know how it works.</p>
-</div>
-<div class="paragraph">
-<p>Also tell us about ideas and wishes for a future 2.1 release of the spec.
-We are eager to learn about your requirements, so we can explore any new features in the reference implementation.</p>
-</div>
-<div class="paragraph">
-<p>To post your feedback, just add a comment below, send a message to our <a href="http://lists.jboss.org/pipermail/beanvalidation-dev/">mailing list</a> or post in the <a href="https://discourse.hibernate.org/c/bean-validation">Bean Validation forum</a>.
-If you find a bug or have a specific feature request, please raise it in the <a href="https://hibernate.atlassian.net/projects/BVAL/summary">issue tracker</a>.</p>
-</div>
-<div class="paragraph">
-<p>Everything in Bean Validation is open source, so you also can send in actual patches: be it to the <a href="https://github.com/beanvalidation/beanvalidation-api">API</a>, the <a href="https://github.com/beanvalidation/beanvalidation-spec">spec document</a>, the <a href="https://github.com/beanvalidation/beanvalidation-tck">TCK</a> or the <a href="https://github.com/hibernate/hibernate-validator">reference implementation</a>.
-If you are interested, you can find out all the details to get started in the <a href="/contribute">contribution guide</a>.</p>
-</div>
-</div>
-</div>
-</div>
-
-</div>
-
-<div class="disqus-comments-link">
- <a href="http://beanvalidation.org/news/2017/07/12/bean-validation-2-0-cr3-submitted-to-final-approval-ballot/#disqus_thread">Comments</a> 
-</div>
-</article>
 <div class="ui menu pagination"><a class="disabled item" href="#">&laquo;</a><a class="active item" href="#">1</a> <a class="item" href="/news/page/2/">2</a> <a class="item" href="#">...</a><a class="item" href="/news/page/9/">9</a> <a class="item" href="/news/page/10/">10</a> <a class="item" href="/news/page/2/">&raquo;</a> </div>
 
 </div>
@@ -644,6 +606,7 @@ If you are interested, you can find out all the details to get started in the <a
 Stay up to date, subscribe to the&nbsp;<a href="/news/news.atom">news feed</a>.
 </p>
 <div class="ui menu vertical fluid">
+<a class="item news-link" href="/news/2025/06/06/bean-validation-4-0/">Upcoming Jakarta Validation 4.0</a>
 <a class="item news-link" href="/news/2025/02/17/bean-validation-3-1/">Jakarta Validation 3.1 specification</a>
 <a class="item news-link" href="/news/2018/02/26/bean-validation-2-0-whats-in-it/">Bean Validation 2.0 - What&#8217;s in it?</a>
 <a class="item news-link" href="/news/2017/10/19/new-website/">Bean Validation has a new website!</a>
