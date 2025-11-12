@@ -8,7 +8,7 @@
 Jakarta Validation - News
 </title>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css" rel="stylesheet">
-<link href="/stylesheets/styles.css?t=1762349926" rel="stylesheet">
+<link href="/stylesheets/styles.css?t=1762979357" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
 <!-- / Unfortunately, matchHeight doesn't follow the same convention as the other minified files -->
@@ -25,14 +25,18 @@ Home
 <i class="grid icon newspaper"></i>
 News
 </a>
-<a class="item" href="/3.1/">
+<a class="item" href="/4.0/">
 <i class="grid icon book"></i>
-<strong>Jakarta Validation 3.1</strong>
+<strong>Jakarta Validation 4.0</strong>
 </a>
 <div class="item">
 <i class="grid icon archive"></i>
 Archives
 <div class="menu">
+<a class="item" href="/3.1/">
+<i class="grid icon book"></i>
+Jakarta Bean Validation 3.1
+</a>
 <a class="item" href="/3.0/">
 <i class="grid icon book"></i>
 Jakarta Bean Validation 3.0
@@ -82,13 +86,14 @@ Menu
 <img alt="Bean Validation" src="/logo/logo.svg">
 </a>
 <a class="item selected" href="/news/">News</a>
-<a class="item" href="/3.1/">
-<strong>Jakarta Validation 3.1</strong>
+<a class="item" href="/4.0/">
+<strong>Jakarta Validation 4.0</strong>
 </a>
 <div class="ui dropdown item">
 Archives
 <i class="dropdown icon"></i>
 <div class="menu">
+<a class="item" href="/3.1/">Jakarta Validation 3.1</a>
 <a class="item" href="/3.0/">Jakarta Bean Validation 3.0</a>
 <a class="item" href="/2.0/">Jakarta Bean Validation 2.0</a>
 <a class="item" href="/2.0-jsr380/">Bean Validation 2.0 (JSR 380)</a>
@@ -112,6 +117,51 @@ Archives
 <div class="ui grid stackable">
 <div class="column twelve wide">
 <div class="content">
+<article class="blogpost">
+<div class="blog-title-bar">
+<div class="blog-title-caption">
+<h2>
+<a href="/news/2012/03/28/jcp-release-1-1-edr1/">Bean Validation 1.1 officially reaches the JCP</a>
+</h2>
+<div class="blog-author-bar">
+Posted by
+<strong>
+Emmanuel Bernard
+</strong>
+&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+28 Mar 2012
+&nbsp;&nbsp;
+<span class="blog-tags">
+<a class="ui label tag" href="/news/tags/release/">
+release
+</a>
+</span>
+</div>
+</div>
+</div>
+
+<div class="mobile hidden">
+<div class="blog-body" itemprop="articleBody">
+<p>Bean Validation 1.1 early draft 1 officially reaches the JCP and is available
+<a href="http://jcp.org/aboutJava/communityprocess/edr/jsr349/index.html">on their website</a>. You already knew about it from the <a href="http://beanvalidation.org/news/2012/03/13/release-1-1-edr1/?utm_source=blog&amp;utm_medium=web&amp;utm_content=blogedr1&amp;utm_campaign=1_1_edr1">release</a>
+and <a href="http://beanvalidation.org/news/2012/03/16/artifacts-1-1-edr1/?utm_source=blog&amp;utm_medium=web&amp;utm_content=blogedr1&amp;utm_campaign=1_1_edr1">artifacts</a> announcements.</p>
+
+<p>That's still a significant milestone that has to be reached by the JCP rules.
+A specification needs to produce a certain amount of output which is regulated
+by the JCP itself. If you are curious, I encourage you to read the <a href="http://jcp.org/en/procedures/jcp2">process document</a>.</p>
+
+<p>Note that JSR-349 (Bean Validation 1.1) does run under the previous version of
+this process but in practice we obey the rules of the current version
+(especially in openness).</p>
+
+</div>
+
+</div>
+
+<div class="disqus-comments-link">
+ <a href="http://beanvalidation.org/news/2012/03/28/jcp-release-1-1-edr1/#disqus_thread">Comments</a> 
+</div>
+</article>
 <article class="blogpost">
 <div class="blog-title-bar">
 <div class="blog-title-caption">
@@ -349,52 +399,6 @@ This will include wiki-style, work in progress proposals for various features be
  <a href="http://beanvalidation.org/news/2011/10/21/dependency-injection-proposal/#disqus_thread">Comments</a> 
 </div>
 </article>
-<article class="blogpost">
-<div class="blog-title-bar">
-<div class="blog-title-caption">
-<h2>
-<a href="/news/2011/09/16/method-level-validation/">Work on method level validation</a>
-</h2>
-<div class="blog-author-bar">
-Posted by
-<strong>
-Emmanuel Bernard
-</strong>
-&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-16 Sep 2011
-&nbsp;&nbsp;
-<span class="blog-tags">
-<a class="ui label tag" href="/news/tags/proposal/">
-proposal
-</a>
-</span>
-</div>
-</div>
-</div>
-
-<div class="mobile hidden">
-<div class="blog-body" itemprop="articleBody">
-<p>The expert groups has begun its work on method-level validation. A feature that was drafted in the
-latest spec (appendix) but that we could nto finish in time.</p>
-
-<p>You will be able to define constraints on parameters and your favorite interception technology
-(CDI, @Inject, AspectJ, Spring etc) will call Bean Validation.</p>
-
-<p>The final approach is not fixed yet but it will look like this.</p>
-
-<pre>public class BidManager {&#x000A;    public void placeBid(&#64;Min(0) BigDecimal upTo) { ... }&#x000A;}</pre>
-
-
-<p>Want to know more? Join the expert group mailing list. <a href="/contribute">Learn how</a>.</p>
-
-</div>
-
-</div>
-
-<div class="disqus-comments-link">
- <a href="http://beanvalidation.org/news/2011/09/16/method-level-validation/#disqus_thread">Comments</a> 
-</div>
-</article>
 <div class="ui menu pagination"><a class="item" href="/news/page/8/">&laquo;</a><a class="item" href="/news/">1</a> <a class="item" href="/news/page/2/">2</a> <a class="disabled item"><a href="#">...</a><a class="item" href="/news/page/8/">8</a> <a class="active item" href="#">9</a> <a class="item" href="/news/page/10/">10</a> <a class="item" href="/news/page/10/">&raquo;</a> </div>
 
 </div>
@@ -405,6 +409,7 @@ latest spec (appendix) but that we could nto finish in time.</p>
 Stay up to date, subscribe to the&nbsp;<a href="/news/news.atom">news feed</a>.
 </p>
 <div class="ui menu vertical fluid">
+<a class="item news-link" href="/news/2025/11/12/bean-validation-4-0-M1/">First milestone release of Jakarta Validation 4.0</a>
 <a class="item news-link" href="/news/2025/06/06/bean-validation-4-0/">Upcoming Jakarta Validation 4.0</a>
 <a class="item news-link" href="/news/2025/02/17/bean-validation-3-1/">Jakarta Validation 3.1 specification</a>
 <a class="item news-link" href="/news/2018/02/26/bean-validation-2-0-whats-in-it/">Bean Validation 2.0 - What&#8217;s in it?</a>

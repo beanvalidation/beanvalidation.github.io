@@ -8,7 +8,7 @@
 Jakarta Validation - News
 </title>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css" rel="stylesheet">
-<link href="/stylesheets/styles.css?t=1762349926" rel="stylesheet">
+<link href="/stylesheets/styles.css?t=1762979356" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
 <!-- / Unfortunately, matchHeight doesn't follow the same convention as the other minified files -->
@@ -25,14 +25,18 @@ Home
 <i class="grid icon newspaper"></i>
 News
 </a>
-<a class="item" href="/3.1/">
+<a class="item" href="/4.0/">
 <i class="grid icon book"></i>
-<strong>Jakarta Validation 3.1</strong>
+<strong>Jakarta Validation 4.0</strong>
 </a>
 <div class="item">
 <i class="grid icon archive"></i>
 Archives
 <div class="menu">
+<a class="item" href="/3.1/">
+<i class="grid icon book"></i>
+Jakarta Bean Validation 3.1
+</a>
 <a class="item" href="/3.0/">
 <i class="grid icon book"></i>
 Jakarta Bean Validation 3.0
@@ -82,13 +86,14 @@ Menu
 <img alt="Bean Validation" src="/logo/logo.svg">
 </a>
 <a class="item selected" href="/news/">News</a>
-<a class="item" href="/3.1/">
-<strong>Jakarta Validation 3.1</strong>
+<a class="item" href="/4.0/">
+<strong>Jakarta Validation 4.0</strong>
 </a>
 <div class="ui dropdown item">
 Archives
 <i class="dropdown icon"></i>
 <div class="menu">
+<a class="item" href="/3.1/">Jakarta Validation 3.1</a>
 <a class="item" href="/3.0/">Jakarta Bean Validation 3.0</a>
 <a class="item" href="/2.0/">Jakarta Bean Validation 2.0</a>
 <a class="item" href="/2.0-jsr380/">Bean Validation 2.0 (JSR 380)</a>
@@ -112,6 +117,59 @@ Archives
 <div class="ui grid stackable">
 <div class="column twelve wide">
 <div class="content">
+<article class="blogpost">
+<div class="blog-title-bar">
+<div class="blog-title-caption">
+<h2>
+<a href="/news/2017/02/07/apache-bval-is-compatible-with-bean-validation-1-1/">Apache BVal certified as Bean Validation 1.1 implementation</a>
+</h2>
+<div class="blog-author-bar">
+Posted by
+<strong>
+Gunnar Morling
+</strong>
+&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+07 Feb 2017
+&nbsp;&nbsp;
+<span class="blog-tags">
+<a class="ui label tag" href="/news/tags/news/">
+news
+</a>
+<a class="ui label tag" href="/news/tags/certification/">
+certification
+</a>
+</span>
+</div>
+</div>
+</div>
+
+<div class="mobile hidden">
+<div class="blog-body" itemprop="articleBody">
+<div class="paragraph">
+<p>While the work on Bean Validation 2.0 is <a href="/news/2017/01/19/bean-validation-2-0-progress-report/">well underway</a>,
+I&#8217;ve some good news to share on Bean Validation 1.1 today:
+<a href="http://bval.apache.org/">Apache BVal</a> has been certified as a compliant implementation of the <a href="/1.1/">Bean Validation 1.1</a> spec!</p>
+</div>
+<div class="paragraph">
+<p>Thanks to the great work of the friendly folks working on Apache BVal and TomEE, it has passed the TCK quite a while ago, so this announcement is long overdue.
+The tested version is <a href="http://bval.apache.org/downloads.html#apache-bval-112-released-nov-3-2016">Apache BVal 1.1.2</a>,
+using the Bean Validation API signatures from <a href="http://mvnrepository.com/artifact/org.apache.tomee/javaee-api/7.0-1">org.apache.tomee:javaee-api:7.0-1</a> and
+version 1.1.4.Final of the <a href="http://docs.jboss.org/hibernate/beanvalidation/tck/1.1/reference/html_single/">Bean Validation TCK</a>.</p>
+</div>
+<div class="paragraph">
+<p>The list of <a href="/certified/">certified implementations</a> has been updated accordingly.</p>
+</div>
+<div class="paragraph">
+<p>Congrats to the BVal team!</p>
+</div>
+</div>
+
+</div>
+
+<div class="disqus-comments-link">
+ <a href="http://beanvalidation.org/news/2017/02/07/apache-bval-is-compatible-with-bean-validation-1-1/#disqus_thread">Comments</a> 
+</div>
+</article>
 <article class="blogpost">
 <div class="blog-title-bar">
 <div class="blog-title-caption">
@@ -687,51 +745,6 @@ comment on specific issues in <a href="https://hibernate.atlassian.net/projects/
  <a href="http://beanvalidation.org/news/2016/07/15/bean-validation-2-0-is-coming/#disqus_thread">Comments</a> 
 </div>
 </article>
-<article class="blogpost">
-<div class="blog-title-bar">
-<div class="blog-title-caption">
-<h2>
-<a href="/news/2015/06/18/bean-validation-tck-1-1-4-released/">Bean Validation TCK 1.1.4.Final released</a>
-</h2>
-<div class="blog-author-bar">
-Posted by
-<strong>
-Gunnar Morling
-</strong>
-&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-18 Jun 2015
-&nbsp;&nbsp;
-<span class="blog-tags">
-<a class="ui label tag" href="/news/tags/tck/">
-tck
-</a>
-</span>
-</div>
-</div>
-</div>
-
-<div class="mobile hidden">
-<div class="blog-body" itemprop="articleBody">
-<p>Exactly one year after the last maintenance release we've published version 1.1.4.Final of the Bean Validation TCK today.
-It contains exactly one issue, <a href="https://hibernate.atlassian.net/browse/BVTCK-68">BVTCK-68</a>,
-which is about the removal of two tests from the TCK which could not be tested in a portable manner across containers.
-Check out the issue itself for the complete story.</p>
-
-<p>As always, the new TCK version is available for download as TAR.GZ and ZIP on <a href="http://sourceforge.net/projects/hibernate/files/beanvalidation-tck/1.1.4.Final/">SourceForge</a>.
-Alternatively you can obtain the test suite via Maven, Gradle etc. using the coordinates <em>org.hibernate.beanvalidation.tck:beanvalidation-tck-tests:1.1.4.Final</em>.</p>
-
-<p>More information about the Bean Validation TCK can be found <a href="http://beanvalidation.org/1.1/tck/">here</a> and the <a href="https://docs.jboss.org/hibernate/beanvalidation/tck/1.1/reference/html_single/">TCK reference guide</a>.
-In case you have any questions or ideas around the Bean Validation specification in general or the TCK
-in particular, don't hesitate to contact us through <a href="https://lists.jboss.org/mailman/listinfo/beanvalidation-dev">our mailing list</a>.</p>
-
-</div>
-
-</div>
-
-<div class="disqus-comments-link">
- <a href="http://beanvalidation.org/news/2015/06/18/bean-validation-tck-1-1-4-released/#disqus_thread">Comments</a> 
-</div>
-</article>
 <div class="ui menu pagination"><a class="item" href="/news/page/3/">&laquo;</a><a class="item" href="/news/">1</a> <a class="item" href="/news/page/2/">2</a> <a class="item" href="/news/page/3/">3</a> <a class="active item" href="#">4</a> <a class="item" href="/news/page/5/">5</a> <a class="item" href="#">...</a><a class="item" href="/news/page/9/">9</a> <a class="item" href="/news/page/10/">10</a> <a class="item" href="/news/page/5/">&raquo;</a> </div>
 
 </div>
@@ -742,6 +755,7 @@ in particular, don't hesitate to contact us through <a href="https://lists.jboss
 Stay up to date, subscribe to the&nbsp;<a href="/news/news.atom">news feed</a>.
 </p>
 <div class="ui menu vertical fluid">
+<a class="item news-link" href="/news/2025/11/12/bean-validation-4-0-M1/">First milestone release of Jakarta Validation 4.0</a>
 <a class="item news-link" href="/news/2025/06/06/bean-validation-4-0/">Upcoming Jakarta Validation 4.0</a>
 <a class="item news-link" href="/news/2025/02/17/bean-validation-3-1/">Jakarta Validation 3.1 specification</a>
 <a class="item news-link" href="/news/2018/02/26/bean-validation-2-0-whats-in-it/">Bean Validation 2.0 - What&#8217;s in it?</a>
